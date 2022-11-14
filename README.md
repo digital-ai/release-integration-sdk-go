@@ -6,13 +6,18 @@ TODO check build
 go build ./...
 ```
 
-How to use in repository with SSH key as the authentication method:
+How to use in repository:
 1. Add to .gitconfig
+* with SSH key as the authentication method: 
 ```properties
 [url "ssh://git@github.com/xebialabs"]
 	insteadOf = https://github.com/xebialabs
 ```
-
+* with https
+```properties
+[url "https://${user}:${personal_access_token}@github.com/xebialabs"]
+	insteadOf = https://github.com/xebialabs
+```
 2. Add package to go.mod
 ```
 require (
