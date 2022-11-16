@@ -5,5 +5,5 @@ import (
 )
 
 type CommandExecutor interface {
-	Execute() (json.RawMessage, bool, error)
+	FetchResult() (json.RawMessage, bool, error)
 }
