@@ -13,7 +13,12 @@ const (
 func MakeSuccessCommandExecutionResultMap(resultField string, result json.RawMessage) map[string]interface{} {
 	resultMap := make(map[string]interface{})
 	resultMap[success] = strconv.FormatBool(true)
-	resultMap[resultField] = string(result)
+	var commandResultMap map[string]string
+	err := json.Unmarshal(result, &commandResultMap)
+	if err != nil {
+		return MakeFailCommandExecutionResultMap(err)
+	}
+	resultMap[resultField] = commandResultMap
 	return resultMap
 }
 
