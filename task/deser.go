@@ -2,8 +2,8 @@ package task
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
+	"k8s.io/klog"
 	"os"
 )
 
@@ -11,8 +11,7 @@ func Deserialize(inputLocation string) map[string]json.RawMessage {
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
-		fmt.Println("Cannot open: ", inputLocation)
-		fmt.Println(err)
+		klog.Fatalf("Cannot open: %s [%v]", inputLocation, err)
 	}
 	// defer the closing of our inputContent so that we can parse it later on
 	defer inputContent.Close()
@@ -23,7 +22,7 @@ func Deserialize(inputLocation string) map[string]json.RawMessage {
 	var inputContext InputContext
 	unMarshalErr := json.Unmarshal(byteValue, &inputContext)
 	if unMarshalErr != nil {
-		fmt.Println(unMarshalErr)
+		klog.Fatalf("Cannot umarshal input: %v", unMarshalErr)
 	}
 
 	propertiesMap := make(map[string]json.RawMessage)
@@ -38,13 +37,7 @@ func Serialize(outputLocation string, result map[string]interface{}) {
 		ExitCode:         0,
 		OutputProperties: result,
 	}
-
-	data, _ := json.Marshal(outputContext)
-	encryptedData := Encrypt(data)
-	err := os.WriteFile(outputLocation, encryptedData, 0644)
-	if err != nil {
-		fmt.Println(err)
-	}
+	writeOutput(outputContext, outputLocation)
 }
 
 func SerializeError(outputLocation string, execErr error) {
@@ -52,12 +45,18 @@ func SerializeError(outputLocation string, execErr error) {
 		ExitCode:         -1,
 		OutputProperties: map[string]interface{}{"errorMessage": execErr.Error()},
 	}
+	writeOutput(outputContext, outputLocation)
+}
 
+func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	data, _ := json.Marshal(outputContext)
-	encryptedData := Encrypt(data)
+	encryptedData, encryptErr := Encrypt(data)
+	if encryptErr != nil {
+		klog.Fatalf("Cannot write output to: %s error encrypting data [%v]", outputLocation, encryptErr)
+	}
 	err := os.WriteFile(outputLocation, encryptedData, 0644)
 	if err != nil {
-		fmt.Println(err)
+		klog.Fatalf("Cannot write output to: %s [%v]", outputLocation, err)
 	}
 }
 
@@ -65,7 +64,7 @@ func DeserializeProperties(task json.RawMessage) ([]PropertyDefinition, error) {
 	var taskContext TaskContext
 	unMarshalErr := json.Unmarshal(task, &taskContext)
 	if unMarshalErr != nil {
-		fmt.Println(unMarshalErr)
+		klog.Fatalf("Cannot umarshal properties: %v", unMarshalErr)
 		return nil, unMarshalErr
 	}
 	return taskContext.Properties, nil

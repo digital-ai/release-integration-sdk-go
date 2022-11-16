@@ -2,8 +2,8 @@ package runner
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
+	"k8s.io/klog"
 	"os"
 )
 
@@ -13,14 +13,14 @@ var InputLocation = os.Getenv("INPUT_LOCATION")
 var OutputLocation = os.Getenv("OUTPUT_LOCATION")
 
 func Execute(pluginVersion string, buildDate string, run runFn) {
-	fmt.Println("PluginVersion:\t", pluginVersion)
-	fmt.Println("BuildDate:\t", buildDate)
+	klog.Infof("PluginVersion:\t%s", pluginVersion)
+	klog.Infof("BuildDate:\t%s", buildDate)
 
 	propertiesMap := task.Deserialize(InputLocation)
 
 	executionResult, err := run(propertiesMap)
 	if err != nil {
-		fmt.Println("Error executing the runner function", err)
+		klog.Errorf("Failed executing runner function", err)
 		task.SerializeError(OutputLocation, err)
 	}
 

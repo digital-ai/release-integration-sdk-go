@@ -6,6 +6,7 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"io"
+	"k8s.io/klog"
 	"os"
 )
 
@@ -25,22 +26,24 @@ func Decrypt(content []byte) ([]byte, error) {
 	}
 }
 
-func Encrypt(content []byte) []byte {
+func Encrypt(content []byte) ([]byte, error) {
 	if len(SessionKey) == 0 {
-		return content
+		return content, nil
 	} else {
 		key, _ := base64.StdEncoding.DecodeString(SessionKey)
 		c, _ := aes.NewCipher(key)
 		nonce := make([]byte, 16)
 		if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-			panic(err.Error())
+			klog.Fatalf("Cannot encrypt data: [%v]", err)
+			return nil, err
 		}
 		gcm, err := cipher.NewGCMWithNonceSize(c, 16)
 		if err != nil {
-			panic(err.Error())
+			klog.Fatalf("Cannot encrypt data: [%v]", err)
+			return nil, err
 		}
 		encryptedBytes := gcm.Seal(nil, nonce, content, nil)
 		ciphertext := base64.StdEncoding.EncodeToString(append(nonce, encryptedBytes...))
-		return []byte(ciphertext)
+		return []byte(ciphertext), nil
 	}
 }
