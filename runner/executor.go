@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-type runFn func(map[string]json.RawMessage) (json.RawMessage, error)
+type runFn func(map[string]json.RawMessage) (map[string]interface{}, error)
 
 var InputLocation = os.Getenv("INPUT_LOCATION")
 var OutputLocation = os.Getenv("OUTPUT_LOCATION")
@@ -19,16 +19,10 @@ func Execute(pluginVersion string, buildDate string, run runFn) {
 	propertiesMap := task.Deserialize(InputLocation)
 
 	executionResult, err := run(propertiesMap)
-
-	var taskResult task.TaskResult
 	if err != nil {
-		taskResult = task.TaskResult{
-			ResponseMapStringString: task.MakeFailCommandExecutionResultMap(err),
-		}
-	} else {
-		taskResult = task.TaskResult{
-			ResponseMapStringString: task.MakeSuccessCommandExecutionResultMap(executionResult),
-		}
+		fmt.Println("Error executing the runner function", err)
+		task.SerializeError(OutputLocation, err)
 	}
-	task.Serialize(OutputLocation, taskResult)
+
+	task.Serialize(OutputLocation, executionResult)
 }

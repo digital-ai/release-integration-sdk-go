@@ -3,7 +3,7 @@ package task
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 )
 
@@ -17,7 +17,7 @@ func Deserialize(inputLocation string) map[string]json.RawMessage {
 	// defer the closing of our inputContent so that we can parse it later on
 	defer inputContent.Close()
 
-	content, _ := ioutil.ReadAll(inputContent)
+	content, _ := io.ReadAll(inputContent)
 	byteValue, _ := Decrypt(content)
 
 	var inputContext InputContext
@@ -33,7 +33,7 @@ func Deserialize(inputLocation string) map[string]json.RawMessage {
 	return propertiesMap
 }
 
-func Serialize(outputLocation string, result TaskResult) {
+func Serialize(outputLocation string, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
 		OutputProperties: result,
@@ -41,7 +41,21 @@ func Serialize(outputLocation string, result TaskResult) {
 
 	data, _ := json.Marshal(outputContext)
 	encryptedData := Encrypt(data)
-	err := ioutil.WriteFile(outputLocation, encryptedData, 0644)
+	err := os.WriteFile(outputLocation, encryptedData, 0644)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func SerializeError(outputLocation string, execErr error) {
+	outputContext := TaskOutputContext{
+		ExitCode:         -1,
+		OutputProperties: map[string]interface{}{"errorMessage": execErr.Error()},
+	}
+
+	data, _ := json.Marshal(outputContext)
+	encryptedData := Encrypt(data)
+	err := os.WriteFile(outputLocation, encryptedData, 0644)
 	if err != nil {
 		fmt.Println(err)
 	}
