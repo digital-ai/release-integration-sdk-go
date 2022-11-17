@@ -10,13 +10,13 @@ How to use in repository:
 1. Add to .gitconfig
 * with SSH key as the authentication method: 
 ```properties
-[url "ssh://git@github.com/xebialabs"]
-	insteadOf = https://github.com/xebialabs
+[url "ssh://git@github.com/xebialabs/go-remote-runner-wrapper"]
+	insteadOf = https://github.com/xebialabs/go-remote-runner-wrapper
 ```
 * with https
 ```properties
-[url "https://${user}:${personal_access_token}@github.com/xebialabs"]
-	insteadOf = https://github.com/xebialabs
+[url "https://${user}:${personal_access_token}@github.com/xebialabs/go-remote-runner-wrapper"]
+	insteadOf = https://github.com/xebialabs/go-remote-runner-wrapper
 ```
 2. Add package to go.mod
 ```
