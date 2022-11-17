@@ -7,11 +7,12 @@ import (
 	"os"
 )
 
-func Deserialize(inputLocation string) map[string]json.RawMessage {
+func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		klog.Fatalf("Cannot open: %s [%v]", inputLocation, err)
+		return nil, err
 	}
 	// defer the closing of our inputContent so that we can parse it later on
 	defer inputContent.Close()
@@ -23,13 +24,14 @@ func Deserialize(inputLocation string) map[string]json.RawMessage {
 	unMarshalErr := json.Unmarshal(byteValue, &inputContext)
 	if unMarshalErr != nil {
 		klog.Fatalf("Cannot umarshal input: %v", unMarshalErr)
+		return nil, unMarshalErr
 	}
 
 	propertiesMap := make(map[string]json.RawMessage)
 	for _, data := range inputContext.Task.Properties {
 		propertiesMap[data.Name] = data.Value
 	}
-	return propertiesMap
+	return propertiesMap, nil
 }
 
 func Serialize(outputLocation string, result map[string]interface{}) {

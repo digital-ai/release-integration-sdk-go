@@ -16,13 +16,17 @@ func Execute(pluginVersion string, buildDate string, run runFn) {
 	klog.Infof("PluginVersion:\t%s", pluginVersion)
 	klog.Infof("BuildDate:\t%s", buildDate)
 
-	propertiesMap := task.Deserialize(InputLocation)
+	propertiesMap, err := task.Deserialize(InputLocation)
+	if err != nil {
+		klog.Errorf("Failed executing runner function", err)
+		task.SerializeError(OutputLocation, err)
+	}
 
 	executionResult, err := run(propertiesMap)
 	if err != nil {
 		klog.Errorf("Failed executing runner function", err)
 		task.SerializeError(OutputLocation, err)
 	}
-
+	klog.Infof("Finished executing runner function")
 	task.Serialize(OutputLocation, executionResult)
 }
