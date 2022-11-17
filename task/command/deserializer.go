@@ -26,13 +26,13 @@ func DeserializeCommand(factory CommandFactory, propertiesMap map[string]json.Ra
 	}
 
 	if err := json.Unmarshal(commandRawJson, &wrapper); err != nil {
-		klog.Errorf("Failed unmarshaling of command: %v", err)
+		klog.Errorf("Failed unmarshalling of command: %v", err)
 		return nil, err
 	}
 
 	var properties []task.PropertyDefinition
 	if err := json.Unmarshal(raw, &properties); err != nil {
-		klog.Errorf("Failed unmarshaling of command: %v", err)
+		klog.Errorf("Failed unmarshalling of command: %v", err)
 		return nil, err
 	}
 
@@ -48,7 +48,7 @@ func ExtractStringValue(property task.PropertyDefinition, field string) (*string
 	if property.Name == field && property.Value != nil {
 		unquoted, err := strconv.Unquote(string(property.Value))
 		if err != nil {
-			klog.Warningf("Error unmarshaling string value for %s with value [%s], skipping value.", field, property.Value)
+			klog.Warningf("Error unmarshalling string value for %s with value [%s], skipping value.", field, property.Value)
 			return nil, nil
 		}
 		return &unquoted, nil
@@ -61,7 +61,7 @@ func ExtractBoolValue(property task.PropertyDefinition, field string) (*bool, er
 	if property.Name == field && property.Value != nil {
 		boolVal, err := strconv.ParseBool(string(property.Value))
 		if err != nil {
-			klog.Warningf("Error unmarshaling bool value for %s with value [%s], skipping value.", field, property.Value)
+			klog.Warningf("Error unmarshalling bool value for %s with value [%s], skipping value.", field, property.Value)
 			return nil, nil
 		}
 		return &boolVal, nil
@@ -88,7 +88,7 @@ func ExtractPropertiesStringArray(properties []task.PropertyDefinition, field st
 		}
 		var array []string
 		if err := json.Unmarshal(property.Value, &array); err != nil {
-			klog.Warningf("Error unmarshaling string array value for %s with value [%s], skipping value.", field, property.Value)
+			klog.Warningf("Error unmarshalling string array value for %s with value [%s], skipping value.", field, property.Value)
 			return nil, err
 		}
 		return &array, nil
@@ -103,7 +103,7 @@ func ExtractPropertiesMapStringString(properties []task.PropertyDefinition, fiel
 		}
 		var keyValues map[string]string
 		if err := json.Unmarshal(property.Value, &keyValues); err != nil {
-			klog.Warningf("Error unmarshaling map[string]string value for %s with value [%s], skipping value.", field, property.Value)
+			klog.Warningf("Error unmarshalling map[string]string value for %s with value [%s], skipping value.", field, property.Value)
 			return nil, err
 		}
 		return &keyValues, nil
@@ -115,7 +115,7 @@ func ExtractIntValue(property task.PropertyDefinition, field string) (*int64, er
 	if property.Name == field && property.Value != nil {
 		intVal, err := strconv.ParseInt(string(property.Value), 10, 0)
 		if err != nil {
-			klog.Warningf("Error unmarshaling int value for %s with value [%s], skipping value.", field, property.Value)
+			klog.Warningf("Error unmarshalling int value for %s with value [%s], skipping value.", field, property.Value)
 			return nil, nil
 		}
 		return &intVal, nil
