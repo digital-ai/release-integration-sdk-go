@@ -31,19 +31,7 @@ type InputContext struct {
 	Task    TaskContext    `json:"task"`
 }
 
-type TaskResult struct {
-	Response                string            `json:"response"`
-	ResponseInt             int64             `json:"responseInt"`
-	ResponseBool            bool              `json:"responseBool"`
-	ResponseDate            string            `json:"responseDate"`
-	ResponseEnum            string            `json:"responseEnum"`
-	ResponseListString      []string          `json:"responseListString"`
-	ResponseSetString       []string          `json:"responseSetString"`
-	ResponseMapStringString map[string]string `json:"responseMapStringString"`
-	UnknownProperty         string            `json:"unknownProperty"`
-}
-
 type TaskOutputContext struct {
-	ExitCode         int64      `json:"exitCode"`
-	OutputProperties TaskResult `json:"outputProperties"`
+	ExitCode         int64                  `json:"exitCode"`
+	OutputProperties map[string]interface{} `json:"outputProperties"`
 }
