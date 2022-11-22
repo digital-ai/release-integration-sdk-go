@@ -22,6 +22,13 @@ func MakeSuccessCommandExecutionResultMap(resultField string, result json.RawMes
 	return resultMap
 }
 
+func MakeSuccessSecureCommandExecutionResultMap(resultField string, result string) map[string]interface{} {
+	resultMap := make(map[string]interface{})
+	resultMap[success] = strconv.FormatBool(true)
+	resultMap[resultField] = result
+	return resultMap
+}
+
 func MakeFailCommandExecutionResultMap(err error) map[string]interface{} {
 	resultMap := make(map[string]interface{})
 	resultMap[success] = strconv.FormatBool(false)
