@@ -2,12 +2,12 @@ package command
 
 import (
 	"encoding/json"
+	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"strconv"
 )
 
 const (
-	success      = "success"
-	errorMessage = "errorMessage"
+	success = "success"
 )
 
 func MakeSuccessCommandExecutionResultMap(resultField string, result json.RawMessage) map[string]interface{} {
@@ -23,8 +23,5 @@ func MakeSuccessCommandExecutionResultMap(resultField string, result json.RawMes
 }
 
 func MakeFailCommandExecutionResultMap(err error) map[string]interface{} {
-	resultMap := make(map[string]interface{})
-	resultMap[success] = strconv.FormatBool(false)
-	resultMap[errorMessage] = err.Error()
-	return resultMap
+	return task.ErrorResultMap(err)
 }
