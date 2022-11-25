@@ -14,10 +14,6 @@ type CommandWrapper struct {
 	Properties  interface{}
 }
 
-type CommandFactory interface {
-	Create(commandType CommandType, properties []task.PropertyDefinition) (CommandExecutor, error)
-}
-
 func DeserializeCommand(factory CommandFactory, propertiesMap map[string]json.RawMessage) (CommandExecutor, error) {
 	commandRawJson := propertiesMap["command"]
 	var raw json.RawMessage
