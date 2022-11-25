@@ -1,7 +1,6 @@
 # Go Remote Runner Wrapper
-TODO - set of common types and helpers for go integration repositories
 
-TODO check build
+## Build
 ```
 go build ./...
 ```
