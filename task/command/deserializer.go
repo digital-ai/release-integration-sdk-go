@@ -32,7 +32,12 @@ func DeserializeCommand(factory CommandFactory, propertiesMap map[string]json.Ra
 		return nil, err
 	}
 
-	commandExec, err := factory.Create(wrapper.CommandType, properties)
+	spawnedCommand, err := factory.InitCommand(wrapper.CommandType)
+	if err != nil {
+		return nil, err
+	}
+
+	commandExec, err := PopulateCommand(spawnedCommand, properties)
 	if err != nil {
 		return nil, err
 	}

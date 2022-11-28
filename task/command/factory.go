@@ -6,10 +6,18 @@ import (
 )
 
 type CommandFactory interface {
-	Create(commandType CommandType, properties []task.PropertyDefinition) (CommandExecutor, error)
+	InitCommand(commandType CommandType) (CommandExecutor, error)
 }
 
-func UnmarshalCommand(properties []task.PropertyDefinition, command interface{}) error {
+func PopulateCommand(command CommandExecutor, properties []task.PropertyDefinition) (CommandExecutor, error) {
+	err := unmarshalCommand(properties, command)
+	if err != nil {
+		return nil, err
+	}
+	return command, nil
+}
+
+func unmarshalCommand(properties []task.PropertyDefinition, command interface{}) error {
 	propsMap := make(map[string]json.RawMessage)
 	for _, property := range properties {
 		propsMap[property.Name] = property.Value
