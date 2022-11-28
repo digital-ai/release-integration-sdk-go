@@ -37,6 +37,14 @@ func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
 	for _, data := range inputContext.Task.Properties {
 		propertiesMap[data.Name] = data.Value
 	}
+
+	releaseVariables, err := json.Marshal(inputContext.Release)
+	if err != nil {
+		klog.Fatalf("Cannot marshal input: %v", inputContext.Release)
+		return nil, unMarshalErr
+	}
+	propertiesMap["release"] = releaseVariables
+
 	return propertiesMap, nil
 }
 

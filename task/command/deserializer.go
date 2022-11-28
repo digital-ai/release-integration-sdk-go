@@ -36,6 +36,11 @@ func DeserializeCommand(factory CommandFactory, propertiesMap map[string]json.Ra
 		return nil, err
 	}
 
+	release := propertiesMap["release"]
+	serverProp := task.PropertyDefinition{Name: "release", Value: release}
+
+	properties = append(properties, serverProp)
+
 	commandExec, err := factory.Create(wrapper.CommandType, properties)
 	if err != nil {
 		return nil, err
@@ -122,4 +127,16 @@ func ExtractIntValue(property task.PropertyDefinition, field string) (*int64, er
 	} else {
 		return nil, nil
 	}
+}
+
+func DeserializeReleaseContext(property task.PropertyDefinition, field string) (task.ReleaseContext, error) {
+	if property.Name == field && property.Value != nil {
+		var releaseContext task.ReleaseContext
+		err := json.Unmarshal(property.Value, &releaseContext)
+		if err != nil {
+			klog.Errorf("Failed unmarshalling of release context: %v", err)
+		}
+		return releaseContext, err
+	}
+	return task.ReleaseContext{}, nil
 }
