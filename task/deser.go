@@ -43,7 +43,7 @@ func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
 		klog.Fatalf("Cannot marshal input: %v", inputContext.Release)
 		return nil, unMarshalErr
 	}
-	propertiesMap["release"] = releaseVariables
+	propertiesMap["releaseContext"] = releaseVariables
 
 	return propertiesMap, nil
 }
