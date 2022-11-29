@@ -2,6 +2,7 @@ package task
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"k8s.io/klog"
 	"os"
@@ -80,7 +81,7 @@ func DeserializeProperties(task json.RawMessage) ([]PropertyDefinition, error) {
 	unMarshalErr := json.Unmarshal(task, &taskContext)
 	if unMarshalErr != nil {
 		klog.Errorf("Cannot umarshal properties: %v", unMarshalErr)
-		return nil, unMarshalErr
+		return nil, fmt.Errorf("failed to unmarshal properties: %w", unMarshalErr)
 	}
 	return taskContext.Properties, nil
 }

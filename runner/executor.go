@@ -2,6 +2,7 @@ package runner
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"k8s.io/klog"
 	"os"
@@ -19,14 +20,14 @@ func Execute(pluginVersion string, buildDate string, run runFn) {
 	propertiesMap, err := task.Deserialize(InputLocation)
 	if err != nil {
 		klog.Errorf("Failed executing runner function %v", err)
-		task.SerializeError(OutputLocation, err)
+		task.SerializeError(OutputLocation, fmt.Errorf("failed to deserialize input: %w", err))
 		return
 	}
 
 	executionResult, err := run(propertiesMap)
 	if err != nil {
 		klog.Errorf("Failed executing runner function %v", err)
-		task.SerializeError(OutputLocation, err)
+		task.SerializeError(OutputLocation, fmt.Errorf("failed to execute run function: %w", err))
 		return
 	}
 	klog.Infof("Finished executing runner function")
