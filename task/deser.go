@@ -77,6 +77,9 @@ func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 }
 
 func DeserializeProperties(task json.RawMessage) ([]PropertyDefinition, error) {
+	if !json.Valid(task) {
+		return nil, fmt.Errorf("cannot deserialize unvalid json or null value")
+	}
 	var taskContext TaskContext
 	unMarshalErr := json.Unmarshal(task, &taskContext)
 	if unMarshalErr != nil {
