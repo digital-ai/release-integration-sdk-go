@@ -2,6 +2,7 @@ package task
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"k8s.io/klog"
 	"os"
@@ -11,13 +12,14 @@ import (
 const (
 	success      = "success"
 	errorMessage = "errorMessage"
+	Null         = "null"
 )
 
 func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
-		klog.Fatalf("Cannot open: %s [%v]", inputLocation, err)
+		klog.Errorf("Cannot open: %s [%v]", inputLocation, err)
 		return nil, err
 	}
 	// defer the closing of our inputContent so that we can parse it later on
@@ -29,7 +31,7 @@ func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
 	var inputContext InputContext
 	unMarshalErr := json.Unmarshal(byteValue, &inputContext)
 	if unMarshalErr != nil {
-		klog.Fatalf("Cannot umarshal input: %v", unMarshalErr)
+		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
 		return nil, unMarshalErr
 	}
 
@@ -76,11 +78,17 @@ func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 }
 
 func DeserializeProperties(task json.RawMessage) ([]PropertyDefinition, error) {
+	if !json.Valid(task) {
+		return nil, fmt.Errorf("cannot deserialize invalid json")
+	}
+	if string(task) == Null {
+		return nil, fmt.Errorf("cannot deserialize json null value")
+	}
 	var taskContext TaskContext
 	unMarshalErr := json.Unmarshal(task, &taskContext)
 	if unMarshalErr != nil {
-		klog.Fatalf("Cannot umarshal properties: %v", unMarshalErr)
-		return nil, unMarshalErr
+		klog.Errorf("Cannot umarshal properties: %v", unMarshalErr)
+		return nil, fmt.Errorf("failed to unmarshal properties: %w", unMarshalErr)
 	}
 	return taskContext.Properties, nil
 }
