@@ -12,6 +12,7 @@ import (
 const (
 	success      = "success"
 	errorMessage = "errorMessage"
+	Null         = "null"
 )
 
 func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
@@ -78,7 +79,10 @@ func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 
 func DeserializeProperties(task json.RawMessage) ([]PropertyDefinition, error) {
 	if !json.Valid(task) {
-		return nil, fmt.Errorf("cannot deserialize unvalid json or null value")
+		return nil, fmt.Errorf("cannot deserialize invalid json")
+	}
+	if string(task) == Null {
+		return nil, fmt.Errorf("cannot deserialize json null value")
 	}
 	var taskContext TaskContext
 	unMarshalErr := json.Unmarshal(task, &taskContext)
