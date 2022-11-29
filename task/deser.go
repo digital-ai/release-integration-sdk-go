@@ -17,7 +17,7 @@ func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
-		klog.Fatalf("Cannot open: %s [%v]", inputLocation, err)
+		klog.Errorf("Cannot open: %s [%v]", inputLocation, err)
 		return nil, err
 	}
 	// defer the closing of our inputContent so that we can parse it later on
@@ -29,7 +29,7 @@ func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
 	var inputContext InputContext
 	unMarshalErr := json.Unmarshal(byteValue, &inputContext)
 	if unMarshalErr != nil {
-		klog.Fatalf("Cannot umarshal input: %v", unMarshalErr)
+		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
 		return nil, unMarshalErr
 	}
 
@@ -79,7 +79,7 @@ func DeserializeProperties(task json.RawMessage) ([]PropertyDefinition, error) {
 	var taskContext TaskContext
 	unMarshalErr := json.Unmarshal(task, &taskContext)
 	if unMarshalErr != nil {
-		klog.Fatalf("Cannot umarshal properties: %v", unMarshalErr)
+		klog.Errorf("Cannot umarshal properties: %v", unMarshalErr)
 		return nil, unMarshalErr
 	}
 	return taskContext.Properties, nil
