@@ -27,6 +27,7 @@ jobs:
           repo_token: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
           event_type: update-repo-dependency
           client_payload: '{"ref": "${{ steps.bump_version_push_tag.outputs.tag }}"}'
+          #put repository names you want to send dispatch to
           repositories: |
             xebialabs/xlr-k8s-remote-integration
             xebialabs/xlr-argocd-remote-integration
