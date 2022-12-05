@@ -16,6 +16,8 @@ type TaskContext struct {
 	Properties []PropertyDefinition `json:"properties"`
 }
 
+type ComposedProperty TaskContext
+
 type AutomatedTaskAsUserContext struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
