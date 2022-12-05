@@ -1,0 +1,32 @@
+name: Bump version and push tag
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+
+      - name: Bump version and push tag
+        id: bump_version_push_tag
+        uses: anothrNick/github-tag-action@1.52.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
+          WITH_V: true # create version with 'v' character
+          DEFAULT_BUMP: patch # default is minor; to specify bumping major, minor or patch, include #major, #minor or #patch into commit message, respectively; if none specified, DEFAULT_BUMP applied
+
+      #try do dispatch event to other repositories
+      - name: Repository Dispatch
+        uses: guilouro/multiple-repositories-dispatch@v1.0.2
+        with:
+          repo_token: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
+          event_type: update-repo-dependency
+          client_payload: '{"ref": "${{ steps.bump_version_push_tag.outputs.tag }}"}'
+          repositories: |
+            xebialabs/xlr-k8s-remote-integration
+            xebialabs/xlr-argocd-remote-integration
