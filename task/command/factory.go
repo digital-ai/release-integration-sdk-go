@@ -2,7 +2,6 @@ package command
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 )
 
@@ -20,25 +19,9 @@ func PopulateCommand(command CommandExecutor, properties []task.PropertyDefiniti
 
 func unmarshalCommand(properties []task.PropertyDefinition, command interface{}) error {
 	propsMap := make(map[string]json.RawMessage)
-	fmt.Println("Unmarshal command  --> ")
-
 	for _, property := range properties {
-		switch property.Name {
-		case "gitRepo":
-			if gitRepo, err := DeserializeGitRepo(property); err == nil {
-				propsMap[property.Name], _ = json.Marshal(gitRepo)
-			}
-			break
-		case "releaseContext":
-			if releaseVars, err := DeserializeReleaseContext(property); err == nil {
-				propsMap[property.Name], _ = json.Marshal(releaseVars)
-			}
-			break
-		default:
-			propsMap[property.Name] = property.Value
-		}
+		propsMap[property.Name] = property.Value
 	}
-
 	jsonMap, err := json.Marshal(propsMap)
 	if err != nil {
 		return err

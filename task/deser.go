@@ -13,12 +13,12 @@ const (
 	errorMessage = "errorMessage"
 )
 
-func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
+func Deserialize(inputLocation string, context *InputContext) error {
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
-		klog.Fatalf("Cannot open: %s [%v]", inputLocation, err)
-		return nil, err
+		klog.Errorf("Cannot open: %s [%v]", inputLocation, err)
+		return err
 	}
 	// defer the closing of our inputContent so that we can parse it later on
 	defer inputContent.Close()
@@ -26,26 +26,13 @@ func Deserialize(inputLocation string) (map[string]json.RawMessage, error) {
 	content, _ := io.ReadAll(inputContent)
 	byteValue, _ := Decrypt(content)
 
-	var inputContext InputContext
-	unMarshalErr := json.Unmarshal(byteValue, &inputContext)
+	unMarshalErr := json.Unmarshal(byteValue, context)
 	if unMarshalErr != nil {
-		klog.Fatalf("Cannot umarshal input: %v", unMarshalErr)
-		return nil, unMarshalErr
+		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
+		return unMarshalErr
 	}
 
-	propertiesMap := make(map[string]json.RawMessage)
-	for _, data := range inputContext.Task.Properties {
-		propertiesMap[data.Name] = data.Value
-	}
-
-	releaseVariables, err := json.Marshal(inputContext.Release)
-	if err != nil {
-		klog.Fatalf("Cannot marshal input: %v", inputContext.Release)
-		return nil, unMarshalErr
-	}
-	propertiesMap["releaseContext"] = releaseVariables
-
-	return propertiesMap, nil
+	return nil
 }
 
 func Serialize(outputLocation string, result map[string]interface{}) {
@@ -81,14 +68,4 @@ func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	if err != nil {
 		klog.Fatalf("Cannot write output to: %s [%v]", outputLocation, err)
 	}
-}
-
-func DeserializeProperties(task json.RawMessage) ([]PropertyDefinition, error) {
-	var taskContext TaskContext
-	unMarshalErr := json.Unmarshal(task, &taskContext)
-	if unMarshalErr != nil {
-		klog.Fatalf("Cannot umarshal properties: %v", unMarshalErr)
-		return nil, unMarshalErr
-	}
-	return taskContext.Properties, nil
 }
