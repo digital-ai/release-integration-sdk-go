@@ -38,7 +38,3 @@ type TaskOutputContext struct {
 	ExitCode         int64                  `json:"exitCode"`
 	OutputProperties map[string]interface{} `json:"outputProperties"`
 }
-
-type GitRepo struct {
-	Id string `json:"id"`
-}
