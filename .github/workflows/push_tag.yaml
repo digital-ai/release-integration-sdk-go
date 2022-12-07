@@ -16,7 +16,7 @@ jobs:
         id: bump_version_push_tag
         uses: anothrNick/github-tag-action@1.52.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true # create version with 'v' character
           DEFAULT_BUMP: patch # default is minor; to specify bumping major, minor or patch, include #major, #minor or #patch into commit message, respectively; if none specified, DEFAULT_BUMP applied
 
