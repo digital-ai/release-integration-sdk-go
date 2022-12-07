@@ -9,6 +9,7 @@ import (
 
 const (
 	Null = "null"
+	Temp = "temp"
 )
 
 func ExtractType(fieldLabel string, properties []task.PropertyDefinition, extract any) error {
