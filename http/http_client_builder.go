@@ -53,7 +53,7 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 	}
 	if config.BasicAuthentication != nil {
 		b.config.Username = config.BasicAuthentication.Username
-		b.config.Password = config.BasicAuthentication.Username
+		b.config.Password = config.BasicAuthentication.Password
 	}
 	if config.TokenAuthentication != nil {
 		b.config.BearerToken = config.TokenAuthentication.BearerToken
