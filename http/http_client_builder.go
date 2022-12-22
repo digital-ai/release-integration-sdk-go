@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"k8s.io/client-go/rest"
-	"log"
 	"net/http"
 )
 
@@ -74,28 +73,8 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 func (b *HttpClientBuilder) Build() error {
 
 	httpClient, err := rest.HTTPClientFor(b.config)
+
 	rootCAs, _ := x509.SystemCertPool()
-
-	s := rootCAs.Subjects()
-	println(len(s))
-
-	const rootPEM = `-----BEGIN CERTIFICATE-----
-MIIBdjCCAR2gAwIBAgIBADAKBggqhkjOPQQDAjAjMSEwHwYDVQQDDBhrM3Mtc2Vy
-dmVyLWNhQDE2NzE1NDQ3MTgwHhcNMjIxMjIwMTM1ODM4WhcNMzIxMjE3MTM1ODM4
-WjAjMSEwHwYDVQQDDBhrM3Mtc2VydmVyLWNhQDE2NzE1NDQ3MTgwWTATBgcqhkjO
-PQIBBggqhkjOPQMBBwNCAATcogzPvK2wunLn+UuKwllwiDYhnvct0ZKTJm7yEJju
-3BSmCWWutuB/M215k76ncF3uNs2r+gZRx2U8HhlzFrneo0IwQDAOBgNVHQ8BAf8E
-BAMCAqQwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU/Ro/dyLM21UqBH3NWQfq
-PtsulPwwCgYIKoZIzj0EAwIDRwAwRAIga6Ub/9W9H0nH9wypqNQYTR0WVUHZUZCn
-Z8chj2e6SuMCIGF91TKKL2sbgvP7bMr+lA4QdC+wHU9/zT6vIZIEHLQo
------END CERTIFICATE-----`
-
-	ok := rootCAs.AppendCertsFromPEM([]byte(rootPEM))
-	// Append our cert to the system pool
-	if !ok {
-		log.Println("No certs appended, using system certs only")
-	}
-
 	newTlsConfig := &tls.Config{}
 	newTlsConfig.RootCAs = rootCAs
 
