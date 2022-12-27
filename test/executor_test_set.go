@@ -40,7 +40,9 @@ func ConveyTest(t *testing.T, tests []ExecutorTest) {
 					if outErr != nil {
 						fmt.Println("error loading ouput result", outErr)
 					}
-					So(strings.TrimSpace(string(output)), ShouldEqual, strings.TrimSpace(string(fixture.Expected)))
+					for _, assert := range fixture.asserts {
+						So(strings.TrimSpace(string(output)), assert, strings.TrimSpace(string(fixture.Expected)))
+					}
 				})
 				Reset(func() {
 					err := os.Remove(fixture.GetOutputFilepath())

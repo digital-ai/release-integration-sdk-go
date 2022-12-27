@@ -2,6 +2,8 @@ package test
 
 import (
 	"fmt"
+	"github.com/smartystreets/assertions"
+	"github.com/smartystreets/goconvey/convey"
 	"github.com/xebialabs/go-remote-runner-wrapper/runner"
 	"io"
 	"os"
@@ -20,6 +22,7 @@ type ExecutorTest struct {
 	ExecutorTestConfig
 	Input    []byte
 	Expected []byte
+	asserts  []convey.Assertion
 }
 
 func loadFromLocation(location string) ([]byte, error) {
@@ -94,6 +97,11 @@ func (fixture *ExecutorTest) WithRunnerFunction(function runner.Runner) *Executo
 	return fixture
 }
 
+func (fixture *ExecutorTest) WithAssert(assert convey.Assertion) *ExecutorTest {
+	fixture.asserts = append(fixture.asserts, assert)
+	return fixture
+}
+
 func (fixture *ExecutorTest) Build() (*ExecutorTest, error) {
 	err := fixture.loadInputResult()
 	if err != nil {
@@ -102,6 +110,9 @@ func (fixture *ExecutorTest) Build() (*ExecutorTest, error) {
 	err = fixture.loadExpectedResult()
 	if err != nil {
 		return nil, err
+	}
+	if len(fixture.asserts) == 0 {
+		fixture.asserts = append(fixture.asserts, assertions.ShouldEqual)
 	}
 	return fixture, nil
 }
