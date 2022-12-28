@@ -1,13 +1,13 @@
 {
     "release": {
-        "id": "Applications/FolderSamplesAndTutorials/Release9964dfaa686c4e55a2ab16844a9a2e75",
+        "id": "RID",
         "automatedTaskAsUser": {
             "username": null,
             "password": null
         }
     },
     "task": {
-        "id": "Applications/FolderSamplesAndTutorials/Release9964dfaa686c4e55a2ab16844a9a2e75/Phase8d7f8ba30a8948d1b49719e74a2c1b06/Taskeec838f1c98d42ee9ad9794ba77e359a",
+        "id": "ID",
         "type": "success.Command",
         "properties": [
             {
@@ -28,81 +28,6 @@
                 "name": "parameter",
                 "value": "the-parameter-value",
                 "kind": "STRING",
-                "category": "input",
-                "password": false
-            },
-            {
-                "name": "server",
-                "value": {
-                    "id": "Configuration/Custom/Configuration90c483d0476249128eda3f06cd986a5b",
-                    "type": "kubernetes.APIServer",
-                    "properties": [
-                        {
-                            "name": "folderId",
-                            "value": "Applications/FolderSamplesAndTutorials",
-                            "kind": "STRING",
-                            "category": "FOLDER_CONFIG",
-                            "password": false
-                        },
-                        {
-                            "name": "title",
-                            "value": "Minikube",
-                            "kind": "STRING",
-                            "category": "Common",
-                            "password": false
-                        },
-                        {
-                            "name": "variableMapping",
-                            "value": {},
-                            "kind": "MAP_STRING_STRING",
-                            "category": "Common",
-                            "password": false
-                        },
-                        {
-                            "name": "host",
-                            "value": "https://localhost:44095",
-                            "kind": "STRING",
-                            "category": "Common",
-                            "password": false
-                        },
-                        {
-                            "name": "authenticationMethod",
-                            "value": "Client Certificate",
-                            "kind": "string",
-                            "category": "Common",
-                            "password": false
-                        },
-                        {
-                            "name": "clientKey",
-                            "value": "LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSVBJUVdVa2pwb3VIMHAvTU5SYUc3MktxVHNNRW52NmtHbnJzbHNPdHg4dmNvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFWDVWajZuQlhWU1hxanQ3cVZWeHJqalFpNnNXaGlnYzJPL1VhZVQyeTZzNUdXMzllZlpLUQp4Zk5IU01EWTlFNWxJWHdzSUVZUXZVUXA2RXFueGkrbUV3PT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=",
-                            "kind": "string",
-                            "category": "Common",
-                            "password": true
-                        },
-                        {
-                            "name": "clientCrt",
-                            "value": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJrRENDQVRlZ0F3SUJBZ0lJSHl4d2ZOZUF1eVV3Q2dZSUtvWkl6ajBFQXdJd0l6RWhNQjhHQTFVRUF3d1kKYXpOekxXTnNhV1Z1ZEMxallVQXhOall6TXpJNE1UQXdNQjRYRFRJeU1Ea3hOakV4TXpVd01Gb1hEVEl6TURreApOakV4TXpVd01Gb3dNREVYTUJVR0ExVUVDaE1PYzNsemRHVnRPbTFoYzNSbGNuTXhGVEFUQmdOVkJBTVRESE41CmMzUmxiVHBoWkcxcGJqQlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQTBJQUJGK1ZZK3B3VjFVbDZvN2UKNmxWY2E0NDBJdXJGb1lvSE5qdjFHbms5c3VyT1JsdC9YbjJTa01YelIwakEyUFJPWlNGOExDQkdFTDFFS2VoSwpwOFl2cGhPalNEQkdNQTRHQTFVZER3RUIvd1FFQXdJRm9EQVRCZ05WSFNVRUREQUtCZ2dyQmdFRkJRY0RBakFmCkJnTlZIU01FR0RBV2dCU3VGQkpaaWw2b2ZNeTlmcFdKWkFRUk9nQThKVEFLQmdncWhrak9QUVFEQWdOSEFEQkUKQWlCcXFUNjJlNUJCR2ViTTVhL0p2WG8yVmJISlNEWldKS2hCbkZxUit1YmNUZ0lnQ05heDNIVEF0ZEp3dHZLNQoxSUttdWN5VzNDYitlNFJ4K0ErT1N1Z1ZWQ2s9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJkekNDQVIyZ0F3SUJBZ0lCQURBS0JnZ3Foa2pPUFFRREFqQWpNU0V3SHdZRFZRUUREQmhyTTNNdFkyeHAKWlc1MExXTmhRREUyTmpNek1qZ3hNREF3SGhjTk1qSXdPVEUyTVRFek5UQXdXaGNOTXpJd09URXpNVEV6TlRBdwpXakFqTVNFd0h3WURWUVFEREJock0zTXRZMnhwWlc1MExXTmhRREUyTmpNek1qZ3hNREF3V1RBVEJnY3Foa2pPClBRSUJCZ2dxaGtqT1BRTUJCd05DQUFTR01oaXFaTjdVWHpEdG5QWFlWcXVGR0l4VVNDNWE5bE9pR0dIdGYxTEYKdnJpZEZxQ1hET25SeGkwaTdLMnBOSXFTVVMzQ0U3a0E3QVluU2lIWGhDdUlvMEl3UURBT0JnTlZIUThCQWY4RQpCQU1DQXFRd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFRmdRVXJoUVNXWXBlcUh6TXZYNlZpV1FFCkVUb0FQQ1V3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUlnRHBSV1grTVRxRXIxS2xsMUlNclJJQXBWV1VFZkI2UjAKN2dpOXRUVWhhN2tDSVFDd3N3OC95TkI0UFFtOGlYM2h5NTlGS0lqdFJpNVZRc2JjYndnTERBa05vZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
-                            "kind": "string",
-                            "category": "Common",
-                            "password": true
-                        },
-                        {
-                            "name": "insecure",
-                            "value": false,
-                            "kind": "BOOLEAN",
-                            "category": "Common",
-                            "password": false
-                        },
-                        {
-                            "name": "CA",
-                            "value": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJkekNDQVIyZ0F3SUJBZ0lCQURBS0JnZ3Foa2pPUFFRREFqQWpNU0V3SHdZRFZRUUREQmhyTTNNdGMyVnkKZG1WeUxXTmhRREUyTmpNek1qZ3hNREF3SGhjTk1qSXdPVEUyTVRFek5UQXdXaGNOTXpJd09URXpNVEV6TlRBdwpXakFqTVNFd0h3WURWUVFEREJock0zTXRjMlZ5ZG1WeUxXTmhRREUyTmpNek1qZ3hNREF3V1RBVEJnY3Foa2pPClBRSUJCZ2dxaGtqT1BRTUJCd05DQUFTcnpYeWY4aDlKLzNMYzFxaitWTWFlVi9EU3ZWQU9nSERxRDA1UElhSTgKRlIydjlWUFkrb1FpMVpwU3VZWVJhMVFuRFF1cmdNR2tTYXgvVThPV05CYUpvMEl3UURBT0JnTlZIUThCQWY4RQpCQU1DQXFRd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFRmdRVWJqL3BSYUx1NjE3L1p6aWplWnJEClZ5VFdSeU13Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUlnVHN3TGQ2ZDh4amUzMit4VDZ6V0c0SVZkTVI0RGZFdGwKbzh1U3c5WXdldFVDSVFDZlE5MFpPbVgvYVFyWENMbTZQc2ZHV2k1MVhGenA0RktKYU4rNjN4RWMrZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
-                            "kind": "STRING",
-                            "category": "Common",
-                            "password": false
-                        }
-                    ]
-                },
-                "kind": "CI",
                 "category": "input",
                 "password": false
             },
