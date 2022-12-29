@@ -5,41 +5,58 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"k8s.io/client-go/rest"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
-var client *http.Client
-
-func SetClient(c *http.Client) {
-	client = c
+type QueryParam struct {
+	key   string
+	value string
 }
 
-func GetClient() *http.Client {
-	return client
+func (q *QueryParam) Pair(key string, value string) {
+	q.key = key
+	q.value = value
 }
 
-func Get(url string) ([]byte, error) {
-	return SendRequest(http.MethodGet, url, nil)
+type HttpClient struct {
+	baseUrl string
+	client  rest.HTTPClient
 }
 
-func Post(url string, body []byte) ([]byte, error) {
-	return SendRequest(http.MethodPost, url, body)
+func (httpClient *HttpClient) Client(client rest.HTTPClient) {
+	httpClient.client = client
 }
 
-func Delete(url string) ([]byte, error) {
-	return SendRequest(http.MethodDelete, url, nil)
+func (httpClient *HttpClient) BaseUrl(baseUrl string) {
+	httpClient.baseUrl = baseUrl
 }
 
-func Put(url string, body []byte) ([]byte, error) {
-	return SendRequest(http.MethodPut, url, body)
+func (httpClient HttpClient) Get(path string, queryParams ...QueryParam) ([]byte, error) {
+	return httpClient.sendRequest(http.MethodGet, path, nil, queryParams...)
 }
 
-func SendRequest(method string, url string, body []byte) ([]byte, error) {
+func (httpClient HttpClient) Post(path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
+	return httpClient.sendRequest(http.MethodPost, path, body, queryParams...)
+}
+
+func (httpClient HttpClient) Delete(path string, queryParams ...QueryParam) ([]byte, error) {
+	return httpClient.sendRequest(http.MethodDelete, path, nil, queryParams...)
+}
+
+func (httpClient HttpClient) Put(path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
+	return httpClient.sendRequest(http.MethodPut, path, body, queryParams...)
+}
+
+func (httpClient HttpClient) sendRequest(method string, path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
+	client := httpClient.client
 	if client == nil {
-		return nil, fmt.Errorf("Http client is uninitialized")
+		return nil, fmt.Errorf("http client is uninitialized")
 	}
-	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
+	theUrl := httpClient.createUrl(path, queryParams...)
+	req, err := http.NewRequest(method, theUrl, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -55,6 +72,10 @@ func SendRequest(method string, url string, body []byte) ([]byte, error) {
 		return nil, fmt.Errorf("Read body: %v", err)
 	}
 
+	if resp.StatusCode >= 400 && resp.StatusCode <= 499 {
+		return nil, fmt.Errorf("%v - %s", resp.StatusCode, string(data))
+	}
+
 	if resp.StatusCode != http.StatusOK {
 		var respError json.RawMessage
 		unMarshalErr := json.Unmarshal(data, &respError)
@@ -67,11 +88,24 @@ func SendRequest(method string, url string, body []byte) ([]byte, error) {
 	return data, nil
 }
 
-func CreateUrl(host string, api string) string {
+func encodeQueryParams(params []QueryParam) string {
+	var values url.Values
+	for _, param := range params {
+		values.Add(param.key, param.value)
+	}
+	return values.Encode()
+}
+
+func (httpClient HttpClient) createUrl(api string, params ...QueryParam) string {
+	host := httpClient.baseUrl
+
 	if strings.HasSuffix(host, "/") {
 		host += api
 	} else {
 		host += "/" + api
+	}
+	if len(params) > 0 {
+		return host + "?" + encodeQueryParams(params)
 	}
 	return host
 }
