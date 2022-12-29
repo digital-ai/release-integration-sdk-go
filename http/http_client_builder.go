@@ -71,7 +71,6 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 }
 
 func (b *HttpClientBuilder) Build() error {
-
 	httpClient, err := rest.HTTPClientFor(b.config)
 
 	rootCAs, _ := x509.SystemCertPool()
