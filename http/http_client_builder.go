@@ -1,7 +1,10 @@
 package http
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"k8s.io/client-go/rest"
+	"net/http"
 )
 
 type TokenAuthentication struct {
@@ -69,6 +72,14 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 
 func (b *HttpClientBuilder) Build() error {
 	httpClient, err := rest.HTTPClientFor(b.config)
+
+	rootCAs, _ := x509.SystemCertPool()
+	newTlsConfig := &tls.Config{}
+	newTlsConfig.RootCAs = rootCAs
+
+	defaultTransport := http.DefaultTransport.(*http.Transport)
+	defaultTransport.TLSClientConfig = newTlsConfig
+
 	if err != nil {
 		return err
 	}
