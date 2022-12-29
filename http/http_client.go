@@ -34,6 +34,10 @@ func (httpClient *HttpClient) BaseUrl(baseUrl string) {
 	httpClient.baseUrl = baseUrl
 }
 
+func (httpClient *HttpClient) GetBaseUrl() string {
+	return httpClient.baseUrl
+}
+
 func (httpClient HttpClient) Get(path string, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(http.MethodGet, path, nil, queryParams...)
 }
