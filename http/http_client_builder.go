@@ -71,14 +71,15 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 }
 
 func (b *HttpClientBuilder) Build() error {
-	httpClient, err := rest.HTTPClientFor(b.config)
-
 	rootCAs, _ := x509.SystemCertPool()
 	newTlsConfig := &tls.Config{}
 	newTlsConfig.RootCAs = rootCAs
 
 	defaultTransport := http.DefaultTransport.(*http.Transport)
 	defaultTransport.TLSClientConfig = newTlsConfig
+	b.config.Transport = defaultTransport
+
+	httpClient, err := rest.HTTPClientFor(b.config)
 
 	if err != nil {
 		return err
