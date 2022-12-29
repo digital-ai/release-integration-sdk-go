@@ -3,8 +3,11 @@ package http
 import (
 	"encoding/json"
 	"fmt"
+	"crypto/tls"
+	"crypto/x509"
 	"k8s.io/client-go/rest"
 	"k8s.io/klog"
+	"net/http"
 )
 
 type TokenAuthentication struct {
@@ -135,6 +138,13 @@ func (b *HttpClientBuilder) getClient() (*HttpClient, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	rootCAs, _ := x509.SystemCertPool()
+	newTlsConfig := &tls.Config{}
+	newTlsConfig.RootCAs = rootCAs
+
+	defaultTransport := http.DefaultTransport.(*http.Transport)
+	defaultTransport.TLSClientConfig = newTlsConfig
 
 	return &HttpClient{
 		baseUrl: b.config.Host,
