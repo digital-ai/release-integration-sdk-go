@@ -50,6 +50,15 @@ func NewHttpClientBuilder() *HttpClientBuilder {
 func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *HttpClientBuilder {
 	b.config.Host = config.Host
 	b.config.Insecure = config.Insecure
+	if !b.config.Insecure {
+		rootCAs, _ := x509.SystemCertPool()
+		newTlsConfig := &tls.Config{}
+		newTlsConfig.RootCAs = rootCAs
+
+		defaultTransport := http.DefaultTransport.(*http.Transport)
+		defaultTransport.TLSClientConfig = newTlsConfig
+		b.config.Transport = defaultTransport
+	}
 	if config.CertificateAuthority != nil {
 		b.config.TLSClientConfig.CAFile = config.CertificateAuthority.CAFile
 		b.config.TLSClientConfig.CAData = config.CertificateAuthority.CAData
@@ -71,14 +80,6 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 }
 
 func (b *HttpClientBuilder) Build() error {
-	rootCAs, _ := x509.SystemCertPool()
-	newTlsConfig := &tls.Config{}
-	newTlsConfig.RootCAs = rootCAs
-
-	defaultTransport := http.DefaultTransport.(*http.Transport)
-	defaultTransport.TLSClientConfig = newTlsConfig
-	b.config.Transport = defaultTransport
-
 	httpClient, err := rest.HTTPClientFor(b.config)
 
 	if err != nil {
