@@ -4,6 +4,7 @@ import (
 	"io"
 	"k8s.io/client-go/rest"
 	"net/http"
+	"net/url"
 	"os"
 )
 
@@ -27,6 +28,7 @@ func (b *MockBody) Read(p []byte) (int, error) {
 }
 
 func (b *MockBody) Close() error {
+	b.offset = 0
 	return nil
 }
 
@@ -39,6 +41,13 @@ type MockResult struct {
 
 type MockHttpClient struct {
 	mocks map[string]map[string]*MockBody
+}
+
+var the404Response = &http.Response{
+	Body: &MockBody{
+		response: []byte("Mock not found - failing with 404"),
+	},
+	StatusCode: 404,
 }
 
 func NewMockHttpClient(mocks []MockResult) rest.HTTPClient {
@@ -59,10 +68,21 @@ func NewMockHttpClient(mocks []MockResult) rest.HTTPClient {
 	}
 }
 
+func getPath(url *url.URL) string {
+	if url.RawPath != "" {
+		return url.RawPath
+	} else {
+		return url.Path
+	}
+}
+
 func (c MockHttpClient) Do(req *http.Request) (*http.Response, error) {
-	mock := c.mocks[req.Method][req.URL.Path]
-	return &http.Response{
-		Body:       mock,
-		StatusCode: mock.statusCode,
-	}, nil
+	mock, exists := c.mocks[req.Method][getPath(req.URL)]
+	if exists {
+		return &http.Response{
+			Body:       mock,
+			StatusCode: mock.statusCode,
+		}, nil
+	}
+	return the404Response, nil
 }
