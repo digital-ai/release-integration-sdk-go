@@ -17,7 +17,7 @@ func Deserialize(inputLocation string, context *InputContext) error {
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
-		klog.Errorf("Cannot open: %s [%v]", inputLocation, err)
+		klog.Errorf("Cannot open: '%s' [%v]", inputLocation, err)
 		return err
 	}
 	// defer the closing of our inputContent so that we can parse it later on

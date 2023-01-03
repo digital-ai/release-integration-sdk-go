@@ -1,0 +1,71 @@
+{
+    "release": {
+        "id": "Y",
+        "automatedTaskAsUser": {
+            "username": null,
+            "password": null
+        }
+    },
+    "task": {
+        "id": "x",
+        "type": "test.Type",
+        "properties": [
+            {
+                "name": "additionalCapabilities",
+                "value": [],
+                "kind": "SET_OF_STRING",
+                "category": "input",
+                "password": false
+            },
+            {
+                "name": "folderId",
+                "value": "Applications/FolderSamplesAndTutorials",
+                "kind": "STRING",
+                "category": "FOLDER_CONFIG",
+                "password": false
+            },
+            {
+                "name": "namespace",
+                "value": "default",
+                "kind": "STRING",
+                "category": "input",
+                "password": false
+            },
+            {
+                "name": "labelSelector",
+                "value": "app=nginx",
+                "kind": "STRING",
+                "category": "input",
+                "password": false
+            },
+            {
+                "name": "retry",
+                "value": 1,
+                "kind": "STRING",
+                "category": "input",
+                "password": false
+            },
+            {
+                "name": "delay",
+                "value": 1,
+                "kind": "STRING",
+                "category": "input",
+                "password": false
+            },
+            {
+                "name": "yamlLocation",
+                "value": "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml",
+                "kind": "STRING",
+                "category": "input",
+                "password": false
+            },
+            {
+                "name": "response",
+                "value": null,
+                "kind": "STRING",
+                "category": "output",
+                "password": false
+            }
+        ]
+    }
+}
