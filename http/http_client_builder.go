@@ -148,13 +148,6 @@ func (b *HttpClientBuilder) getClient() (*HttpClient, error) {
 		return nil, err
 	}
 
-	rootCAs, _ := x509.SystemCertPool()
-	newTlsConfig := &tls.Config{}
-	newTlsConfig.RootCAs = rootCAs
-
-	defaultTransport := http.DefaultTransport.(*http.Transport)
-	defaultTransport.TLSClientConfig = newTlsConfig
-
 	return &HttpClient{
 		baseUrl: b.config.Host,
 		client:  client,
