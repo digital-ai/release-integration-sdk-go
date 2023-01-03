@@ -1,10 +1,10 @@
 package http
 
 import (
-	"encoding/json"
-	"fmt"
 	"crypto/tls"
 	"crypto/x509"
+	"encoding/json"
+	"fmt"
 	"k8s.io/client-go/rest"
 	"k8s.io/klog"
 	"net/http"
@@ -96,6 +96,15 @@ func (b *HttpClientBuilder) WithTokenFetch(tokenPath string) *HttpClientBuilder 
 func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *HttpClientBuilder {
 	b.config.Host = config.Host
 	b.config.Insecure = config.Insecure
+	if !b.config.Insecure {
+		rootCAs, _ := x509.SystemCertPool()
+		newTlsConfig := &tls.Config{}
+		newTlsConfig.RootCAs = rootCAs
+
+		defaultTransport := http.DefaultTransport.(*http.Transport)
+		defaultTransport.TLSClientConfig = newTlsConfig
+		b.config.Transport = defaultTransport
+	}
 	if config.CertificateAuthority != nil {
 		b.config.TLSClientConfig.CAFile = config.CertificateAuthority.CAFile
 		b.config.TLSClientConfig.CAData = config.CertificateAuthority.CAData
@@ -138,13 +147,6 @@ func (b *HttpClientBuilder) getClient() (*HttpClient, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	rootCAs, _ := x509.SystemCertPool()
-	newTlsConfig := &tls.Config{}
-	newTlsConfig.RootCAs = rootCAs
-
-	defaultTransport := http.DefaultTransport.(*http.Transport)
-	defaultTransport.TLSClientConfig = newTlsConfig
 
 	return &HttpClient{
 		baseUrl: b.config.Host,
