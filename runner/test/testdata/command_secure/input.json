@@ -1,0 +1,43 @@
+{
+    "release": {
+        "id": "RID",
+        "automatedTaskAsUser": {
+            "username": null,
+            "password": null
+        }
+    },
+    "task": {
+        "id": "ID",
+        "type": "success.SecureCommand",
+        "properties": [
+            {
+                "name": "additionalCapabilities",
+                "value": [],
+                "kind": "SET_OF_STRING",
+                "category": "input",
+                "password": false
+            },
+            {
+                "name": "folderId",
+                "value": "Applications/FolderSamplesAndTutorials",
+                "kind": "STRING",
+                "category": "FOLDER_CONFIG",
+                "password": false
+            },
+            {
+                "name": "parameter",
+                "value": "the-parameter-for-secure",
+                "kind": "STRING",
+                "category": "input",
+                "password": false
+            },
+            {
+                "name": "response",
+                "value": null,
+                "kind": "STRING",
+                "category": "output",
+                "password": false
+            }
+        ]
+    }
+}
