@@ -1,10 +1,13 @@
 package http
 
 import (
-	"encoding/json"
-	"fmt"
+	"context"
 	"crypto/tls"
 	"crypto/x509"
+	"encoding/json"
+	"fmt"
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/clientcredentials"
 	"k8s.io/client-go/rest"
 	"k8s.io/klog"
 	"net/http"
@@ -44,6 +47,7 @@ type fetchTokenFunc func(*HttpClientBuilder) (string, error)
 
 type HttpClientBuilder struct {
 	config         *rest.Config
+	oAuth2Config   *clientcredentials.Config
 	tokenPath      string
 	lazyFetchToken fetchTokenFunc
 }
@@ -67,7 +71,7 @@ func (b *HttpClientBuilder) WithTokenFetch(tokenPath string) *HttpClientBuilder 
 		if len(builder.config.Username) > 0 && len(builder.config.Password) > 0 {
 			values := map[string]string{"username": builder.config.Username, "password": builder.config.Password}
 			jsonValue, _ := json.Marshal(values)
-			httpClient, err := b.getClient()
+			httpClient, err := b.buildClient()
 
 			result, err := httpClient.Post(builder.tokenPath, jsonValue)
 			if err != nil {
@@ -90,6 +94,49 @@ func (b *HttpClientBuilder) WithTokenFetch(tokenPath string) *HttpClientBuilder 
 			return "", newErr
 		}
 	}
+	return b
+}
+
+func (b *HttpClientBuilder) ForHost(host string) *HttpClientBuilder {
+	b.config.Host = host
+	return b
+}
+
+func (b *HttpClientBuilder) SetInsecure(insecure bool) *HttpClientBuilder {
+	b.config.Insecure = insecure
+	return b
+}
+
+func (b *HttpClientBuilder) WithCertificateAuthority(caData []byte) *HttpClientBuilder {
+	b.config.TLSClientConfig.CAData = caData
+	return b
+}
+
+func (b *HttpClientBuilder) WithCertificateAuthorityFile(caFile string) *HttpClientBuilder {
+	b.config.TLSClientConfig.CAFile = caFile
+	return b
+}
+
+func (b *HttpClientBuilder) WithBasicAuth(username string, password string) *HttpClientBuilder {
+	b.config.Username = username
+	b.config.Password = password
+	return b
+}
+
+func (b *HttpClientBuilder) WithToken(token string) *HttpClientBuilder {
+	b.config.BearerToken = token
+	return b
+}
+
+func (b *HttpClientBuilder) WithClientCertAuth(certData []byte, keyData []byte) *HttpClientBuilder {
+	b.config.TLSClientConfig.CertData = certData
+	b.config.TLSClientConfig.KeyData = keyData
+	return b
+}
+
+func (b *HttpClientBuilder) WithClientCertAuthFiles(certFile string, keyFile string) *HttpClientBuilder {
+	b.config.TLSClientConfig.CertFile = certFile
+	b.config.TLSClientConfig.KeyFile = keyFile
 	return b
 }
 
@@ -117,8 +164,27 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 	return b
 }
 
+func (b *HttpClientBuilder) WithOAuth2Config(tokenUrl string, clientId string, clientSecret string, scopes []string) *HttpClientBuilder {
+	b.oAuth2Config = &clientcredentials.Config{
+		ClientID:     clientId,
+		ClientSecret: clientSecret,
+		Scopes:       scopes,
+		TokenURL:     tokenUrl,
+	}
+	return b
+}
+
 func (b *HttpClientBuilder) Build() (*HttpClient, error) {
-	if b.lazyFetchToken != nil {
+	if b.oAuth2Config != nil {
+		ctx := context.Background()
+		httpClient, err := b.buildClient()
+		if err != nil {
+			return nil, err
+		}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, httpClient.client)
+		httpClient.client = b.oAuth2Config.Client(ctx)
+		return httpClient, nil
+	} else if b.lazyFetchToken != nil {
 		token, err := b.lazyFetchToken(b)
 		if err != nil {
 			return nil, err
@@ -130,10 +196,10 @@ func (b *HttpClientBuilder) Build() (*HttpClient, error) {
 		}
 	}
 
-	return b.getClient()
+	return b.buildClient()
 }
 
-func (b *HttpClientBuilder) getClient() (*HttpClient, error) {
+func (b *HttpClientBuilder) buildClient() (*HttpClient, error) {
 	client, err := rest.HTTPClientFor(b.config)
 	if err != nil {
 		return nil, err
