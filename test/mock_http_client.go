@@ -36,6 +36,7 @@ type MockResult struct {
 	Method     string
 	Path       string
 	Filename   string
+	Data       []byte
 	StatusCode int
 }
 
@@ -57,9 +58,16 @@ func NewMockHttpClient(mocks []MockResult) rest.HTTPClient {
 		if ref == nil {
 			ref = make(map[string]*MockBody)
 		}
-		ref[mock.Path] = &MockBody{
-			filename:   mock.Filename,
-			statusCode: mock.StatusCode,
+		if mock.Filename != "" {
+			ref[mock.Path] = &MockBody{
+				filename:   mock.Filename,
+				statusCode: mock.StatusCode,
+			}
+		} else {
+			ref[mock.Path] = &MockBody{
+				response:   mock.Data,
+				statusCode: mock.StatusCode,
+			}
 		}
 		mockBodiesMap[mock.Method] = ref
 	}
