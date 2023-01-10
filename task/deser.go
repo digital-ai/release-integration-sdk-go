@@ -5,12 +5,6 @@ import (
 	"io"
 	"k8s.io/klog"
 	"os"
-	"strconv"
-)
-
-const (
-	success      = "success"
-	errorMessage = "errorMessage"
 )
 
 func Deserialize(inputLocation string, context *InputContext) error {
@@ -43,17 +37,10 @@ func Serialize(outputLocation string, result map[string]interface{}) {
 	writeOutput(outputContext, outputLocation)
 }
 
-func ErrorResultMap(err error) map[string]interface{} {
-	resultMap := make(map[string]interface{})
-	resultMap[success] = strconv.FormatBool(false)
-	resultMap[errorMessage] = err.Error()
-	return resultMap
-}
-
-func SerializeError(outputLocation string, err error) {
+func SerializeError(outputLocation string, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
-		OutputProperties: ErrorResultMap(err),
+		OutputProperties: result,
 	}
 	writeOutput(outputContext, outputLocation)
 }

@@ -7,20 +7,16 @@ import (
 )
 
 var independentOutputRunner = runner.NewSimpleRunner(
-	func(_ task.InputContext) (map[string]interface{}, error) {
-		var result = make(map[string]interface{})
-		result["test"] = "the-result"
-		return result, nil
+	func(_ task.InputContext) *runner.Result {
+		return runner.NewResult().String("test", "the-result")
 	})
 
 var failedTestRunner = runner.NewSimpleRunner(
-	func(_ task.InputContext) (map[string]interface{}, error) {
-		return nil, fmt.Errorf("This simulates an error")
+	func(_ task.InputContext) *runner.Result {
+		return runner.NewErrorResult(fmt.Errorf("This simulates an error"))
 	})
 
 var successProcessingRunner = runner.NewSimpleRunner(
-	func(input task.InputContext) (map[string]interface{}, error) {
-		var result = make(map[string]interface{})
-		result["the-type"] = input.Task.Type
-		return result, nil
+	func(input task.InputContext) *runner.Result {
+		return runner.NewResult().String("the-type", input.Task.Type)
 	})
