@@ -52,38 +52,38 @@ var jsonPayload json.RawMessage = []byte(`{"metadata":{
 										   "just-random-bool": true
 										}`)
 
-func simpleRunnerWith(result *runner.Result) runner.Runner {
+func simpleRunnerWith(result *task.Result) runner.Runner {
 	return runner.NewSimpleRunner(
-		func(_ task.InputContext) *runner.Result {
+		func(_ task.InputContext) *task.Result {
 			return result
 		})
 }
 
 var independentOutputRunner = runner.NewSimpleRunner(
-	func(_ task.InputContext) *runner.Result {
-		return runner.NewResult().String("test", "the-result")
+	func(_ task.InputContext) *task.Result {
+		return task.NewResult().String("test", "the-result")
 	})
 
 var failedTestRunner = runner.NewSimpleRunner(
-	func(_ task.InputContext) *runner.Result {
-		return runner.NewErrorResult(fmt.Errorf("this simulates an error"))
+	func(_ task.InputContext) *task.Result {
+		return task.NewErrorResult(fmt.Errorf("this simulates an error"))
 	})
 
 var stringPropertyRunner = runner.NewSimpleRunner(
-	func(input task.InputContext) *runner.Result {
-		return runner.NewResult().String("the-type", input.Task.Type)
+	func(input task.InputContext) *task.Result {
+		return task.NewResult().String("the-type", input.Task.Type)
 	})
 
 var datePropertyRunner = runner.NewSimpleRunner(
-	func(input task.InputContext) *runner.Result {
+	func(input task.InputContext) *task.Result {
 		theTime := time.Date(2023, 1, 11, 10, 44, 45, 142, time.Local)
-		return runner.NewResult().Date("the-date", theTime)
+		return task.NewResult().Date("the-date", theTime)
 	})
 
 var composedPropertyRunner = runner.NewSimpleRunner(
-	func(input task.InputContext) *runner.Result {
+	func(input task.InputContext) *task.Result {
 		theTime := time.Date(2023, 1, 11, 10, 44, 45, 142, time.Local)
-		return runner.NewResult().
+		return task.NewResult().
 			Date("the-date", theTime).
 			String("the-type", input.Task.Type).
 			JsonString("the-json-string", ".metadata.name", jsonPayload)

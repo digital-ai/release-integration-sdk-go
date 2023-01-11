@@ -1,9 +1,9 @@
 package command
 
 import (
-	"encoding/json"
+	"github.com/xebialabs/go-remote-runner-wrapper/task"
 )
 
 type CommandExecutor interface {
-	FetchResult() (json.RawMessage, bool, error)
+	FetchResult() (*task.Result, error)
 }
