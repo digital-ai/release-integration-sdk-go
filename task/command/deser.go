@@ -4,10 +4,6 @@ import (
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 )
 
-const (
-	InputCategory = "input"
-)
-
 type CommandType string
 
 type CommandWrapper struct {
@@ -18,20 +14,18 @@ type CommandWrapper struct {
 func DeserializeCommand(factory CommandFactory, taskContext task.TaskContext) (CommandExecutor, error) {
 	var inputs []task.PropertyDefinition
 	for _, property := range taskContext.Properties {
-		if property.Category == InputCategory {
+		if property.Category == task.InputCategory {
 			inputs = append(inputs, property)
 		}
 	}
 
-	spawnedCommand, err := factory.InitCommand(CommandType(taskContext.Type))
+	command, err := factory.InitCommand(CommandType(taskContext.Type))
 	if err != nil {
 		return nil, err
 	}
-
-	commandExec, err := PopulateCommand(spawnedCommand, inputs)
-	if err != nil {
-		return nil, err
+	unmarshalErr := task.UnmarshalProperties(inputs, command)
+	if unmarshalErr != nil {
+		return nil, unmarshalErr
 	}
-
-	return commandExec, nil
+	return command, nil
 }

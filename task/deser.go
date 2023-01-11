@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+const (
+	InputCategory = "input"
+)
+
 func Deserialize(inputLocation string, context *InputContext) error {
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
@@ -27,6 +31,17 @@ func Deserialize(inputLocation string, context *InputContext) error {
 	}
 
 	return nil
+}
+
+func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
+	var inputs []PropertyDefinition
+	for _, property := range properties {
+		if property.Category == InputCategory {
+			inputs = append(inputs, property)
+		}
+	}
+
+	return UnmarshalProperties(inputs, taskInstance)
 }
 
 func Serialize(outputLocation string, result map[string]interface{}) {
@@ -55,4 +70,19 @@ func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	if err != nil {
 		klog.Fatalf("Cannot write output to: %s [%v]", outputLocation, err)
 	}
+}
+
+func UnmarshalProperties(properties []PropertyDefinition, prototype interface{}) error {
+	propsMap := make(map[string]json.RawMessage)
+	for _, property := range properties {
+		propsMap[property.Name] = property.Value
+	}
+	jsonMap, err := json.Marshal(propsMap)
+	if err != nil {
+		return err
+	}
+	if err := json.Unmarshal(jsonMap, prototype); err != nil {
+		return err
+	}
+	return nil
 }
