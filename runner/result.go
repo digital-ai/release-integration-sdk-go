@@ -51,11 +51,11 @@ func parseDate(sampleFormat string, dateTime string) (string, error) {
 func parseNode(jqOp string, result json.RawMessage) ([]byte, error) {
 	parse, err := jq.Parse(jqOp)
 	if err != nil {
-		return nil, fmt.Errorf("could not create parser for JQ operation %s", err)
+		return nil, fmt.Errorf("could not create parser for JQ operation '%s': %v", jqOp, err)
 	}
 	parseResult, err := parse.Apply(result)
 	if err != nil {
-		return nil, fmt.Errorf("could not apply parser for JQ operation %s", err)
+		return nil, fmt.Errorf("could not apply parser for JQ operation '%s': %v", jqOp, err)
 	}
 	return parseResult, nil
 }
@@ -180,11 +180,11 @@ type JsonValueBoolGenerator struct {
 func (gen JsonValueBoolGenerator) GenerateValue() (interface{}, error) {
 	parseResult, err := parseNode(gen.jqOperation, gen.jsonPayload)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 	boolValue, err := strconv.ParseBool(string(parseResult))
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 	return boolValue, nil
 }
@@ -277,7 +277,12 @@ func (r *Result) Get() (map[string]interface{}, error) {
 			result[generator.FieldName()] = value
 		}
 		if err != nil {
-			return result, err
+			switch generator.(type) {
+			case ErrorGenerator:
+				return result, err
+			default:
+				return result, fmt.Errorf("error evaluating '%s' field value: %v", generator.FieldName(), err)
+			}
 		}
 	}
 	return result, nil

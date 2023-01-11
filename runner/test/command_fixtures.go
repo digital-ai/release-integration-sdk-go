@@ -51,7 +51,7 @@ func (mock MockFactory) InitCommand(commandType command.CommandType) (command.Co
 	case "fail.Command":
 		return &MockFailedCommand{}, nil
 	}
-	return nil, fmt.Errorf("Cannot find command type")
+	return nil, fmt.Errorf("cannot find command type")
 }
 
 var commandRunner = runner.NewCommandRunner(
