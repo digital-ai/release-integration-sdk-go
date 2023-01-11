@@ -20,9 +20,7 @@ type SimpleRunner struct {
 }
 
 type CommandRunner struct {
-	factoryBuilder    FactoryBuilder
-	ResultField       string
-	SecureResultField string
+	factoryBuilder FactoryBuilder
 }
 
 func NewSimpleRunner(run RunFunction) *SimpleRunner {
@@ -35,11 +33,9 @@ func (runner SimpleRunner) Run(ctx task.InputContext) *task.Result {
 	return runner.run(ctx)
 }
 
-func NewCommandRunner(factoryBuilder FactoryBuilder, resultField string, securedResultField string) *CommandRunner {
+func NewCommandRunner(factoryBuilder FactoryBuilder) *CommandRunner {
 	var runner CommandRunner
 	runner.factoryBuilder = factoryBuilder
-	runner.ResultField = resultField
-	runner.SecureResultField = securedResultField
 	return &runner
 }
 
@@ -60,14 +56,6 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 		return returnResult.Error(err)
 	}
 	klog.Infoln("Finished executing command")
-	//if masked {
-	//	secureResponse, convErr := strconv.Unquote(string(result))
-	//	if convErr != nil {
-	//		klog.Infof("Failed to mask secure command with error %v", convErr)
-	//		return returnResult.Error(convErr)
-	//	}
-	//	return returnResult.String(runner.SecureResultField, secureResponse)
-	//}
 	return result
 }
 

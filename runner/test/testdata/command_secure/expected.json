@@ -1,1 +1,1 @@
-{"exitCode":0,"outputProperties":{"result":{"field":"command-success","parameter":"the-parameter-for-secure"}}}
+{"exitCode":0,"outputProperties":{"secureResult":{"field":"command-success","parameter":"the-parameter-for-secure"}}}

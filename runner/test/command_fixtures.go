@@ -8,18 +8,23 @@ import (
 	"github.com/xebialabs/go-remote-runner-wrapper/task/command"
 )
 
-type MockFactory struct{}
+type MockFactory struct {
+	ResultField       string
+	SecureResultField string
+}
 type MockSuccessCommand struct {
-	Parameter string `json:"parameter"`
+	FieldLabel string
+	Parameter  string `json:"parameter"`
 }
 type MockSuccessSecureCommand struct {
-	Parameter string `json:"parameter"`
+	FieldLabel string
+	Parameter  string `json:"parameter"`
 }
 type MockFailedCommand struct {
 	Parameter string `json:"parameter"`
 }
 
-func mockResponse(param string) (*task.Result, error) {
+func mockResponse(fieldLabel string, param string) (*task.Result, error) {
 	result := make(map[string]string)
 	result["field"] = "command-success"
 	result["parameter"] = param
@@ -27,15 +32,15 @@ func mockResponse(param string) (*task.Result, error) {
 	if err != nil {
 		return nil, err
 	}
-	return task.NewResult().Json("result", slice), nil
+	return task.NewResult().Json(fieldLabel, slice), nil
 }
 
 func (command MockSuccessCommand) FetchResult() (*task.Result, error) {
-	return mockResponse(command.Parameter)
+	return mockResponse(command.FieldLabel, command.Parameter)
 }
 
 func (command MockSuccessSecureCommand) FetchResult() (*task.Result, error) {
-	return mockResponse(command.Parameter)
+	return mockResponse(command.FieldLabel, command.Parameter)
 }
 
 func (command MockFailedCommand) FetchResult() (*task.Result, error) {
@@ -45,9 +50,9 @@ func (command MockFailedCommand) FetchResult() (*task.Result, error) {
 func (mock MockFactory) InitCommand(commandType command.CommandType) (command.CommandExecutor, error) {
 	switch commandType {
 	case "success.Command":
-		return &MockSuccessCommand{}, nil
+		return &MockSuccessCommand{FieldLabel: mock.ResultField}, nil
 	case "success.SecureCommand":
-		return &MockSuccessSecureCommand{}, nil
+		return &MockSuccessSecureCommand{FieldLabel: mock.SecureResultField}, nil
 	case "fail.Command":
 		return &MockFailedCommand{}, nil
 	}
@@ -56,8 +61,9 @@ func (mock MockFactory) InitCommand(commandType command.CommandType) (command.Co
 
 var commandRunner = runner.NewCommandRunner(
 	func(input task.TaskContext) (command.CommandFactory, error) {
-		return MockFactory{}, nil
+		return MockFactory{
+			"result",
+			"secureResult",
+		}, nil
 	},
-	"result",
-	"secureResult",
 )
