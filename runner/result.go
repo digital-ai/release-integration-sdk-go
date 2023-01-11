@@ -45,7 +45,7 @@ func parseDate(sampleFormat string, dateTime string) (string, error) {
 		return "", fmt.Errorf("error parsing date: %v", err)
 
 	}
-	return parsedDateTime.Format(time.RFC1123), nil
+	return parsedDateTime.Format(time.RFC3339), nil
 }
 
 func parseNode(jqOp string, result json.RawMessage) ([]byte, error) {
@@ -114,7 +114,11 @@ func (gen DateGenerator) FieldName() string {
 	return gen.fieldName
 }
 
-func (r *Result) Date(resultField string, sampleFormat string, dateTime string) *Result {
+func (r *Result) Date(resultField string, dateTime time.Time) *Result {
+	return r.addGenerator(DateGenerator{resultField, time.RFC3339Nano, dateTime.Format(time.RFC3339Nano)})
+}
+
+func (r *Result) DateString(resultField string, sampleFormat string, dateTime string) *Result {
 	return r.addGenerator(DateGenerator{resultField, sampleFormat, dateTime})
 }
 
@@ -157,10 +161,14 @@ func (gen JsonValueStringGenerator) GenerateValue() (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	return parseResult, nil
+	result, err := strconv.Unquote(string(parseResult))
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
-func (r *Result) JsonValueString(resultField string, jqOp string, jsonPayload json.RawMessage) *Result {
+func (r *Result) JsonString(resultField string, jqOp string, jsonPayload json.RawMessage) *Result {
 	return r.addGenerator(JsonValueStringGenerator{JsonValueGenerator{resultField, jqOp, jsonPayload}})
 }
 
@@ -181,7 +189,7 @@ func (gen JsonValueBoolGenerator) GenerateValue() (interface{}, error) {
 	return boolValue, nil
 }
 
-func (r *Result) JsonValueBool(resultField string, jqOp string, jsonPayload json.RawMessage) *Result {
+func (r *Result) JsonBool(resultField string, jqOp string, jsonPayload json.RawMessage) *Result {
 	return r.addGenerator(JsonValueBoolGenerator{JsonValueGenerator{resultField, jqOp, jsonPayload}})
 }
 
@@ -196,14 +204,18 @@ func (gen JsonValueDateGenerator) GenerateValue() (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	date, err := parseDate(gen.sampleFormat, string(parseResult))
+	result, err := strconv.Unquote(string(parseResult))
+	if err != nil {
+		return nil, err
+	}
+	date, err := parseDate(gen.sampleFormat, result)
 	if err != nil {
 		return nil, err
 	}
 	return date, nil
 }
 
-func (r *Result) JsonValueDate(resultField string, jqOp string, sampleFormat string, jsonPayload json.RawMessage) *Result {
+func (r *Result) JsonDate(resultField string, jqOp string, sampleFormat string, jsonPayload json.RawMessage) *Result {
 	return r.addGenerator(JsonValueDateGenerator{JsonValueGenerator{resultField, jqOp, jsonPayload}, sampleFormat})
 }
 
@@ -225,7 +237,7 @@ func (gen JsonValueNodeGenerator) GenerateValue() (interface{}, error) {
 	return commandResultMap, nil
 }
 
-func (r *Result) JsonValueNode(resultField string, jqOp string, jsonPayload json.RawMessage) *Result {
+func (r *Result) JsonNode(resultField string, jqOp string, jsonPayload json.RawMessage) *Result {
 	return r.addGenerator(JsonValueNodeGenerator{JsonValueGenerator{resultField, jqOp, jsonPayload}})
 }
 
