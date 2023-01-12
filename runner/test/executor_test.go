@@ -4,6 +4,7 @@ import (
 	"github.com/xebialabs/go-remote-runner-wrapper/runner"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"github.com/xebialabs/go-remote-runner-wrapper/test"
+	"os"
 	"testing"
 )
 
@@ -33,5 +34,6 @@ var testMap = map[string]runner.Runner{
 var fixtures = test.CreateExecutorTestSet("testdata", testMap)
 
 func TestSpec(t *testing.T) {
+	os.Setenv("TZ", "UTC")
 	test.ConveyTest(t, fixtures)
 }
