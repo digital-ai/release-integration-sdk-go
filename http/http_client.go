@@ -64,6 +64,8 @@ func (httpClient HttpClient) sendRequest(method string, path string, body []byte
 	if err != nil {
 		return nil, err
 	}
+	req.Header["Content-Type"] = []string{"application/json"}
+	req.Header["Accept"] = []string{"application/json"}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("%s error: %v", method, err)
@@ -80,7 +82,7 @@ func (httpClient HttpClient) sendRequest(method string, path string, body []byte
 		return nil, fmt.Errorf("%v - %s", resp.StatusCode, string(data))
 	}
 
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode >= 299 {
 		var respError json.RawMessage
 		unMarshalErr := json.Unmarshal(data, &respError)
 		if unMarshalErr != nil {
@@ -93,7 +95,7 @@ func (httpClient HttpClient) sendRequest(method string, path string, body []byte
 }
 
 func encodeQueryParams(params []QueryParam) string {
-	var values url.Values
+	values := make(url.Values)
 	for _, param := range params {
 		values.Add(param.key, param.value)
 	}
