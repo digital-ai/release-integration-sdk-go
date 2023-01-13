@@ -1,4 +1,4 @@
-package release_api
+package release
 
 func (req ReleasesReleaseIdVariablesGetRequest) Execute() ([]Variable, error) {
 	return req.ReleasesReleaseIdVariablesGet()

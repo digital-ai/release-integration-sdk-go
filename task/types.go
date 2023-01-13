@@ -26,6 +26,7 @@ type AutomatedTaskAsUserContext struct {
 type ReleaseContext struct {
 	Id                  string                     `json:"id"`
 	AutomatedTaskAsUser AutomatedTaskAsUserContext `json:"automatedTaskAsUser"`
+	Url                 string                     `json:"url"`
 }
 
 type InputContext struct {

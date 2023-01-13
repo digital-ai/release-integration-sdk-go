@@ -1,4 +1,4 @@
-package release_api
+package release
 
 import (
 	"github.com/xebialabs/go-remote-runner-wrapper/http"

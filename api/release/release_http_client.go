@@ -1,4 +1,4 @@
-package release_api
+package release
 
 import (
 	"github.com/xebialabs/go-remote-runner-wrapper/http"
@@ -7,7 +7,6 @@ import (
 
 func GetReleaseServerHttpClient(ctx task.ReleaseContext) (*http.HttpClient, error) {
 	auth := ctx.AutomatedTaskAsUser
-
 	httpClientConfig := &http.HttpClientConfig{
 		Host: ctx.Url,
 		BasicAuthentication: &http.BasicAuthentication{

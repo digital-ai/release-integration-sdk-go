@@ -1,4 +1,4 @@
-package release_api
+package release
 
 type Variable struct {
 	FolderId           *string                     `json:"folderId,omitempty"`
