@@ -6,7 +6,6 @@ import (
 )
 
 type ReleaseClient struct {
-	ctx    task.ReleaseContext
 	client *http.HttpClient
 	ReleaseApi
 }
@@ -22,7 +21,7 @@ type ReleaseApi interface {
 
 func NewReleaseClient(ctx task.ReleaseContext) ReleaseApi {
 	client, _ := HttpClient(ctx)
-	return &ReleaseClient{ctx: ctx, client: client}
+	return &ReleaseClient{client: client}
 }
 
 func HttpClient(ctx task.ReleaseContext) (*http.HttpClient, error) {
