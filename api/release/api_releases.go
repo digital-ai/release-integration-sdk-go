@@ -2,14 +2,15 @@ package release
 
 import (
 	"encoding/json"
+	"github.com/xebialabs/go-remote-runner-wrapper/http"
 	"net/url"
 	"path"
 )
 
-func (req ReleasesReleaseIdVariablesGetRequest) ReleasesReleaseIdVariablesGet() ([]Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(req.releaseId), "/variables")
+func ReleasesReleaseIdVariablesGet(client *http.HttpClient, releaseId string) ([]Variable, error) {
+	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
 
-	result, err := req.client.Get(path)
+	result, err := client.Get(path)
 	if err != nil {
 		return nil, err
 	}
@@ -21,15 +22,15 @@ func (req ReleasesReleaseIdVariablesGetRequest) ReleasesReleaseIdVariablesGet() 
 	return variables, nil
 }
 
-func (req ReleasesReleaseIdVariablesPostRequest) ReleasesReleaseIdVariablesPost() (*Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(req.releaseId), "/variables")
+func ReleasesReleaseIdVariablesPost(client *http.HttpClient, releaseId string, variable *Variable1) (*Variable, error) {
+	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
 
-	body, marshalErr := json.Marshal(req.variable)
+	body, marshalErr := json.Marshal(variable)
 	if marshalErr != nil {
 		return nil, marshalErr
 	}
 
-	result, err := req.client.Post(path, body)
+	result, err := client.Post(path, body)
 	if err != nil {
 		return nil, err
 	}
@@ -41,15 +42,15 @@ func (req ReleasesReleaseIdVariablesPostRequest) ReleasesReleaseIdVariablesPost(
 	return created, nil
 }
 
-func (req ReleasesReleaseIdVariablesPutRequest) ReleasesReleaseIdVariablesPut() (*Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(req.releaseId), "/variables")
+func ReleasesReleaseIdVariablesPut(client *http.HttpClient, releaseId string, variable *Variable1) (*Variable, error) {
+	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
 
-	body, marshalErr := json.Marshal(req.variable)
+	body, marshalErr := json.Marshal(variable)
 	if marshalErr != nil {
 		return nil, marshalErr
 	}
 
-	result, err := req.client.Put(path, body)
+	result, err := client.Put(path, body)
 	if err != nil {
 		return nil, err
 	}
@@ -61,10 +62,10 @@ func (req ReleasesReleaseIdVariablesPutRequest) ReleasesReleaseIdVariablesPut() 
 	return created, nil
 }
 
-func (req ReleasesVariableIdGetRequest) ReleasesVariableIdGet() (*Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(req.variableId))
+func ReleasesVariableIdGet(client *http.HttpClient, variableId string) (*Variable, error) {
+	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
 
-	result, err := req.client.Get(path)
+	result, err := client.Get(path)
 	if err != nil {
 		return nil, err
 	}
@@ -76,28 +77,28 @@ func (req ReleasesVariableIdGetRequest) ReleasesVariableIdGet() (*Variable, erro
 	return variable, nil
 }
 
-func (req ReleasesVariableIdPutRequest) ReleasesVariableIdPut() (*Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(req.variableId))
+func ReleasesVariableIdPut(client *http.HttpClient, variableId string, variable *Variable) (*Variable, error) {
+	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
 
-	body, marshalErr := json.Marshal(req.variable)
+	body, marshalErr := json.Marshal(variable)
 	if marshalErr != nil {
 		return nil, marshalErr
 	}
 
-	result, err := req.client.Put(path, body)
+	result, err := client.Put(path, body)
 	if err != nil {
 		return nil, err
 	}
-	var variable *Variable
-	err = json.Unmarshal(result, &variable)
+	var updatedVar *Variable
+	err = json.Unmarshal(result, &updatedVar)
 	if err != nil {
 		return nil, err
 	}
 	return variable, nil
 }
 
-func (req ReleasesVariableIdDeleteRequest) ReleasesVariableIdDelete() error {
-	path := path.Join("api/v1/releases/", url.PathEscape(req.variableId))
-	_, err := req.client.Delete(path)
+func ReleasesVariableIdDelete(client *http.HttpClient, variableId string) error {
+	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
+	_, err := client.Delete(path)
 	return err
 }

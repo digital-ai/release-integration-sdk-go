@@ -4,6 +4,8 @@ import (
 	"github.com/xebialabs/go-remote-runner-wrapper/http"
 )
 
+// TODO: remove this file
+
 type ReleasesReleaseIdVariablesGetRequest struct {
 	client    *http.HttpClient
 	releaseId string
