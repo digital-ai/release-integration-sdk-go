@@ -20,7 +20,7 @@ type ReleaseApi interface {
 	GetVariableValuesForRelease(string) (map[string]string, error)
 	GetVariablePossibleValues(string) ([]map[string]interface{}, error)
 	IsVariableUsed(string) (*bool, error)
-	ReplaceVariable(string, VariableOrValue) error
+	ReplaceVariable(string, *VariableOrValue) error
 }
 
 func NewReleaseClient(ctx task.ReleaseContext) ReleaseApi {
@@ -72,6 +72,6 @@ func (r *ReleaseClient) IsVariableUsed(variableId string) (*bool, error) {
 	return IsVariableUsed(r.client, variableId)
 }
 
-func (r *ReleaseClient) ReplaceVariable(variableId string, variableOrValue VariableOrValue) error {
+func (r *ReleaseClient) ReplaceVariable(variableId string, variableOrValue *VariableOrValue) error {
 	return ReplaceVariable(r.client, variableId, variableOrValue)
 }

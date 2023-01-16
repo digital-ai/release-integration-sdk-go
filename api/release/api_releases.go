@@ -147,7 +147,7 @@ func IsVariableUsed(client *http.HttpClient, variableId string) (*bool, error) {
 	return isUsed, nil
 }
 
-func ReplaceVariable(client *http.HttpClient, variableId string, variableOrValue VariableOrValue) error {
+func ReplaceVariable(client *http.HttpClient, variableId string, variableOrValue *VariableOrValue) error {
 	path := path.Join("api/v1/releases/", url.PathEscape(variableId), "/replace")
 
 	body, marshalErr := json.Marshal(variableOrValue)
