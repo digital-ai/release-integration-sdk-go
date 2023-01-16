@@ -12,12 +12,12 @@ type ReleaseClient struct {
 }
 
 type ReleaseApi interface {
-	ReleasesReleaseIdVariablesGet(string) ([]Variable, error)
-	ReleasesReleaseIdVariablesPost(string, *Variable1) (*Variable, error)
-	ReleasesReleaseIdVariablesPut(string, *Variable1) (*Variable, error)
-	ReleasesVariableIdGet(string) (*Variable, error)
-	ReleasesVariableIdPut(string, *Variable) (*Variable, error)
-	ReleasesVariableIdDelete(string) error
+	GetVariablesForRelease(string) ([]Variable, error)
+	CreateVariablesForRelease(string, *Variable1) (*Variable, error)
+	UpdateVariablesForRelease(string, *[]Variable) ([]Variable, error)
+	GetVariable(string) (*Variable, error)
+	UpdateVariable(string, *Variable) (*Variable, error)
+	DeleteVariable(string) error
 }
 
 func NewReleaseClient(ctx task.ReleaseContext) ReleaseApi {
@@ -33,26 +33,26 @@ func HttpClient(ctx task.ReleaseContext) (*http.HttpClient, error) {
 	return builder.Build()
 }
 
-func (r *ReleaseClient) ReleasesReleaseIdVariablesGet(releaseId string) ([]Variable, error) {
-	return ReleasesReleaseIdVariablesGet(r.client, releaseId)
+func (r *ReleaseClient) GetVariablesForRelease(releaseId string) ([]Variable, error) {
+	return GetVariablesForRelease(r.client, releaseId)
 }
 
-func (r *ReleaseClient) ReleasesReleaseIdVariablesPost(releaseId string, variable *Variable1) (*Variable, error) {
-	return ReleasesReleaseIdVariablesPost(r.client, releaseId, variable)
+func (r *ReleaseClient) CreateVariablesForRelease(releaseId string, variable *Variable1) (*Variable, error) {
+	return CreateVariableForRelease(r.client, releaseId, variable)
 }
 
-func (r *ReleaseClient) ReleasesReleaseIdVariablesPut(releaseId string, variable *Variable1) (*Variable, error) {
-	return ReleasesReleaseIdVariablesPut(r.client, releaseId, variable)
+func (r *ReleaseClient) UpdateVariablesForRelease(releaseId string, variables *[]Variable) ([]Variable, error) {
+	return UpdateVariablesForRelease(r.client, releaseId, variables)
 }
 
-func (r *ReleaseClient) ReleasesVariableIdGet(variableId string) (*Variable, error) {
-	return ReleasesVariableIdGet(r.client, variableId)
+func (r *ReleaseClient) GetVariable(variableId string) (*Variable, error) {
+	return GetVariable(r.client, variableId)
 }
 
-func (r *ReleaseClient) ReleasesVariableIdPut(variableId string, variable *Variable) (*Variable, error) {
-	return ReleasesVariableIdPut(r.client, variableId, variable)
+func (r *ReleaseClient) UpdateVariable(variableId string, variable *Variable) (*Variable, error) {
+	return UpdateVariable(r.client, variableId, variable)
 }
 
-func (r *ReleaseClient) ReleasesVariableIdDelete(variableId string) error {
-	return ReleasesVariableIdDelete(r.client, variableId)
+func (r *ReleaseClient) DeleteVariable(variableId string) error {
+	return DeleteVariable(r.client, variableId)
 }

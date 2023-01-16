@@ -7,7 +7,7 @@ import (
 	"path"
 )
 
-func ReleasesReleaseIdVariablesGet(client *http.HttpClient, releaseId string) ([]Variable, error) {
+func GetVariablesForRelease(client *http.HttpClient, releaseId string) ([]Variable, error) {
 	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
 
 	result, err := client.Get(path)
@@ -22,7 +22,7 @@ func ReleasesReleaseIdVariablesGet(client *http.HttpClient, releaseId string) ([
 	return variables, nil
 }
 
-func ReleasesReleaseIdVariablesPost(client *http.HttpClient, releaseId string, variable *Variable1) (*Variable, error) {
+func CreateVariableForRelease(client *http.HttpClient, releaseId string, variable *Variable1) (*Variable, error) {
 	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
 
 	body, marshalErr := json.Marshal(variable)
@@ -42,10 +42,10 @@ func ReleasesReleaseIdVariablesPost(client *http.HttpClient, releaseId string, v
 	return created, nil
 }
 
-func ReleasesReleaseIdVariablesPut(client *http.HttpClient, releaseId string, variable *Variable1) (*Variable, error) {
+func UpdateVariablesForRelease(client *http.HttpClient, releaseId string, variables *[]Variable) ([]Variable, error) {
 	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
 
-	body, marshalErr := json.Marshal(variable)
+	body, marshalErr := json.Marshal(variables)
 	if marshalErr != nil {
 		return nil, marshalErr
 	}
@@ -54,7 +54,7 @@ func ReleasesReleaseIdVariablesPut(client *http.HttpClient, releaseId string, va
 	if err != nil {
 		return nil, err
 	}
-	var created *Variable
+	var created []Variable
 	err = json.Unmarshal(result, &created)
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func ReleasesReleaseIdVariablesPut(client *http.HttpClient, releaseId string, va
 	return created, nil
 }
 
-func ReleasesVariableIdGet(client *http.HttpClient, variableId string) (*Variable, error) {
+func GetVariable(client *http.HttpClient, variableId string) (*Variable, error) {
 	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
 
 	result, err := client.Get(path)
@@ -77,7 +77,7 @@ func ReleasesVariableIdGet(client *http.HttpClient, variableId string) (*Variabl
 	return variable, nil
 }
 
-func ReleasesVariableIdPut(client *http.HttpClient, variableId string, variable *Variable) (*Variable, error) {
+func UpdateVariable(client *http.HttpClient, variableId string, variable *Variable) (*Variable, error) {
 	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
 
 	body, marshalErr := json.Marshal(variable)
@@ -97,7 +97,7 @@ func ReleasesVariableIdPut(client *http.HttpClient, variableId string, variable 
 	return variable, nil
 }
 
-func ReleasesVariableIdDelete(client *http.HttpClient, variableId string) error {
+func DeleteVariable(client *http.HttpClient, variableId string) error {
 	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
 	_, err := client.Delete(path)
 	return err
