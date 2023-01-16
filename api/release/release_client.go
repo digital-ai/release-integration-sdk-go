@@ -18,9 +18,9 @@ type ReleaseApi interface {
 	UpdateVariable(string, *Variable) (*Variable, error)
 	DeleteVariable(string) error
 	GetVariableValuesForRelease(string) (map[string]string, error)
-	AddGlobalVariable(*Variable1) (*Variable, error)
-	GetGlobalVariables() ([]Variable, error)
-	GetGlobalVariableValues() (map[string]string, error)
+	GetVariablePossibleValues(string) ([]map[string]interface{}, error)
+	IsVariableUsed(string) (*bool, error)
+	ReplaceVariable(string, VariableOrValue) error
 }
 
 func NewReleaseClient(ctx task.ReleaseContext) ReleaseApi {
@@ -64,14 +64,14 @@ func (r *ReleaseClient) GetVariableValuesForRelease(releaseId string) (map[strin
 	return GetVariableValuesForRelease(r.client, releaseId)
 }
 
-func (r *ReleaseClient) AddGlobalVariable(variable *Variable1) (*Variable, error) {
-	return AddGlobalVariable(r.client, variable)
+func (r *ReleaseClient) GetVariablePossibleValues(variableId string) ([]map[string]interface{}, error) {
+	return GetVariablePossibleValues(r.client, variableId)
 }
 
-func (r *ReleaseClient) GetGlobalVariables() ([]Variable, error) {
-	return GetGlobalVariables(r.client)
+func (r *ReleaseClient) IsVariableUsed(variableId string) (*bool, error) {
+	return IsVariableUsed(r.client, variableId)
 }
 
-func (r *ReleaseClient) GetGlobalVariableValues() (map[string]string, error) {
-	return GetGlobalVariableValues(r.client)
+func (r *ReleaseClient) ReplaceVariable(variableId string, variableOrValue VariableOrValue) error {
+	return ReplaceVariable(r.client, variableId, variableOrValue)
 }

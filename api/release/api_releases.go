@@ -117,3 +117,44 @@ func GetVariableValuesForRelease(client *http.HttpClient, releaseId string) (map
 	}
 	return variableValues, nil
 }
+
+func GetVariablePossibleValues(client *http.HttpClient, variableId string) ([]map[string]interface{}, error) {
+	path := path.Join("api/v1/releases/", url.PathEscape(variableId), "/possibleValues")
+
+	result, err := client.Get(path)
+	if err != nil {
+		return nil, err
+	}
+	var possibleValues []map[string]interface{}
+	err = json.Unmarshal(result, &possibleValues)
+	if err != nil {
+		return nil, err
+	}
+	return possibleValues, nil
+}
+
+func IsVariableUsed(client *http.HttpClient, variableId string) (*bool, error) {
+	path := path.Join("api/v1/releases/", url.PathEscape(variableId), "/used")
+	result, err := client.Get(path)
+	if err != nil {
+		return nil, err
+	}
+	var isUsed *bool
+	err = json.Unmarshal(result, &isUsed)
+	if err != nil {
+		return nil, err
+	}
+	return isUsed, nil
+}
+
+func ReplaceVariable(client *http.HttpClient, variableId string, variableOrValue VariableOrValue) error {
+	path := path.Join("api/v1/releases/", url.PathEscape(variableId), "/replace")
+
+	body, marshalErr := json.Marshal(variableOrValue)
+	if marshalErr != nil {
+		return marshalErr
+	}
+
+	_, err := client.Post(path, body)
+	return err
+}

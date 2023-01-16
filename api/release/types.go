@@ -45,3 +45,8 @@ type ExternalVariableValue struct {
 type ValueProviderConfiguration struct {
 	Variable *Variable `json:"variable,omitempty"`
 }
+
+type VariableOrValue struct {
+	Variable *string                `json:"variable,omitempty"`
+	Value    map[string]interface{} `json:"value,omitempty"`
+}
