@@ -17,6 +17,10 @@ type ReleaseApi interface {
 	GetVariable(string) (*Variable, error)
 	UpdateVariable(string, *Variable) (*Variable, error)
 	DeleteVariable(string) error
+	GetVariableValuesForRelease(string) (map[string]string, error)
+	AddGlobalVariable(*Variable1) (*Variable, error)
+	GetGlobalVariables() ([]Variable, error)
+	GetGlobalVariableValues() (map[string]string, error)
 }
 
 func NewReleaseClient(ctx task.ReleaseContext) ReleaseApi {
@@ -54,4 +58,20 @@ func (r *ReleaseClient) UpdateVariable(variableId string, variable *Variable) (*
 
 func (r *ReleaseClient) DeleteVariable(variableId string) error {
 	return DeleteVariable(r.client, variableId)
+}
+
+func (r *ReleaseClient) GetVariableValuesForRelease(releaseId string) (map[string]string, error) {
+	return GetVariableValuesForRelease(r.client, releaseId)
+}
+
+func (r *ReleaseClient) AddGlobalVariable(variable *Variable1) (*Variable, error) {
+	return AddGlobalVariable(r.client, variable)
+}
+
+func (r *ReleaseClient) GetGlobalVariables() ([]Variable, error) {
+	return GetGlobalVariables(r.client)
+}
+
+func (r *ReleaseClient) GetGlobalVariableValues() (map[string]string, error) {
+	return GetGlobalVariableValues(r.client)
 }

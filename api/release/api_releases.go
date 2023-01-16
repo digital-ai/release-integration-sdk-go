@@ -102,3 +102,18 @@ func DeleteVariable(client *http.HttpClient, variableId string) error {
 	_, err := client.Delete(path)
 	return err
 }
+
+func GetVariableValuesForRelease(client *http.HttpClient, releaseId string) (map[string]string, error) {
+	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variableValues")
+
+	result, err := client.Get(path)
+	if err != nil {
+		return nil, err
+	}
+	var variableValues map[string]string
+	err = json.Unmarshal(result, &variableValues)
+	if err != nil {
+		return nil, err
+	}
+	return variableValues, nil
+}
