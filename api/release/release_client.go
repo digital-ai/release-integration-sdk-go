@@ -74,7 +74,7 @@ func (r *ReleaseClient) ReplaceVariable(variableId string, variableOrValue Varia
 		Execute()
 }
 
-func NewReleaseClient(ctx task.ReleaseContext) ReleaseApi {
+func NewReleaseClient(ctx task.ReleaseContext) *ReleaseClient {
 	client := NewReleaseApiClient(ctx)
 	return &ReleaseClient{client: client}
 }
