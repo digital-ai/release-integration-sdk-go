@@ -12,12 +12,12 @@ const (
 )
 
 func ExtractType(fieldLabel string, properties []task.PropertyDefinition, extract any) error {
-	server, err := ExtractByName(fieldLabel, properties)
+	obj, err := ExtractByName(fieldLabel, properties)
 	if err != nil {
 		klog.Errorf("Cannot extract field %s: %v", fieldLabel, err)
 		return err
 	}
-	return DeserializeType(fieldLabel, server, extract)
+	return DeserializeType(fieldLabel, obj, extract)
 }
 
 func DeserializeType(fieldLabel string, rawProperty json.RawMessage, extract any) error {
