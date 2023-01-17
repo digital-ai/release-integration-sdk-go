@@ -77,6 +77,6 @@ SetValue sets Value field to given value.
 HasValue returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints) [[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 

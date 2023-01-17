@@ -4,7 +4,7 @@ All URIs are relative to */api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ReleasesVariableIdGet**](DefaultApi.md#ReleasesVariableIdGet) | **Get** /releases/{variableId} | 
+[**ReleasesVariableIdGet**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/DefaultApi.md#ReleasesVariableIdGet) | **Get** /releases/{variableId} | 
 
 
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Variable**](Variable.md)
+[**Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 

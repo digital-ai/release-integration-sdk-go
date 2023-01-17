@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **Multiline** | Pointer to **bool** |  | [optional] 
 **Inherited** | Pointer to **bool** |  | [optional] 
 **PreventInterpolation** | Pointer to **bool** |  | [optional] 
-**ExternalVariableValue** | Pointer to [**ExternalVariableValue**](ExternalVariableValue.md) |  | [optional] 
-**ValueProvider** | Pointer to [**ValueProviderConfiguration**](ValueProviderConfiguration.md) |  | [optional] 
+**ExternalVariableValue** | Pointer to [**ExternalVariableValue**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ExternalVariableValue.md) |  | [optional] 
+**ValueProvider** | Pointer to [**ValueProviderConfiguration**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ValueProviderConfiguration.md) |  | [optional] 
 
 ## Methods
 
@@ -363,6 +363,6 @@ SetValueProvider sets ValueProvider field to given value.
 HasValueProvider returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints) [[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 

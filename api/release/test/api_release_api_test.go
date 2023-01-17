@@ -13,14 +13,14 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	openapi "github.com/xebialabs/go-remote-runner-wrapper/go"
+	"github.com/xebialabs/go-remote-runner-wrapper/api/release"
 	"testing"
 )
 
 func Test_openapi_ReleaseApiApiService(t *testing.T) {
 
-	configuration := openapi.NewConfiguration()
-	apiClient := openapi.NewAPIClient(configuration)
+	configuration := release.NewConfiguration()
+	apiClient := release.NewAPIClient(configuration)
 
 	t.Run("Test ReleaseApiApiService GetVariablePossibleValues", func(t *testing.T) {
 

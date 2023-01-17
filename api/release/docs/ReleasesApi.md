@@ -4,13 +4,13 @@ All URIs are relative to */api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ReleasesReleaseIdVariableValuesGet**](ReleasesApi.md#ReleasesReleaseIdVariableValuesGet) | **Get** /releases/{releaseId}/variableValues | 
-[**ReleasesReleaseIdVariablesGet**](ReleasesApi.md#ReleasesReleaseIdVariablesGet) | **Get** /releases/{releaseId}/variables | 
-[**ReleasesReleaseIdVariablesPost**](ReleasesApi.md#ReleasesReleaseIdVariablesPost) | **Post** /releases/{releaseId}/variables | 
-[**ReleasesReleaseIdVariablesPut**](ReleasesApi.md#ReleasesReleaseIdVariablesPut) | **Put** /releases/{releaseId}/variables | 
-[**ReleasesVariableIdDelete**](ReleasesApi.md#ReleasesVariableIdDelete) | **Delete** /releases/{variableId} | 
-[**ReleasesVariableIdGet**](ReleasesApi.md#ReleasesVariableIdGet) | **Get** /releases/{variableId} | 
-[**ReleasesVariableIdPut**](ReleasesApi.md#ReleasesVariableIdPut) | **Put** /releases/{variableId} | 
+[**ReleasesReleaseIdVariableValuesGet**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleasesApi.md#ReleasesReleaseIdVariableValuesGet) | **Get** /releases/{releaseId}/variableValues | 
+[**ReleasesReleaseIdVariablesGet**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleasesApi.md#ReleasesReleaseIdVariablesGet) | **Get** /releases/{releaseId}/variables | 
+[**ReleasesReleaseIdVariablesPost**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleasesApi.md#ReleasesReleaseIdVariablesPost) | **Post** /releases/{releaseId}/variables | 
+[**ReleasesReleaseIdVariablesPut**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleasesApi.md#ReleasesReleaseIdVariablesPut) | **Put** /releases/{releaseId}/variables | 
+[**ReleasesVariableIdDelete**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleasesApi.md#ReleasesVariableIdDelete) | **Delete** /releases/{variableId} | 
+[**ReleasesVariableIdGet**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleasesApi.md#ReleasesVariableIdGet) | **Get** /releases/{variableId} | 
+[**ReleasesVariableIdPut**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleasesApi.md#ReleasesVariableIdPut) | **Put** /releases/{variableId} | 
 
 
 
@@ -77,9 +77,9 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 
 ## ReleasesReleaseIdVariablesGet
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Variable**](Variable.md)
+[**[]Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md)
 
 ### Authorization
 
@@ -145,9 +145,9 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 
 ## ReleasesReleaseIdVariablesPost
@@ -200,11 +200,11 @@ Other parameters are passed through a pointer to a apiReleasesReleaseIdVariables
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **variable1** | [**Variable1**](Variable1.md) |  | 
+ **variable1** | [**Variable1**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable1.md) |  | 
 
 ### Return type
 
-[**Variable**](Variable.md)
+[**Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md)
 
 ### Authorization
 
@@ -215,9 +215,9 @@ No authorization required
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 
 ## ReleasesReleaseIdVariablesPut
@@ -270,11 +270,11 @@ Other parameters are passed through a pointer to a apiReleasesReleaseIdVariables
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **variable** | [**[]Variable**](Variable.md) |  | 
+ **variable** | [**[]Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md) |  | 
 
 ### Return type
 
-[**[]Variable**](Variable.md)
+[**[]Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md)
 
 ### Authorization
 
@@ -285,9 +285,9 @@ No authorization required
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 
 ## ReleasesVariableIdDelete
@@ -351,9 +351,9 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 
 ## ReleasesVariableIdGet
@@ -408,7 +408,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Variable**](Variable.md)
+[**Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md)
 
 ### Authorization
 
@@ -419,9 +419,9 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 
 ## ReleasesVariableIdPut
@@ -474,11 +474,11 @@ Other parameters are passed through a pointer to a apiReleasesVariableIdPutReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **variable** | [**Variable**](Variable.md) |  | 
+ **variable** | [**Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md) |  | 
 
 ### Return type
 
-[**Variable**](Variable.md)
+[**Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md)
 
 ### Authorization
 
@@ -489,7 +489,7 @@ No authorization required
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 

@@ -4,9 +4,9 @@ All URIs are relative to */api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetVariablePossibleValues**](ReleaseApiApi.md#GetVariablePossibleValues) | **Get** /releases/{variableId}/possibleValues | 
-[**IsVariableUsed**](ReleaseApiApi.md#IsVariableUsed) | **Get** /releases/{variableId}/used | 
-[**ReplaceVariable**](ReleaseApiApi.md#ReplaceVariable) | **Post** /releases/{variableId}/replace | 
+[**GetVariablePossibleValues**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleaseApiApi.md#GetVariablePossibleValues) | **Get** /releases/{variableId}/possibleValues | 
+[**IsVariableUsed**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleaseApiApi.md#IsVariableUsed) | **Get** /releases/{variableId}/used | 
+[**ReplaceVariable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ReleaseApiApi.md#ReplaceVariable) | **Post** /releases/{variableId}/replace | 
 
 
 
@@ -73,9 +73,9 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 
 ## IsVariableUsed
@@ -141,9 +141,9 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
 
 ## ReplaceVariable
@@ -194,7 +194,7 @@ Other parameters are passed through a pointer to a apiReplaceVariableRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **variableOrValue** | [**VariableOrValue**](VariableOrValue.md) |  | 
+ **variableOrValue** | [**VariableOrValue**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/VariableOrValue.md) |  | 
 
 ### Return type
 
@@ -209,7 +209,7 @@ No authorization required
 - **Content-Type**: application/json
 - **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints)
+[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models)
+[[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
 
