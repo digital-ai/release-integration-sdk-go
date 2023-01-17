@@ -10,30 +10,53 @@ Testing ReleaseApiApiService
 package openapi
 
 import (
-    "context"
-    "github.com/stretchr/testify/assert"
-    "github.com/stretchr/testify/require"
-    "testing"
-    openapiclient "./openapi"
+	"context"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	openapi "github.com/xebialabs/go-remote-runner-wrapper/go"
+	"testing"
 )
 
 func Test_openapi_ReleaseApiApiService(t *testing.T) {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+	configuration := openapi.NewConfiguration()
+	apiClient := openapi.NewAPIClient(configuration)
 
-    t.Run("Test ReleaseApiApiService DeleteVariable", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService GetVariablePossibleValues", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		var variableId string
 
-        var variableId string
+		resp, httpRes, err := apiClient.ReleaseApiApi.GetVariablePossibleValues(context.Background(), variableId).Execute()
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.DeleteVariable(context.Background(), variableId).Execute()
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+	})
 
-    })
+	t.Run("Test ReleaseApiApiService IsVariableUsed", func(t *testing.T) {
+
+		var variableId string
+
+		resp, httpRes, err := apiClient.ReleaseApiApi.IsVariableUsed(context.Background(), variableId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ReleaseApiApiService ReplaceVariable", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var variableId string
+
+		httpRes, err := apiClient.ReleaseApiApi.ReplaceVariable(context.Background(), variableId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
 
 }

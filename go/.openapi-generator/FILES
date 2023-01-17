@@ -2,12 +2,10 @@
 .travis.yml
 README.md
 api/openapi.yaml
-api_default.go
 api_release_api.go
 api_releases.go
 client.go
 configuration.go
-docs/DefaultApi.md
 docs/ExternalVariableValue.md
 docs/ReleaseApiApi.md
 docs/ReleasesApi.md
@@ -24,4 +22,6 @@ model_variable.go
 model_variable1.go
 model_variable_or_value.go
 response.go
+test/api_release_api_test.go
+test/api_releases_test.go
 utils.go

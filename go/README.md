@@ -78,8 +78,6 @@ All URIs are relative to */api/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**ReleasesVariableIdGet**](docs/DefaultApi.md#releasesvariableidget) | **Get** /releases/{variableId} | 
-*ReleaseApiApi* | [**DeleteVariable**](docs/ReleaseApiApi.md#deletevariable) | **Delete** /releases/{variableId} | 
 *ReleaseApiApi* | [**GetVariablePossibleValues**](docs/ReleaseApiApi.md#getvariablepossiblevalues) | **Get** /releases/{variableId}/possibleValues | 
 *ReleaseApiApi* | [**IsVariableUsed**](docs/ReleaseApiApi.md#isvariableused) | **Get** /releases/{variableId}/used | 
 *ReleaseApiApi* | [**ReplaceVariable**](docs/ReleaseApiApi.md#replacevariable) | **Post** /releases/{variableId}/replace | 
@@ -87,6 +85,9 @@ Class | Method | HTTP request | Description
 *ReleasesApi* | [**ReleasesReleaseIdVariablesGet**](docs/ReleasesApi.md#releasesreleaseidvariablesget) | **Get** /releases/{releaseId}/variables | 
 *ReleasesApi* | [**ReleasesReleaseIdVariablesPost**](docs/ReleasesApi.md#releasesreleaseidvariablespost) | **Post** /releases/{releaseId}/variables | 
 *ReleasesApi* | [**ReleasesReleaseIdVariablesPut**](docs/ReleasesApi.md#releasesreleaseidvariablesput) | **Put** /releases/{releaseId}/variables | 
+*ReleasesApi* | [**ReleasesVariableIdDelete**](docs/ReleasesApi.md#releasesvariableiddelete) | **Delete** /releases/{variableId} | 
+*ReleasesApi* | [**ReleasesVariableIdGet**](docs/ReleasesApi.md#releasesvariableidget) | **Get** /releases/{variableId} | 
+*ReleasesApi* | [**ReleasesVariableIdPut**](docs/ReleasesApi.md#releasesvariableidput) | **Put** /releases/{variableId} | 
 
 
 ## Documentation For Models
