@@ -7,8 +7,10 @@ import (
 	"path"
 )
 
+const releaseApi = "api/v1/releases/"
+
 func GetVariablesForRelease(client *http.HttpClient, releaseId string) ([]Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
+	path := path.Join(releaseApi, url.PathEscape(releaseId), "/variables")
 
 	result, err := client.Get(path)
 	if err != nil {
@@ -23,7 +25,7 @@ func GetVariablesForRelease(client *http.HttpClient, releaseId string) ([]Variab
 }
 
 func CreateVariableForRelease(client *http.HttpClient, releaseId string, variable *Variable1) (*Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
+	path := path.Join(releaseApi, url.PathEscape(releaseId), "/variables")
 
 	body, marshalErr := json.Marshal(variable)
 	if marshalErr != nil {
@@ -43,7 +45,7 @@ func CreateVariableForRelease(client *http.HttpClient, releaseId string, variabl
 }
 
 func UpdateVariablesForRelease(client *http.HttpClient, releaseId string, variables *[]Variable) ([]Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variables")
+	path := path.Join(releaseApi, url.PathEscape(releaseId), "/variables")
 
 	body, marshalErr := json.Marshal(variables)
 	if marshalErr != nil {
@@ -63,7 +65,7 @@ func UpdateVariablesForRelease(client *http.HttpClient, releaseId string, variab
 }
 
 func GetVariable(client *http.HttpClient, variableId string) (*Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
+	path := path.Join(releaseApi, url.PathEscape(variableId))
 
 	result, err := client.Get(path)
 	if err != nil {
@@ -78,7 +80,7 @@ func GetVariable(client *http.HttpClient, variableId string) (*Variable, error) 
 }
 
 func UpdateVariable(client *http.HttpClient, variableId string, variable *Variable) (*Variable, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
+	path := path.Join(releaseApi, url.PathEscape(variableId))
 
 	body, marshalErr := json.Marshal(variable)
 	if marshalErr != nil {
@@ -98,13 +100,13 @@ func UpdateVariable(client *http.HttpClient, variableId string, variable *Variab
 }
 
 func DeleteVariable(client *http.HttpClient, variableId string) error {
-	path := path.Join("api/v1/releases/", url.PathEscape(variableId))
+	path := path.Join(releaseApi, url.PathEscape(variableId))
 	_, err := client.Delete(path)
 	return err
 }
 
 func GetVariableValuesForRelease(client *http.HttpClient, releaseId string) (map[string]string, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(releaseId), "/variableValues")
+	path := path.Join(releaseApi, url.PathEscape(releaseId), "/variableValues")
 
 	result, err := client.Get(path)
 	if err != nil {
@@ -119,7 +121,7 @@ func GetVariableValuesForRelease(client *http.HttpClient, releaseId string) (map
 }
 
 func GetVariablePossibleValues(client *http.HttpClient, variableId string) ([]map[string]interface{}, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(variableId), "/possibleValues")
+	path := path.Join(releaseApi, url.PathEscape(variableId), "/possibleValues")
 
 	result, err := client.Get(path)
 	if err != nil {
@@ -134,7 +136,7 @@ func GetVariablePossibleValues(client *http.HttpClient, variableId string) ([]ma
 }
 
 func IsVariableUsed(client *http.HttpClient, variableId string) (*bool, error) {
-	path := path.Join("api/v1/releases/", url.PathEscape(variableId), "/used")
+	path := path.Join(releaseApi, url.PathEscape(variableId), "/used")
 	result, err := client.Get(path)
 	if err != nil {
 		return nil, err
@@ -148,13 +150,12 @@ func IsVariableUsed(client *http.HttpClient, variableId string) (*bool, error) {
 }
 
 func ReplaceVariable(client *http.HttpClient, variableId string, variableOrValue *VariableOrValue) error {
-	path := path.Join("api/v1/releases/", url.PathEscape(variableId), "/replace")
+	path := path.Join(releaseApi, url.PathEscape(variableId), "/replace")
 
 	body, marshalErr := json.Marshal(variableOrValue)
 	if marshalErr != nil {
 		return marshalErr
 	}
-
 	_, err := client.Post(path, body)
 	return err
 }

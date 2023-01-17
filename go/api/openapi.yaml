@@ -1,0 +1,340 @@
+openapi: 3.0.3
+info:
+  title: Digital.ai Release API
+  version: "1.0"
+servers:
+- description: Local API endpoint
+  url: /api/v1
+paths:
+  /releases/{releaseId}/variableValues:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: releaseId
+        required: true
+        schema:
+          pattern: ".*Release[^/]*"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: OK
+      tags:
+      - releases
+  /releases/{releaseId}/variables:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: releaseId
+        required: true
+        schema:
+          pattern: ".*Release[^/]*"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Variable'
+                type: array
+          description: OK
+      tags:
+      - releases
+    post:
+      parameters:
+      - explode: false
+        in: path
+        name: releaseId
+        required: true
+        schema:
+          pattern: .*?
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Variable1'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+          description: OK
+      tags:
+      - releases
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: releaseId
+        required: true
+        schema:
+          pattern: .*?
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/Variable'
+              type: array
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Variable'
+                type: array
+          description: OK
+      tags:
+      - releases
+  /releases/{variableId}:
+    delete:
+      operationId: deleteVariable
+      parameters:
+      - explode: false
+        in: path
+        name: variableId
+        required: true
+        schema:
+          pattern: ".*/Variable[^/]*"
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+      tags:
+      - ReleaseApi
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: variableId
+        required: true
+        schema:
+          pattern: ".*/Variable[^/]*"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+          description: OK
+  /releases/{variableId}/possibleValues:
+    get:
+      operationId: getVariablePossibleValues
+      parameters:
+      - explode: false
+        in: path
+        name: variableId
+        required: true
+        schema:
+          pattern: ".*/Variable[^/]*"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: object
+                type: array
+          description: OK
+      tags:
+      - ReleaseApi
+  /releases/{variableId}/used:
+    get:
+      operationId: isVariableUsed
+      parameters:
+      - explode: false
+        in: path
+        name: variableId
+        required: true
+        schema:
+          pattern: ".*/Variable[^/]*"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: OK
+      tags:
+      - ReleaseApi
+  /releases/{variableId}/replace:
+    post:
+      operationId: replaceVariable
+      parameters:
+      - explode: false
+        in: path
+        name: variableId
+        required: true
+        schema:
+          pattern: ".*/Variable[^/]*"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariableOrValue'
+      responses:
+        "201":
+          description: Created
+      tags:
+      - ReleaseApi
+components:
+  schemas:
+    Variable:
+      example:
+        emptyValueAsString: emptyValueAsString
+        requiresValue: true
+        valueEmpty: true
+        valueAsString: valueAsString
+        description: description
+        label: label
+        title: title
+        folderId: folderId
+        password: true
+        emptyValue: "{}"
+        showOnReleaseStart: true
+        inherited: true
+        valueProvider:
+          variable: null
+        untypedValue: "{}"
+        value: "{}"
+        key: key
+      properties:
+        folderId:
+          type: string
+        title:
+          type: string
+        key:
+          type: string
+        requiresValue:
+          type: boolean
+        showOnReleaseStart:
+          type: boolean
+        label:
+          type: string
+        description:
+          type: string
+        valueProvider:
+          $ref: '#/components/schemas/ValueProviderConfiguration'
+        inherited:
+          type: boolean
+        value:
+          type: object
+        emptyValue:
+          type: object
+        valueEmpty:
+          type: boolean
+        untypedValue:
+          type: object
+        password:
+          type: boolean
+        valueAsString:
+          type: string
+        emptyValueAsString:
+          type: string
+      type: object
+    Variable1:
+      example:
+        externalVariableValue:
+          server: server
+          path: path
+          externalKey: externalKey
+          serverType: serverType
+        requiresValue: true
+        description: description
+        label: label
+        type: type
+        showOnReleaseStart: true
+        inherited: true
+        multiline: true
+        id: id
+        valueProvider:
+          variable: null
+        value: "{}"
+        preventInterpolation: true
+        key: key
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        type:
+          type: string
+        requiresValue:
+          type: boolean
+        showOnReleaseStart:
+          type: boolean
+        value:
+          type: object
+        label:
+          type: string
+        description:
+          type: string
+        multiline:
+          type: boolean
+        inherited:
+          type: boolean
+        preventInterpolation:
+          type: boolean
+        externalVariableValue:
+          $ref: '#/components/schemas/ExternalVariableValue'
+        valueProvider:
+          $ref: '#/components/schemas/ValueProviderConfiguration'
+      type: object
+    ValueProviderConfiguration:
+      example:
+        variable: null
+      properties:
+        variable:
+          $ref: '#/components/schemas/Variable'
+      type: object
+    ExternalVariableValue:
+      example:
+        server: server
+        path: path
+        externalKey: externalKey
+        serverType: serverType
+      properties:
+        server:
+          type: string
+        serverType:
+          type: string
+        path:
+          type: string
+        externalKey:
+          type: string
+      type: object
+    VariableOrValue:
+      example:
+        variable: variable
+        value: "{}"
+      properties:
+        variable:
+          type: string
+        value:
+          type: object
+      type: object
