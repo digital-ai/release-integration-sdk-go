@@ -5,12 +5,10 @@ import (
 	"io"
 	"k8s.io/klog"
 	"os"
-	"strconv"
 )
 
 const (
-	success      = "success"
-	errorMessage = "errorMessage"
+	InputCategory = "input"
 )
 
 func Deserialize(inputLocation string, context *InputContext) error {
@@ -35,6 +33,17 @@ func Deserialize(inputLocation string, context *InputContext) error {
 	return nil
 }
 
+func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
+	var inputs []PropertyDefinition
+	for _, property := range properties {
+		if property.Category == InputCategory {
+			inputs = append(inputs, property)
+		}
+	}
+
+	return UnmarshalProperties(inputs, taskInstance)
+}
+
 func Serialize(outputLocation string, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
@@ -43,17 +52,10 @@ func Serialize(outputLocation string, result map[string]interface{}) {
 	writeOutput(outputContext, outputLocation)
 }
 
-func ErrorResultMap(err error) map[string]interface{} {
-	resultMap := make(map[string]interface{})
-	resultMap[success] = strconv.FormatBool(false)
-	resultMap[errorMessage] = err.Error()
-	return resultMap
-}
-
-func SerializeError(outputLocation string, err error) {
+func SerializeError(outputLocation string, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
-		OutputProperties: ErrorResultMap(err),
+		OutputProperties: result,
 	}
 	writeOutput(outputContext, outputLocation)
 }
@@ -68,4 +70,19 @@ func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	if err != nil {
 		klog.Fatalf("Cannot write output to: %s [%v]", outputLocation, err)
 	}
+}
+
+func UnmarshalProperties(properties []PropertyDefinition, prototype interface{}) error {
+	propsMap := make(map[string]json.RawMessage)
+	for _, property := range properties {
+		propsMap[property.Name] = property.Value
+	}
+	jsonMap, err := json.Marshal(propsMap)
+	if err != nil {
+		return err
+	}
+	if err := json.Unmarshal(jsonMap, prototype); err != nil {
+		return err
+	}
+	return nil
 }

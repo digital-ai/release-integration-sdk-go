@@ -10,156 +10,154 @@ Testing ReleaseApiApiService
 package openapi
 
 import (
-    "context"
-    "github.com/stretchr/testify/assert"
-    "github.com/stretchr/testify/require"
-    "testing"
-    openapiclient "./openapi"
+	"context"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"github.com/xebialabs/go-remote-runner-wrapper/api/release/openapi"
+	"testing"
 )
 
 func Test_openapi_ReleaseApiApiService(t *testing.T) {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
+	configuration := openapi.NewConfiguration()
+	apiClient := openapi.NewAPIClient(configuration)
 
-    t.Run("Test ReleaseApiApiService CreateVariablesForRelease", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService CreateVariablesForRelease", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var releaseId string
+		var releaseId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.CreateVariablesForRelease(context.Background(), releaseId).Execute()
+		resp, httpRes, err := apiClient.ReleaseApiApi.CreateVariablesForRelease(context.Background(), releaseId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService DeleteVariable", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService DeleteVariable", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var variableId string
+		var variableId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.DeleteVariable(context.Background(), variableId).Execute()
+		httpRes, err := apiClient.ReleaseApiApi.DeleteVariable(context.Background(), variableId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService GetVariable", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService GetVariable", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var variableId string
+		var variableId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.GetVariable(context.Background(), variableId).Execute()
+		resp, httpRes, err := apiClient.ReleaseApiApi.GetVariable(context.Background(), variableId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService GetVariablePossibleValues", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService GetVariablePossibleValues", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var variableId string
+		var variableId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.GetVariablePossibleValues(context.Background(), variableId).Execute()
+		resp, httpRes, err := apiClient.ReleaseApiApi.GetVariablePossibleValues(context.Background(), variableId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService GetVariableValuesForRelease", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService GetVariableValuesForRelease", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var releaseId string
+		var releaseId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.GetVariableValuesForRelease(context.Background(), releaseId).Execute()
+		resp, httpRes, err := apiClient.ReleaseApiApi.GetVariableValuesForRelease(context.Background(), releaseId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService GetVariablesForRelease", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService GetVariablesForRelease", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var releaseId string
+		var releaseId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.GetVariablesForRelease(context.Background(), releaseId).Execute()
+		resp, httpRes, err := apiClient.ReleaseApiApi.GetVariablesForRelease(context.Background(), releaseId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService IsVariableUsed", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService IsVariableUsed", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var variableId string
+		var variableId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.IsVariableUsed(context.Background(), variableId).Execute()
+		resp, httpRes, err := apiClient.ReleaseApiApi.IsVariableUsed(context.Background(), variableId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService ReplaceVariable", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService ReplaceVariable", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var variableId string
+		var variableId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.ReplaceVariable(context.Background(), variableId).Execute()
+		httpRes, err := apiClient.ReleaseApiApi.ReplaceVariable(context.Background(), variableId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService UpdateVariable", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService UpdateVariable", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var variableId string
+		var variableId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.UpdateVariable(context.Background(), variableId).Execute()
+		resp, httpRes, err := apiClient.ReleaseApiApi.UpdateVariable(context.Background(), variableId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
-    t.Run("Test ReleaseApiApiService UpdateVariablesForRelease", func(t *testing.T) {
+	t.Run("Test ReleaseApiApiService UpdateVariablesForRelease", func(t *testing.T) {
 
-        t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-        var releaseId string
+		var releaseId string
 
-        resp, httpRes, err := apiClient.ReleaseApiApi.UpdateVariablesForRelease(context.Background(), releaseId).Execute()
+		resp, httpRes, err := apiClient.ReleaseApiApi.UpdateVariablesForRelease(context.Background(), releaseId).Execute()
 
-        require.Nil(t, err)
-        require.NotNil(t, resp)
-        assert.Equal(t, 200, httpRes.StatusCode)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-    })
+	})
 
 }
