@@ -3,11 +3,11 @@ info:
   title: Digital.ai Release API
   version: "1.0"
 servers:
-- description: Local API endpoint
-  url: /api/v1
+- url: /
 paths:
-  /releases/{releaseId}/variableValues:
+  /api/v1/releases/{releaseId}/variableValues:
     get:
+      operationId: getVariableValuesForRelease
       parameters:
       - explode: false
         in: path
@@ -27,9 +27,10 @@ paths:
                 type: object
           description: OK
       tags:
-      - releases
-  /releases/{releaseId}/variables:
+      - ReleaseApi
+  /api/v1/releases/{releaseId}/variables:
     get:
+      operationId: getVariablesForRelease
       parameters:
       - explode: false
         in: path
@@ -49,8 +50,9 @@ paths:
                 type: array
           description: OK
       tags:
-      - releases
+      - ReleaseApi
     post:
+      operationId: createVariablesForRelease
       parameters:
       - explode: false
         in: path
@@ -73,8 +75,9 @@ paths:
                 $ref: '#/components/schemas/Variable'
           description: OK
       tags:
-      - releases
+      - ReleaseApi
     put:
+      operationId: updateVariablesForRelease
       parameters:
       - explode: false
         in: path
@@ -101,9 +104,10 @@ paths:
                 type: array
           description: OK
       tags:
-      - releases
-  /releases/{variableId}:
+      - ReleaseApi
+  /api/v1/releases/{variableId}:
     delete:
+      operationId: deleteVariable
       parameters:
       - explode: false
         in: path
@@ -117,8 +121,9 @@ paths:
         "204":
           description: No Content
       tags:
-      - releases
+      - ReleaseApi
     get:
+      operationId: getVariable
       parameters:
       - explode: false
         in: path
@@ -136,8 +141,9 @@ paths:
                 $ref: '#/components/schemas/Variable'
           description: OK
       tags:
-      - releases
+      - ReleaseApi
     put:
+      operationId: updateVariable
       parameters:
       - explode: false
         in: path
@@ -160,8 +166,8 @@ paths:
                 $ref: '#/components/schemas/Variable'
           description: OK
       tags:
-      - releases
-  /releases/{variableId}/possibleValues:
+      - ReleaseApi
+  /api/v1/releases/{variableId}/possibleValues:
     get:
       operationId: getVariablePossibleValues
       parameters:
@@ -184,7 +190,7 @@ paths:
           description: OK
       tags:
       - ReleaseApi
-  /releases/{variableId}/used:
+  /api/v1/releases/{variableId}/used:
     get:
       operationId: isVariableUsed
       parameters:
@@ -205,7 +211,7 @@ paths:
           description: OK
       tags:
       - ReleaseApi
-  /releases/{variableId}/replace:
+  /api/v1/releases/{variableId}/replace:
     post:
       operationId: replaceVariable
       parameters:

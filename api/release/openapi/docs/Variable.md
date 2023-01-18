@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **ShowOnReleaseStart** | Pointer to **bool** |  | [optional] 
 **Label** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**ValueProvider** | Pointer to [**ValueProviderConfiguration**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/ValueProviderConfiguration.md) |  | [optional] 
+**ValueProvider** | Pointer to [**ValueProviderConfiguration**](ValueProviderConfiguration.md) |  | [optional] 
 **Inherited** | Pointer to **bool** |  | [optional] 
 **Value** | Pointer to **map[string]interface{}** |  | [optional] 
 **EmptyValue** | Pointer to **map[string]interface{}** |  | [optional] 
@@ -441,6 +441,6 @@ SetEmptyValueAsString sets EmptyValueAsString field to given value.
 HasEmptyValueAsString returns a boolean if a field has been set.
 
 
-[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints) [[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

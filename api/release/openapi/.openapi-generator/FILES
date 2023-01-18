@@ -1,14 +1,13 @@
 .gitignore
+.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
 api_release_api.go
-api_releases.go
 client.go
 configuration.go
 docs/ExternalVariableValue.md
 docs/ReleaseApiApi.md
-docs/ReleasesApi.md
 docs/ValueProviderConfiguration.md
 docs/Variable.md
 docs/Variable1.md
@@ -23,5 +22,4 @@ model_variable1.go
 model_variable_or_value.go
 response.go
 test/api_release_api_test.go
-test/api_releases_test.go
 utils.go

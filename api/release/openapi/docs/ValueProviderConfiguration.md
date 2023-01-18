@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Variable** | Pointer to [**Variable**](Documents/xebialabs/go-remote-runner-wrapper/api/release/docs/Variable.md) |  | [optional] 
+**Variable** | Pointer to [**Variable**](Variable.md) |  | [optional] 
 
 ## Methods
 
@@ -51,6 +51,6 @@ SetVariable sets Variable field to given value.
 HasVariable returns a boolean if a field has been set.
 
 
-[[Back to Model list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-models) [[Back to API list]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md#documentation-for-api-endpoints) [[Back to README]](Documents/xebialabs/go-remote-runner-wrapper/api/release/README.mdbialabs/go-remote-runner-wrapper/api/release/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
