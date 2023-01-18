@@ -3,6 +3,7 @@ module github.com/xebialabs/go-remote-runner-wrapper
 go 1.18
 
 require (
+	github.com/jarcoal/httpmock v1.2.0
 	github.com/smartystreets/assertions v1.2.0
 	github.com/smartystreets/goconvey v1.7.2
 	github.com/stretchr/testify v1.7.0
