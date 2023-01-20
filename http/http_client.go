@@ -1,9 +1,10 @@
 package http
 
 import (
-	"context"
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"k8s.io/client-go/rest"
 	"net/http"
 	"net/url"
@@ -22,10 +23,10 @@ func (q *QueryParam) Pair(key string, value string) {
 
 type HttpClient struct {
 	baseUrl string
-	client  rest.RESTClient
+	client  rest.HTTPClient
 }
 
-func (httpClient *HttpClient) Client(client rest.RESTClient) {
+func (httpClient *HttpClient) Client(client rest.HTTPClient) {
 	httpClient.client = client
 }
 
@@ -55,38 +56,39 @@ func (httpClient HttpClient) Put(path string, body []byte, queryParams ...QueryP
 
 func (httpClient HttpClient) sendRequest(method string, path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
 	client := httpClient.client
-	if client.Client == nil {
+	if client == nil {
 		return nil, fmt.Errorf("http client is uninitialized")
 	}
 	theUrl := httpClient.createUrl(path, queryParams...)
-	req := client.Verb(method)
-	req.Body(body)
-	req.RequestURI(theUrl)
-
-	result := req.Do(context.Background())
-	if result.Error() != nil {
-		return nil, result.Error()
+	req, err := http.NewRequest(method, theUrl, bytes.NewBuffer(body))
+	if err != nil {
+		return nil, err
+	}
+	req.Header["Content-Type"] = []string{"application/json"}
+	req.Header["Accept"] = []string{"application/json"}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("%s error: %v", method, err)
 	}
 
-	data, err := result.Raw()
+	defer resp.Body.Close()
+
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("Read body: %v", err)
 	}
 
-	var statusCode int
-	result.StatusCode(&statusCode)
-	//TODO: handle 3xx status codes
-	if statusCode >= 400 && statusCode <= 599 {
-		return nil, fmt.Errorf("%v - %s", statusCode, string(data))
+	if resp.StatusCode >= 400 && resp.StatusCode <= 499 {
+		return nil, fmt.Errorf("%v - %s", resp.StatusCode, string(data))
 	}
 
-	if statusCode >= 299 {
+	if resp.StatusCode >= 299 {
 		var respError json.RawMessage
 		unMarshalErr := json.Unmarshal(data, &respError)
 		if unMarshalErr != nil {
-			return nil, fmt.Errorf("%v - %s", statusCode, unMarshalErr)
+			return nil, fmt.Errorf("%v - %s", resp.StatusCode, unMarshalErr)
 		}
-		return nil, fmt.Errorf("%v - %s", statusCode, respError)
+		return nil, fmt.Errorf("%v - %s", resp.StatusCode, respError)
 	}
 
 	return data, nil

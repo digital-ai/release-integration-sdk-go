@@ -8,8 +8,6 @@ import (
 	"fmt"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/rest"
 	"k8s.io/klog"
 	"net/http"
@@ -185,20 +183,6 @@ func (b *HttpClientBuilder) WithOAuth2Config(tokenUrl string, clientId string, c
 	return b
 }
 
-func (b *HttpClientBuilder) WithContentTypes(contentType string, acceptContentType string) *HttpClientBuilder {
-	b.config.ContentType = contentType
-	b.config.AcceptContentTypes = acceptContentType
-	return b
-}
-
-func (b *HttpClientBuilder) WithGroupAndVersion(group string, version string) *HttpClientBuilder {
-	b.config.GroupVersion = &schema.GroupVersion{
-		Group:   group,
-		Version: version,
-	}
-	return b
-}
-
 func (b *HttpClientBuilder) Build() (*HttpClient, error) {
 	if b.oAuth2Config != nil {
 		ctx := context.Background()
@@ -207,11 +191,7 @@ func (b *HttpClientBuilder) Build() (*HttpClient, error) {
 			return nil, err
 		}
 		ctx = context.WithValue(ctx, oauth2.HTTPClient, httpClient.client)
-		client, err := rest.RESTClientForConfigAndClient(dynamic.ConfigFor(b.config), b.oAuth2Config.Client(ctx))
-		httpClient.client = *client
-		if err != nil {
-			return nil, err
-		}
+		httpClient.client = b.oAuth2Config.Client(ctx)
 		return httpClient, nil
 	} else if b.lazyFetchToken != nil {
 		token, err := b.lazyFetchToken(b)
@@ -229,13 +209,13 @@ func (b *HttpClientBuilder) Build() (*HttpClient, error) {
 }
 
 func (b *HttpClientBuilder) buildClient() (*HttpClient, error) {
-	client, err := rest.RESTClientFor(dynamic.ConfigFor(b.config))
+	client, err := rest.HTTPClientFor(b.config)
 	if err != nil {
 		return nil, err
 	}
 
 	return &HttpClient{
 		baseUrl: b.config.Host,
-		client:  *client,
+		client:  client,
 	}, nil
 }
