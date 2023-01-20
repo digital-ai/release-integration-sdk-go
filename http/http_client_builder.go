@@ -13,6 +13,8 @@ import (
 	"net/http"
 )
 
+var DefaultContentType = "application/json"
+
 type TokenAuthentication struct {
 	BearerToken string
 }
@@ -140,6 +142,12 @@ func (b *HttpClientBuilder) WithClientCertAuthFiles(certFile string, keyFile str
 	return b
 }
 
+func (b *HttpClientBuilder) WithContentType(accept string, contentType string) *HttpClientBuilder {
+	b.config.AcceptContentTypes = accept
+	b.config.ContentType = contentType
+	return b
+}
+
 func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *HttpClientBuilder {
 	b.config.Host = config.Host
 	b.config.Insecure = config.Insecure
@@ -213,9 +221,17 @@ func (b *HttpClientBuilder) buildClient() (*HttpClient, error) {
 	if err != nil {
 		return nil, err
 	}
+	if b.config.AcceptContentTypes == "" {
+		b.config.AcceptContentTypes = DefaultContentType
+	}
+	if b.config.ContentType == "" {
+		b.config.ContentType = DefaultContentType
+	}
 
 	return &HttpClient{
-		baseUrl: b.config.Host,
-		client:  client,
+		baseUrl:     b.config.Host,
+		client:      client,
+		accept:      b.config.AcceptContentTypes,
+		contentType: b.config.ContentType,
 	}, nil
 }

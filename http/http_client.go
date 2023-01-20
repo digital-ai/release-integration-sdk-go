@@ -2,7 +2,6 @@ package http
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"k8s.io/client-go/rest"
@@ -22,8 +21,10 @@ func (q *QueryParam) Pair(key string, value string) {
 }
 
 type HttpClient struct {
-	baseUrl string
-	client  rest.HTTPClient
+	baseUrl     string
+	client      rest.HTTPClient
+	accept      string
+	contentType string
 }
 
 func (httpClient *HttpClient) Client(client rest.HTTPClient) {
@@ -64,8 +65,8 @@ func (httpClient HttpClient) sendRequest(method string, path string, body []byte
 	if err != nil {
 		return nil, err
 	}
-	req.Header["Content-Type"] = []string{"application/json"}
-	req.Header["Accept"] = []string{"application/json"}
+	req.Header["Content-Type"] = []string{httpClient.accept}
+	req.Header["Accept"] = []string{httpClient.contentType}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("%s error: %v", method, err)
@@ -75,20 +76,12 @@ func (httpClient HttpClient) sendRequest(method string, path string, body []byte
 
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("Read body: %v", err)
+		return nil, fmt.Errorf("read body error: %v", err)
 	}
 
-	if resp.StatusCode >= 400 && resp.StatusCode <= 499 {
-		return nil, fmt.Errorf("%v - %s", resp.StatusCode, string(data))
-	}
-
+	//TODO: handle 3xx statuses
 	if resp.StatusCode >= 299 {
-		var respError json.RawMessage
-		unMarshalErr := json.Unmarshal(data, &respError)
-		if unMarshalErr != nil {
-			return nil, fmt.Errorf("%v - %s", resp.StatusCode, unMarshalErr)
-		}
-		return nil, fmt.Errorf("%v - %s", resp.StatusCode, respError)
+		return nil, fmt.Errorf("%v - %s", resp.StatusCode, string(data[:]))
 	}
 
 	return data, nil
