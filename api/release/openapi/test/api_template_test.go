@@ -82,11 +82,11 @@ func Test_openapi_TemplateApiService(t *testing.T) {
 
 		var templateId string
 
-		resp, httpRes, err := apiClient.TemplateApi.DeleteTemplate(context.Background(), templateId).Execute()
+		resp, err := apiClient.TemplateApi.DeleteTemplate(context.Background(), templateId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -96,11 +96,11 @@ func Test_openapi_TemplateApiService(t *testing.T) {
 
 		var variableId string
 
-		resp, httpRes, err := apiClient.TemplateApi.DeleteTemplateVariable(context.Background(), variableId).Execute()
+		resp, err := apiClient.TemplateApi.DeleteTemplateVariable(context.Background(), variableId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -110,11 +110,11 @@ func Test_openapi_TemplateApiService(t *testing.T) {
 
 		var templateId string
 
-		resp, httpRes, err := apiClient.TemplateApi.ExportTemplateToZip(context.Background(), templateId).Execute()
+		resp, err := apiClient.TemplateApi.ExportTemplateToZip(context.Background(), templateId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -244,11 +244,11 @@ func Test_openapi_TemplateApiService(t *testing.T) {
 
 		var variableId string
 
-		resp, httpRes, err := apiClient.TemplateApi.ReplaceTemplateVariables(context.Background(), variableId).Execute()
+		resp, err := apiClient.TemplateApi.ReplaceTemplateVariables(context.Background(), variableId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 

@@ -52,11 +52,11 @@ func Test_openapi_TriggersApiService(t *testing.T) {
 
 		var triggerId string
 
-		resp, httpRes, err := apiClient.TriggersApi.DisableTrigger(context.Background(), triggerId).Execute()
+		resp, err := apiClient.TriggersApi.DisableTrigger(context.Background(), triggerId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -90,11 +90,11 @@ func Test_openapi_TriggersApiService(t *testing.T) {
 
 		var triggerId string
 
-		resp, httpRes, err := apiClient.TriggersApi.EnableTrigger(context.Background(), triggerId).Execute()
+		resp, err := apiClient.TriggersApi.EnableTrigger(context.Background(), triggerId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -142,11 +142,11 @@ func Test_openapi_TriggersApiService(t *testing.T) {
 
 		var triggerId string
 
-		resp, httpRes, err := apiClient.TriggersApi.RemoveTrigger(context.Background(), triggerId).Execute()
+		resp, err := apiClient.TriggersApi.RemoveTrigger(context.Background(), triggerId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -156,11 +156,11 @@ func Test_openapi_TriggersApiService(t *testing.T) {
 
 		var triggerId string
 
-		resp, httpRes, err := apiClient.TriggersApi.RunTrigger(context.Background(), triggerId).Execute()
+		resp, err := apiClient.TriggersApi.RunTrigger(context.Background(), triggerId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
