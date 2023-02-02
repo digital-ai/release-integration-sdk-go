@@ -171,11 +171,11 @@ func Test_openapi_TaskApiService(t *testing.T) {
 		var attachmentId string
 		var taskId string
 
-		resp, httpRes, err := apiClient.TaskApi.DeleteAttachment(context.Background(), attachmentId, taskId).Execute()
+		resp, err := apiClient.TaskApi.DeleteAttachment(context.Background(), attachmentId, taskId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -185,11 +185,11 @@ func Test_openapi_TaskApiService(t *testing.T) {
 
 		var conditionId string
 
-		resp, httpRes, err := apiClient.TaskApi.DeleteCondition(context.Background(), conditionId).Execute()
+		resp, err := apiClient.TaskApi.DeleteCondition(context.Background(), conditionId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -199,11 +199,11 @@ func Test_openapi_TaskApiService(t *testing.T) {
 
 		var dependencyId string
 
-		resp, httpRes, err := apiClient.TaskApi.DeleteDependency(context.Background(), dependencyId).Execute()
+		resp, err := apiClient.TaskApi.DeleteDependency(context.Background(), dependencyId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -213,11 +213,11 @@ func Test_openapi_TaskApiService(t *testing.T) {
 
 		var taskId string
 
-		resp, httpRes, err := apiClient.TaskApi.DeleteTask(context.Background(), taskId).Execute()
+		resp, err := apiClient.TaskApi.DeleteTask(context.Background(), taskId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -269,11 +269,11 @@ func Test_openapi_TaskApiService(t *testing.T) {
 
 		var taskId string
 
-		resp, httpRes, err := apiClient.TaskApi.LockTask(context.Background(), taskId).Execute()
+		resp, err := apiClient.TaskApi.LockTask(context.Background(), taskId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -365,11 +365,11 @@ func Test_openapi_TaskApiService(t *testing.T) {
 
 		var taskId string
 
-		resp, httpRes, err := apiClient.TaskApi.UnlockTask(context.Background(), taskId).Execute()
+		resp, err := apiClient.TaskApi.UnlockTask(context.Background(), taskId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 

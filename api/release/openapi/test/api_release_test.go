@@ -68,11 +68,11 @@ func Test_openapi_ReleaseApiService(t *testing.T) {
 
 		var releaseId string
 
-		resp, httpRes, err := apiClient.ReleaseApi.DeleteRelease(context.Background(), releaseId).Execute()
+		resp, err := apiClient.ReleaseApi.DeleteRelease(context.Background(), releaseId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -82,11 +82,11 @@ func Test_openapi_ReleaseApiService(t *testing.T) {
 
 		var variableId string
 
-		resp, httpRes, err := apiClient.ReleaseApi.DeleteReleaseVariable(context.Background(), variableId).Execute()
+		resp, err := apiClient.ReleaseApi.DeleteReleaseVariable(context.Background(), variableId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -96,11 +96,11 @@ func Test_openapi_ReleaseApiService(t *testing.T) {
 
 		var attachmentId string
 
-		resp, httpRes, err := apiClient.ReleaseApi.DownloadAttachment(context.Background(), attachmentId).Execute()
+		resp, err := apiClient.ReleaseApi.DownloadAttachment(context.Background(), attachmentId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
@@ -272,11 +272,11 @@ func Test_openapi_ReleaseApiService(t *testing.T) {
 
 		var variableId string
 
-		resp, httpRes, err := apiClient.ReleaseApi.ReplaceReleaseVariables(context.Background(), variableId).Execute()
+		resp, err := apiClient.ReleaseApi.ReplaceReleaseVariables(context.Background(), variableId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, 200, resp.StatusCode)
 
 	})
 
