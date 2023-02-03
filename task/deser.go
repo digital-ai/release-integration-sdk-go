@@ -26,10 +26,8 @@ func Deserialize(inputLocation string, context *InputContext) error {
 	defer inputContent.Close()
 
 	content, _ := io.ReadAll(inputContent)
-	//byteValue, _ := Decrypt(content)
 
-	decoded := make([]byte, base64.StdEncoding.DecodedLen(len(content)))
-	_, err = base64.StdEncoding.Decode(decoded, content)
+	decoded, err := base64.StdEncoding.DecodeString(string(content))
 	if err != nil {
 		return err
 	}
