@@ -1,9 +1,13 @@
 package task
 
 import (
+	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"io"
 	"k8s.io/klog"
+	"log"
+	"net/http"
 	"os"
 )
 
@@ -22,9 +26,15 @@ func Deserialize(inputLocation string, context *InputContext) error {
 	defer inputContent.Close()
 
 	content, _ := io.ReadAll(inputContent)
-	byteValue, _ := Decrypt(content)
+	//byteValue, _ := Decrypt(content)
 
-	unMarshalErr := json.Unmarshal(byteValue, context)
+	decoded := make([]byte, base64.StdEncoding.EncodedLen(len(content)))
+	_, err = base64.StdEncoding.Decode(decoded, content)
+	if err != nil {
+		return err
+	}
+
+	unMarshalErr := json.Unmarshal(decoded, context)
 	if unMarshalErr != nil {
 		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
 		return unMarshalErr
@@ -62,6 +72,12 @@ func SerializeError(outputLocation string, result map[string]interface{}) {
 
 func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	data, _ := json.Marshal(outputContext)
+
+	_, httpError := http.Post("http://host.k3d.internal", "application/octet-stream", bytes.NewReader(data))
+	if httpError != nil {
+		log.Fatalln(httpError)
+	}
+
 	encryptedData, encryptErr := Encrypt(data)
 	if encryptErr != nil {
 		klog.Fatalf("Cannot write output to: %s error encrypting data [%v]", outputLocation, encryptErr)
