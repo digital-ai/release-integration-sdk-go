@@ -28,11 +28,12 @@ func Deserialize(inputLocation string, context *InputContext) error {
 	content, _ := io.ReadAll(inputContent)
 	//byteValue, _ := Decrypt(content)
 
-	decoded := make([]byte, base64.StdEncoding.EncodedLen(len(content)))
+	decoded := make([]byte, base64.StdEncoding.DecodedLen(len(content)))
 	_, err = base64.StdEncoding.Decode(decoded, content)
 	if err != nil {
 		return err
 	}
+	klog.Infof("Decoded Inpout Content: %s", string(decoded))
 
 	unMarshalErr := json.Unmarshal(decoded, context)
 	if unMarshalErr != nil {
