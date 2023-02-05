@@ -2,6 +2,7 @@ package runner
 
 import (
 	"fmt"
+	"github.com/xebialabs/go-remote-runner-wrapper/logger"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"github.com/xebialabs/go-remote-runner-wrapper/task/command"
 	"k8s.io/klog"
@@ -74,6 +75,8 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 		task.SerializeError(OutputLocation, errorResult)
 		return
 	}
+
+	logger.AddSecrets(taskContext)
 
 	executionResult := runner.Run(taskContext)
 	resultMap, err := executionResult.Get()
