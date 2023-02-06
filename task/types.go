@@ -7,7 +7,7 @@ type PropertyDefinition struct {
 	Value      json.RawMessage `json:"value"`
 	Kind       string          `json:"kind"`
 	Category   string          `json:"category"`
-	IsPassword bool            `json:"isPassword"`
+	IsPassword bool            `json:"password"`
 }
 
 type TaskContext struct {
