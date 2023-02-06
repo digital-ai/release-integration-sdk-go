@@ -69,10 +69,13 @@ func SerializeError(outputLocation string, result map[string]interface{}) {
 
 func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	data, _ := json.Marshal(outputContext)
+	var callBackUrl = os.Getenv("CALLBACK_URL")
 
-	_, httpError := http.Post("https://host.k3d.internal:19999", "application/octet-stream", bytes.NewReader(data))
-	if httpError != nil {
-		log.Fatalln(httpError)
+	if callBackUrl != "" {
+		_, httpError := http.Post(callBackUrl, "application/octet-stream", bytes.NewReader(data))
+		if httpError != nil {
+			log.Fatalln(httpError)
+		}
 	}
 
 	encryptedData, encryptErr := Encrypt(data)
