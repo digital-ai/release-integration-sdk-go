@@ -69,10 +69,11 @@ func SerializeError(outputLocation string, result map[string]interface{}) {
 
 func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	data, _ := json.Marshal(outputContext)
-	var callBackUrl = os.Getenv("CALLBACK_URL")
+	encodedCallBackUrl := os.Getenv("CALLBACK_URL")
 
-	if callBackUrl != "" {
-		_, httpError := http.Post(callBackUrl, "application/octet-stream", bytes.NewReader(data))
+	callBackUrl, _ := base64.StdEncoding.DecodeString(encodedCallBackUrl)
+	if callBackUrl != nil {
+		_, httpError := http.Post(string(callBackUrl), "application/json", bytes.NewReader(data))
 		if httpError != nil {
 			log.Fatalln(httpError)
 		}
