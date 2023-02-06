@@ -5,7 +5,7 @@ import (
 	"github.com/xebialabs/go-remote-runner-wrapper/logger"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"github.com/xebialabs/go-remote-runner-wrapper/task/command"
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 	"os"
 )
 

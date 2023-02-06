@@ -3,7 +3,7 @@ package task
 import (
 	"encoding/json"
 	"io"
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 	"os"
 )
 
