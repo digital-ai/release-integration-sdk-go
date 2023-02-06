@@ -31,8 +31,6 @@ func Deserialize(inputLocation string, context *InputContext) error {
 	if err != nil {
 		return err
 	}
-	klog.Infof("Decoded Inpout Content: %s", string(decoded))
-
 	unMarshalErr := json.Unmarshal(decoded, context)
 	if unMarshalErr != nil {
 		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
@@ -72,7 +70,7 @@ func SerializeError(outputLocation string, result map[string]interface{}) {
 func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	data, _ := json.Marshal(outputContext)
 
-	_, httpError := http.Post("http://host.k3d.internal", "application/octet-stream", bytes.NewReader(data))
+	_, httpError := http.Post("https://host.k3d.internal:19999", "application/octet-stream", bytes.NewReader(data))
 	if httpError != nil {
 		log.Fatalln(httpError)
 	}
