@@ -2,9 +2,10 @@ package runner
 
 import (
 	"fmt"
+	"github.com/xebialabs/go-remote-runner-wrapper/logger"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"github.com/xebialabs/go-remote-runner-wrapper/task/command"
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 	"os"
 )
 
@@ -79,10 +80,13 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 		task.SerializeError(OutputLocation, errorResult)
 		return
 	}
-	executionResult := runner.Run(taskContext)
+
+	logger.AddSecrets(taskContext)
 
 	task.Comment("Output phase")
 	task.Status("Output phase")
+	executionResult := runner.Run(taskContext)
+
 	resultMap, err := executionResult.Get()
 	if err != nil {
 		klog.Errorf("Failed executing runner function %v", err)

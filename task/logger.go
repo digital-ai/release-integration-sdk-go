@@ -1,6 +1,6 @@
 package task
 
-import "k8s.io/klog"
+import "k8s.io/klog/v2"
 
 func Comment(comment string) {
 	klog.Infof("##[start: comment]%s##[end: comment]", comment)
