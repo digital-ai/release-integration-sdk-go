@@ -49,6 +49,7 @@ type fetchTokenFunc func(*HttpClientBuilder) (string, error)
 
 type HttpClientBuilder struct {
 	config         *rest.Config
+	headers        map[string][]string
 	oAuth2Config   *clientcredentials.Config
 	tokenPath      string
 	lazyFetchToken fetchTokenFunc
@@ -148,6 +149,11 @@ func (b *HttpClientBuilder) WithContentType(accept string, contentType string) *
 	return b
 }
 
+func (b *HttpClientBuilder) WithHeaders(headers map[string][]string) *HttpClientBuilder {
+	b.headers = headers
+	return b
+}
+
 func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *HttpClientBuilder {
 	b.config.Host = config.Host
 	b.config.Insecure = config.Insecure
@@ -227,11 +233,14 @@ func (b *HttpClientBuilder) buildClient() (*HttpClient, error) {
 	if b.config.ContentType == "" {
 		b.config.ContentType = DefaultContentType
 	}
-
+	if b.headers == nil {
+		b.headers = make(map[string][]string)
+	}
+	b.headers["Accept"] = []string{b.config.AcceptContentTypes}
+	b.headers["Content-Type"] = []string{b.config.ContentType}
 	return &HttpClient{
-		baseUrl:     b.config.Host,
-		client:      client,
-		accept:      b.config.AcceptContentTypes,
-		contentType: b.config.ContentType,
+		baseUrl: b.config.Host,
+		client:  client,
+		headers: b.headers,
 	}, nil
 }
