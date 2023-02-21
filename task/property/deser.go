@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 )
 
 const (

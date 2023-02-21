@@ -5,8 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"io"
-	"k8s.io/klog"
-	"log"
+	"k8s.io/klog/v2"
 	"net/http"
 	"os"
 )
@@ -75,7 +74,7 @@ func writeOutput(outputContext TaskOutputContext, outputLocation string) {
 	if callBackUrl != nil {
 		_, httpError := http.Post(string(callBackUrl), "application/json", bytes.NewReader(data))
 		if httpError != nil {
-			log.Fatalln(httpError)
+			klog.Fatalln(httpError)
 		}
 	}
 
