@@ -118,7 +118,7 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(config *RequestConfig
 
 	//TODO: handle 3xx statuses
 	if resp.StatusCode >= 299 {
-		return nil, fmt.Errorf("%v - %s", resp.StatusCode, string(data[:]))
+		return data, fmt.Errorf("%v - %s", resp.StatusCode, string(data[:]))
 	}
 
 	return data, nil
