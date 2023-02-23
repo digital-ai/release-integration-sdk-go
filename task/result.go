@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	errorMessage = "errorMessage"
+	errorMessage = "jobErrorMessage"
 )
 
 type Result struct {

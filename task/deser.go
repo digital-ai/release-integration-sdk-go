@@ -4,17 +4,22 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"io"
 	"k8s.io/klog/v2"
 	"net/http"
 	"os"
+	"sync"
 )
 
 const (
-	InputCategory = "input"
+	InputCategory  = "input"
+	InputLocation  = "INPUT_LOCATION"
+	OutputLocation = "OUTPUT_LOCATION"
 )
 
-func Deserialize(inputLocation string, context *InputContext) error {
+func Deserialize(context *InputContext) error {
+	var inputLocation = os.Getenv(InputLocation)
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
@@ -50,38 +55,61 @@ func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
 	return UnmarshalProperties(inputs, taskInstance)
 }
 
-func Serialize(outputLocation string, result map[string]interface{}) {
+func Serialize(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
 		OutputProperties: result,
 	}
-	writeOutput(outputContext, outputLocation)
+	handleResult(outputContext)
 }
 
-func SerializeError(outputLocation string, result map[string]interface{}) {
+func SerializeError(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
 		OutputProperties: result,
 	}
-	writeOutput(outputContext, outputLocation)
+	handleResult(outputContext)
 }
 
-func writeOutput(outputContext TaskOutputContext, outputLocation string) {
+func handleResult(outputContext TaskOutputContext) {
 	data, _ := json.Marshal(outputContext)
-	encodedCallBackUrl := os.Getenv("CALLBACK_URL")
-
-	callBackUrl, _ := base64.StdEncoding.DecodeString(encodedCallBackUrl)
-	if callBackUrl != nil {
-		_, httpError := http.Post(string(callBackUrl), "application/json", bytes.NewReader(data))
-		if httpError != nil {
-			klog.Fatalln(httpError)
-		}
-	}
-
 	encryptedData, encryptErr := Encrypt(data)
 	if encryptErr != nil {
-		klog.Fatalf("Cannot write output to: %s error encrypting data [%v]", outputLocation, encryptErr)
+		klog.Fatalf("error encrypting data [%v]", encryptErr)
 	}
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		remoteRunnerCallback(encryptedData, outputContext.ExitCode)
+	}()
+	fmt.Println("Waiting for goroutine to finish")
+	wg.Wait()
+
+	writeOutput(encryptedData)
+}
+
+func remoteRunnerCallback(encryptedData []byte, exitCode int64) {
+	encodedCallBackUrl := os.Getenv("CALLBACK_URL")
+	if len(encodedCallBackUrl) > 0 {
+		callBackUrl, err := base64.StdEncoding.DecodeString(encodedCallBackUrl)
+		if err != nil {
+			klog.Errorf("Cannot decode Callback URL %s, skipping - output written to output file", err)
+		}
+		url := string(callBackUrl)
+		if exitCode != 0 {
+			url = fmt.Sprintf("%s/failed", url)
+		}
+		// TODO retry schema maybe?
+		_, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
+		if httpError != nil {
+			klog.Errorf("Cannot finish Callback request: %s, skipping - output written to output file", httpError)
+		}
+	}
+}
+
+func writeOutput(encryptedData []byte) {
+	outputLocation := os.Getenv(OutputLocation)
 	err := os.WriteFile(outputLocation, encryptedData, 0644)
 	if err != nil {
 		klog.Fatalf("Cannot write output to: %s [%v]", outputLocation, err)
