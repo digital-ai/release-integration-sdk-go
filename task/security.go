@@ -16,6 +16,8 @@ func Decrypt(content []byte) ([]byte, error) {
 	if len(SessionKey) == 0 {
 		return content, nil
 	} else {
+		// TODO remove this!
+		klog.Infof("got from secret sessionKey base64: %s", SessionKey)
 		key, _ := base64.StdEncoding.DecodeString(SessionKey)
 		ciphertext, _ := base64.StdEncoding.DecodeString(string(content))
 		c, _ := aes.NewCipher(key)

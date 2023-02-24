@@ -29,9 +29,16 @@ func Deserialize(context *InputContext) error {
 	// defer the closing of our inputContent so that we can parse it later on
 	defer inputContent.Close()
 
-	content, _ := io.ReadAll(inputContent)
+	content, err := io.ReadAll(inputContent)
+	if err != nil {
+		return err
+	}
+	decrypted, err := Decrypt(content)
+	if err != nil {
+		return err
+	}
 
-	decoded, err := base64.StdEncoding.DecodeString(string(content))
+	decoded, err := base64.StdEncoding.DecodeString(string(decrypted))
 	if err != nil {
 		return err
 	}
