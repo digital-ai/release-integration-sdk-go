@@ -38,11 +38,7 @@ func Deserialize(context *InputContext) error {
 		return err
 	}
 
-	decoded, err := base64.StdEncoding.DecodeString(string(decrypted))
-	if err != nil {
-		return err
-	}
-	unMarshalErr := json.Unmarshal(decoded, context)
+	unMarshalErr := json.Unmarshal(decrypted, context)
 	if unMarshalErr != nil {
 		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
 		return unMarshalErr
