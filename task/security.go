@@ -18,6 +18,7 @@ func Decrypt(content []byte) ([]byte, error) {
 	} else {
 		// TODO remove this!
 		klog.Infof("got from secret sessionKey base64: %s", SessionKey)
+		klog.Infof("got from secret sessionKey base64: %s", content)
 		key, _ := base64.StdEncoding.DecodeString(SessionKey)
 		ciphertext, _ := base64.StdEncoding.DecodeString(string(content))
 		c, _ := aes.NewCipher(key)
@@ -27,6 +28,26 @@ func Decrypt(content []byte) ([]byte, error) {
 		return gcm.Open(nil, nonce, message, nil)
 	}
 }
+
+//	iv, encryptedData := encryptedData[:aes.BlockSize], encryptedData[aes.BlockSize:]
+//
+//	block, err := aes.NewCipher(sessionKey)
+//	if err != nil {
+//		return nil, fmt.Errorf("failed to create AES cipher block: %s", err)
+//	}
+//
+//	// GCM cipher with given nonce/iv, decrypt the encrypted data using the GCM cipher
+//	gcm, err := cipher.NewGCMWithNonceSize(block, aes.BlockSize)
+//	if err != nil {
+//		return nil, fmt.Errorf("failed to create GCM cipher: %s", err)
+//	}
+//	plaintext, err := gcm.Open(nil, iv, encryptedData, nil)
+//	if err != nil {
+//		return nil, fmt.Errorf("failed to decrypt ciphertext: %s", err)
+//	}
+//
+//	return plaintext, nil
+//
 
 func Encrypt(content []byte) ([]byte, error) {
 	if len(SessionKey) == 0 {
