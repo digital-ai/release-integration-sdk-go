@@ -35,5 +35,6 @@ type InputContext struct {
 
 type TaskOutputContext struct {
 	ExitCode         int64                  `json:"exitCode"`
-	OutputProperties map[string]interface{} `json:"outputProperties"`
+	OutputProperties map[string]interface{} `json:"outputProperties,omitempty"`
+	JobErrorMessage  string                 `json:"jobErrorMessage,omitempty"`
 }
