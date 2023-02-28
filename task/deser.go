@@ -66,10 +66,11 @@ func Serialize(result map[string]interface{}) {
 	handleResult(outputContext)
 }
 
-func SerializeError(result map[string]interface{}) {
+func SerializeError(err error, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
 		OutputProperties: result,
+		JobErrorMessage:  err.Error(),
 	}
 	handleResult(outputContext)
 }
@@ -81,15 +82,16 @@ func handleResult(outputContext TaskOutputContext) {
 		klog.Fatalf("error encrypting data [%v]", encryptErr)
 	}
 	var wg sync.WaitGroup
-	wg.Add(1)
+	wg.Add(2)
 	go func() {
 		defer wg.Done()
 		remoteRunnerCallback(encryptedData, outputContext.ExitCode)
 	}()
-	fmt.Println("Waiting for goroutine to finish")
+	go func() {
+		defer wg.Done()
+		writeOutput(encryptedData)
+	}()
 	wg.Wait()
-
-	writeOutput(encryptedData)
 }
 
 func remoteRunnerCallback(encryptedData []byte, exitCode int64) {

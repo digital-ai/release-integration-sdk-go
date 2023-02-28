@@ -72,8 +72,7 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	var taskContext task.InputContext
 	if err := task.Deserialize(&taskContext); err != nil {
 		klog.Errorf("Failed to deserialize input %v", err)
-		errorResult, _ := task.NewErrorResult(fmt.Errorf("failed to deserialize input: %v", err)).Get()
-		task.SerializeError(errorResult)
+		task.SerializeError(fmt.Errorf("failed to deserialize input: %v", err), nil)
 		return
 	}
 
@@ -86,8 +85,7 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	resultMap, err := executionResult.Get()
 	if err != nil {
 		klog.Errorf("Failed executing runner function %v", err)
-		errorResult, _ := task.NewErrorResult(fmt.Errorf("failed to execute run function: %v", err)).Get()
-		task.SerializeError(errorResult)
+		task.SerializeError(fmt.Errorf("failed to execute run function: %v", err), resultMap)
 		return
 	}
 	klog.Infof("Finished executing runner function")
