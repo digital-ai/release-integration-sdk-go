@@ -5,7 +5,7 @@ import (
 	"k8s.io/client-go/rest"
 )
 
-func getDefaultClientset() (*kubernetes.Clientset, error) {
+func NewDefaultClientset() (*kubernetes.Clientset, error) {
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		return nil, err
