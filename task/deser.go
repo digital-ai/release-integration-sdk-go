@@ -8,10 +8,13 @@ import (
 )
 
 const (
-	InputCategory = "input"
+	InputCategory  = "input"
+	InputLocation  = "INPUT_LOCATION"
+	OutputLocation = "OUTPUT_LOCATION"
 )
 
-func Deserialize(inputLocation string, context *InputContext) error {
+func Deserialize(context *InputContext) error {
+	var inputLocation = os.Getenv(InputLocation)
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
@@ -21,10 +24,16 @@ func Deserialize(inputLocation string, context *InputContext) error {
 	// defer the closing of our inputContent so that we can parse it later on
 	defer inputContent.Close()
 
-	content, _ := io.ReadAll(inputContent)
-	byteValue, _ := Decrypt(content)
+	content, err := io.ReadAll(inputContent)
+	if err != nil {
+		return err
+	}
+	decrypted, err := Decrypt(content)
+	if err != nil {
+		return err
+	}
 
-	unMarshalErr := json.Unmarshal(byteValue, context)
+	unMarshalErr := json.Unmarshal(decrypted, context)
 	if unMarshalErr != nil {
 		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
 		return unMarshalErr
@@ -44,28 +53,34 @@ func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
 	return UnmarshalProperties(inputs, taskInstance)
 }
 
-func Serialize(outputLocation string, result map[string]interface{}) {
+func Serialize(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
 		OutputProperties: result,
 	}
-	writeOutput(outputContext, outputLocation)
+	handleResult(outputContext)
 }
 
-func SerializeError(outputLocation string, result map[string]interface{}) {
+func SerializeError(err error, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
 		OutputProperties: result,
+		JobErrorMessage:  err.Error(),
 	}
-	writeOutput(outputContext, outputLocation)
+	handleResult(outputContext)
 }
 
-func writeOutput(outputContext TaskOutputContext, outputLocation string) {
+func handleResult(outputContext TaskOutputContext) {
 	data, _ := json.Marshal(outputContext)
 	encryptedData, encryptErr := Encrypt(data)
 	if encryptErr != nil {
-		klog.Fatalf("Cannot write output to: %s error encrypting data [%v]", outputLocation, encryptErr)
+		klog.Fatalf("error encrypting data [%v]", encryptErr)
 	}
+	writeOutput(encryptedData)
+}
+
+func writeOutput(encryptedData []byte) {
+	outputLocation := os.Getenv(OutputLocation)
 	err := os.WriteFile(outputLocation, encryptedData, 0644)
 	if err != nil {
 		klog.Fatalf("Cannot write output to: %s [%v]", outputLocation, err)

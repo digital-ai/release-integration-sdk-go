@@ -6,7 +6,6 @@ import (
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"github.com/xebialabs/go-remote-runner-wrapper/task/command"
 	"k8s.io/klog/v2"
-	"os"
 )
 
 type RunFunction func(task.InputContext) *task.Result
@@ -70,14 +69,10 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	task.Comment("Preparation phase")
 	task.Status("Preparation phase")
 
-	var InputLocation = os.Getenv("INPUT_LOCATION")
-	var OutputLocation = os.Getenv("OUTPUT_LOCATION")
-
 	var taskContext task.InputContext
-	if err := task.Deserialize(InputLocation, &taskContext); err != nil {
+	if err := task.Deserialize(&taskContext); err != nil {
 		klog.Errorf("Failed to deserialize input %v", err)
-		errorResult, _ := task.NewErrorResult(fmt.Errorf("failed to deserialize input: %v", err)).Get()
-		task.SerializeError(OutputLocation, errorResult)
+		task.SerializeError(fmt.Errorf("failed to deserialize input: %v", err), nil)
 		return
 	}
 
@@ -90,10 +85,9 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	resultMap, err := executionResult.Get()
 	if err != nil {
 		klog.Errorf("Failed executing runner function %v", err)
-		errorResult, _ := task.NewErrorResult(fmt.Errorf("failed to execute run function: %v", err)).Get()
-		task.SerializeError(OutputLocation, errorResult)
+		task.SerializeError(fmt.Errorf("failed to execute run function: %v", err), resultMap)
 		return
 	}
 	klog.Infof("Finished executing runner function")
-	task.Serialize(OutputLocation, resultMap)
+	task.Serialize(resultMap)
 }
