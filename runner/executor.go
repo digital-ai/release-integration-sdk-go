@@ -57,6 +57,9 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	task.Status("Ending execution")
 	if err != nil {
 		klog.Infof("Finished executing command with error %v", err)
+		if result != nil {
+			return result.Error(err)
+		}
 		return returnResult.Error(err)
 	}
 	klog.Infoln("Finished executing command")
