@@ -109,11 +109,16 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(config *RequestConfig
 		return nil, fmt.Errorf("%s error: %v", config.method, err)
 	}
 
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		deferredErr := Body.Close()
+		if deferredErr != nil {
+			err = deferredErr
+		}
+	}(resp.Body)
 
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("read body error: %v", err)
+	data, readErr := io.ReadAll(resp.Body)
+	if readErr != nil {
+		return nil, fmt.Errorf("read body error: %v", readErr)
 	}
 
 	//TODO: handle 3xx statuses
@@ -121,7 +126,7 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(config *RequestConfig
 		return data, fmt.Errorf("%v - %s", resp.StatusCode, string(data[:]))
 	}
 
-	return data, nil
+	return data, err
 }
 
 func setHeaders(request *http.Request, headers map[string][]string) {
