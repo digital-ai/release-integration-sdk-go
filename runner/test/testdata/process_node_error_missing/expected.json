@@ -1,1 +1,1 @@
-{"exitCode":-1,"outputProperties":{"errorMessage":"failed to execute run function: error evaluating 'the-json' field value: could not apply parser for JQ operation '.metadata.label': key not found"}}
+{"exitCode":-1,"jobErrorMessage":"failed to execute run function: error evaluating 'the-json' field value: could not apply parser for JQ operation '.metadata.label': key not found"}

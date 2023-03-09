@@ -110,15 +110,14 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(config *RequestConfig
 	}
 
 	defer func(Body io.ReadCloser) {
-		deferredErr := Body.Close()
-		if deferredErr != nil {
+		if deferredErr := Body.Close(); deferredErr != nil {
 			err = deferredErr
 		}
 	}(resp.Body)
 
-	data, readErr := io.ReadAll(resp.Body)
-	if readErr != nil {
-		return nil, fmt.Errorf("read body error: %v", readErr)
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("read body error: %v", err)
 	}
 
 	//TODO: handle 3xx statuses

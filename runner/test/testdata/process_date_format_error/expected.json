@@ -1,1 +1,1 @@
-{"exitCode":-1,"outputProperties":{"errorMessage":"failed to execute run function: error evaluating 'the-json-date' field value: error parsing date: parsing time \"2022-09-16T11:35:02Z\": extra text: \"Z\""}}
+{"exitCode":-1,"jobErrorMessage":"failed to execute run function: error evaluating 'the-json-date' field value: error parsing date: parsing time \"2022-09-16T11:35:02Z\": extra text: \"Z\""}

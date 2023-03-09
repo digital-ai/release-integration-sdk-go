@@ -22,12 +22,6 @@ func NewResult() *Result {
 	}
 }
 
-func NewErrorResult(err error) *Result {
-	return &Result{
-		resultGenerators: []Generator{ErrorGenerator{err}},
-	}
-}
-
 type Generator interface {
 	GenerateValue() (interface{}, error)
 	FieldName() string

@@ -66,7 +66,7 @@ var independentOutputRunner = runner.NewSimpleRunner(
 
 var failedTestRunner = runner.NewSimpleRunner(
 	func(_ task.InputContext) *task.Result {
-		return task.NewErrorResult(fmt.Errorf("this simulates an error"))
+		return task.NewResult().Error(fmt.Errorf("this simulates an error"))
 	})
 
 var stringPropertyRunner = runner.NewSimpleRunner(
