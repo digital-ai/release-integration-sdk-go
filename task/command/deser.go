@@ -14,7 +14,7 @@ type CommandWrapper struct {
 func DeserializeCommand(factory CommandFactory, taskContext task.TaskContext) (CommandExecutor, error) {
 	var inputs []task.PropertyDefinition
 	for _, property := range taskContext.Properties {
-		if property.Category == task.InputCategory {
+		if property.Category == task.InputCategory || property.Category == task.OutputCategory {
 			inputs = append(inputs, property)
 		}
 	}

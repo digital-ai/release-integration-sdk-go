@@ -8,10 +8,11 @@ import (
 )
 
 const (
-	InputCategory = "input"
+	InputCategory  = "input"
+	OutputCategory = "output"
 )
 
-func Deserialize(inputLocation string, context *InputContext) error {
+func Deserialize(inputLocation string, context *InputContext) (err error) {
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
@@ -19,18 +20,23 @@ func Deserialize(inputLocation string, context *InputContext) error {
 		return err
 	}
 	// defer the closing of our inputContent so that we can parse it later on
-	defer inputContent.Close()
+	defer func(inputContent *os.File) {
+		deferredErr := inputContent.Close()
+		if deferredErr != nil {
+			err = deferredErr
+		}
+	}(inputContent)
 
 	content, _ := io.ReadAll(inputContent)
 	byteValue, _ := Decrypt(content)
 
 	unMarshalErr := json.Unmarshal(byteValue, context)
 	if unMarshalErr != nil {
-		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
+		klog.Errorf("Cannot unmarshal input: %v", unMarshalErr)
 		return unMarshalErr
 	}
 
-	return nil
+	return err
 }
 
 func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {

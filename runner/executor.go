@@ -58,6 +58,9 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	task.Status("Ending execution")
 	if err != nil {
 		klog.Infof("Finished executing command with error %v", err)
+		if result != nil {
+			return result.Error(err)
+		}
 		return returnResult.Error(err)
 	}
 	klog.Infoln("Finished executing command")
@@ -88,6 +91,7 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	executionResult := runner.Run(taskContext)
 
 	resultMap, err := executionResult.Get()
+	task.Serialize(OutputLocation, resultMap)
 	if err != nil {
 		klog.Errorf("Failed executing runner function %v", err)
 		errorResult, _ := task.NewErrorResult(fmt.Errorf("failed to execute run function: %v", err)).Get()
@@ -95,5 +99,4 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 		return
 	}
 	klog.Infof("Finished executing runner function")
-	task.Serialize(OutputLocation, resultMap)
 }
