@@ -50,11 +50,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 		return returnResult.Error(fmt.Errorf("cannot deserialize input: %v", err))
 	}
 
-	task.Comment("Starting execution")
-	task.Status("Starting execution")
 	result, err := exec.FetchResult()
-	task.Comment("Ending execution")
-	task.Status("Ending execution")
 	if err != nil {
 		klog.Infof("Finished executing command with error %v", err)
 		if result != nil {
@@ -69,8 +65,6 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 func Execute(pluginVersion string, buildDate string, runner Runner) {
 	klog.Infof("PluginVersion:\t%s", pluginVersion)
 	klog.Infof("BuildDate:\t%s", buildDate)
-	task.Comment("Preparation phase")
-	task.Status("Preparation phase")
 
 	var taskContext task.InputContext
 	if err := task.Deserialize(&taskContext); err != nil {
@@ -80,9 +74,6 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	}
 
 	logger.AddSecrets(taskContext)
-
-	task.Comment("Output phase")
-	task.Status("Output phase")
 	executionResult := runner.Run(taskContext)
 
 	resultMap, err := executionResult.Get()
