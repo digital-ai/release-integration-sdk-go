@@ -9,6 +9,7 @@ import (
 
 const (
 	InputCategory  = "input"
+	OutputCategory = "output"
 	InputLocation  = "INPUT_LOCATION"
 	OutputLocation = "OUTPUT_LOCATION"
 )
@@ -22,7 +23,11 @@ func Deserialize(context *InputContext) error {
 		return err
 	}
 	// defer the closing of our inputContent so that we can parse it later on
-	defer inputContent.Close()
+	defer func(inputContent *os.File) {
+		if deferredErr := inputContent.Close(); deferredErr != nil {
+			err = deferredErr
+		}
+	}(inputContent)
 
 	content, err := io.ReadAll(inputContent)
 	if err != nil {
@@ -35,11 +40,11 @@ func Deserialize(context *InputContext) error {
 
 	unMarshalErr := json.Unmarshal(decrypted, context)
 	if unMarshalErr != nil {
-		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
+		klog.Errorf("Cannot unmarshal input: %v", unMarshalErr)
 		return unMarshalErr
 	}
 
-	return nil
+	return err
 }
 
 func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
@@ -51,6 +56,23 @@ func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
 	}
 
 	return UnmarshalProperties(inputs, taskInstance)
+}
+
+func Serialize(result map[string]interface{}) {
+	outputContext := TaskOutputContext{
+		ExitCode:         0,
+		OutputProperties: result,
+	}
+	handleResult(outputContext)
+}
+
+func SerializeError(err error, result map[string]interface{}) {
+	outputContext := TaskOutputContext{
+		ExitCode:         -1,
+		OutputProperties: result,
+		JobErrorMessage:  err.Error(),
+	}
+	handleResult(outputContext)
 }
 
 func writeOutput(encryptedData []byte) {
