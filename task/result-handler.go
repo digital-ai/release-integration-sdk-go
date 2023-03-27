@@ -52,12 +52,14 @@ func remoteRunnerCallback(encryptedData []byte) {
 		callBackUrl, err := base64.StdEncoding.DecodeString(encodedCallBackUrl)
 		if err != nil {
 			klog.Errorf("Cannot decode Callback URL %s, skipping - output written to output file", err)
+			return
 		}
 		url := string(callBackUrl)
 		// TODO retry schema maybe?
 		response, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
 		if httpError != nil {
 			klog.Errorf("Cannot finish Callback request: %s, skipping - output written to output file", httpError)
+			return
 		}
 		if response.StatusCode != 200 {
 			klog.Errorf("Got NOK HTTP Status Code %s, skipping - output written to output file", response.Status)
