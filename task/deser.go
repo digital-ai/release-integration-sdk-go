@@ -8,10 +8,12 @@ import (
 )
 
 const (
-	InputCategory  = "input"
-	OutputCategory = "output"
-	InputLocation  = "INPUT_LOCATION"
-	OutputLocation = "OUTPUT_LOCATION"
+	InputCategory    = "input"
+	OutputCategory   = "output"
+	InputLocation    = "INPUT_LOCATION"
+	OutputLocation   = "OUTPUT_LOCATION"
+	CallbackURL      = "CALLBACK_URL"
+	ResultSecretName = "RESULT_SECRET_NAME"
 )
 
 func Deserialize(context *InputContext) error {
@@ -73,23 +75,6 @@ func SerializeError(err error, result map[string]interface{}) {
 		JobErrorMessage:  err.Error(),
 	}
 	handleResult(outputContext)
-}
-
-func handleResult(outputContext TaskOutputContext) {
-	data, _ := json.Marshal(outputContext)
-	encryptedData, encryptErr := Encrypt(data)
-	if encryptErr != nil {
-		klog.Fatalf("error encrypting data [%v]", encryptErr)
-	}
-	writeOutput(encryptedData)
-}
-
-func writeOutput(encryptedData []byte) {
-	outputLocation := os.Getenv(OutputLocation)
-	err := os.WriteFile(outputLocation, encryptedData, 0644)
-	if err != nil {
-		klog.Fatalf("Cannot write output to: %s [%v]", outputLocation, err)
-	}
 }
 
 func UnmarshalProperties(properties []PropertyDefinition, prototype interface{}) error {
