@@ -31,3 +31,4 @@ jobs:
           repositories: |
             xebialabs/xlr-k8s-remote-integration
             xebialabs/xlr-argocd-remote-integration
+            xebialabs/xlr-xld-remote-integration

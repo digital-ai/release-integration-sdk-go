@@ -2,10 +2,10 @@ package runner
 
 import (
 	"fmt"
+	"github.com/xebialabs/go-remote-runner-wrapper/logger"
 	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"github.com/xebialabs/go-remote-runner-wrapper/task/command"
-	"k8s.io/klog"
-	"os"
+	"k8s.io/klog/v2"
 )
 
 type RunFunction func(task.InputContext) *task.Result
@@ -53,6 +53,9 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	result, err := exec.FetchResult()
 	if err != nil {
 		klog.Infof("Finished executing command with error %v", err)
+		if result != nil {
+			return result.Error(err)
+		}
 		return returnResult.Error(err)
 	}
 	klog.Infoln("Finished executing command")
@@ -60,29 +63,25 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 }
 
 func Execute(pluginVersion string, buildDate string, runner Runner) {
-
 	klog.Infof("PluginVersion:\t%s", pluginVersion)
 	klog.Infof("BuildDate:\t%s", buildDate)
 
-	var InputLocation = os.Getenv("INPUT_LOCATION")
-	var OutputLocation = os.Getenv("OUTPUT_LOCATION")
-
 	var taskContext task.InputContext
-	if err := task.Deserialize(InputLocation, &taskContext); err != nil {
+	if err := task.Deserialize(&taskContext); err != nil {
 		klog.Errorf("Failed to deserialize input %v", err)
-		errorResult, _ := task.NewErrorResult(fmt.Errorf("failed to deserialize input: %v", err)).Get()
-		task.SerializeError(OutputLocation, errorResult)
+		task.HandleError(fmt.Errorf("failed to deserialize input: %v", err), nil)
 		return
 	}
 
+	logger.AddSecrets(taskContext)
 	executionResult := runner.Run(taskContext)
+
 	resultMap, err := executionResult.Get()
 	if err != nil {
 		klog.Errorf("Failed executing runner function %v", err)
-		errorResult, _ := task.NewErrorResult(fmt.Errorf("failed to execute run function: %v", err)).Get()
-		task.SerializeError(OutputLocation, errorResult)
+		task.HandleError(fmt.Errorf("failed to execute run function: %v", err), resultMap)
 		return
 	}
 	klog.Infof("Finished executing runner function")
-	task.Serialize(OutputLocation, resultMap)
+	task.HandleSuccess(resultMap)
 }

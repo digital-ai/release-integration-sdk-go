@@ -9,9 +9,11 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 	"k8s.io/client-go/rest"
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 	"net/http"
 )
+
+var DefaultContentType = "application/json"
 
 type TokenAuthentication struct {
 	BearerToken string
@@ -47,6 +49,7 @@ type fetchTokenFunc func(*HttpClientBuilder) (string, error)
 
 type HttpClientBuilder struct {
 	config         *rest.Config
+	headers        map[string][]string
 	oAuth2Config   *clientcredentials.Config
 	tokenPath      string
 	lazyFetchToken fetchTokenFunc
@@ -140,6 +143,17 @@ func (b *HttpClientBuilder) WithClientCertAuthFiles(certFile string, keyFile str
 	return b
 }
 
+func (b *HttpClientBuilder) WithContentType(accept string, contentType string) *HttpClientBuilder {
+	b.config.AcceptContentTypes = accept
+	b.config.ContentType = contentType
+	return b
+}
+
+func (b *HttpClientBuilder) WithHeaders(headers map[string][]string) *HttpClientBuilder {
+	b.headers = headers
+	return b
+}
+
 func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *HttpClientBuilder {
 	b.config.Host = config.Host
 	b.config.Insecure = config.Insecure
@@ -213,9 +227,20 @@ func (b *HttpClientBuilder) buildClient() (*HttpClient, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	if b.config.AcceptContentTypes == "" {
+		b.config.AcceptContentTypes = DefaultContentType
+	}
+	if b.config.ContentType == "" {
+		b.config.ContentType = DefaultContentType
+	}
+	if b.headers == nil {
+		b.headers = make(map[string][]string)
+	}
+	b.headers["Accept"] = []string{b.config.AcceptContentTypes}
+	b.headers["Content-Type"] = []string{b.config.ContentType}
 	return &HttpClient{
 		baseUrl: b.config.Host,
 		client:  client,
+		headers: b.headers,
 	}, nil
 }

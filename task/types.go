@@ -7,7 +7,7 @@ type PropertyDefinition struct {
 	Value      json.RawMessage `json:"value"`
 	Kind       string          `json:"kind"`
 	Category   string          `json:"category"`
-	IsPassword bool            `json:"isPassword"`
+	IsPassword bool            `json:"password"`
 }
 
 type TaskContext struct {
@@ -36,5 +36,6 @@ type InputContext struct {
 
 type TaskOutputContext struct {
 	ExitCode         int64                  `json:"exitCode"`
-	OutputProperties map[string]interface{} `json:"outputProperties"`
+	OutputProperties map[string]interface{} `json:"outputProperties,omitempty"`
+	JobErrorMessage  string                 `json:"jobErrorMessage,omitempty"`
 }

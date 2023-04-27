@@ -3,15 +3,21 @@ package task
 import (
 	"encoding/json"
 	"io"
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 	"os"
 )
 
 const (
-	InputCategory = "input"
+	InputCategory    = "input"
+	OutputCategory   = "output"
+	InputLocation    = "INPUT_LOCATION"
+	OutputLocation   = "OUTPUT_LOCATION"
+	CallbackURL      = "CALLBACK_URL"
+	ResultSecretName = "RESULT_SECRET_NAME"
 )
 
-func Deserialize(inputLocation string, context *InputContext) error {
+func Deserialize(context *InputContext) error {
+	var inputLocation = os.Getenv(InputLocation)
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
 	if err != nil {
@@ -19,18 +25,28 @@ func Deserialize(inputLocation string, context *InputContext) error {
 		return err
 	}
 	// defer the closing of our inputContent so that we can parse it later on
-	defer inputContent.Close()
+	defer func(inputContent *os.File) {
+		if deferredErr := inputContent.Close(); deferredErr != nil {
+			err = deferredErr
+		}
+	}(inputContent)
 
-	content, _ := io.ReadAll(inputContent)
-	byteValue, _ := Decrypt(content)
+	content, err := io.ReadAll(inputContent)
+	if err != nil {
+		return err
+	}
+	decrypted, err := Decrypt(content)
+	if err != nil {
+		return err
+	}
 
-	unMarshalErr := json.Unmarshal(byteValue, context)
+	unMarshalErr := json.Unmarshal(decrypted, context)
 	if unMarshalErr != nil {
-		klog.Errorf("Cannot umarshal input: %v", unMarshalErr)
+		klog.Errorf("Cannot unmarshal input: %v", unMarshalErr)
 		return unMarshalErr
 	}
 
-	return nil
+	return err
 }
 
 func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
@@ -44,32 +60,21 @@ func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
 	return UnmarshalProperties(inputs, taskInstance)
 }
 
-func Serialize(outputLocation string, result map[string]interface{}) {
+func Serialize(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
 		OutputProperties: result,
 	}
-	writeOutput(outputContext, outputLocation)
+	handleResult(outputContext)
 }
 
-func SerializeError(outputLocation string, result map[string]interface{}) {
+func SerializeError(err error, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
 		OutputProperties: result,
+		JobErrorMessage:  err.Error(),
 	}
-	writeOutput(outputContext, outputLocation)
-}
-
-func writeOutput(outputContext TaskOutputContext, outputLocation string) {
-	data, _ := json.Marshal(outputContext)
-	encryptedData, encryptErr := Encrypt(data)
-	if encryptErr != nil {
-		klog.Fatalf("Cannot write output to: %s error encrypting data [%v]", outputLocation, encryptErr)
-	}
-	err := os.WriteFile(outputLocation, encryptedData, 0644)
-	if err != nil {
-		klog.Fatalf("Cannot write output to: %s [%v]", outputLocation, err)
-	}
+	handleResult(outputContext)
 }
 
 func UnmarshalProperties(properties []PropertyDefinition, prototype interface{}) error {

@@ -22,12 +22,6 @@ func NewResult() *Result {
 	}
 }
 
-func NewErrorResult(err error) *Result {
-	return &Result{
-		resultGenerators: []Generator{ErrorGenerator{err}},
-	}
-}
-
 type Generator interface {
 	GenerateValue() (interface{}, error)
 	FieldName() string
@@ -77,7 +71,7 @@ func (r *Result) Error(err error) *Result {
 	return r.addGenerator(ErrorGenerator{err})
 }
 
-// The StringGenerator - used to represent simple Date value on custom FieldName()
+// The StringGenerator - used to represent simple string value on custom FieldName()
 type StringGenerator struct {
 	fieldName  string
 	fieldValue string
@@ -138,6 +132,24 @@ func (gen BoolGenerator) FieldName() string {
 
 func (r *Result) Bool(resultField string, result bool) *Result {
 	return r.addGenerator(BoolGenerator{resultField, result})
+}
+
+// The IntGenerator - used to represent simple int value on custom FieldName()
+type IntGenerator struct {
+	fieldName  string
+	fieldValue int
+}
+
+func (gen IntGenerator) GenerateValue() (interface{}, error) {
+	return gen.fieldValue, nil
+}
+
+func (gen IntGenerator) FieldName() string {
+	return gen.fieldName
+}
+
+func (r *Result) Int(resultField string, result int) *Result {
+	return r.addGenerator(IntGenerator{resultField, result})
 }
 
 // The JsonValueGenerator - base struct for all Json Value Generators
@@ -257,6 +269,42 @@ func (gen JsonGenerator) GenerateValue() (interface{}, error) {
 
 func (gen JsonGenerator) FieldName() string {
 	return gen.fieldName
+}
+
+// The StringSliceGenerator - used to represent []string value on custom FieldName()
+type StringSliceGenerator struct {
+	fieldName  string
+	fieldValue []string
+}
+
+func (gen StringSliceGenerator) GenerateValue() (interface{}, error) {
+	return gen.fieldValue, nil
+}
+
+func (gen StringSliceGenerator) FieldName() string {
+	return gen.fieldName
+}
+
+func (r *Result) StringSlice(resultField string, result []string) *Result {
+	return r.addGenerator(StringSliceGenerator{resultField, result})
+}
+
+// The SliceGenerator - used to represent []interface{} value on custom FieldName()
+type SliceGenerator struct {
+	fieldName  string
+	fieldValue []interface{}
+}
+
+func (gen SliceGenerator) GenerateValue() (interface{}, error) {
+	return gen.fieldValue, nil
+}
+
+func (gen SliceGenerator) FieldName() string {
+	return gen.fieldName
+}
+
+func (r *Result) Slice(resultField string, result []interface{}) *Result {
+	return r.addGenerator(SliceGenerator{resultField, result})
 }
 
 func (r *Result) Json(resultField string, jsonPayload json.RawMessage) *Result {
