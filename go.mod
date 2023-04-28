@@ -1,4 +1,4 @@
-module github.com/xebialabs/go-remote-runner-wrapper
+module github.com/digital-ai/release-integration-sdk-go
 
 go 1.18
 

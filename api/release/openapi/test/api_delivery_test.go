@@ -11,9 +11,9 @@ package openapi
 
 import (
 	"context"
+	openapiclient "github.com/digital-ai/release-integration-sdk-go/api/release/openapi"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	openapiclient "github.com/xebialabs/go-remote-runner-wrapper/api/release/openapi"
 	"testing"
 )
 

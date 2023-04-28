@@ -1,9 +1,9 @@
 package test
 
 import (
-	"github.com/xebialabs/go-remote-runner-wrapper/runner"
-	"github.com/xebialabs/go-remote-runner-wrapper/task"
-	"github.com/xebialabs/go-remote-runner-wrapper/test"
+	"github.com/digital-ai/release-integration-sdk-go/runner"
+	"github.com/digital-ai/release-integration-sdk-go/task"
+	"github.com/digital-ai/release-integration-sdk-go/test"
 	"os"
 	"testing"
 )

@@ -1,18 +1,18 @@
-# go-remote-runner-wrapper
+# release-integration-sdk-go
 
 Go remote runner wrapper for projects that use the container tasks made in go.
 
-See [Project WIKI](https://github.com/xebialabs/go-remote-runner-wrapper/wiki)
+See [Project WIKI](https://github.com/digital-ai/release-integration-sdk-go/wiki)
 
 ## Release Api 
-Since the go-remote-runner-wrapper has support for calling Release public API, plugins can consume them.
+Since the release-integration-sdk-go has support for calling Release public API, plugins can consume them.
 Example of calling Release Api that should be placed in the plugin:
 ```go
 package main
 
 import (
-	"github.com/xebialabs/go-remote-runner-wrapper/api/release"
-	"github.com/xebialabs/go-remote-runner-wrapper/task"
+	"github.com/digital-ai/release-integration-sdk-go"
+	"github.com/digital-ai/release-integration-sdk-go/task"
 )
 
 func main() {

@@ -1,8 +1,8 @@
 package release
 
 import (
+	"github.com/digital-ai/release-integration-sdk-go/task"
 	. "github.com/smartystreets/goconvey/convey"
-	"github.com/xebialabs/go-remote-runner-wrapper/task"
 	"testing"
 )
 

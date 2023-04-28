@@ -2,9 +2,9 @@ package test
 
 import (
 	"fmt"
+	"github.com/digital-ai/release-integration-sdk-go/runner"
 	"github.com/smartystreets/assertions"
 	"github.com/smartystreets/goconvey/convey"
-	"github.com/xebialabs/go-remote-runner-wrapper/runner"
 	"io"
 	"os"
 	"path"

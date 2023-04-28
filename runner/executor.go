@@ -2,9 +2,9 @@ package runner
 
 import (
 	"fmt"
-	"github.com/xebialabs/go-remote-runner-wrapper/logger"
-	"github.com/xebialabs/go-remote-runner-wrapper/task"
-	"github.com/xebialabs/go-remote-runner-wrapper/task/command"
+	"github.com/digital-ai/release-integration-sdk-go/logger"
+	"github.com/digital-ai/release-integration-sdk-go/task"
+	"github.com/digital-ai/release-integration-sdk-go/task/command"
 	"k8s.io/klog/v2"
 )
 

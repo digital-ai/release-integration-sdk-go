@@ -3,9 +3,9 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/xebialabs/go-remote-runner-wrapper/runner"
-	"github.com/xebialabs/go-remote-runner-wrapper/task"
-	"github.com/xebialabs/go-remote-runner-wrapper/task/command"
+	"github.com/digital-ai/release-integration-sdk-go/runner"
+	"github.com/digital-ai/release-integration-sdk-go/task"
+	"github.com/digital-ai/release-integration-sdk-go/task/command"
 )
 
 type MockFactory struct {
