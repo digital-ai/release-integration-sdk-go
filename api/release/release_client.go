@@ -2,9 +2,9 @@ package release
 
 import (
 	"encoding/base64"
-	"github.com/xebialabs/go-remote-runner-wrapper/api/release/openapi"
-	_ "github.com/xebialabs/go-remote-runner-wrapper/http"
-	"github.com/xebialabs/go-remote-runner-wrapper/task"
+	"github.com/digital-ai/release-integration-sdk-go/api/release/openapi"
+	_ "github.com/digital-ai/release-integration-sdk-go/http"
+	"github.com/digital-ai/release-integration-sdk-go/task"
 )
 
 type ReleaseClient struct {

@@ -3,7 +3,7 @@ package property
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/xebialabs/go-remote-runner-wrapper/task"
+	"github.com/digital-ai/release-integration-sdk-go/task"
 	"k8s.io/klog/v2"
 )
 

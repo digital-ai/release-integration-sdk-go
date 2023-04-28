@@ -29,6 +29,6 @@ jobs:
           client_payload: '{"ref": "${{ steps.bump_version_push_tag.outputs.tag }}"}'
           #put repository names you want to send dispatch to
           repositories: |
-            xebialabs/xlr-k8s-remote-integration
-            xebialabs/xlr-argocd-remote-integration
-            xebialabs/xlr-xld-remote-integration
+            digital-ai/release-k8s-integration
+            digital-ai/release-argocd-integration
+            digital-ai/release-xld-integration

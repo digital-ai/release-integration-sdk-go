@@ -1,7 +1,7 @@
 package command
 
 import (
-	"github.com/xebialabs/go-remote-runner-wrapper/task"
+	"github.com/digital-ai/release-integration-sdk-go/task"
 )
 
 type CommandType string
