@@ -24,11 +24,11 @@ jobs:
       - name: Repository Dispatch
         uses: guilouro/multiple-repositories-dispatch@v1.0.2
         with:
-          repo_token: ${{ secrets.XEBIALABS_CI_USER_REPO }}
+          repo_token: ${{ secrets.DAI_NEXUS_DEVOPS_PASSWORD }}
           event_type: update-repo-dependency
           client_payload: '{"ref": "${{ steps.bump_version_push_tag.outputs.tag }}"}'
           #put repository names you want to send dispatch to
           repositories: |
             digital-ai/release-k8s-integration
             digital-ai/release-argocd-integration
-            digital-ai/release-xld-integration
+            digital-ai/release-deploy-integration
