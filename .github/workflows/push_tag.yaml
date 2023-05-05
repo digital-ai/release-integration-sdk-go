@@ -24,7 +24,7 @@ jobs:
       - name: Repository Dispatch
         uses: guilouro/multiple-repositories-dispatch@v1.0.2
         with:
-          repo_token: ${{ secrets.DAI_NEXUS_DEVOPS_PASSWORD }}
+          repo_token: ${{ secrets.XL_CI_GITHUB_ACTIONS_TOKEN }}
           event_type: update-repo-dependency
           client_payload: '{"ref": "${{ steps.bump_version_push_tag.outputs.tag }}"}'
           #put repository names you want to send dispatch to
