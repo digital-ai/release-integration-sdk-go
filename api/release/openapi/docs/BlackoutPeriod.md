@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetStartDate
 
-`func (o *BlackoutPeriod) GetStartDate() string`
+`func (o *BlackoutPeriod) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *BlackoutPeriod) GetStartDateOk() (*string, bool)`
+`func (o *BlackoutPeriod) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *BlackoutPeriod) SetStartDate(v string)`
+`func (o *BlackoutPeriod) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -53,20 +53,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *BlackoutPeriod) GetEndDate() string`
+`func (o *BlackoutPeriod) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *BlackoutPeriod) GetEndDateOk() (*string, bool)`
+`func (o *BlackoutPeriod) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *BlackoutPeriod) SetEndDate(v string)`
+`func (o *BlackoutPeriod) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 

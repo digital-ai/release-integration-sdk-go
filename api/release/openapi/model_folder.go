@@ -19,11 +19,13 @@ var _ MappedNullable = &Folder{}
 
 // Folder struct for Folder
 type Folder struct {
-	Title *string `json:"title,omitempty"`
-	Children []Folder `json:"children,omitempty"`
-	Metadata *map[string]map[string]interface{} `json:"$metadata,omitempty"`
-	AllVariables []Variable `json:"allVariables,omitempty"`
-	FolderVariables *FolderVariables `json:"folderVariables,omitempty"`
+	Id              *string                            `json:"id,omitempty"`
+	Type            *string                            `json:"type,omitempty"`
+	Title           *string                            `json:"title,omitempty"`
+	Children        []Folder                           `json:"children,omitempty"`
+	Metadata        *map[string]map[string]interface{} `json:"$metadata,omitempty"`
+	AllVariables    []Variable                         `json:"allVariables,omitempty"`
+	FolderVariables *FolderVariables                   `json:"folderVariables,omitempty"`
 }
 
 // NewFolder instantiates a new Folder object
@@ -43,9 +45,73 @@ func NewFolderWithDefaults() *Folder {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Folder) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Folder) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Folder) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Folder) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Folder) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Folder) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Folder) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Folder) SetType(v string) {
+	o.Type = &v
+}
+
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *Folder) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -55,7 +121,7 @@ func (o *Folder) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Folder) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -63,7 +129,7 @@ func (o *Folder) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *Folder) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -77,7 +143,7 @@ func (o *Folder) SetTitle(v string) {
 
 // GetChildren returns the Children field value if set, zero value otherwise.
 func (o *Folder) GetChildren() []Folder {
-	if o == nil || isNil(o.Children) {
+	if o == nil || IsNil(o.Children) {
 		var ret []Folder
 		return ret
 	}
@@ -87,7 +153,7 @@ func (o *Folder) GetChildren() []Folder {
 // GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Folder) GetChildrenOk() ([]Folder, bool) {
-	if o == nil || isNil(o.Children) {
+	if o == nil || IsNil(o.Children) {
 		return nil, false
 	}
 	return o.Children, true
@@ -95,7 +161,7 @@ func (o *Folder) GetChildrenOk() ([]Folder, bool) {
 
 // HasChildren returns a boolean if a field has been set.
 func (o *Folder) HasChildren() bool {
-	if o != nil && !isNil(o.Children) {
+	if o != nil && !IsNil(o.Children) {
 		return true
 	}
 
@@ -109,7 +175,7 @@ func (o *Folder) SetChildren(v []Folder) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *Folder) GetMetadata() map[string]map[string]interface{} {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -119,7 +185,7 @@ func (o *Folder) GetMetadata() map[string]map[string]interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Folder) GetMetadataOk() (*map[string]map[string]interface{}, bool) {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -127,7 +193,7 @@ func (o *Folder) GetMetadataOk() (*map[string]map[string]interface{}, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *Folder) HasMetadata() bool {
-	if o != nil && !isNil(o.Metadata) {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -141,7 +207,7 @@ func (o *Folder) SetMetadata(v map[string]map[string]interface{}) {
 
 // GetAllVariables returns the AllVariables field value if set, zero value otherwise.
 func (o *Folder) GetAllVariables() []Variable {
-	if o == nil || isNil(o.AllVariables) {
+	if o == nil || IsNil(o.AllVariables) {
 		var ret []Variable
 		return ret
 	}
@@ -151,7 +217,7 @@ func (o *Folder) GetAllVariables() []Variable {
 // GetAllVariablesOk returns a tuple with the AllVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Folder) GetAllVariablesOk() ([]Variable, bool) {
-	if o == nil || isNil(o.AllVariables) {
+	if o == nil || IsNil(o.AllVariables) {
 		return nil, false
 	}
 	return o.AllVariables, true
@@ -159,7 +225,7 @@ func (o *Folder) GetAllVariablesOk() ([]Variable, bool) {
 
 // HasAllVariables returns a boolean if a field has been set.
 func (o *Folder) HasAllVariables() bool {
-	if o != nil && !isNil(o.AllVariables) {
+	if o != nil && !IsNil(o.AllVariables) {
 		return true
 	}
 
@@ -173,7 +239,7 @@ func (o *Folder) SetAllVariables(v []Variable) {
 
 // GetFolderVariables returns the FolderVariables field value if set, zero value otherwise.
 func (o *Folder) GetFolderVariables() FolderVariables {
-	if o == nil || isNil(o.FolderVariables) {
+	if o == nil || IsNil(o.FolderVariables) {
 		var ret FolderVariables
 		return ret
 	}
@@ -183,7 +249,7 @@ func (o *Folder) GetFolderVariables() FolderVariables {
 // GetFolderVariablesOk returns a tuple with the FolderVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Folder) GetFolderVariablesOk() (*FolderVariables, bool) {
-	if o == nil || isNil(o.FolderVariables) {
+	if o == nil || IsNil(o.FolderVariables) {
 		return nil, false
 	}
 	return o.FolderVariables, true
@@ -191,7 +257,7 @@ func (o *Folder) GetFolderVariablesOk() (*FolderVariables, bool) {
 
 // HasFolderVariables returns a boolean if a field has been set.
 func (o *Folder) HasFolderVariables() bool {
-	if o != nil && !isNil(o.FolderVariables) {
+	if o != nil && !IsNil(o.FolderVariables) {
 		return true
 	}
 
@@ -204,7 +270,7 @@ func (o *Folder) SetFolderVariables(v FolderVariables) {
 }
 
 func (o Folder) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -213,19 +279,25 @@ func (o Folder) MarshalJSON() ([]byte, error) {
 
 func (o Folder) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Children) {
+	if !IsNil(o.Children) {
 		toSerialize["children"] = o.Children
 	}
-	if !isNil(o.Metadata) {
+	if !IsNil(o.Metadata) {
 		toSerialize["$metadata"] = o.Metadata
 	}
-	if !isNil(o.AllVariables) {
+	if !IsNil(o.AllVariables) {
 		toSerialize["allVariables"] = o.AllVariables
 	}
-	if !isNil(o.FolderVariables) {
+	if !IsNil(o.FolderVariables) {
 		toSerialize["folderVariables"] = o.FolderVariables
 	}
 	return toSerialize, nil
@@ -266,5 +338,3 @@ func (v *NullableFolder) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

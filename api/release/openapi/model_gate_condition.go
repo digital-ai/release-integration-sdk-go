@@ -19,8 +19,10 @@ var _ MappedNullable = &GateCondition{}
 
 // GateCondition struct for GateCondition
 type GateCondition struct {
-	Title *string `json:"title,omitempty"`
-	Checked *bool `json:"checked,omitempty"`
+	Id      *string `json:"id,omitempty"`
+	Type    *string `json:"type,omitempty"`
+	Title   *string `json:"title,omitempty"`
+	Checked *bool   `json:"checked,omitempty"`
 }
 
 // NewGateCondition instantiates a new GateCondition object
@@ -40,9 +42,73 @@ func NewGateConditionWithDefaults() *GateCondition {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *GateCondition) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GateCondition) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *GateCondition) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *GateCondition) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *GateCondition) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GateCondition) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *GateCondition) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *GateCondition) SetType(v string) {
+	o.Type = &v
+}
+
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *GateCondition) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -52,7 +118,7 @@ func (o *GateCondition) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GateCondition) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -60,7 +126,7 @@ func (o *GateCondition) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *GateCondition) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -74,7 +140,7 @@ func (o *GateCondition) SetTitle(v string) {
 
 // GetChecked returns the Checked field value if set, zero value otherwise.
 func (o *GateCondition) GetChecked() bool {
-	if o == nil || isNil(o.Checked) {
+	if o == nil || IsNil(o.Checked) {
 		var ret bool
 		return ret
 	}
@@ -84,7 +150,7 @@ func (o *GateCondition) GetChecked() bool {
 // GetCheckedOk returns a tuple with the Checked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GateCondition) GetCheckedOk() (*bool, bool) {
-	if o == nil || isNil(o.Checked) {
+	if o == nil || IsNil(o.Checked) {
 		return nil, false
 	}
 	return o.Checked, true
@@ -92,7 +158,7 @@ func (o *GateCondition) GetCheckedOk() (*bool, bool) {
 
 // HasChecked returns a boolean if a field has been set.
 func (o *GateCondition) HasChecked() bool {
-	if o != nil && !isNil(o.Checked) {
+	if o != nil && !IsNil(o.Checked) {
 		return true
 	}
 
@@ -105,7 +171,7 @@ func (o *GateCondition) SetChecked(v bool) {
 }
 
 func (o GateCondition) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +180,16 @@ func (o GateCondition) MarshalJSON() ([]byte, error) {
 
 func (o GateCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Checked) {
+	if !IsNil(o.Checked) {
 		toSerialize["checked"] = o.Checked
 	}
 	return toSerialize, nil
@@ -158,5 +230,3 @@ func (v *NullableGateCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

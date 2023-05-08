@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the DeliveryTimeline type satisfies the MappedNullable interface at compile time
@@ -19,11 +20,11 @@ var _ MappedNullable = &DeliveryTimeline{}
 
 // DeliveryTimeline struct for DeliveryTimeline
 type DeliveryTimeline struct {
-	Id *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Releases []ReleaseTimeline `json:"releases,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
+	Id        *string           `json:"id,omitempty"`
+	Title     *string           `json:"title,omitempty"`
+	Releases  []ReleaseTimeline `json:"releases,omitempty"`
+	StartDate *time.Time        `json:"startDate,omitempty"`
+	EndDate   *time.Time        `json:"endDate,omitempty"`
 }
 
 // NewDeliveryTimeline instantiates a new DeliveryTimeline object
@@ -45,7 +46,7 @@ func NewDeliveryTimelineWithDefaults() *DeliveryTimeline {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *DeliveryTimeline) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -55,7 +56,7 @@ func (o *DeliveryTimeline) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryTimeline) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -63,7 +64,7 @@ func (o *DeliveryTimeline) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *DeliveryTimeline) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -77,7 +78,7 @@ func (o *DeliveryTimeline) SetId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *DeliveryTimeline) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -87,7 +88,7 @@ func (o *DeliveryTimeline) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryTimeline) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -95,7 +96,7 @@ func (o *DeliveryTimeline) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *DeliveryTimeline) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -109,7 +110,7 @@ func (o *DeliveryTimeline) SetTitle(v string) {
 
 // GetReleases returns the Releases field value if set, zero value otherwise.
 func (o *DeliveryTimeline) GetReleases() []ReleaseTimeline {
-	if o == nil || isNil(o.Releases) {
+	if o == nil || IsNil(o.Releases) {
 		var ret []ReleaseTimeline
 		return ret
 	}
@@ -119,7 +120,7 @@ func (o *DeliveryTimeline) GetReleases() []ReleaseTimeline {
 // GetReleasesOk returns a tuple with the Releases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryTimeline) GetReleasesOk() ([]ReleaseTimeline, bool) {
-	if o == nil || isNil(o.Releases) {
+	if o == nil || IsNil(o.Releases) {
 		return nil, false
 	}
 	return o.Releases, true
@@ -127,7 +128,7 @@ func (o *DeliveryTimeline) GetReleasesOk() ([]ReleaseTimeline, bool) {
 
 // HasReleases returns a boolean if a field has been set.
 func (o *DeliveryTimeline) HasReleases() bool {
-	if o != nil && !isNil(o.Releases) {
+	if o != nil && !IsNil(o.Releases) {
 		return true
 	}
 
@@ -140,9 +141,9 @@ func (o *DeliveryTimeline) SetReleases(v []ReleaseTimeline) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *DeliveryTimeline) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *DeliveryTimeline) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -150,8 +151,8 @@ func (o *DeliveryTimeline) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeliveryTimeline) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *DeliveryTimeline) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -159,22 +160,22 @@ func (o *DeliveryTimeline) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *DeliveryTimeline) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *DeliveryTimeline) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *DeliveryTimeline) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *DeliveryTimeline) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *DeliveryTimeline) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -182,8 +183,8 @@ func (o *DeliveryTimeline) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeliveryTimeline) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *DeliveryTimeline) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -191,20 +192,20 @@ func (o *DeliveryTimeline) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *DeliveryTimeline) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *DeliveryTimeline) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *DeliveryTimeline) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 func (o DeliveryTimeline) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -213,19 +214,19 @@ func (o DeliveryTimeline) MarshalJSON() ([]byte, error) {
 
 func (o DeliveryTimeline) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Releases) {
+	if !IsNil(o.Releases) {
 		toSerialize["releases"] = o.Releases
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
 	return toSerialize, nil
@@ -266,5 +267,3 @@ func (v *NullableDeliveryTimeline) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

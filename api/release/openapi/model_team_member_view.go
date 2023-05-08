@@ -19,10 +19,10 @@ var _ MappedNullable = &TeamMemberView{}
 
 // TeamMemberView struct for TeamMemberView
 type TeamMemberView struct {
-	Name *string `json:"name,omitempty"`
-	FullName *string `json:"fullName,omitempty"`
-	Type *MemberType `json:"type,omitempty"`
-	RoleId *string `json:"roleId,omitempty"`
+	Name     *string     `json:"name,omitempty"`
+	FullName *string     `json:"fullName,omitempty"`
+	Type     *MemberType `json:"type,omitempty"`
+	RoleId   *string     `json:"roleId,omitempty"`
 }
 
 // NewTeamMemberView instantiates a new TeamMemberView object
@@ -44,7 +44,7 @@ func NewTeamMemberViewWithDefaults() *TeamMemberView {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *TeamMemberView) GetName() string {
-	if o == nil || isNil(o.Name) {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *TeamMemberView) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamMemberView) GetNameOk() (*string, bool) {
-	if o == nil || isNil(o.Name) {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -62,7 +62,7 @@ func (o *TeamMemberView) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *TeamMemberView) HasName() bool {
-	if o != nil && !isNil(o.Name) {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -76,7 +76,7 @@ func (o *TeamMemberView) SetName(v string) {
 
 // GetFullName returns the FullName field value if set, zero value otherwise.
 func (o *TeamMemberView) GetFullName() string {
-	if o == nil || isNil(o.FullName) {
+	if o == nil || IsNil(o.FullName) {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *TeamMemberView) GetFullName() string {
 // GetFullNameOk returns a tuple with the FullName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamMemberView) GetFullNameOk() (*string, bool) {
-	if o == nil || isNil(o.FullName) {
+	if o == nil || IsNil(o.FullName) {
 		return nil, false
 	}
 	return o.FullName, true
@@ -94,7 +94,7 @@ func (o *TeamMemberView) GetFullNameOk() (*string, bool) {
 
 // HasFullName returns a boolean if a field has been set.
 func (o *TeamMemberView) HasFullName() bool {
-	if o != nil && !isNil(o.FullName) {
+	if o != nil && !IsNil(o.FullName) {
 		return true
 	}
 
@@ -108,7 +108,7 @@ func (o *TeamMemberView) SetFullName(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *TeamMemberView) GetType() MemberType {
-	if o == nil || isNil(o.Type) {
+	if o == nil || IsNil(o.Type) {
 		var ret MemberType
 		return ret
 	}
@@ -118,7 +118,7 @@ func (o *TeamMemberView) GetType() MemberType {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamMemberView) GetTypeOk() (*MemberType, bool) {
-	if o == nil || isNil(o.Type) {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -126,7 +126,7 @@ func (o *TeamMemberView) GetTypeOk() (*MemberType, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *TeamMemberView) HasType() bool {
-	if o != nil && !isNil(o.Type) {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -140,7 +140,7 @@ func (o *TeamMemberView) SetType(v MemberType) {
 
 // GetRoleId returns the RoleId field value if set, zero value otherwise.
 func (o *TeamMemberView) GetRoleId() string {
-	if o == nil || isNil(o.RoleId) {
+	if o == nil || IsNil(o.RoleId) {
 		var ret string
 		return ret
 	}
@@ -150,7 +150,7 @@ func (o *TeamMemberView) GetRoleId() string {
 // GetRoleIdOk returns a tuple with the RoleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamMemberView) GetRoleIdOk() (*string, bool) {
-	if o == nil || isNil(o.RoleId) {
+	if o == nil || IsNil(o.RoleId) {
 		return nil, false
 	}
 	return o.RoleId, true
@@ -158,7 +158,7 @@ func (o *TeamMemberView) GetRoleIdOk() (*string, bool) {
 
 // HasRoleId returns a boolean if a field has been set.
 func (o *TeamMemberView) HasRoleId() bool {
-	if o != nil && !isNil(o.RoleId) {
+	if o != nil && !IsNil(o.RoleId) {
 		return true
 	}
 
@@ -171,7 +171,7 @@ func (o *TeamMemberView) SetRoleId(v string) {
 }
 
 func (o TeamMemberView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +180,16 @@ func (o TeamMemberView) MarshalJSON() ([]byte, error) {
 
 func (o TeamMemberView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Name) {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !isNil(o.FullName) {
+	if !IsNil(o.FullName) {
 		toSerialize["fullName"] = o.FullName
 	}
-	if !isNil(o.Type) {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if !isNil(o.RoleId) {
+	if !IsNil(o.RoleId) {
 		toSerialize["roleId"] = o.RoleId
 	}
 	return toSerialize, nil
@@ -230,5 +230,3 @@ func (v *NullableTeamMemberView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

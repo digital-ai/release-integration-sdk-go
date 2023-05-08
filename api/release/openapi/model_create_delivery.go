@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the CreateDelivery type satisfies the MappedNullable interface at compile time
@@ -19,13 +20,15 @@ var _ MappedNullable = &CreateDelivery{}
 
 // CreateDelivery struct for CreateDelivery
 type CreateDelivery struct {
-	FolderId *string `json:"folderId,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Duration *int32 `json:"duration,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	AutoComplete *bool `json:"autoComplete,omitempty"`
+	Id           *string    `json:"id,omitempty"`
+	Type         *string    `json:"type,omitempty"`
+	FolderId     *string    `json:"folderId,omitempty"`
+	Title        *string    `json:"title,omitempty"`
+	Description  *string    `json:"description,omitempty"`
+	Duration     *int32     `json:"duration,omitempty"`
+	StartDate    *time.Time `json:"startDate,omitempty"`
+	EndDate      *time.Time `json:"endDate,omitempty"`
+	AutoComplete *bool      `json:"autoComplete,omitempty"`
 }
 
 // NewCreateDelivery instantiates a new CreateDelivery object
@@ -45,9 +48,73 @@ func NewCreateDeliveryWithDefaults() *CreateDelivery {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *CreateDelivery) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateDelivery) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *CreateDelivery) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *CreateDelivery) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *CreateDelivery) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateDelivery) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *CreateDelivery) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *CreateDelivery) SetType(v string) {
+	o.Type = &v
+}
+
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *CreateDelivery) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -57,7 +124,7 @@ func (o *CreateDelivery) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateDelivery) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -65,7 +132,7 @@ func (o *CreateDelivery) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *CreateDelivery) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -79,7 +146,7 @@ func (o *CreateDelivery) SetFolderId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *CreateDelivery) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -89,7 +156,7 @@ func (o *CreateDelivery) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateDelivery) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -97,7 +164,7 @@ func (o *CreateDelivery) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *CreateDelivery) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -111,7 +178,7 @@ func (o *CreateDelivery) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CreateDelivery) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -121,7 +188,7 @@ func (o *CreateDelivery) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateDelivery) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -129,7 +196,7 @@ func (o *CreateDelivery) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateDelivery) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -143,7 +210,7 @@ func (o *CreateDelivery) SetDescription(v string) {
 
 // GetDuration returns the Duration field value if set, zero value otherwise.
 func (o *CreateDelivery) GetDuration() int32 {
-	if o == nil || isNil(o.Duration) {
+	if o == nil || IsNil(o.Duration) {
 		var ret int32
 		return ret
 	}
@@ -153,7 +220,7 @@ func (o *CreateDelivery) GetDuration() int32 {
 // GetDurationOk returns a tuple with the Duration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateDelivery) GetDurationOk() (*int32, bool) {
-	if o == nil || isNil(o.Duration) {
+	if o == nil || IsNil(o.Duration) {
 		return nil, false
 	}
 	return o.Duration, true
@@ -161,7 +228,7 @@ func (o *CreateDelivery) GetDurationOk() (*int32, bool) {
 
 // HasDuration returns a boolean if a field has been set.
 func (o *CreateDelivery) HasDuration() bool {
-	if o != nil && !isNil(o.Duration) {
+	if o != nil && !IsNil(o.Duration) {
 		return true
 	}
 
@@ -174,9 +241,9 @@ func (o *CreateDelivery) SetDuration(v int32) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *CreateDelivery) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *CreateDelivery) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -184,8 +251,8 @@ func (o *CreateDelivery) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateDelivery) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *CreateDelivery) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -193,22 +260,22 @@ func (o *CreateDelivery) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *CreateDelivery) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *CreateDelivery) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *CreateDelivery) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *CreateDelivery) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *CreateDelivery) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -216,8 +283,8 @@ func (o *CreateDelivery) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateDelivery) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *CreateDelivery) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -225,21 +292,21 @@ func (o *CreateDelivery) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *CreateDelivery) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *CreateDelivery) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *CreateDelivery) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetAutoComplete returns the AutoComplete field value if set, zero value otherwise.
 func (o *CreateDelivery) GetAutoComplete() bool {
-	if o == nil || isNil(o.AutoComplete) {
+	if o == nil || IsNil(o.AutoComplete) {
 		var ret bool
 		return ret
 	}
@@ -249,7 +316,7 @@ func (o *CreateDelivery) GetAutoComplete() bool {
 // GetAutoCompleteOk returns a tuple with the AutoComplete field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateDelivery) GetAutoCompleteOk() (*bool, bool) {
-	if o == nil || isNil(o.AutoComplete) {
+	if o == nil || IsNil(o.AutoComplete) {
 		return nil, false
 	}
 	return o.AutoComplete, true
@@ -257,7 +324,7 @@ func (o *CreateDelivery) GetAutoCompleteOk() (*bool, bool) {
 
 // HasAutoComplete returns a boolean if a field has been set.
 func (o *CreateDelivery) HasAutoComplete() bool {
-	if o != nil && !isNil(o.AutoComplete) {
+	if o != nil && !IsNil(o.AutoComplete) {
 		return true
 	}
 
@@ -270,7 +337,7 @@ func (o *CreateDelivery) SetAutoComplete(v bool) {
 }
 
 func (o CreateDelivery) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -279,25 +346,31 @@ func (o CreateDelivery) MarshalJSON() ([]byte, error) {
 
 func (o CreateDelivery) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Duration) {
+	if !IsNil(o.Duration) {
 		toSerialize["duration"] = o.Duration
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.AutoComplete) {
+	if !IsNil(o.AutoComplete) {
 		toSerialize["autoComplete"] = o.AutoComplete
 	}
 	return toSerialize, nil
@@ -338,5 +411,3 @@ func (v *NullableCreateDelivery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

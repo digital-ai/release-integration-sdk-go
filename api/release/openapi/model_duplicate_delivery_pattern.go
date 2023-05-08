@@ -19,7 +19,7 @@ var _ MappedNullable = &DuplicateDeliveryPattern{}
 
 // DuplicateDeliveryPattern struct for DuplicateDeliveryPattern
 type DuplicateDeliveryPattern struct {
-	Title *string `json:"title,omitempty"`
+	Title       *string `json:"title,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
@@ -42,7 +42,7 @@ func NewDuplicateDeliveryPatternWithDefaults() *DuplicateDeliveryPattern {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *DuplicateDeliveryPattern) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *DuplicateDeliveryPattern) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DuplicateDeliveryPattern) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -60,7 +60,7 @@ func (o *DuplicateDeliveryPattern) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *DuplicateDeliveryPattern) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *DuplicateDeliveryPattern) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *DuplicateDeliveryPattern) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *DuplicateDeliveryPattern) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DuplicateDeliveryPattern) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -92,7 +92,7 @@ func (o *DuplicateDeliveryPattern) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *DuplicateDeliveryPattern) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *DuplicateDeliveryPattern) SetDescription(v string) {
 }
 
 func (o DuplicateDeliveryPattern) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o DuplicateDeliveryPattern) MarshalJSON() ([]byte, error) {
 
 func (o DuplicateDeliveryPattern) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableDuplicateDeliveryPattern) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

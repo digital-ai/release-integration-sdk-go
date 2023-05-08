@@ -4,10 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Username** | Pointer to **string** |  | [optional] 
 **ActivityType** | Pointer to **string** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
-**EventTime** | Pointer to **string** |  | [optional] 
+**EventTime** | Pointer to **time.Time** |  | [optional] 
 **TargetType** | Pointer to **string** |  | [optional] 
 **TargetId** | Pointer to **string** |  | [optional] 
 **DataId** | Pointer to **string** |  | [optional] 
@@ -30,6 +32,56 @@ will change when the set of required properties is changed
 NewActivityLogEntryWithDefaults instantiates a new ActivityLogEntry object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *ActivityLogEntry) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ActivityLogEntry) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ActivityLogEntry) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ActivityLogEntry) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *ActivityLogEntry) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *ActivityLogEntry) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *ActivityLogEntry) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *ActivityLogEntry) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -108,20 +160,20 @@ HasMessage returns a boolean if a field has been set.
 
 ### GetEventTime
 
-`func (o *ActivityLogEntry) GetEventTime() string`
+`func (o *ActivityLogEntry) GetEventTime() time.Time`
 
 GetEventTime returns the EventTime field if non-nil, zero value otherwise.
 
 ### GetEventTimeOk
 
-`func (o *ActivityLogEntry) GetEventTimeOk() (*string, bool)`
+`func (o *ActivityLogEntry) GetEventTimeOk() (*time.Time, bool)`
 
 GetEventTimeOk returns a tuple with the EventTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventTime
 
-`func (o *ActivityLogEntry) SetEventTime(v string)`
+`func (o *ActivityLogEntry) SetEventTime(v time.Time)`
 
 SetEventTime sets EventTime field to given value.
 

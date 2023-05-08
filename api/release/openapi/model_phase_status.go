@@ -20,13 +20,13 @@ type PhaseStatus string
 
 // List of PhaseStatus
 const (
-	PLANNED_PHASE PhaseStatus = "PLANNED_PHASE"
+	PLANNED_PHASE     PhaseStatus = "PLANNED_PHASE"
 	IN_PROGRESS_PHASE PhaseStatus = "IN_PROGRESS_PHASE"
-	COMPLETED_PHASE PhaseStatus = "COMPLETED_PHASE"
-	FAILING_PHASE PhaseStatus = "FAILING_PHASE"
-	FAILED_PHASE PhaseStatus = "FAILED_PHASE"
-	SKIPPED_PHASE PhaseStatus = "SKIPPED_PHASE"
-	ABORTED_PHASE PhaseStatus = "ABORTED_PHASE"
+	COMPLETED_PHASE   PhaseStatus = "COMPLETED_PHASE"
+	FAILING_PHASE     PhaseStatus = "FAILING_PHASE"
+	FAILED_PHASE      PhaseStatus = "FAILED_PHASE"
+	SKIPPED_PHASE     PhaseStatus = "SKIPPED_PHASE"
+	ABORTED_PHASE     PhaseStatus = "ABORTED_PHASE"
 )
 
 // All allowed values of PhaseStatus enum
@@ -118,4 +118,3 @@ func (v *NullablePhaseStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

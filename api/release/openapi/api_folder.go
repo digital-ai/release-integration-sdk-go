@@ -13,21 +13,20 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // FolderApiService FolderApi service
 type FolderApiService service
 
 type ApiAddFolderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
-	folder *Folder
+	folderId   string
+	folder     *Folder
 }
 
 func (r ApiAddFolderRequest) Folder(folder Folder) ApiAddFolderRequest {
@@ -42,26 +41,27 @@ func (r ApiAddFolderRequest) Execute() (*Folder, *http.Response, error) {
 /*
 AddFolder Method for AddFolder
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiAddFolderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiAddFolderRequest
 */
 func (a *FolderApiService) AddFolder(ctx context.Context, folderId string) ApiAddFolderRequest {
 	return ApiAddFolderRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return Folder
+//
+//	@return Folder
 func (a *FolderApiService) AddFolderExecute(r ApiAddFolderRequest) (*Folder, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Folder
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Folder
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.AddFolder")
@@ -95,6 +95,20 @@ func (a *FolderApiService) AddFolderExecute(r ApiAddFolderRequest) (*Folder, *ht
 	}
 	// body params
 	localVarPostBody = r.folder
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -105,9 +119,9 @@ func (a *FolderApiService) AddFolderExecute(r ApiAddFolderRequest) (*Folder, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -133,10 +147,10 @@ func (a *FolderApiService) AddFolderExecute(r ApiAddFolderRequest) (*Folder, *ht
 }
 
 type ApiCreateFolderVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
-	variable1 *Variable1
+	folderId   string
+	variable1  *Variable1
 }
 
 func (r ApiCreateFolderVariableRequest) Variable1(variable1 Variable1) ApiCreateFolderVariableRequest {
@@ -151,26 +165,27 @@ func (r ApiCreateFolderVariableRequest) Execute() (*Variable, *http.Response, er
 /*
 CreateFolderVariable Method for CreateFolderVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiCreateFolderVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiCreateFolderVariableRequest
 */
 func (a *FolderApiService) CreateFolderVariable(ctx context.Context, folderId string) ApiCreateFolderVariableRequest {
 	return ApiCreateFolderVariableRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *FolderApiService) CreateFolderVariableExecute(r ApiCreateFolderVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.CreateFolderVariable")
@@ -204,6 +219,20 @@ func (a *FolderApiService) CreateFolderVariableExecute(r ApiCreateFolderVariable
 	}
 	// body params
 	localVarPostBody = r.variable1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -214,9 +243,9 @@ func (a *FolderApiService) CreateFolderVariableExecute(r ApiCreateFolderVariable
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -242,9 +271,9 @@ func (a *FolderApiService) CreateFolderVariableExecute(r ApiCreateFolderVariable
 }
 
 type ApiDeleteFolderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
+	folderId   string
 }
 
 func (r ApiDeleteFolderRequest) Execute() (*http.Response, error) {
@@ -254,24 +283,24 @@ func (r ApiDeleteFolderRequest) Execute() (*http.Response, error) {
 /*
 DeleteFolder Method for DeleteFolder
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiDeleteFolderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiDeleteFolderRequest
 */
 func (a *FolderApiService) DeleteFolder(ctx context.Context, folderId string) ApiDeleteFolderRequest {
 	return ApiDeleteFolderRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
 func (a *FolderApiService) DeleteFolderExecute(r ApiDeleteFolderRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.DeleteFolder")
@@ -303,6 +332,20 @@ func (a *FolderApiService) DeleteFolderExecute(r ApiDeleteFolderRequest) (*http.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -313,9 +356,9 @@ func (a *FolderApiService) DeleteFolderExecute(r ApiDeleteFolderRequest) (*http.
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -332,9 +375,9 @@ func (a *FolderApiService) DeleteFolderExecute(r ApiDeleteFolderRequest) (*http.
 }
 
 type ApiDeleteFolderVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
+	folderId   string
 	variableId string
 }
 
@@ -345,16 +388,16 @@ func (r ApiDeleteFolderVariableRequest) Execute() (*http.Response, error) {
 /*
 DeleteFolderVariable Method for DeleteFolderVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @param variableId
- @return ApiDeleteFolderVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@param variableId
+	@return ApiDeleteFolderVariableRequest
 */
 func (a *FolderApiService) DeleteFolderVariable(ctx context.Context, folderId string, variableId string) ApiDeleteFolderVariableRequest {
 	return ApiDeleteFolderVariableRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 		variableId: variableId,
 	}
 }
@@ -362,9 +405,9 @@ func (a *FolderApiService) DeleteFolderVariable(ctx context.Context, folderId st
 // Execute executes the request
 func (a *FolderApiService) DeleteFolderVariableExecute(r ApiDeleteFolderVariableRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.DeleteFolderVariable")
@@ -397,6 +440,20 @@ func (a *FolderApiService) DeleteFolderVariableExecute(r ApiDeleteFolderVariable
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -407,9 +464,9 @@ func (a *FolderApiService) DeleteFolderVariableExecute(r ApiDeleteFolderVariable
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -426,10 +483,10 @@ func (a *FolderApiService) DeleteFolderVariableExecute(r ApiDeleteFolderVariable
 }
 
 type ApiFindRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	byPath *string
-	depth *int32
+	byPath     *string
+	depth      *int32
 }
 
 func (r ApiFindRequest) ByPath(byPath string) ApiFindRequest {
@@ -449,24 +506,25 @@ func (r ApiFindRequest) Execute() (*Folder, *http.Response, error) {
 /*
 Find Method for Find
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiFindRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiFindRequest
 */
 func (a *FolderApiService) Find(ctx context.Context) ApiFindRequest {
 	return ApiFindRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Folder
+//
+//	@return Folder
 func (a *FolderApiService) FindExecute(r ApiFindRequest) (*Folder, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Folder
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Folder
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.Find")
@@ -481,10 +539,10 @@ func (a *FolderApiService) FindExecute(r ApiFindRequest) (*Folder, *http.Respons
 	localVarFormParams := url.Values{}
 
 	if r.byPath != nil {
-		parameterAddToQuery(localVarQueryParams, "byPath", r.byPath, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "byPath", r.byPath, "")
 	}
 	if r.depth != nil {
-		parameterAddToQuery(localVarQueryParams, "depth", r.depth, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -503,6 +561,20 @@ func (a *FolderApiService) FindExecute(r ApiFindRequest) (*Folder, *http.Respons
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -513,9 +585,9 @@ func (a *FolderApiService) FindExecute(r ApiFindRequest) (*Folder, *http.Respons
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -541,10 +613,10 @@ func (a *FolderApiService) FindExecute(r ApiFindRequest) (*Folder, *http.Respons
 }
 
 type ApiGetFolderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
-	depth *int32
+	folderId   string
+	depth      *int32
 }
 
 func (r ApiGetFolderRequest) Depth(depth int32) ApiGetFolderRequest {
@@ -559,26 +631,27 @@ func (r ApiGetFolderRequest) Execute() (*Folder, *http.Response, error) {
 /*
 GetFolder Method for GetFolder
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiGetFolderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiGetFolderRequest
 */
 func (a *FolderApiService) GetFolder(ctx context.Context, folderId string) ApiGetFolderRequest {
 	return ApiGetFolderRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return Folder
+//
+//	@return Folder
 func (a *FolderApiService) GetFolderExecute(r ApiGetFolderRequest) (*Folder, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Folder
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Folder
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.GetFolder")
@@ -594,7 +667,7 @@ func (a *FolderApiService) GetFolderExecute(r ApiGetFolderRequest) (*Folder, *ht
 	localVarFormParams := url.Values{}
 
 	if r.depth != nil {
-		parameterAddToQuery(localVarQueryParams, "depth", r.depth, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -613,6 +686,20 @@ func (a *FolderApiService) GetFolderExecute(r ApiGetFolderRequest) (*Folder, *ht
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -623,9 +710,9 @@ func (a *FolderApiService) GetFolderExecute(r ApiGetFolderRequest) (*Folder, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -651,7 +738,7 @@ func (a *FolderApiService) GetFolderExecute(r ApiGetFolderRequest) (*Folder, *ht
 }
 
 type ApiGetFolderPermissionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
 }
 
@@ -662,24 +749,25 @@ func (r ApiGetFolderPermissionsRequest) Execute() ([]string, *http.Response, err
 /*
 GetFolderPermissions Method for GetFolderPermissions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetFolderPermissionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetFolderPermissionsRequest
 */
 func (a *FolderApiService) GetFolderPermissions(ctx context.Context) ApiGetFolderPermissionsRequest {
 	return ApiGetFolderPermissionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *FolderApiService) GetFolderPermissionsExecute(r ApiGetFolderPermissionsRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.GetFolderPermissions")
@@ -710,6 +798,20 @@ func (a *FolderApiService) GetFolderPermissionsExecute(r ApiGetFolderPermissions
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -720,9 +822,9 @@ func (a *FolderApiService) GetFolderPermissionsExecute(r ApiGetFolderPermissions
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -748,9 +850,9 @@ func (a *FolderApiService) GetFolderPermissionsExecute(r ApiGetFolderPermissions
 }
 
 type ApiGetFolderTeamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
+	folderId   string
 }
 
 func (r ApiGetFolderTeamsRequest) Execute() ([]TeamView, *http.Response, error) {
@@ -760,26 +862,27 @@ func (r ApiGetFolderTeamsRequest) Execute() ([]TeamView, *http.Response, error) 
 /*
 GetFolderTeams Method for GetFolderTeams
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiGetFolderTeamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiGetFolderTeamsRequest
 */
 func (a *FolderApiService) GetFolderTeams(ctx context.Context, folderId string) ApiGetFolderTeamsRequest {
 	return ApiGetFolderTeamsRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return []TeamView
+//
+//	@return []TeamView
 func (a *FolderApiService) GetFolderTeamsExecute(r ApiGetFolderTeamsRequest) ([]TeamView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TeamView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TeamView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.GetFolderTeams")
@@ -811,6 +914,20 @@ func (a *FolderApiService) GetFolderTeamsExecute(r ApiGetFolderTeamsRequest) ([]
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -821,9 +938,9 @@ func (a *FolderApiService) GetFolderTeamsExecute(r ApiGetFolderTeamsRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -849,11 +966,11 @@ func (a *FolderApiService) GetFolderTeamsExecute(r ApiGetFolderTeamsRequest) ([]
 }
 
 type ApiGetFolderTemplatesRequest struct {
-	ctx context.Context
-	ApiService *FolderApiService
-	folderId string
-	depth *int32
-	page *int64
+	ctx            context.Context
+	ApiService     *FolderApiService
+	folderId       string
+	depth          *int32
+	page           *int64
 	resultsPerPage *int64
 }
 
@@ -879,26 +996,27 @@ func (r ApiGetFolderTemplatesRequest) Execute() ([]Release, *http.Response, erro
 /*
 GetFolderTemplates Method for GetFolderTemplates
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiGetFolderTemplatesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiGetFolderTemplatesRequest
 */
 func (a *FolderApiService) GetFolderTemplates(ctx context.Context, folderId string) ApiGetFolderTemplatesRequest {
 	return ApiGetFolderTemplatesRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return []Release
+//
+//	@return []Release
 func (a *FolderApiService) GetFolderTemplatesExecute(r ApiGetFolderTemplatesRequest) ([]Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Release
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.GetFolderTemplates")
@@ -914,13 +1032,13 @@ func (a *FolderApiService) GetFolderTemplatesExecute(r ApiGetFolderTemplatesRequ
 	localVarFormParams := url.Values{}
 
 	if r.depth != nil {
-		parameterAddToQuery(localVarQueryParams, "depth", r.depth, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -939,6 +1057,20 @@ func (a *FolderApiService) GetFolderTemplatesExecute(r ApiGetFolderTemplatesRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -949,9 +1081,9 @@ func (a *FolderApiService) GetFolderTemplatesExecute(r ApiGetFolderTemplatesRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -977,9 +1109,9 @@ func (a *FolderApiService) GetFolderTemplatesExecute(r ApiGetFolderTemplatesRequ
 }
 
 type ApiGetFolderVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
+	folderId   string
 	variableId string
 }
 
@@ -990,28 +1122,29 @@ func (r ApiGetFolderVariableRequest) Execute() (*Variable, *http.Response, error
 /*
 GetFolderVariable Method for GetFolderVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @param variableId
- @return ApiGetFolderVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@param variableId
+	@return ApiGetFolderVariableRequest
 */
 func (a *FolderApiService) GetFolderVariable(ctx context.Context, folderId string, variableId string) ApiGetFolderVariableRequest {
 	return ApiGetFolderVariableRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *FolderApiService) GetFolderVariableExecute(r ApiGetFolderVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.GetFolderVariable")
@@ -1044,6 +1177,20 @@ func (a *FolderApiService) GetFolderVariableExecute(r ApiGetFolderVariableReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1054,9 +1201,9 @@ func (a *FolderApiService) GetFolderVariableExecute(r ApiGetFolderVariableReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1082,9 +1229,9 @@ func (a *FolderApiService) GetFolderVariableExecute(r ApiGetFolderVariableReques
 }
 
 type ApiIsFolderOwnerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
+	folderId   string
 }
 
 func (r ApiIsFolderOwnerRequest) Execute() (bool, *http.Response, error) {
@@ -1094,26 +1241,27 @@ func (r ApiIsFolderOwnerRequest) Execute() (bool, *http.Response, error) {
 /*
 IsFolderOwner Method for IsFolderOwner
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiIsFolderOwnerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiIsFolderOwnerRequest
 */
 func (a *FolderApiService) IsFolderOwner(ctx context.Context, folderId string) ApiIsFolderOwnerRequest {
 	return ApiIsFolderOwnerRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return bool
+//
+//	@return bool
 func (a *FolderApiService) IsFolderOwnerExecute(r ApiIsFolderOwnerRequest) (bool, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  bool
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue bool
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.IsFolderOwner")
@@ -1145,6 +1293,20 @@ func (a *FolderApiService) IsFolderOwnerExecute(r ApiIsFolderOwnerRequest) (bool
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1155,9 +1317,9 @@ func (a *FolderApiService) IsFolderOwnerExecute(r ApiIsFolderOwnerRequest) (bool
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1183,12 +1345,12 @@ func (a *FolderApiService) IsFolderOwnerExecute(r ApiIsFolderOwnerRequest) (bool
 }
 
 type ApiListRequest struct {
-	ctx context.Context
-	ApiService *FolderApiService
-	folderId string
-	depth *int32
-	page *int64
-	permissions *bool
+	ctx            context.Context
+	ApiService     *FolderApiService
+	folderId       string
+	depth          *int32
+	page           *int64
+	permissions    *bool
 	resultsPerPage *int64
 }
 
@@ -1219,26 +1381,27 @@ func (r ApiListRequest) Execute() ([]Folder, *http.Response, error) {
 /*
 List Method for List
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiListRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiListRequest
 */
 func (a *FolderApiService) List(ctx context.Context, folderId string) ApiListRequest {
 	return ApiListRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return []Folder
+//
+//	@return []Folder
 func (a *FolderApiService) ListExecute(r ApiListRequest) ([]Folder, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Folder
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Folder
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.List")
@@ -1254,16 +1417,16 @@ func (a *FolderApiService) ListExecute(r ApiListRequest) ([]Folder, *http.Respon
 	localVarFormParams := url.Values{}
 
 	if r.depth != nil {
-		parameterAddToQuery(localVarQueryParams, "depth", r.depth, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.permissions != nil {
-		parameterAddToQuery(localVarQueryParams, "permissions", r.permissions, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "permissions", r.permissions, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1282,6 +1445,20 @@ func (a *FolderApiService) ListExecute(r ApiListRequest) ([]Folder, *http.Respon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1292,9 +1469,9 @@ func (a *FolderApiService) ListExecute(r ApiListRequest) ([]Folder, *http.Respon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1320,11 +1497,11 @@ func (a *FolderApiService) ListExecute(r ApiListRequest) ([]Folder, *http.Respon
 }
 
 type ApiListRootRequest struct {
-	ctx context.Context
-	ApiService *FolderApiService
-	depth *int32
-	page *int64
-	permissions *bool
+	ctx            context.Context
+	ApiService     *FolderApiService
+	depth          *int32
+	page           *int64
+	permissions    *bool
 	resultsPerPage *int64
 }
 
@@ -1355,24 +1532,25 @@ func (r ApiListRootRequest) Execute() ([]Folder, *http.Response, error) {
 /*
 ListRoot Method for ListRoot
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListRootRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRootRequest
 */
 func (a *FolderApiService) ListRoot(ctx context.Context) ApiListRootRequest {
 	return ApiListRootRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Folder
+//
+//	@return []Folder
 func (a *FolderApiService) ListRootExecute(r ApiListRootRequest) ([]Folder, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Folder
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Folder
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.ListRoot")
@@ -1387,16 +1565,16 @@ func (a *FolderApiService) ListRootExecute(r ApiListRootRequest) ([]Folder, *htt
 	localVarFormParams := url.Values{}
 
 	if r.depth != nil {
-		parameterAddToQuery(localVarQueryParams, "depth", r.depth, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.permissions != nil {
-		parameterAddToQuery(localVarQueryParams, "permissions", r.permissions, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "permissions", r.permissions, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1415,6 +1593,20 @@ func (a *FolderApiService) ListRootExecute(r ApiListRootRequest) ([]Folder, *htt
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1425,9 +1617,9 @@ func (a *FolderApiService) ListRootExecute(r ApiListRootRequest) ([]Folder, *htt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1453,9 +1645,9 @@ func (a *FolderApiService) ListRootExecute(r ApiListRootRequest) ([]Folder, *htt
 }
 
 type ApiListVariableValuesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
+	folderId   string
 	folderOnly *bool
 }
 
@@ -1471,26 +1663,27 @@ func (r ApiListVariableValuesRequest) Execute() (map[string]string, *http.Respon
 /*
 ListVariableValues Method for ListVariableValues
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiListVariableValuesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiListVariableValuesRequest
 */
 func (a *FolderApiService) ListVariableValues(ctx context.Context, folderId string) ApiListVariableValuesRequest {
 	return ApiListVariableValuesRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return map[string]string
+//
+//	@return map[string]string
 func (a *FolderApiService) ListVariableValuesExecute(r ApiListVariableValuesRequest) (map[string]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  map[string]string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.ListVariableValues")
@@ -1506,7 +1699,7 @@ func (a *FolderApiService) ListVariableValuesExecute(r ApiListVariableValuesRequ
 	localVarFormParams := url.Values{}
 
 	if r.folderOnly != nil {
-		parameterAddToQuery(localVarQueryParams, "folderOnly", r.folderOnly, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folderOnly", r.folderOnly, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1525,6 +1718,20 @@ func (a *FolderApiService) ListVariableValuesExecute(r ApiListVariableValuesRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1535,9 +1742,9 @@ func (a *FolderApiService) ListVariableValuesExecute(r ApiListVariableValuesRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1563,9 +1770,9 @@ func (a *FolderApiService) ListVariableValuesExecute(r ApiListVariableValuesRequ
 }
 
 type ApiListVariablesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
+	folderId   string
 	folderOnly *bool
 }
 
@@ -1581,26 +1788,27 @@ func (r ApiListVariablesRequest) Execute() ([]Variable, *http.Response, error) {
 /*
 ListVariables Method for ListVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiListVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiListVariablesRequest
 */
 func (a *FolderApiService) ListVariables(ctx context.Context, folderId string) ApiListVariablesRequest {
 	return ApiListVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return []Variable
+//
+//	@return []Variable
 func (a *FolderApiService) ListVariablesExecute(r ApiListVariablesRequest) ([]Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.ListVariables")
@@ -1616,7 +1824,7 @@ func (a *FolderApiService) ListVariablesExecute(r ApiListVariablesRequest) ([]Va
 	localVarFormParams := url.Values{}
 
 	if r.folderOnly != nil {
-		parameterAddToQuery(localVarQueryParams, "folderOnly", r.folderOnly, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folderOnly", r.folderOnly, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1635,6 +1843,20 @@ func (a *FolderApiService) ListVariablesExecute(r ApiListVariablesRequest) ([]Va
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1645,9 +1867,9 @@ func (a *FolderApiService) ListVariablesExecute(r ApiListVariablesRequest) ([]Va
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1673,9 +1895,9 @@ func (a *FolderApiService) ListVariablesExecute(r ApiListVariablesRequest) ([]Va
 }
 
 type ApiMoveRequest struct {
-	ctx context.Context
-	ApiService *FolderApiService
-	folderId string
+	ctx         context.Context
+	ApiService  *FolderApiService
+	folderId    string
 	newParentId *string
 }
 
@@ -1691,24 +1913,24 @@ func (r ApiMoveRequest) Execute() (*http.Response, error) {
 /*
 Move Method for Move
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiMoveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiMoveRequest
 */
 func (a *FolderApiService) Move(ctx context.Context, folderId string) ApiMoveRequest {
 	return ApiMoveRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
 func (a *FolderApiService) MoveExecute(r ApiMoveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.Move")
@@ -1724,7 +1946,7 @@ func (a *FolderApiService) MoveExecute(r ApiMoveRequest) (*http.Response, error)
 	localVarFormParams := url.Values{}
 
 	if r.newParentId != nil {
-		parameterAddToQuery(localVarQueryParams, "newParentId", r.newParentId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "newParentId", r.newParentId, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1743,6 +1965,20 @@ func (a *FolderApiService) MoveExecute(r ApiMoveRequest) (*http.Response, error)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1753,9 +1989,9 @@ func (a *FolderApiService) MoveExecute(r ApiMoveRequest) (*http.Response, error)
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1772,10 +2008,10 @@ func (a *FolderApiService) MoveExecute(r ApiMoveRequest) (*http.Response, error)
 }
 
 type ApiMoveTemplateRequest struct {
-	ctx context.Context
-	ApiService *FolderApiService
-	folderId string
-	templateId string
+	ctx              context.Context
+	ApiService       *FolderApiService
+	folderId         string
+	templateId       string
 	mergePermissions *bool
 }
 
@@ -1791,16 +2027,16 @@ func (r ApiMoveTemplateRequest) Execute() (*http.Response, error) {
 /*
 MoveTemplate Method for MoveTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @param templateId
- @return ApiMoveTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@param templateId
+	@return ApiMoveTemplateRequest
 */
 func (a *FolderApiService) MoveTemplate(ctx context.Context, folderId string, templateId string) ApiMoveTemplateRequest {
 	return ApiMoveTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 		templateId: templateId,
 	}
 }
@@ -1808,9 +2044,9 @@ func (a *FolderApiService) MoveTemplate(ctx context.Context, folderId string, te
 // Execute executes the request
 func (a *FolderApiService) MoveTemplateExecute(r ApiMoveTemplateRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.MoveTemplate")
@@ -1827,7 +2063,7 @@ func (a *FolderApiService) MoveTemplateExecute(r ApiMoveTemplateRequest) (*http.
 	localVarFormParams := url.Values{}
 
 	if r.mergePermissions != nil {
-		parameterAddToQuery(localVarQueryParams, "mergePermissions", r.mergePermissions, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "mergePermissions", r.mergePermissions, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1846,6 +2082,20 @@ func (a *FolderApiService) MoveTemplateExecute(r ApiMoveTemplateRequest) (*http.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1856,9 +2106,9 @@ func (a *FolderApiService) MoveTemplateExecute(r ApiMoveTemplateRequest) (*http.
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1875,10 +2125,10 @@ func (a *FolderApiService) MoveTemplateExecute(r ApiMoveTemplateRequest) (*http.
 }
 
 type ApiRenameFolderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
-	newName *string
+	folderId   string
+	newName    *string
 }
 
 func (r ApiRenameFolderRequest) NewName(newName string) ApiRenameFolderRequest {
@@ -1893,24 +2143,24 @@ func (r ApiRenameFolderRequest) Execute() (*http.Response, error) {
 /*
 RenameFolder Method for RenameFolder
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiRenameFolderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiRenameFolderRequest
 */
 func (a *FolderApiService) RenameFolder(ctx context.Context, folderId string) ApiRenameFolderRequest {
 	return ApiRenameFolderRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
 func (a *FolderApiService) RenameFolderExecute(r ApiRenameFolderRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.RenameFolder")
@@ -1926,7 +2176,7 @@ func (a *FolderApiService) RenameFolderExecute(r ApiRenameFolderRequest) (*http.
 	localVarFormParams := url.Values{}
 
 	if r.newName != nil {
-		parameterAddToQuery(localVarQueryParams, "newName", r.newName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "newName", r.newName, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1945,6 +2195,20 @@ func (a *FolderApiService) RenameFolderExecute(r ApiRenameFolderRequest) (*http.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1955,9 +2219,9 @@ func (a *FolderApiService) RenameFolderExecute(r ApiRenameFolderRequest) (*http.
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1974,12 +2238,12 @@ func (a *FolderApiService) RenameFolderExecute(r ApiRenameFolderRequest) (*http.
 }
 
 type ApiSearchReleasesFolderRequest struct {
-	ctx context.Context
-	ApiService *FolderApiService
-	folderId string
-	depth *int32
-	numberbypage *int64
-	page *int64
+	ctx             context.Context
+	ApiService      *FolderApiService
+	folderId        string
+	depth           *int32
+	numberbypage    *int64
+	page            *int64
 	releasesFilters *ReleasesFilters
 }
 
@@ -2010,26 +2274,27 @@ func (r ApiSearchReleasesFolderRequest) Execute() ([]Release, *http.Response, er
 /*
 SearchReleasesFolder Method for SearchReleasesFolder
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiSearchReleasesFolderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiSearchReleasesFolderRequest
 */
 func (a *FolderApiService) SearchReleasesFolder(ctx context.Context, folderId string) ApiSearchReleasesFolderRequest {
 	return ApiSearchReleasesFolderRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return []Release
+//
+//	@return []Release
 func (a *FolderApiService) SearchReleasesFolderExecute(r ApiSearchReleasesFolderRequest) ([]Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.SearchReleasesFolder")
@@ -2045,13 +2310,13 @@ func (a *FolderApiService) SearchReleasesFolderExecute(r ApiSearchReleasesFolder
 	localVarFormParams := url.Values{}
 
 	if r.depth != nil {
-		parameterAddToQuery(localVarQueryParams, "depth", r.depth, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.numberbypage != nil {
-		parameterAddToQuery(localVarQueryParams, "numberbypage", r.numberbypage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "numberbypage", r.numberbypage, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -2072,6 +2337,20 @@ func (a *FolderApiService) SearchReleasesFolderExecute(r ApiSearchReleasesFolder
 	}
 	// body params
 	localVarPostBody = r.releasesFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2082,9 +2361,9 @@ func (a *FolderApiService) SearchReleasesFolderExecute(r ApiSearchReleasesFolder
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2110,10 +2389,10 @@ func (a *FolderApiService) SearchReleasesFolderExecute(r ApiSearchReleasesFolder
 }
 
 type ApiSetFolderTeamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
-	teamView *[]TeamView
+	folderId   string
+	teamView   *[]TeamView
 }
 
 func (r ApiSetFolderTeamsRequest) TeamView(teamView []TeamView) ApiSetFolderTeamsRequest {
@@ -2128,26 +2407,27 @@ func (r ApiSetFolderTeamsRequest) Execute() ([]TeamView, *http.Response, error) 
 /*
 SetFolderTeams Method for SetFolderTeams
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @return ApiSetFolderTeamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@return ApiSetFolderTeamsRequest
 */
 func (a *FolderApiService) SetFolderTeams(ctx context.Context, folderId string) ApiSetFolderTeamsRequest {
 	return ApiSetFolderTeamsRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 	}
 }
 
 // Execute executes the request
-//  @return []TeamView
+//
+//	@return []TeamView
 func (a *FolderApiService) SetFolderTeamsExecute(r ApiSetFolderTeamsRequest) ([]TeamView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TeamView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TeamView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.SetFolderTeams")
@@ -2181,6 +2461,20 @@ func (a *FolderApiService) SetFolderTeamsExecute(r ApiSetFolderTeamsRequest) ([]
 	}
 	// body params
 	localVarPostBody = r.teamView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2191,9 +2485,9 @@ func (a *FolderApiService) SetFolderTeamsExecute(r ApiSetFolderTeamsRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2219,11 +2513,11 @@ func (a *FolderApiService) SetFolderTeamsExecute(r ApiSetFolderTeamsRequest) ([]
 }
 
 type ApiUpdateFolderVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FolderApiService
-	folderId string
+	folderId   string
 	variableId string
-	variable *Variable
+	variable   *Variable
 }
 
 func (r ApiUpdateFolderVariableRequest) Variable(variable Variable) ApiUpdateFolderVariableRequest {
@@ -2238,28 +2532,29 @@ func (r ApiUpdateFolderVariableRequest) Execute() (*Variable, *http.Response, er
 /*
 UpdateFolderVariable Method for UpdateFolderVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param folderId
- @param variableId
- @return ApiUpdateFolderVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param folderId
+	@param variableId
+	@return ApiUpdateFolderVariableRequest
 */
 func (a *FolderApiService) UpdateFolderVariable(ctx context.Context, folderId string, variableId string) ApiUpdateFolderVariableRequest {
 	return ApiUpdateFolderVariableRequest{
 		ApiService: a,
-		ctx: ctx,
-		folderId: folderId,
+		ctx:        ctx,
+		folderId:   folderId,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *FolderApiService) UpdateFolderVariableExecute(r ApiUpdateFolderVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FolderApiService.UpdateFolderVariable")
@@ -2294,6 +2589,20 @@ func (a *FolderApiService) UpdateFolderVariableExecute(r ApiUpdateFolderVariable
 	}
 	// body params
 	localVarPostBody = r.variable
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2304,9 +2613,9 @@ func (a *FolderApiService) UpdateFolderVariableExecute(r ApiUpdateFolderVariable
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

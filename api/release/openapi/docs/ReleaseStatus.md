@@ -3,21 +3,21 @@
 ## Enum
 
 
-* `TEMPLATE_RELEASE` (value: `"TEMPLATE_RELEASE"`)
+* `TEMPLATE` (value: `"TEMPLATE"`)
 
-* `PLANNED_RELEASE` (value: `"PLANNED_RELEASE"`)
+* `PLANNED` (value: `"PLANNED"`)
 
-* `IN_PROGRESS_RELEASE` (value: `"IN_PROGRESS_RELEASE"`)
+* `IN_PROGRESS` (value: `"IN_PROGRESS"`)
 
-* `PAUSED_RELEASE` (value: `"PAUSED_RELEASE"`)
+* `PAUSED` (value: `"PAUSED"`)
 
-* `FAILING_RELEASE` (value: `"FAILING_RELEASE"`)
+* `FAILING` (value: `"FAILING"`)
 
-* `FAILED_RELEASE` (value: `"FAILED_RELEASE"`)
+* `FAILED` (value: `"FAILED"`)
 
-* `COMPLETED_RELEASE` (value: `"COMPLETED_RELEASE"`)
+* `COMPLETED` (value: `"COMPLETED"`)
 
-* `ABORTED_RELEASE` (value: `"ABORTED_RELEASE"`)
+* `ABORTED` (value: `"ABORTED"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

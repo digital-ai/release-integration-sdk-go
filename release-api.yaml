@@ -3,6 +3,8 @@ openapi: 3.0.3
 info:
   title: Digital.ai Release API
   version: v1
+servers:
+  - url: http://localhost:5516
 paths:
   /api/v1/activities/{containerId}:
     get:
@@ -5430,6 +5432,14 @@ paths:
       tags:
         - User
 components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    patAuth:
+      type: apiKey
+      in: header
+      name: x-release-personal-token
   schemas:
     AbortRelease:
       type: object
@@ -5439,6 +5449,10 @@ components:
     ActivityLogEntry:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         username:
           type: string
         activityType:
@@ -5485,6 +5499,10 @@ components:
     Attachment:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         file:
           type: object
         contentType:
@@ -5580,6 +5598,10 @@ components:
     Comment:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         text:
           type: string
         author:
@@ -5605,6 +5627,10 @@ components:
     Condition:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         satisfied:
           type: boolean
         satisfiedDate:
@@ -5633,20 +5659,13 @@ components:
           type: string
         checked:
           type: boolean
-    ReleaseConfiguration:
-      type: object
-      properties:
-        folderId:
-          type: string
-        title:
-          type: string
-        variableMapping:
-          type: object
-          additionalProperties:
-            type: string
     ConfigurationFacet:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         scope:
           $ref: '#/components/schemas/FacetScope'
         targetId:
@@ -5687,6 +5706,10 @@ components:
     CreateDelivery:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         folderId:
           type: string
         title:
@@ -5739,9 +5762,9 @@ components:
         releaseOwner:
           type: string
     Date:
-      format: date
+      format: date-time
       type: string
-      example: 2022-03-10
+      example: 2023-03-20T02:07:00Z
     Delivery:
       type: object
       properties:
@@ -5833,9 +5856,9 @@ components:
           type: boolean
     DeliveryOrderMode:
       enum:
-        - START_DATE_DELIVERY
-        - END_DATE_DELIVERY
-        - CREATED_DATE_DELIVERY
+        - START_DATE
+        - END_DATE
+        - CREATED_DATE
       type: string
     DeliveryPatternFilters:
       type: object
@@ -5856,9 +5879,9 @@ components:
             $ref: '#/components/schemas/DeliveryStatus'
     DeliveryStatus:
       enum:
-        - TEMPLATE_DELIVERY
-        - IN_PROGRESS_DELIVERY
-        - COMPLETED_DELIVERY
+        - TEMPLATE
+        - IN_PROGRESS
+        - COMPLETED
       type: string
     DeliveryTimeline:
       type: object
@@ -5878,6 +5901,10 @@ components:
     Dependency:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         gateTask:
           $ref: '#/components/schemas/GateTask'
         target:
@@ -6055,6 +6082,10 @@ components:
     Facet:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         scope:
           $ref: '#/components/schemas/FacetScope'
         targetId:
@@ -6088,13 +6119,17 @@ components:
       type: string
     FlagStatus:
       enum:
-        - OK_FLAG
-        - ATTENTION_NEEDED_FLAG
-        - AT_RISK_FLAG
+        - OK
+        - ATTENTION_NEEDED
+        - AT_RISK
       type: string
     Folder:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         title:
           type: string
         children:
@@ -6115,6 +6150,10 @@ components:
     FolderVariables:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         variables:
           type: array
           items:
@@ -6134,6 +6173,10 @@ components:
     GateCondition:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         title:
           type: string
         checked:
@@ -6141,6 +6184,10 @@ components:
     GateTask:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         scheduledStartDate:
           $ref: '#/components/schemas/Date'
         flagStatus:
@@ -6384,6 +6431,10 @@ components:
     GlobalVariables:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         variables:
           type: array
           items:
@@ -6421,6 +6472,10 @@ components:
     Phase:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         locked:
           type: boolean
         title:
@@ -6470,8 +6525,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Task'
-        release:
-          $ref: '#/components/schemas/Release'
+        release: {}
         status:
           $ref: '#/components/schemas/PhaseStatus'
         color:
@@ -6526,13 +6580,13 @@ components:
           type: boolean
     PhaseStatus:
       enum:
-        - PLANNED_PHASE
-        - IN_PROGRESS_PHASE
-        - COMPLETED_PHASE
-        - FAILING_PHASE
-        - FAILED_PHASE
-        - SKIPPED_PHASE
-        - ABORTED_PHASE
+        - PLANNED
+        - IN_PROGRESS
+        - COMPLETED
+        - FAILING
+        - FAILED
+        - SKIPPED
+        - ABORTED
       type: string
     PhaseTimeline:
       type: object
@@ -6566,6 +6620,10 @@ components:
     PlanItem:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         title:
           type: string
         description:
@@ -6721,6 +6779,10 @@ components:
     Release:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         startDate:
           $ref: '#/components/schemas/Date'
         scheduledStartDate:
@@ -6853,8 +6915,7 @@ components:
           type: object
           additionalProperties:
             type: string
-        riskProfile:
-          $ref: '#/components/schemas/RiskProfile'
+        riskProfile: {}
         $metadata:
           type: object
           additionalProperties:
@@ -7001,6 +7062,10 @@ components:
     ReleaseExtension:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         variableUsages:
           type: array
           items:
@@ -7015,6 +7080,10 @@ components:
     ReleaseGroup:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         $metadata:
           type: object
           additionalProperties:
@@ -7055,19 +7124,19 @@ components:
             $ref: '#/components/schemas/ReleaseGroupStatus'
     ReleaseGroupOrderMode:
       enum:
-        - RISK_GROUP
-        - START_DATE_GROUP
-        - END_DATE_GROUP
+        - RISK
+        - START_DATE
+        - END_DATE
       type: string
     ReleaseGroupStatus:
       enum:
-        - PLANNED_GROUP
+        - PLANNED
         - IN_PROGRESS
-        - PAUSED_GROUP
-        - FAILING_GROUP
-        - FAILED_GROUP
-        - COMPLETED_GROUP
-        - ABORTED_GROUP
+        - PAUSED
+        - FAILING
+        - FAILED
+        - COMPLETED
+        - ABORTED
       type: string
     ReleaseGroupTimeline:
       type: object
@@ -7114,14 +7183,14 @@ components:
             $ref: '#/components/schemas/Release'
     ReleaseStatus:
       enum:
-        - TEMPLATE_RELEASE
-        - PLANNED_RELEASE
-        - IN_PROGRESS_RELEASE
-        - PAUSED_RELEASE
-        - FAILING_RELEASE
-        - FAILED_RELEASE
-        - COMPLETED_RELEASE
-        - ABORTED_RELEASE
+        - TEMPLATE
+        - PLANNED
+        - IN_PROGRESS
+        - PAUSED
+        - FAILING
+        - FAILED
+        - COMPLETED
+        - ABORTED
       type: string
     ReleaseTimeline:
       type: object
@@ -7154,6 +7223,10 @@ components:
     ReleaseTrigger:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         script:
           type: string
         abortScript:
@@ -7333,6 +7406,10 @@ components:
     Risk:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         variableUsages:
           type: array
           items:
@@ -7350,6 +7427,10 @@ components:
     RiskAssessment:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         variableUsages:
           type: array
           items:
@@ -7372,6 +7453,10 @@ components:
     RiskAssessor:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         title:
           type: string
         description:
@@ -7391,6 +7476,10 @@ components:
     RiskGlobalThresholds:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         folderId:
           type: string
         title:
@@ -7404,6 +7493,10 @@ components:
     RiskProfile:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         folderId:
           type: string
         title:
@@ -7460,6 +7553,10 @@ components:
     Stage:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         title:
           type: string
         status:
@@ -7532,12 +7629,18 @@ components:
     Subscriber:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         sourceId:
           type: string
     SystemMessageSettings:
       type: object
       properties:
-        folderId:
+        id:
+          type: string
+        type:
           type: string
         title:
           type: string
@@ -7554,6 +7657,10 @@ components:
     Task:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         scheduledStartDate:
           $ref: '#/components/schemas/Date'
         flagStatus:
@@ -7604,8 +7711,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Comment'
-        container:
-          $ref: '#/components/schemas/TaskContainer'
+        container: {}
         facets:
           type: array
           items:
@@ -7781,6 +7887,10 @@ components:
     TaskContainer:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         tasks:
           type: array
           items:
@@ -7798,6 +7908,10 @@ components:
     TaskReportingRecord:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         scope:
           $ref: '#/components/schemas/FacetScope'
         targetId:
@@ -7828,28 +7942,32 @@ components:
           type: boolean
     TaskStatus:
       enum:
-        - PLANNED_TASK
-        - PENDING_TASK
-        - IN_PROGRESS_TASK
-        - QUEUED_TASK
-        - ABORT_SCRIPT_QUEUED_TASK
-        - FAILURE_HANDLER_QUEUED_TASK
-        - COMPLETED_TASK
-        - COMPLETED_IN_ADVANCE_TASK
-        - SKIPPED_TASK
-        - SKIPPED_IN_ADVANCE_TASK
-        - FAILED_TASK
-        - FAILING_TASK
-        - ABORTED_TASK
-        - PRECONDITION_IN_PROGRESS_TASK
-        - WAITING_FOR_INPUT_TASK
-        - FAILURE_HANDLER_IN_PROGRESS_TASK
-        - FACET_CHECK_IN_PROGRESS_TASK
-        - ABORT_SCRIPT_IN_PROGRESS_TASK
+        - PLANNED
+        - PENDING
+        - IN_PROGRESS
+        - QUEUED
+        - ABORT_SCRIPT_QUEUED
+        - FAILURE_HANDLER_QUEUED
+        - COMPLETED
+        - COMPLETED_IN_ADVANCE
+        - SKIPPED
+        - SKIPPED_IN_ADVANCE
+        - FAILED
+        - FAILING
+        - ABORTED
+        - PRECONDITION_IN_PROGRESS
+        - WAITING_FOR_INPUT
+        - FAILURE_HANDLER_IN_PROGRESS
+        - FACET_CHECK_IN_PROGRESS
+        - ABORT_SCRIPT_IN_PROGRESS
       type: string
     Team:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         teamName:
           type: string
         members:
@@ -7914,6 +8032,10 @@ components:
     TrackedItem:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         title:
           type: string
         releaseIds:
@@ -7936,6 +8058,10 @@ components:
     Transition:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         title:
           type: string
         stage:
@@ -7959,6 +8085,10 @@ components:
     Trigger:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         script:
           type: string
         abortScript:
@@ -8037,6 +8167,10 @@ components:
     UserInputTask:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         scheduledStartDate:
           $ref: '#/components/schemas/Date'
         flagStatus:
@@ -8275,6 +8409,10 @@ components:
     ValueProviderConfiguration:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         variable:
           $ref: '#/components/schemas/Variable'
     ValueWithInterpolation:
@@ -8287,6 +8425,10 @@ components:
     Variable:
       type: object
       properties:
+        id:
+          type: string
+        type:
+          type: string
         folderId:
           type: string
         title:
@@ -8305,8 +8447,7 @@ components:
           $ref: '#/components/schemas/ValueProviderConfiguration'
         inherited:
           type: boolean
-        value:
-          type: object
+        value: {}
         emptyValue:
           type: object
         valueEmpty:
@@ -8332,8 +8473,7 @@ components:
           type: boolean
         showOnReleaseStart:
           type: boolean
-        value:
-          type: object
+        value: {}
         label:
           type: string
         description:
@@ -8353,5 +8493,18 @@ components:
       properties:
         variable:
           type: string
-        value:
+        value: {}
+    ReleaseConfiguration:
+      type: object
+      properties:
+        folderId:
+          type: string
+        title:
+          type: string
+        variableMapping:
           type: object
+          additionalProperties:
+            type: string
+security:
+  - basicAuth: []
+  - patAuth: []

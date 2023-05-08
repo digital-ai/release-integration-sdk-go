@@ -19,15 +19,17 @@ var _ MappedNullable = &Attachment{}
 
 // Attachment struct for Attachment
 type Attachment struct {
-	File map[string]interface{} `json:"file,omitempty"`
-	ContentType *string `json:"contentType,omitempty"`
-	ExportFilename *string `json:"exportFilename,omitempty"`
-	FileUri *string `json:"fileUri,omitempty"`
-	Placeholders []string `json:"placeholders,omitempty"`
-	TextFileNamesRegex *string `json:"textFileNamesRegex,omitempty"`
-	ExcludeFileNamesRegex *string `json:"excludeFileNamesRegex,omitempty"`
-	FileEncodings *map[string]string `json:"fileEncodings,omitempty"`
-	Checksum *string `json:"checksum,omitempty"`
+	Id                    *string                `json:"id,omitempty"`
+	Type                  *string                `json:"type,omitempty"`
+	File                  map[string]interface{} `json:"file,omitempty"`
+	ContentType           *string                `json:"contentType,omitempty"`
+	ExportFilename        *string                `json:"exportFilename,omitempty"`
+	FileUri               *string                `json:"fileUri,omitempty"`
+	Placeholders          []string               `json:"placeholders,omitempty"`
+	TextFileNamesRegex    *string                `json:"textFileNamesRegex,omitempty"`
+	ExcludeFileNamesRegex *string                `json:"excludeFileNamesRegex,omitempty"`
+	FileEncodings         *map[string]string     `json:"fileEncodings,omitempty"`
+	Checksum              *string                `json:"checksum,omitempty"`
 }
 
 // NewAttachment instantiates a new Attachment object
@@ -47,9 +49,73 @@ func NewAttachmentWithDefaults() *Attachment {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Attachment) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Attachment) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Attachment) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Attachment) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Attachment) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Attachment) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Attachment) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Attachment) SetType(v string) {
+	o.Type = &v
+}
+
 // GetFile returns the File field value if set, zero value otherwise.
 func (o *Attachment) GetFile() map[string]interface{} {
-	if o == nil || isNil(o.File) {
+	if o == nil || IsNil(o.File) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -59,7 +125,7 @@ func (o *Attachment) GetFile() map[string]interface{} {
 // GetFileOk returns a tuple with the File field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetFileOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.File) {
+	if o == nil || IsNil(o.File) {
 		return map[string]interface{}{}, false
 	}
 	return o.File, true
@@ -67,7 +133,7 @@ func (o *Attachment) GetFileOk() (map[string]interface{}, bool) {
 
 // HasFile returns a boolean if a field has been set.
 func (o *Attachment) HasFile() bool {
-	if o != nil && !isNil(o.File) {
+	if o != nil && !IsNil(o.File) {
 		return true
 	}
 
@@ -81,7 +147,7 @@ func (o *Attachment) SetFile(v map[string]interface{}) {
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *Attachment) GetContentType() string {
-	if o == nil || isNil(o.ContentType) {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -91,7 +157,7 @@ func (o *Attachment) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetContentTypeOk() (*string, bool) {
-	if o == nil || isNil(o.ContentType) {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -99,7 +165,7 @@ func (o *Attachment) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *Attachment) HasContentType() bool {
-	if o != nil && !isNil(o.ContentType) {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -113,7 +179,7 @@ func (o *Attachment) SetContentType(v string) {
 
 // GetExportFilename returns the ExportFilename field value if set, zero value otherwise.
 func (o *Attachment) GetExportFilename() string {
-	if o == nil || isNil(o.ExportFilename) {
+	if o == nil || IsNil(o.ExportFilename) {
 		var ret string
 		return ret
 	}
@@ -123,7 +189,7 @@ func (o *Attachment) GetExportFilename() string {
 // GetExportFilenameOk returns a tuple with the ExportFilename field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetExportFilenameOk() (*string, bool) {
-	if o == nil || isNil(o.ExportFilename) {
+	if o == nil || IsNil(o.ExportFilename) {
 		return nil, false
 	}
 	return o.ExportFilename, true
@@ -131,7 +197,7 @@ func (o *Attachment) GetExportFilenameOk() (*string, bool) {
 
 // HasExportFilename returns a boolean if a field has been set.
 func (o *Attachment) HasExportFilename() bool {
-	if o != nil && !isNil(o.ExportFilename) {
+	if o != nil && !IsNil(o.ExportFilename) {
 		return true
 	}
 
@@ -145,7 +211,7 @@ func (o *Attachment) SetExportFilename(v string) {
 
 // GetFileUri returns the FileUri field value if set, zero value otherwise.
 func (o *Attachment) GetFileUri() string {
-	if o == nil || isNil(o.FileUri) {
+	if o == nil || IsNil(o.FileUri) {
 		var ret string
 		return ret
 	}
@@ -155,7 +221,7 @@ func (o *Attachment) GetFileUri() string {
 // GetFileUriOk returns a tuple with the FileUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetFileUriOk() (*string, bool) {
-	if o == nil || isNil(o.FileUri) {
+	if o == nil || IsNil(o.FileUri) {
 		return nil, false
 	}
 	return o.FileUri, true
@@ -163,7 +229,7 @@ func (o *Attachment) GetFileUriOk() (*string, bool) {
 
 // HasFileUri returns a boolean if a field has been set.
 func (o *Attachment) HasFileUri() bool {
-	if o != nil && !isNil(o.FileUri) {
+	if o != nil && !IsNil(o.FileUri) {
 		return true
 	}
 
@@ -177,7 +243,7 @@ func (o *Attachment) SetFileUri(v string) {
 
 // GetPlaceholders returns the Placeholders field value if set, zero value otherwise.
 func (o *Attachment) GetPlaceholders() []string {
-	if o == nil || isNil(o.Placeholders) {
+	if o == nil || IsNil(o.Placeholders) {
 		var ret []string
 		return ret
 	}
@@ -187,7 +253,7 @@ func (o *Attachment) GetPlaceholders() []string {
 // GetPlaceholdersOk returns a tuple with the Placeholders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetPlaceholdersOk() ([]string, bool) {
-	if o == nil || isNil(o.Placeholders) {
+	if o == nil || IsNil(o.Placeholders) {
 		return nil, false
 	}
 	return o.Placeholders, true
@@ -195,7 +261,7 @@ func (o *Attachment) GetPlaceholdersOk() ([]string, bool) {
 
 // HasPlaceholders returns a boolean if a field has been set.
 func (o *Attachment) HasPlaceholders() bool {
-	if o != nil && !isNil(o.Placeholders) {
+	if o != nil && !IsNil(o.Placeholders) {
 		return true
 	}
 
@@ -209,7 +275,7 @@ func (o *Attachment) SetPlaceholders(v []string) {
 
 // GetTextFileNamesRegex returns the TextFileNamesRegex field value if set, zero value otherwise.
 func (o *Attachment) GetTextFileNamesRegex() string {
-	if o == nil || isNil(o.TextFileNamesRegex) {
+	if o == nil || IsNil(o.TextFileNamesRegex) {
 		var ret string
 		return ret
 	}
@@ -219,7 +285,7 @@ func (o *Attachment) GetTextFileNamesRegex() string {
 // GetTextFileNamesRegexOk returns a tuple with the TextFileNamesRegex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetTextFileNamesRegexOk() (*string, bool) {
-	if o == nil || isNil(o.TextFileNamesRegex) {
+	if o == nil || IsNil(o.TextFileNamesRegex) {
 		return nil, false
 	}
 	return o.TextFileNamesRegex, true
@@ -227,7 +293,7 @@ func (o *Attachment) GetTextFileNamesRegexOk() (*string, bool) {
 
 // HasTextFileNamesRegex returns a boolean if a field has been set.
 func (o *Attachment) HasTextFileNamesRegex() bool {
-	if o != nil && !isNil(o.TextFileNamesRegex) {
+	if o != nil && !IsNil(o.TextFileNamesRegex) {
 		return true
 	}
 
@@ -241,7 +307,7 @@ func (o *Attachment) SetTextFileNamesRegex(v string) {
 
 // GetExcludeFileNamesRegex returns the ExcludeFileNamesRegex field value if set, zero value otherwise.
 func (o *Attachment) GetExcludeFileNamesRegex() string {
-	if o == nil || isNil(o.ExcludeFileNamesRegex) {
+	if o == nil || IsNil(o.ExcludeFileNamesRegex) {
 		var ret string
 		return ret
 	}
@@ -251,7 +317,7 @@ func (o *Attachment) GetExcludeFileNamesRegex() string {
 // GetExcludeFileNamesRegexOk returns a tuple with the ExcludeFileNamesRegex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetExcludeFileNamesRegexOk() (*string, bool) {
-	if o == nil || isNil(o.ExcludeFileNamesRegex) {
+	if o == nil || IsNil(o.ExcludeFileNamesRegex) {
 		return nil, false
 	}
 	return o.ExcludeFileNamesRegex, true
@@ -259,7 +325,7 @@ func (o *Attachment) GetExcludeFileNamesRegexOk() (*string, bool) {
 
 // HasExcludeFileNamesRegex returns a boolean if a field has been set.
 func (o *Attachment) HasExcludeFileNamesRegex() bool {
-	if o != nil && !isNil(o.ExcludeFileNamesRegex) {
+	if o != nil && !IsNil(o.ExcludeFileNamesRegex) {
 		return true
 	}
 
@@ -273,7 +339,7 @@ func (o *Attachment) SetExcludeFileNamesRegex(v string) {
 
 // GetFileEncodings returns the FileEncodings field value if set, zero value otherwise.
 func (o *Attachment) GetFileEncodings() map[string]string {
-	if o == nil || isNil(o.FileEncodings) {
+	if o == nil || IsNil(o.FileEncodings) {
 		var ret map[string]string
 		return ret
 	}
@@ -283,7 +349,7 @@ func (o *Attachment) GetFileEncodings() map[string]string {
 // GetFileEncodingsOk returns a tuple with the FileEncodings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetFileEncodingsOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.FileEncodings) {
+	if o == nil || IsNil(o.FileEncodings) {
 		return nil, false
 	}
 	return o.FileEncodings, true
@@ -291,7 +357,7 @@ func (o *Attachment) GetFileEncodingsOk() (*map[string]string, bool) {
 
 // HasFileEncodings returns a boolean if a field has been set.
 func (o *Attachment) HasFileEncodings() bool {
-	if o != nil && !isNil(o.FileEncodings) {
+	if o != nil && !IsNil(o.FileEncodings) {
 		return true
 	}
 
@@ -305,7 +371,7 @@ func (o *Attachment) SetFileEncodings(v map[string]string) {
 
 // GetChecksum returns the Checksum field value if set, zero value otherwise.
 func (o *Attachment) GetChecksum() string {
-	if o == nil || isNil(o.Checksum) {
+	if o == nil || IsNil(o.Checksum) {
 		var ret string
 		return ret
 	}
@@ -315,7 +381,7 @@ func (o *Attachment) GetChecksum() string {
 // GetChecksumOk returns a tuple with the Checksum field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Attachment) GetChecksumOk() (*string, bool) {
-	if o == nil || isNil(o.Checksum) {
+	if o == nil || IsNil(o.Checksum) {
 		return nil, false
 	}
 	return o.Checksum, true
@@ -323,7 +389,7 @@ func (o *Attachment) GetChecksumOk() (*string, bool) {
 
 // HasChecksum returns a boolean if a field has been set.
 func (o *Attachment) HasChecksum() bool {
-	if o != nil && !isNil(o.Checksum) {
+	if o != nil && !IsNil(o.Checksum) {
 		return true
 	}
 
@@ -336,7 +402,7 @@ func (o *Attachment) SetChecksum(v string) {
 }
 
 func (o Attachment) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -345,31 +411,37 @@ func (o Attachment) MarshalJSON() ([]byte, error) {
 
 func (o Attachment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.File) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.File) {
 		toSerialize["file"] = o.File
 	}
-	if !isNil(o.ContentType) {
+	if !IsNil(o.ContentType) {
 		toSerialize["contentType"] = o.ContentType
 	}
-	if !isNil(o.ExportFilename) {
+	if !IsNil(o.ExportFilename) {
 		toSerialize["exportFilename"] = o.ExportFilename
 	}
-	if !isNil(o.FileUri) {
+	if !IsNil(o.FileUri) {
 		toSerialize["fileUri"] = o.FileUri
 	}
-	if !isNil(o.Placeholders) {
+	if !IsNil(o.Placeholders) {
 		toSerialize["placeholders"] = o.Placeholders
 	}
-	if !isNil(o.TextFileNamesRegex) {
+	if !IsNil(o.TextFileNamesRegex) {
 		toSerialize["textFileNamesRegex"] = o.TextFileNamesRegex
 	}
-	if !isNil(o.ExcludeFileNamesRegex) {
+	if !IsNil(o.ExcludeFileNamesRegex) {
 		toSerialize["excludeFileNamesRegex"] = o.ExcludeFileNamesRegex
 	}
-	if !isNil(o.FileEncodings) {
+	if !IsNil(o.FileEncodings) {
 		toSerialize["fileEncodings"] = o.FileEncodings
 	}
-	if !isNil(o.Checksum) {
+	if !IsNil(o.Checksum) {
 		toSerialize["checksum"] = o.Checksum
 	}
 	return toSerialize, nil
@@ -410,5 +482,3 @@ func (v *NullableAttachment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

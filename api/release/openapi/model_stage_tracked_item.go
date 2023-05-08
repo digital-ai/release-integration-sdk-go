@@ -19,9 +19,9 @@ var _ MappedNullable = &StageTrackedItem{}
 
 // StageTrackedItem struct for StageTrackedItem
 type StageTrackedItem struct {
-	TrackedItemId *string `json:"trackedItemId,omitempty"`
-	Status *TrackedItemStatus `json:"status,omitempty"`
-	ReleaseIds []string `json:"releaseIds,omitempty"`
+	TrackedItemId *string            `json:"trackedItemId,omitempty"`
+	Status        *TrackedItemStatus `json:"status,omitempty"`
+	ReleaseIds    []string           `json:"releaseIds,omitempty"`
 }
 
 // NewStageTrackedItem instantiates a new StageTrackedItem object
@@ -43,7 +43,7 @@ func NewStageTrackedItemWithDefaults() *StageTrackedItem {
 
 // GetTrackedItemId returns the TrackedItemId field value if set, zero value otherwise.
 func (o *StageTrackedItem) GetTrackedItemId() string {
-	if o == nil || isNil(o.TrackedItemId) {
+	if o == nil || IsNil(o.TrackedItemId) {
 		var ret string
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *StageTrackedItem) GetTrackedItemId() string {
 // GetTrackedItemIdOk returns a tuple with the TrackedItemId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StageTrackedItem) GetTrackedItemIdOk() (*string, bool) {
-	if o == nil || isNil(o.TrackedItemId) {
+	if o == nil || IsNil(o.TrackedItemId) {
 		return nil, false
 	}
 	return o.TrackedItemId, true
@@ -61,7 +61,7 @@ func (o *StageTrackedItem) GetTrackedItemIdOk() (*string, bool) {
 
 // HasTrackedItemId returns a boolean if a field has been set.
 func (o *StageTrackedItem) HasTrackedItemId() bool {
-	if o != nil && !isNil(o.TrackedItemId) {
+	if o != nil && !IsNil(o.TrackedItemId) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *StageTrackedItem) SetTrackedItemId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *StageTrackedItem) GetStatus() TrackedItemStatus {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		var ret TrackedItemStatus
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *StageTrackedItem) GetStatus() TrackedItemStatus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StageTrackedItem) GetStatusOk() (*TrackedItemStatus, bool) {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -93,7 +93,7 @@ func (o *StageTrackedItem) GetStatusOk() (*TrackedItemStatus, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *StageTrackedItem) HasStatus() bool {
-	if o != nil && !isNil(o.Status) {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *StageTrackedItem) SetStatus(v TrackedItemStatus) {
 
 // GetReleaseIds returns the ReleaseIds field value if set, zero value otherwise.
 func (o *StageTrackedItem) GetReleaseIds() []string {
-	if o == nil || isNil(o.ReleaseIds) {
+	if o == nil || IsNil(o.ReleaseIds) {
 		var ret []string
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *StageTrackedItem) GetReleaseIds() []string {
 // GetReleaseIdsOk returns a tuple with the ReleaseIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StageTrackedItem) GetReleaseIdsOk() ([]string, bool) {
-	if o == nil || isNil(o.ReleaseIds) {
+	if o == nil || IsNil(o.ReleaseIds) {
 		return nil, false
 	}
 	return o.ReleaseIds, true
@@ -125,7 +125,7 @@ func (o *StageTrackedItem) GetReleaseIdsOk() ([]string, bool) {
 
 // HasReleaseIds returns a boolean if a field has been set.
 func (o *StageTrackedItem) HasReleaseIds() bool {
-	if o != nil && !isNil(o.ReleaseIds) {
+	if o != nil && !IsNil(o.ReleaseIds) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *StageTrackedItem) SetReleaseIds(v []string) {
 }
 
 func (o StageTrackedItem) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o StageTrackedItem) MarshalJSON() ([]byte, error) {
 
 func (o StageTrackedItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.TrackedItemId) {
+	if !IsNil(o.TrackedItemId) {
 		toSerialize["trackedItemId"] = o.TrackedItemId
 	}
-	if !isNil(o.Status) {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !isNil(o.ReleaseIds) {
+	if !IsNil(o.ReleaseIds) {
 		toSerialize["releaseIds"] = o.ReleaseIds
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableStageTrackedItem) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

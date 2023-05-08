@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Scope** | Pointer to [**FacetScope**](FacetScope.md) |  | [optional] 
 **TargetId** | Pointer to **string** |  | [optional] 
 **ConfigurationUri** | Pointer to **string** |  | [optional] 
@@ -29,6 +31,56 @@ will change when the set of required properties is changed
 NewConfigurationFacetWithDefaults instantiates a new ConfigurationFacet object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *ConfigurationFacet) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ConfigurationFacet) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ConfigurationFacet) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ConfigurationFacet) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *ConfigurationFacet) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *ConfigurationFacet) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *ConfigurationFacet) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *ConfigurationFacet) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetScope
 

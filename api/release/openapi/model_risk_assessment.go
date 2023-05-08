@@ -19,13 +19,15 @@ var _ MappedNullable = &RiskAssessment{}
 
 // RiskAssessment struct for RiskAssessment
 type RiskAssessment struct {
+	Id             *string      `json:"id,omitempty"`
+	Type           *string      `json:"type,omitempty"`
 	VariableUsages []UsagePoint `json:"variableUsages,omitempty"`
-	RiskAssessorId *string `json:"riskAssessorId,omitempty"`
-	Risk *Risk `json:"risk,omitempty"`
-	Score *int32 `json:"score,omitempty"`
-	Headline *string `json:"headline,omitempty"`
-	Messages []string `json:"messages,omitempty"`
-	Icon *string `json:"icon,omitempty"`
+	RiskAssessorId *string      `json:"riskAssessorId,omitempty"`
+	Risk           *Risk        `json:"risk,omitempty"`
+	Score          *int32       `json:"score,omitempty"`
+	Headline       *string      `json:"headline,omitempty"`
+	Messages       []string     `json:"messages,omitempty"`
+	Icon           *string      `json:"icon,omitempty"`
 }
 
 // NewRiskAssessment instantiates a new RiskAssessment object
@@ -45,9 +47,73 @@ func NewRiskAssessmentWithDefaults() *RiskAssessment {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *RiskAssessment) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RiskAssessment) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *RiskAssessment) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *RiskAssessment) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *RiskAssessment) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RiskAssessment) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *RiskAssessment) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *RiskAssessment) SetType(v string) {
+	o.Type = &v
+}
+
 // GetVariableUsages returns the VariableUsages field value if set, zero value otherwise.
 func (o *RiskAssessment) GetVariableUsages() []UsagePoint {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		var ret []UsagePoint
 		return ret
 	}
@@ -57,7 +123,7 @@ func (o *RiskAssessment) GetVariableUsages() []UsagePoint {
 // GetVariableUsagesOk returns a tuple with the VariableUsages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessment) GetVariableUsagesOk() ([]UsagePoint, bool) {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		return nil, false
 	}
 	return o.VariableUsages, true
@@ -65,7 +131,7 @@ func (o *RiskAssessment) GetVariableUsagesOk() ([]UsagePoint, bool) {
 
 // HasVariableUsages returns a boolean if a field has been set.
 func (o *RiskAssessment) HasVariableUsages() bool {
-	if o != nil && !isNil(o.VariableUsages) {
+	if o != nil && !IsNil(o.VariableUsages) {
 		return true
 	}
 
@@ -79,7 +145,7 @@ func (o *RiskAssessment) SetVariableUsages(v []UsagePoint) {
 
 // GetRiskAssessorId returns the RiskAssessorId field value if set, zero value otherwise.
 func (o *RiskAssessment) GetRiskAssessorId() string {
-	if o == nil || isNil(o.RiskAssessorId) {
+	if o == nil || IsNil(o.RiskAssessorId) {
 		var ret string
 		return ret
 	}
@@ -89,7 +155,7 @@ func (o *RiskAssessment) GetRiskAssessorId() string {
 // GetRiskAssessorIdOk returns a tuple with the RiskAssessorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessment) GetRiskAssessorIdOk() (*string, bool) {
-	if o == nil || isNil(o.RiskAssessorId) {
+	if o == nil || IsNil(o.RiskAssessorId) {
 		return nil, false
 	}
 	return o.RiskAssessorId, true
@@ -97,7 +163,7 @@ func (o *RiskAssessment) GetRiskAssessorIdOk() (*string, bool) {
 
 // HasRiskAssessorId returns a boolean if a field has been set.
 func (o *RiskAssessment) HasRiskAssessorId() bool {
-	if o != nil && !isNil(o.RiskAssessorId) {
+	if o != nil && !IsNil(o.RiskAssessorId) {
 		return true
 	}
 
@@ -111,7 +177,7 @@ func (o *RiskAssessment) SetRiskAssessorId(v string) {
 
 // GetRisk returns the Risk field value if set, zero value otherwise.
 func (o *RiskAssessment) GetRisk() Risk {
-	if o == nil || isNil(o.Risk) {
+	if o == nil || IsNil(o.Risk) {
 		var ret Risk
 		return ret
 	}
@@ -121,7 +187,7 @@ func (o *RiskAssessment) GetRisk() Risk {
 // GetRiskOk returns a tuple with the Risk field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessment) GetRiskOk() (*Risk, bool) {
-	if o == nil || isNil(o.Risk) {
+	if o == nil || IsNil(o.Risk) {
 		return nil, false
 	}
 	return o.Risk, true
@@ -129,7 +195,7 @@ func (o *RiskAssessment) GetRiskOk() (*Risk, bool) {
 
 // HasRisk returns a boolean if a field has been set.
 func (o *RiskAssessment) HasRisk() bool {
-	if o != nil && !isNil(o.Risk) {
+	if o != nil && !IsNil(o.Risk) {
 		return true
 	}
 
@@ -143,7 +209,7 @@ func (o *RiskAssessment) SetRisk(v Risk) {
 
 // GetScore returns the Score field value if set, zero value otherwise.
 func (o *RiskAssessment) GetScore() int32 {
-	if o == nil || isNil(o.Score) {
+	if o == nil || IsNil(o.Score) {
 		var ret int32
 		return ret
 	}
@@ -153,7 +219,7 @@ func (o *RiskAssessment) GetScore() int32 {
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessment) GetScoreOk() (*int32, bool) {
-	if o == nil || isNil(o.Score) {
+	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
 	return o.Score, true
@@ -161,7 +227,7 @@ func (o *RiskAssessment) GetScoreOk() (*int32, bool) {
 
 // HasScore returns a boolean if a field has been set.
 func (o *RiskAssessment) HasScore() bool {
-	if o != nil && !isNil(o.Score) {
+	if o != nil && !IsNil(o.Score) {
 		return true
 	}
 
@@ -175,7 +241,7 @@ func (o *RiskAssessment) SetScore(v int32) {
 
 // GetHeadline returns the Headline field value if set, zero value otherwise.
 func (o *RiskAssessment) GetHeadline() string {
-	if o == nil || isNil(o.Headline) {
+	if o == nil || IsNil(o.Headline) {
 		var ret string
 		return ret
 	}
@@ -185,7 +251,7 @@ func (o *RiskAssessment) GetHeadline() string {
 // GetHeadlineOk returns a tuple with the Headline field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessment) GetHeadlineOk() (*string, bool) {
-	if o == nil || isNil(o.Headline) {
+	if o == nil || IsNil(o.Headline) {
 		return nil, false
 	}
 	return o.Headline, true
@@ -193,7 +259,7 @@ func (o *RiskAssessment) GetHeadlineOk() (*string, bool) {
 
 // HasHeadline returns a boolean if a field has been set.
 func (o *RiskAssessment) HasHeadline() bool {
-	if o != nil && !isNil(o.Headline) {
+	if o != nil && !IsNil(o.Headline) {
 		return true
 	}
 
@@ -207,7 +273,7 @@ func (o *RiskAssessment) SetHeadline(v string) {
 
 // GetMessages returns the Messages field value if set, zero value otherwise.
 func (o *RiskAssessment) GetMessages() []string {
-	if o == nil || isNil(o.Messages) {
+	if o == nil || IsNil(o.Messages) {
 		var ret []string
 		return ret
 	}
@@ -217,7 +283,7 @@ func (o *RiskAssessment) GetMessages() []string {
 // GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessment) GetMessagesOk() ([]string, bool) {
-	if o == nil || isNil(o.Messages) {
+	if o == nil || IsNil(o.Messages) {
 		return nil, false
 	}
 	return o.Messages, true
@@ -225,7 +291,7 @@ func (o *RiskAssessment) GetMessagesOk() ([]string, bool) {
 
 // HasMessages returns a boolean if a field has been set.
 func (o *RiskAssessment) HasMessages() bool {
-	if o != nil && !isNil(o.Messages) {
+	if o != nil && !IsNil(o.Messages) {
 		return true
 	}
 
@@ -239,7 +305,7 @@ func (o *RiskAssessment) SetMessages(v []string) {
 
 // GetIcon returns the Icon field value if set, zero value otherwise.
 func (o *RiskAssessment) GetIcon() string {
-	if o == nil || isNil(o.Icon) {
+	if o == nil || IsNil(o.Icon) {
 		var ret string
 		return ret
 	}
@@ -249,7 +315,7 @@ func (o *RiskAssessment) GetIcon() string {
 // GetIconOk returns a tuple with the Icon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessment) GetIconOk() (*string, bool) {
-	if o == nil || isNil(o.Icon) {
+	if o == nil || IsNil(o.Icon) {
 		return nil, false
 	}
 	return o.Icon, true
@@ -257,7 +323,7 @@ func (o *RiskAssessment) GetIconOk() (*string, bool) {
 
 // HasIcon returns a boolean if a field has been set.
 func (o *RiskAssessment) HasIcon() bool {
-	if o != nil && !isNil(o.Icon) {
+	if o != nil && !IsNil(o.Icon) {
 		return true
 	}
 
@@ -270,7 +336,7 @@ func (o *RiskAssessment) SetIcon(v string) {
 }
 
 func (o RiskAssessment) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -279,25 +345,31 @@ func (o RiskAssessment) MarshalJSON() ([]byte, error) {
 
 func (o RiskAssessment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.VariableUsages) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.VariableUsages) {
 		toSerialize["variableUsages"] = o.VariableUsages
 	}
-	if !isNil(o.RiskAssessorId) {
+	if !IsNil(o.RiskAssessorId) {
 		toSerialize["riskAssessorId"] = o.RiskAssessorId
 	}
-	if !isNil(o.Risk) {
+	if !IsNil(o.Risk) {
 		toSerialize["risk"] = o.Risk
 	}
-	if !isNil(o.Score) {
+	if !IsNil(o.Score) {
 		toSerialize["score"] = o.Score
 	}
-	if !isNil(o.Headline) {
+	if !IsNil(o.Headline) {
 		toSerialize["headline"] = o.Headline
 	}
-	if !isNil(o.Messages) {
+	if !IsNil(o.Messages) {
 		toSerialize["messages"] = o.Messages
 	}
-	if !isNil(o.Icon) {
+	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
 	}
 	return toSerialize, nil
@@ -338,5 +410,3 @@ func (v *NullableRiskAssessment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -19,10 +19,12 @@ var _ MappedNullable = &RiskGlobalThresholds{}
 
 // RiskGlobalThresholds struct for RiskGlobalThresholds
 type RiskGlobalThresholds struct {
-	FolderId *string `json:"folderId,omitempty"`
-	Title *string `json:"title,omitempty"`
-	AtRiskFrom *int32 `json:"atRiskFrom,omitempty"`
-	AttentionNeededFrom *int32 `json:"attentionNeededFrom,omitempty"`
+	Id                  *string `json:"id,omitempty"`
+	Type                *string `json:"type,omitempty"`
+	FolderId            *string `json:"folderId,omitempty"`
+	Title               *string `json:"title,omitempty"`
+	AtRiskFrom          *int32  `json:"atRiskFrom,omitempty"`
+	AttentionNeededFrom *int32  `json:"attentionNeededFrom,omitempty"`
 }
 
 // NewRiskGlobalThresholds instantiates a new RiskGlobalThresholds object
@@ -42,9 +44,73 @@ func NewRiskGlobalThresholdsWithDefaults() *RiskGlobalThresholds {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *RiskGlobalThresholds) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RiskGlobalThresholds) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *RiskGlobalThresholds) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *RiskGlobalThresholds) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *RiskGlobalThresholds) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RiskGlobalThresholds) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *RiskGlobalThresholds) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *RiskGlobalThresholds) SetType(v string) {
+	o.Type = &v
+}
+
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *RiskGlobalThresholds) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -54,7 +120,7 @@ func (o *RiskGlobalThresholds) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskGlobalThresholds) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -62,7 +128,7 @@ func (o *RiskGlobalThresholds) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *RiskGlobalThresholds) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -76,7 +142,7 @@ func (o *RiskGlobalThresholds) SetFolderId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *RiskGlobalThresholds) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -86,7 +152,7 @@ func (o *RiskGlobalThresholds) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskGlobalThresholds) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -94,7 +160,7 @@ func (o *RiskGlobalThresholds) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *RiskGlobalThresholds) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -108,7 +174,7 @@ func (o *RiskGlobalThresholds) SetTitle(v string) {
 
 // GetAtRiskFrom returns the AtRiskFrom field value if set, zero value otherwise.
 func (o *RiskGlobalThresholds) GetAtRiskFrom() int32 {
-	if o == nil || isNil(o.AtRiskFrom) {
+	if o == nil || IsNil(o.AtRiskFrom) {
 		var ret int32
 		return ret
 	}
@@ -118,7 +184,7 @@ func (o *RiskGlobalThresholds) GetAtRiskFrom() int32 {
 // GetAtRiskFromOk returns a tuple with the AtRiskFrom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskGlobalThresholds) GetAtRiskFromOk() (*int32, bool) {
-	if o == nil || isNil(o.AtRiskFrom) {
+	if o == nil || IsNil(o.AtRiskFrom) {
 		return nil, false
 	}
 	return o.AtRiskFrom, true
@@ -126,7 +192,7 @@ func (o *RiskGlobalThresholds) GetAtRiskFromOk() (*int32, bool) {
 
 // HasAtRiskFrom returns a boolean if a field has been set.
 func (o *RiskGlobalThresholds) HasAtRiskFrom() bool {
-	if o != nil && !isNil(o.AtRiskFrom) {
+	if o != nil && !IsNil(o.AtRiskFrom) {
 		return true
 	}
 
@@ -140,7 +206,7 @@ func (o *RiskGlobalThresholds) SetAtRiskFrom(v int32) {
 
 // GetAttentionNeededFrom returns the AttentionNeededFrom field value if set, zero value otherwise.
 func (o *RiskGlobalThresholds) GetAttentionNeededFrom() int32 {
-	if o == nil || isNil(o.AttentionNeededFrom) {
+	if o == nil || IsNil(o.AttentionNeededFrom) {
 		var ret int32
 		return ret
 	}
@@ -150,7 +216,7 @@ func (o *RiskGlobalThresholds) GetAttentionNeededFrom() int32 {
 // GetAttentionNeededFromOk returns a tuple with the AttentionNeededFrom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskGlobalThresholds) GetAttentionNeededFromOk() (*int32, bool) {
-	if o == nil || isNil(o.AttentionNeededFrom) {
+	if o == nil || IsNil(o.AttentionNeededFrom) {
 		return nil, false
 	}
 	return o.AttentionNeededFrom, true
@@ -158,7 +224,7 @@ func (o *RiskGlobalThresholds) GetAttentionNeededFromOk() (*int32, bool) {
 
 // HasAttentionNeededFrom returns a boolean if a field has been set.
 func (o *RiskGlobalThresholds) HasAttentionNeededFrom() bool {
-	if o != nil && !isNil(o.AttentionNeededFrom) {
+	if o != nil && !IsNil(o.AttentionNeededFrom) {
 		return true
 	}
 
@@ -171,7 +237,7 @@ func (o *RiskGlobalThresholds) SetAttentionNeededFrom(v int32) {
 }
 
 func (o RiskGlobalThresholds) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +246,22 @@ func (o RiskGlobalThresholds) MarshalJSON() ([]byte, error) {
 
 func (o RiskGlobalThresholds) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.AtRiskFrom) {
+	if !IsNil(o.AtRiskFrom) {
 		toSerialize["atRiskFrom"] = o.AtRiskFrom
 	}
-	if !isNil(o.AttentionNeededFrom) {
+	if !IsNil(o.AttentionNeededFrom) {
 		toSerialize["attentionNeededFrom"] = o.AttentionNeededFrom
 	}
 	return toSerialize, nil
@@ -230,5 +302,3 @@ func (v *NullableRiskGlobalThresholds) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

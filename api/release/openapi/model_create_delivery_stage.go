@@ -19,9 +19,9 @@ var _ MappedNullable = &CreateDeliveryStage{}
 
 // CreateDeliveryStage struct for CreateDeliveryStage
 type CreateDeliveryStage struct {
-	After *string `json:"after,omitempty"`
+	After  *string `json:"after,omitempty"`
 	Before *string `json:"before,omitempty"`
-	Stage *Stage `json:"stage,omitempty"`
+	Stage  *Stage  `json:"stage,omitempty"`
 }
 
 // NewCreateDeliveryStage instantiates a new CreateDeliveryStage object
@@ -43,7 +43,7 @@ func NewCreateDeliveryStageWithDefaults() *CreateDeliveryStage {
 
 // GetAfter returns the After field value if set, zero value otherwise.
 func (o *CreateDeliveryStage) GetAfter() string {
-	if o == nil || isNil(o.After) {
+	if o == nil || IsNil(o.After) {
 		var ret string
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *CreateDeliveryStage) GetAfter() string {
 // GetAfterOk returns a tuple with the After field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateDeliveryStage) GetAfterOk() (*string, bool) {
-	if o == nil || isNil(o.After) {
+	if o == nil || IsNil(o.After) {
 		return nil, false
 	}
 	return o.After, true
@@ -61,7 +61,7 @@ func (o *CreateDeliveryStage) GetAfterOk() (*string, bool) {
 
 // HasAfter returns a boolean if a field has been set.
 func (o *CreateDeliveryStage) HasAfter() bool {
-	if o != nil && !isNil(o.After) {
+	if o != nil && !IsNil(o.After) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *CreateDeliveryStage) SetAfter(v string) {
 
 // GetBefore returns the Before field value if set, zero value otherwise.
 func (o *CreateDeliveryStage) GetBefore() string {
-	if o == nil || isNil(o.Before) {
+	if o == nil || IsNil(o.Before) {
 		var ret string
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *CreateDeliveryStage) GetBefore() string {
 // GetBeforeOk returns a tuple with the Before field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateDeliveryStage) GetBeforeOk() (*string, bool) {
-	if o == nil || isNil(o.Before) {
+	if o == nil || IsNil(o.Before) {
 		return nil, false
 	}
 	return o.Before, true
@@ -93,7 +93,7 @@ func (o *CreateDeliveryStage) GetBeforeOk() (*string, bool) {
 
 // HasBefore returns a boolean if a field has been set.
 func (o *CreateDeliveryStage) HasBefore() bool {
-	if o != nil && !isNil(o.Before) {
+	if o != nil && !IsNil(o.Before) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *CreateDeliveryStage) SetBefore(v string) {
 
 // GetStage returns the Stage field value if set, zero value otherwise.
 func (o *CreateDeliveryStage) GetStage() Stage {
-	if o == nil || isNil(o.Stage) {
+	if o == nil || IsNil(o.Stage) {
 		var ret Stage
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *CreateDeliveryStage) GetStage() Stage {
 // GetStageOk returns a tuple with the Stage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateDeliveryStage) GetStageOk() (*Stage, bool) {
-	if o == nil || isNil(o.Stage) {
+	if o == nil || IsNil(o.Stage) {
 		return nil, false
 	}
 	return o.Stage, true
@@ -125,7 +125,7 @@ func (o *CreateDeliveryStage) GetStageOk() (*Stage, bool) {
 
 // HasStage returns a boolean if a field has been set.
 func (o *CreateDeliveryStage) HasStage() bool {
-	if o != nil && !isNil(o.Stage) {
+	if o != nil && !IsNil(o.Stage) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *CreateDeliveryStage) SetStage(v Stage) {
 }
 
 func (o CreateDeliveryStage) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o CreateDeliveryStage) MarshalJSON() ([]byte, error) {
 
 func (o CreateDeliveryStage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.After) {
+	if !IsNil(o.After) {
 		toSerialize["after"] = o.After
 	}
-	if !isNil(o.Before) {
+	if !IsNil(o.Before) {
 		toSerialize["before"] = o.Before
 	}
-	if !isNil(o.Stage) {
+	if !IsNil(o.Stage) {
 		toSerialize["stage"] = o.Stage
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableCreateDeliveryStage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

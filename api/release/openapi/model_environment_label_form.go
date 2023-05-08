@@ -42,7 +42,7 @@ func NewEnvironmentLabelFormWithDefaults() *EnvironmentLabelForm {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *EnvironmentLabelForm) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *EnvironmentLabelForm) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentLabelForm) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -60,7 +60,7 @@ func (o *EnvironmentLabelForm) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *EnvironmentLabelForm) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *EnvironmentLabelForm) SetTitle(v string) {
 
 // GetColor returns the Color field value if set, zero value otherwise.
 func (o *EnvironmentLabelForm) GetColor() string {
-	if o == nil || isNil(o.Color) {
+	if o == nil || IsNil(o.Color) {
 		var ret string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *EnvironmentLabelForm) GetColor() string {
 // GetColorOk returns a tuple with the Color field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentLabelForm) GetColorOk() (*string, bool) {
-	if o == nil || isNil(o.Color) {
+	if o == nil || IsNil(o.Color) {
 		return nil, false
 	}
 	return o.Color, true
@@ -92,7 +92,7 @@ func (o *EnvironmentLabelForm) GetColorOk() (*string, bool) {
 
 // HasColor returns a boolean if a field has been set.
 func (o *EnvironmentLabelForm) HasColor() bool {
-	if o != nil && !isNil(o.Color) {
+	if o != nil && !IsNil(o.Color) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *EnvironmentLabelForm) SetColor(v string) {
 }
 
 func (o EnvironmentLabelForm) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o EnvironmentLabelForm) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentLabelForm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Color) {
+	if !IsNil(o.Color) {
 		toSerialize["color"] = o.Color
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableEnvironmentLabelForm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

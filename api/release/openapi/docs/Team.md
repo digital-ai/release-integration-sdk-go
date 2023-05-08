@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **TeamName** | Pointer to **string** |  | [optional] 
 **Members** | Pointer to **[]string** |  | [optional] 
 **Roles** | Pointer to **[]string** |  | [optional] 
@@ -32,6 +34,56 @@ will change when the set of required properties is changed
 NewTeamWithDefaults instantiates a new Team object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *Team) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Team) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Team) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Team) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Team) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Team) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Team) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Team) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetTeamName
 

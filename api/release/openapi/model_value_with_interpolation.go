@@ -19,8 +19,8 @@ var _ MappedNullable = &ValueWithInterpolation{}
 
 // ValueWithInterpolation struct for ValueWithInterpolation
 type ValueWithInterpolation struct {
-	Value *string `json:"value,omitempty"`
-	PreventInterpolation *bool `json:"preventInterpolation,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	PreventInterpolation *bool   `json:"preventInterpolation,omitempty"`
 }
 
 // NewValueWithInterpolation instantiates a new ValueWithInterpolation object
@@ -42,7 +42,7 @@ func NewValueWithInterpolationWithDefaults() *ValueWithInterpolation {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *ValueWithInterpolation) GetValue() string {
-	if o == nil || isNil(o.Value) {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *ValueWithInterpolation) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValueWithInterpolation) GetValueOk() (*string, bool) {
-	if o == nil || isNil(o.Value) {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -60,7 +60,7 @@ func (o *ValueWithInterpolation) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *ValueWithInterpolation) HasValue() bool {
-	if o != nil && !isNil(o.Value) {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *ValueWithInterpolation) SetValue(v string) {
 
 // GetPreventInterpolation returns the PreventInterpolation field value if set, zero value otherwise.
 func (o *ValueWithInterpolation) GetPreventInterpolation() bool {
-	if o == nil || isNil(o.PreventInterpolation) {
+	if o == nil || IsNil(o.PreventInterpolation) {
 		var ret bool
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *ValueWithInterpolation) GetPreventInterpolation() bool {
 // GetPreventInterpolationOk returns a tuple with the PreventInterpolation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValueWithInterpolation) GetPreventInterpolationOk() (*bool, bool) {
-	if o == nil || isNil(o.PreventInterpolation) {
+	if o == nil || IsNil(o.PreventInterpolation) {
 		return nil, false
 	}
 	return o.PreventInterpolation, true
@@ -92,7 +92,7 @@ func (o *ValueWithInterpolation) GetPreventInterpolationOk() (*bool, bool) {
 
 // HasPreventInterpolation returns a boolean if a field has been set.
 func (o *ValueWithInterpolation) HasPreventInterpolation() bool {
-	if o != nil && !isNil(o.PreventInterpolation) {
+	if o != nil && !IsNil(o.PreventInterpolation) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *ValueWithInterpolation) SetPreventInterpolation(v bool) {
 }
 
 func (o ValueWithInterpolation) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o ValueWithInterpolation) MarshalJSON() ([]byte, error) {
 
 func (o ValueWithInterpolation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Value) {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	if !isNil(o.PreventInterpolation) {
+	if !IsNil(o.PreventInterpolation) {
 		toSerialize["preventInterpolation"] = o.PreventInterpolation
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableValueWithInterpolation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

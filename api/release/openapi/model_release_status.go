@@ -20,14 +20,14 @@ type ReleaseStatus string
 
 // List of ReleaseStatus
 const (
-	TEMPLATE_RELEASE ReleaseStatus = "TEMPLATE_RELEASE"
-	PLANNED_RELEASE ReleaseStatus = "PLANNED_RELEASE"
+	TEMPLATE_RELEASE    ReleaseStatus = "TEMPLATE_RELEASE"
+	PLANNED_RELEASE     ReleaseStatus = "PLANNED_RELEASE"
 	IN_PROGRESS_RELEASE ReleaseStatus = "IN_PROGRESS_RELEASE"
-	PAUSED_RELEASE ReleaseStatus = "PAUSED_RELEASE"
-	FAILING_RELEASE ReleaseStatus = "FAILING_RELEASE"
-	FAILED_RELEASE ReleaseStatus = "FAILED_RELEASE"
-	COMPLETED_RELEASE ReleaseStatus = "COMPLETED_RELEASE"
-	ABORTED_RELEASE ReleaseStatus = "ABORTED_RELEASE"
+	PAUSED_RELEASE      ReleaseStatus = "PAUSED_RELEASE"
+	FAILING_RELEASE     ReleaseStatus = "FAILING_RELEASE"
+	FAILED_RELEASE      ReleaseStatus = "FAILED_RELEASE"
+	COMPLETED_RELEASE   ReleaseStatus = "COMPLETED_RELEASE"
+	ABORTED_RELEASE     ReleaseStatus = "ABORTED_RELEASE"
 )
 
 // All allowed values of ReleaseStatus enum
@@ -120,4 +120,3 @@ func (v *NullableReleaseStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

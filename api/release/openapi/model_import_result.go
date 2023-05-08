@@ -19,8 +19,8 @@ var _ MappedNullable = &ImportResult{}
 
 // ImportResult struct for ImportResult
 type ImportResult struct {
-	Id *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Id       *string  `json:"id,omitempty"`
+	Title    *string  `json:"title,omitempty"`
 	Warnings []string `json:"warnings,omitempty"`
 }
 
@@ -43,7 +43,7 @@ func NewImportResultWithDefaults() *ImportResult {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ImportResult) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *ImportResult) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportResult) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -61,7 +61,7 @@ func (o *ImportResult) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ImportResult) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *ImportResult) SetId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ImportResult) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *ImportResult) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportResult) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -93,7 +93,7 @@ func (o *ImportResult) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ImportResult) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *ImportResult) SetTitle(v string) {
 
 // GetWarnings returns the Warnings field value if set, zero value otherwise.
 func (o *ImportResult) GetWarnings() []string {
-	if o == nil || isNil(o.Warnings) {
+	if o == nil || IsNil(o.Warnings) {
 		var ret []string
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *ImportResult) GetWarnings() []string {
 // GetWarningsOk returns a tuple with the Warnings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportResult) GetWarningsOk() ([]string, bool) {
-	if o == nil || isNil(o.Warnings) {
+	if o == nil || IsNil(o.Warnings) {
 		return nil, false
 	}
 	return o.Warnings, true
@@ -125,7 +125,7 @@ func (o *ImportResult) GetWarningsOk() ([]string, bool) {
 
 // HasWarnings returns a boolean if a field has been set.
 func (o *ImportResult) HasWarnings() bool {
-	if o != nil && !isNil(o.Warnings) {
+	if o != nil && !IsNil(o.Warnings) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *ImportResult) SetWarnings(v []string) {
 }
 
 func (o ImportResult) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o ImportResult) MarshalJSON() ([]byte, error) {
 
 func (o ImportResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Warnings) {
+	if !IsNil(o.Warnings) {
 		toSerialize["warnings"] = o.Warnings
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableImportResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

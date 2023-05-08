@@ -19,11 +19,11 @@ var _ MappedNullable = &EnvironmentReservationSearchView{}
 
 // EnvironmentReservationSearchView struct for EnvironmentReservationSearchView
 type EnvironmentReservationSearchView struct {
-	Id *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Stage *EnvironmentStageView `json:"stage,omitempty"`
-	Labels []EnvironmentLabelView `json:"labels,omitempty"`
+	Id           *string                 `json:"id,omitempty"`
+	Title        *string                 `json:"title,omitempty"`
+	Description  *string                 `json:"description,omitempty"`
+	Stage        *EnvironmentStageView   `json:"stage,omitempty"`
+	Labels       []EnvironmentLabelView  `json:"labels,omitempty"`
 	Reservations []ReservationSearchView `json:"reservations,omitempty"`
 }
 
@@ -46,7 +46,7 @@ func NewEnvironmentReservationSearchViewWithDefaults() *EnvironmentReservationSe
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EnvironmentReservationSearchView) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -56,7 +56,7 @@ func (o *EnvironmentReservationSearchView) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationSearchView) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -64,7 +64,7 @@ func (o *EnvironmentReservationSearchView) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EnvironmentReservationSearchView) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -78,7 +78,7 @@ func (o *EnvironmentReservationSearchView) SetId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *EnvironmentReservationSearchView) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -88,7 +88,7 @@ func (o *EnvironmentReservationSearchView) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationSearchView) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -96,7 +96,7 @@ func (o *EnvironmentReservationSearchView) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *EnvironmentReservationSearchView) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -110,7 +110,7 @@ func (o *EnvironmentReservationSearchView) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EnvironmentReservationSearchView) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -120,7 +120,7 @@ func (o *EnvironmentReservationSearchView) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationSearchView) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -128,7 +128,7 @@ func (o *EnvironmentReservationSearchView) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EnvironmentReservationSearchView) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -142,7 +142,7 @@ func (o *EnvironmentReservationSearchView) SetDescription(v string) {
 
 // GetStage returns the Stage field value if set, zero value otherwise.
 func (o *EnvironmentReservationSearchView) GetStage() EnvironmentStageView {
-	if o == nil || isNil(o.Stage) {
+	if o == nil || IsNil(o.Stage) {
 		var ret EnvironmentStageView
 		return ret
 	}
@@ -152,7 +152,7 @@ func (o *EnvironmentReservationSearchView) GetStage() EnvironmentStageView {
 // GetStageOk returns a tuple with the Stage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationSearchView) GetStageOk() (*EnvironmentStageView, bool) {
-	if o == nil || isNil(o.Stage) {
+	if o == nil || IsNil(o.Stage) {
 		return nil, false
 	}
 	return o.Stage, true
@@ -160,7 +160,7 @@ func (o *EnvironmentReservationSearchView) GetStageOk() (*EnvironmentStageView, 
 
 // HasStage returns a boolean if a field has been set.
 func (o *EnvironmentReservationSearchView) HasStage() bool {
-	if o != nil && !isNil(o.Stage) {
+	if o != nil && !IsNil(o.Stage) {
 		return true
 	}
 
@@ -174,7 +174,7 @@ func (o *EnvironmentReservationSearchView) SetStage(v EnvironmentStageView) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *EnvironmentReservationSearchView) GetLabels() []EnvironmentLabelView {
-	if o == nil || isNil(o.Labels) {
+	if o == nil || IsNil(o.Labels) {
 		var ret []EnvironmentLabelView
 		return ret
 	}
@@ -184,7 +184,7 @@ func (o *EnvironmentReservationSearchView) GetLabels() []EnvironmentLabelView {
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationSearchView) GetLabelsOk() ([]EnvironmentLabelView, bool) {
-	if o == nil || isNil(o.Labels) {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -192,7 +192,7 @@ func (o *EnvironmentReservationSearchView) GetLabelsOk() ([]EnvironmentLabelView
 
 // HasLabels returns a boolean if a field has been set.
 func (o *EnvironmentReservationSearchView) HasLabels() bool {
-	if o != nil && !isNil(o.Labels) {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -206,7 +206,7 @@ func (o *EnvironmentReservationSearchView) SetLabels(v []EnvironmentLabelView) {
 
 // GetReservations returns the Reservations field value if set, zero value otherwise.
 func (o *EnvironmentReservationSearchView) GetReservations() []ReservationSearchView {
-	if o == nil || isNil(o.Reservations) {
+	if o == nil || IsNil(o.Reservations) {
 		var ret []ReservationSearchView
 		return ret
 	}
@@ -216,7 +216,7 @@ func (o *EnvironmentReservationSearchView) GetReservations() []ReservationSearch
 // GetReservationsOk returns a tuple with the Reservations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationSearchView) GetReservationsOk() ([]ReservationSearchView, bool) {
-	if o == nil || isNil(o.Reservations) {
+	if o == nil || IsNil(o.Reservations) {
 		return nil, false
 	}
 	return o.Reservations, true
@@ -224,7 +224,7 @@ func (o *EnvironmentReservationSearchView) GetReservationsOk() ([]ReservationSea
 
 // HasReservations returns a boolean if a field has been set.
 func (o *EnvironmentReservationSearchView) HasReservations() bool {
-	if o != nil && !isNil(o.Reservations) {
+	if o != nil && !IsNil(o.Reservations) {
 		return true
 	}
 
@@ -237,7 +237,7 @@ func (o *EnvironmentReservationSearchView) SetReservations(v []ReservationSearch
 }
 
 func (o EnvironmentReservationSearchView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -246,22 +246,22 @@ func (o EnvironmentReservationSearchView) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentReservationSearchView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Stage) {
+	if !IsNil(o.Stage) {
 		toSerialize["stage"] = o.Stage
 	}
-	if !isNil(o.Labels) {
+	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
-	if !isNil(o.Reservations) {
+	if !IsNil(o.Reservations) {
 		toSerialize["reservations"] = o.Reservations
 	}
 	return toSerialize, nil
@@ -302,5 +302,3 @@ func (v *NullableEnvironmentReservationSearchView) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

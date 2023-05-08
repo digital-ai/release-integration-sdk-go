@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the TaskReportingRecord type satisfies the MappedNullable interface at compile time
@@ -19,17 +20,19 @@ var _ MappedNullable = &TaskReportingRecord{}
 
 // TaskReportingRecord struct for TaskReportingRecord
 type TaskReportingRecord struct {
-	Scope *FacetScope `json:"scope,omitempty"`
-	TargetId *string `json:"targetId,omitempty"`
-	ConfigurationUri *string `json:"configurationUri,omitempty"`
-	VariableMapping *map[string]string `json:"variableMapping,omitempty"`
-	VariableUsages []UsagePoint `json:"variableUsages,omitempty"`
-	PropertiesWithVariables []interface{} `json:"propertiesWithVariables,omitempty"`
-	ServerUrl *string `json:"serverUrl,omitempty"`
-	ServerUser *string `json:"serverUser,omitempty"`
-	CreationDate *string `json:"creationDate,omitempty"`
-	RetryAttemptNumber *int32 `json:"retryAttemptNumber,omitempty"`
-	CreatedViaApi *bool `json:"createdViaApi,omitempty"`
+	Id                      *string            `json:"id,omitempty"`
+	Type                    *string            `json:"type,omitempty"`
+	Scope                   *FacetScope        `json:"scope,omitempty"`
+	TargetId                *string            `json:"targetId,omitempty"`
+	ConfigurationUri        *string            `json:"configurationUri,omitempty"`
+	VariableMapping         *map[string]string `json:"variableMapping,omitempty"`
+	VariableUsages          []UsagePoint       `json:"variableUsages,omitempty"`
+	PropertiesWithVariables []interface{}      `json:"propertiesWithVariables,omitempty"`
+	ServerUrl               *string            `json:"serverUrl,omitempty"`
+	ServerUser              *string            `json:"serverUser,omitempty"`
+	CreationDate            *time.Time         `json:"creationDate,omitempty"`
+	RetryAttemptNumber      *int32             `json:"retryAttemptNumber,omitempty"`
+	CreatedViaApi           *bool              `json:"createdViaApi,omitempty"`
 }
 
 // NewTaskReportingRecord instantiates a new TaskReportingRecord object
@@ -49,9 +52,73 @@ func NewTaskReportingRecordWithDefaults() *TaskReportingRecord {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *TaskReportingRecord) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskReportingRecord) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *TaskReportingRecord) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *TaskReportingRecord) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *TaskReportingRecord) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskReportingRecord) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *TaskReportingRecord) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *TaskReportingRecord) SetType(v string) {
+	o.Type = &v
+}
+
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetScope() FacetScope {
-	if o == nil || isNil(o.Scope) {
+	if o == nil || IsNil(o.Scope) {
 		var ret FacetScope
 		return ret
 	}
@@ -61,7 +128,7 @@ func (o *TaskReportingRecord) GetScope() FacetScope {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetScopeOk() (*FacetScope, bool) {
-	if o == nil || isNil(o.Scope) {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -69,7 +136,7 @@ func (o *TaskReportingRecord) GetScopeOk() (*FacetScope, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasScope() bool {
-	if o != nil && !isNil(o.Scope) {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -83,7 +150,7 @@ func (o *TaskReportingRecord) SetScope(v FacetScope) {
 
 // GetTargetId returns the TargetId field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetTargetId() string {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		var ret string
 		return ret
 	}
@@ -93,7 +160,7 @@ func (o *TaskReportingRecord) GetTargetId() string {
 // GetTargetIdOk returns a tuple with the TargetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetTargetIdOk() (*string, bool) {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		return nil, false
 	}
 	return o.TargetId, true
@@ -101,7 +168,7 @@ func (o *TaskReportingRecord) GetTargetIdOk() (*string, bool) {
 
 // HasTargetId returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasTargetId() bool {
-	if o != nil && !isNil(o.TargetId) {
+	if o != nil && !IsNil(o.TargetId) {
 		return true
 	}
 
@@ -115,7 +182,7 @@ func (o *TaskReportingRecord) SetTargetId(v string) {
 
 // GetConfigurationUri returns the ConfigurationUri field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetConfigurationUri() string {
-	if o == nil || isNil(o.ConfigurationUri) {
+	if o == nil || IsNil(o.ConfigurationUri) {
 		var ret string
 		return ret
 	}
@@ -125,7 +192,7 @@ func (o *TaskReportingRecord) GetConfigurationUri() string {
 // GetConfigurationUriOk returns a tuple with the ConfigurationUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetConfigurationUriOk() (*string, bool) {
-	if o == nil || isNil(o.ConfigurationUri) {
+	if o == nil || IsNil(o.ConfigurationUri) {
 		return nil, false
 	}
 	return o.ConfigurationUri, true
@@ -133,7 +200,7 @@ func (o *TaskReportingRecord) GetConfigurationUriOk() (*string, bool) {
 
 // HasConfigurationUri returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasConfigurationUri() bool {
-	if o != nil && !isNil(o.ConfigurationUri) {
+	if o != nil && !IsNil(o.ConfigurationUri) {
 		return true
 	}
 
@@ -147,7 +214,7 @@ func (o *TaskReportingRecord) SetConfigurationUri(v string) {
 
 // GetVariableMapping returns the VariableMapping field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetVariableMapping() map[string]string {
-	if o == nil || isNil(o.VariableMapping) {
+	if o == nil || IsNil(o.VariableMapping) {
 		var ret map[string]string
 		return ret
 	}
@@ -157,7 +224,7 @@ func (o *TaskReportingRecord) GetVariableMapping() map[string]string {
 // GetVariableMappingOk returns a tuple with the VariableMapping field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetVariableMappingOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.VariableMapping) {
+	if o == nil || IsNil(o.VariableMapping) {
 		return nil, false
 	}
 	return o.VariableMapping, true
@@ -165,7 +232,7 @@ func (o *TaskReportingRecord) GetVariableMappingOk() (*map[string]string, bool) 
 
 // HasVariableMapping returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasVariableMapping() bool {
-	if o != nil && !isNil(o.VariableMapping) {
+	if o != nil && !IsNil(o.VariableMapping) {
 		return true
 	}
 
@@ -179,7 +246,7 @@ func (o *TaskReportingRecord) SetVariableMapping(v map[string]string) {
 
 // GetVariableUsages returns the VariableUsages field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetVariableUsages() []UsagePoint {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		var ret []UsagePoint
 		return ret
 	}
@@ -189,7 +256,7 @@ func (o *TaskReportingRecord) GetVariableUsages() []UsagePoint {
 // GetVariableUsagesOk returns a tuple with the VariableUsages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetVariableUsagesOk() ([]UsagePoint, bool) {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		return nil, false
 	}
 	return o.VariableUsages, true
@@ -197,7 +264,7 @@ func (o *TaskReportingRecord) GetVariableUsagesOk() ([]UsagePoint, bool) {
 
 // HasVariableUsages returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasVariableUsages() bool {
-	if o != nil && !isNil(o.VariableUsages) {
+	if o != nil && !IsNil(o.VariableUsages) {
 		return true
 	}
 
@@ -211,7 +278,7 @@ func (o *TaskReportingRecord) SetVariableUsages(v []UsagePoint) {
 
 // GetPropertiesWithVariables returns the PropertiesWithVariables field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetPropertiesWithVariables() []interface{} {
-	if o == nil || isNil(o.PropertiesWithVariables) {
+	if o == nil || IsNil(o.PropertiesWithVariables) {
 		var ret []interface{}
 		return ret
 	}
@@ -221,7 +288,7 @@ func (o *TaskReportingRecord) GetPropertiesWithVariables() []interface{} {
 // GetPropertiesWithVariablesOk returns a tuple with the PropertiesWithVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetPropertiesWithVariablesOk() ([]interface{}, bool) {
-	if o == nil || isNil(o.PropertiesWithVariables) {
+	if o == nil || IsNil(o.PropertiesWithVariables) {
 		return nil, false
 	}
 	return o.PropertiesWithVariables, true
@@ -229,7 +296,7 @@ func (o *TaskReportingRecord) GetPropertiesWithVariablesOk() ([]interface{}, boo
 
 // HasPropertiesWithVariables returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasPropertiesWithVariables() bool {
-	if o != nil && !isNil(o.PropertiesWithVariables) {
+	if o != nil && !IsNil(o.PropertiesWithVariables) {
 		return true
 	}
 
@@ -243,7 +310,7 @@ func (o *TaskReportingRecord) SetPropertiesWithVariables(v []interface{}) {
 
 // GetServerUrl returns the ServerUrl field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetServerUrl() string {
-	if o == nil || isNil(o.ServerUrl) {
+	if o == nil || IsNil(o.ServerUrl) {
 		var ret string
 		return ret
 	}
@@ -253,7 +320,7 @@ func (o *TaskReportingRecord) GetServerUrl() string {
 // GetServerUrlOk returns a tuple with the ServerUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetServerUrlOk() (*string, bool) {
-	if o == nil || isNil(o.ServerUrl) {
+	if o == nil || IsNil(o.ServerUrl) {
 		return nil, false
 	}
 	return o.ServerUrl, true
@@ -261,7 +328,7 @@ func (o *TaskReportingRecord) GetServerUrlOk() (*string, bool) {
 
 // HasServerUrl returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasServerUrl() bool {
-	if o != nil && !isNil(o.ServerUrl) {
+	if o != nil && !IsNil(o.ServerUrl) {
 		return true
 	}
 
@@ -275,7 +342,7 @@ func (o *TaskReportingRecord) SetServerUrl(v string) {
 
 // GetServerUser returns the ServerUser field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetServerUser() string {
-	if o == nil || isNil(o.ServerUser) {
+	if o == nil || IsNil(o.ServerUser) {
 		var ret string
 		return ret
 	}
@@ -285,7 +352,7 @@ func (o *TaskReportingRecord) GetServerUser() string {
 // GetServerUserOk returns a tuple with the ServerUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetServerUserOk() (*string, bool) {
-	if o == nil || isNil(o.ServerUser) {
+	if o == nil || IsNil(o.ServerUser) {
 		return nil, false
 	}
 	return o.ServerUser, true
@@ -293,7 +360,7 @@ func (o *TaskReportingRecord) GetServerUserOk() (*string, bool) {
 
 // HasServerUser returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasServerUser() bool {
-	if o != nil && !isNil(o.ServerUser) {
+	if o != nil && !IsNil(o.ServerUser) {
 		return true
 	}
 
@@ -306,9 +373,9 @@ func (o *TaskReportingRecord) SetServerUser(v string) {
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *TaskReportingRecord) GetCreationDate() string {
-	if o == nil || isNil(o.CreationDate) {
-		var ret string
+func (o *TaskReportingRecord) GetCreationDate() time.Time {
+	if o == nil || IsNil(o.CreationDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.CreationDate
@@ -316,8 +383,8 @@ func (o *TaskReportingRecord) GetCreationDate() string {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskReportingRecord) GetCreationDateOk() (*string, bool) {
-	if o == nil || isNil(o.CreationDate) {
+func (o *TaskReportingRecord) GetCreationDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreationDate) {
 		return nil, false
 	}
 	return o.CreationDate, true
@@ -325,21 +392,21 @@ func (o *TaskReportingRecord) GetCreationDateOk() (*string, bool) {
 
 // HasCreationDate returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasCreationDate() bool {
-	if o != nil && !isNil(o.CreationDate) {
+	if o != nil && !IsNil(o.CreationDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
-func (o *TaskReportingRecord) SetCreationDate(v string) {
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
+func (o *TaskReportingRecord) SetCreationDate(v time.Time) {
 	o.CreationDate = &v
 }
 
 // GetRetryAttemptNumber returns the RetryAttemptNumber field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetRetryAttemptNumber() int32 {
-	if o == nil || isNil(o.RetryAttemptNumber) {
+	if o == nil || IsNil(o.RetryAttemptNumber) {
 		var ret int32
 		return ret
 	}
@@ -349,7 +416,7 @@ func (o *TaskReportingRecord) GetRetryAttemptNumber() int32 {
 // GetRetryAttemptNumberOk returns a tuple with the RetryAttemptNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetRetryAttemptNumberOk() (*int32, bool) {
-	if o == nil || isNil(o.RetryAttemptNumber) {
+	if o == nil || IsNil(o.RetryAttemptNumber) {
 		return nil, false
 	}
 	return o.RetryAttemptNumber, true
@@ -357,7 +424,7 @@ func (o *TaskReportingRecord) GetRetryAttemptNumberOk() (*int32, bool) {
 
 // HasRetryAttemptNumber returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasRetryAttemptNumber() bool {
-	if o != nil && !isNil(o.RetryAttemptNumber) {
+	if o != nil && !IsNil(o.RetryAttemptNumber) {
 		return true
 	}
 
@@ -371,7 +438,7 @@ func (o *TaskReportingRecord) SetRetryAttemptNumber(v int32) {
 
 // GetCreatedViaApi returns the CreatedViaApi field value if set, zero value otherwise.
 func (o *TaskReportingRecord) GetCreatedViaApi() bool {
-	if o == nil || isNil(o.CreatedViaApi) {
+	if o == nil || IsNil(o.CreatedViaApi) {
 		var ret bool
 		return ret
 	}
@@ -381,7 +448,7 @@ func (o *TaskReportingRecord) GetCreatedViaApi() bool {
 // GetCreatedViaApiOk returns a tuple with the CreatedViaApi field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskReportingRecord) GetCreatedViaApiOk() (*bool, bool) {
-	if o == nil || isNil(o.CreatedViaApi) {
+	if o == nil || IsNil(o.CreatedViaApi) {
 		return nil, false
 	}
 	return o.CreatedViaApi, true
@@ -389,7 +456,7 @@ func (o *TaskReportingRecord) GetCreatedViaApiOk() (*bool, bool) {
 
 // HasCreatedViaApi returns a boolean if a field has been set.
 func (o *TaskReportingRecord) HasCreatedViaApi() bool {
-	if o != nil && !isNil(o.CreatedViaApi) {
+	if o != nil && !IsNil(o.CreatedViaApi) {
 		return true
 	}
 
@@ -402,7 +469,7 @@ func (o *TaskReportingRecord) SetCreatedViaApi(v bool) {
 }
 
 func (o TaskReportingRecord) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -411,37 +478,43 @@ func (o TaskReportingRecord) MarshalJSON() ([]byte, error) {
 
 func (o TaskReportingRecord) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Scope) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if !isNil(o.TargetId) {
+	if !IsNil(o.TargetId) {
 		toSerialize["targetId"] = o.TargetId
 	}
-	if !isNil(o.ConfigurationUri) {
+	if !IsNil(o.ConfigurationUri) {
 		toSerialize["configurationUri"] = o.ConfigurationUri
 	}
-	if !isNil(o.VariableMapping) {
+	if !IsNil(o.VariableMapping) {
 		toSerialize["variableMapping"] = o.VariableMapping
 	}
-	if !isNil(o.VariableUsages) {
+	if !IsNil(o.VariableUsages) {
 		toSerialize["variableUsages"] = o.VariableUsages
 	}
-	if !isNil(o.PropertiesWithVariables) {
+	if !IsNil(o.PropertiesWithVariables) {
 		toSerialize["propertiesWithVariables"] = o.PropertiesWithVariables
 	}
-	if !isNil(o.ServerUrl) {
+	if !IsNil(o.ServerUrl) {
 		toSerialize["serverUrl"] = o.ServerUrl
 	}
-	if !isNil(o.ServerUser) {
+	if !IsNil(o.ServerUser) {
 		toSerialize["serverUser"] = o.ServerUser
 	}
-	if !isNil(o.CreationDate) {
+	if !IsNil(o.CreationDate) {
 		toSerialize["creationDate"] = o.CreationDate
 	}
-	if !isNil(o.RetryAttemptNumber) {
+	if !IsNil(o.RetryAttemptNumber) {
 		toSerialize["retryAttemptNumber"] = o.RetryAttemptNumber
 	}
-	if !isNil(o.CreatedViaApi) {
+	if !IsNil(o.CreatedViaApi) {
 		toSerialize["createdViaApi"] = o.CreatedViaApi
 	}
 	return toSerialize, nil
@@ -482,5 +555,3 @@ func (v *NullableTaskReportingRecord) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **VariableUsages** | Pointer to [**[]UsagePoint**](UsagePoint.md) |  | [optional] 
 **Score** | Pointer to **int32** |  | [optional] 
 **TotalScore** | Pointer to **int32** |  | [optional] 
@@ -27,6 +29,56 @@ will change when the set of required properties is changed
 NewRiskWithDefaults instantiates a new Risk object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *Risk) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Risk) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Risk) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Risk) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Risk) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Risk) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Risk) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Risk) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetVariableUsages
 

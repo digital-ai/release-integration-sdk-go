@@ -19,8 +19,8 @@ var _ MappedNullable = &ApplicationView{}
 
 // ApplicationView struct for ApplicationView
 type ApplicationView struct {
-	Id *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Id           *string               `json:"id,omitempty"`
+	Title        *string               `json:"title,omitempty"`
 	Environments []BaseEnvironmentView `json:"environments,omitempty"`
 }
 
@@ -43,7 +43,7 @@ func NewApplicationViewWithDefaults() *ApplicationView {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ApplicationView) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *ApplicationView) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationView) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -61,7 +61,7 @@ func (o *ApplicationView) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ApplicationView) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *ApplicationView) SetId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ApplicationView) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *ApplicationView) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationView) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -93,7 +93,7 @@ func (o *ApplicationView) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ApplicationView) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *ApplicationView) SetTitle(v string) {
 
 // GetEnvironments returns the Environments field value if set, zero value otherwise.
 func (o *ApplicationView) GetEnvironments() []BaseEnvironmentView {
-	if o == nil || isNil(o.Environments) {
+	if o == nil || IsNil(o.Environments) {
 		var ret []BaseEnvironmentView
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *ApplicationView) GetEnvironments() []BaseEnvironmentView {
 // GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationView) GetEnvironmentsOk() ([]BaseEnvironmentView, bool) {
-	if o == nil || isNil(o.Environments) {
+	if o == nil || IsNil(o.Environments) {
 		return nil, false
 	}
 	return o.Environments, true
@@ -125,7 +125,7 @@ func (o *ApplicationView) GetEnvironmentsOk() ([]BaseEnvironmentView, bool) {
 
 // HasEnvironments returns a boolean if a field has been set.
 func (o *ApplicationView) HasEnvironments() bool {
-	if o != nil && !isNil(o.Environments) {
+	if o != nil && !IsNil(o.Environments) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *ApplicationView) SetEnvironments(v []BaseEnvironmentView) {
 }
 
 func (o ApplicationView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o ApplicationView) MarshalJSON() ([]byte, error) {
 
 func (o ApplicationView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Environments) {
+	if !IsNil(o.Environments) {
 		toSerialize["environments"] = o.Environments
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableApplicationView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -19,22 +19,24 @@ var _ MappedNullable = &Variable{}
 
 // Variable struct for Variable
 type Variable struct {
-	FolderId *string `json:"folderId,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Key *string `json:"key,omitempty"`
-	RequiresValue *bool `json:"requiresValue,omitempty"`
-	ShowOnReleaseStart *bool `json:"showOnReleaseStart,omitempty"`
-	Label *string `json:"label,omitempty"`
-	Description *string `json:"description,omitempty"`
-	ValueProvider *ValueProviderConfiguration `json:"valueProvider,omitempty"`
-	Inherited *bool `json:"inherited,omitempty"`
-	Value map[string]interface{} `json:"value,omitempty"`
-	EmptyValue map[string]interface{} `json:"emptyValue,omitempty"`
-	ValueEmpty *bool `json:"valueEmpty,omitempty"`
-	UntypedValue map[string]interface{} `json:"untypedValue,omitempty"`
-	Password *bool `json:"password,omitempty"`
-	ValueAsString *string `json:"valueAsString,omitempty"`
-	EmptyValueAsString *string `json:"emptyValueAsString,omitempty"`
+	Id                 *string                     `json:"id,omitempty"`
+	Type               *string                     `json:"type,omitempty"`
+	FolderId           *string                     `json:"folderId,omitempty"`
+	Title              *string                     `json:"title,omitempty"`
+	Key                *string                     `json:"key,omitempty"`
+	RequiresValue      *bool                       `json:"requiresValue,omitempty"`
+	ShowOnReleaseStart *bool                       `json:"showOnReleaseStart,omitempty"`
+	Label              *string                     `json:"label,omitempty"`
+	Description        *string                     `json:"description,omitempty"`
+	ValueProvider      *ValueProviderConfiguration `json:"valueProvider,omitempty"`
+	Inherited          *bool                       `json:"inherited,omitempty"`
+	Value              interface{}                 `json:"value,omitempty"`
+	EmptyValue         map[string]interface{}      `json:"emptyValue,omitempty"`
+	ValueEmpty         *bool                       `json:"valueEmpty,omitempty"`
+	UntypedValue       map[string]interface{}      `json:"untypedValue,omitempty"`
+	Password           *bool                       `json:"password,omitempty"`
+	ValueAsString      *string                     `json:"valueAsString,omitempty"`
+	EmptyValueAsString *string                     `json:"emptyValueAsString,omitempty"`
 }
 
 // NewVariable instantiates a new Variable object
@@ -54,9 +56,73 @@ func NewVariableWithDefaults() *Variable {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Variable) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Variable) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Variable) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Variable) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Variable) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Variable) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Variable) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Variable) SetType(v string) {
+	o.Type = &v
+}
+
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *Variable) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -66,7 +132,7 @@ func (o *Variable) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -74,7 +140,7 @@ func (o *Variable) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *Variable) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -88,7 +154,7 @@ func (o *Variable) SetFolderId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *Variable) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -98,7 +164,7 @@ func (o *Variable) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -106,7 +172,7 @@ func (o *Variable) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *Variable) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -120,7 +186,7 @@ func (o *Variable) SetTitle(v string) {
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *Variable) GetKey() string {
-	if o == nil || isNil(o.Key) {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -130,7 +196,7 @@ func (o *Variable) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetKeyOk() (*string, bool) {
-	if o == nil || isNil(o.Key) {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -138,7 +204,7 @@ func (o *Variable) GetKeyOk() (*string, bool) {
 
 // HasKey returns a boolean if a field has been set.
 func (o *Variable) HasKey() bool {
-	if o != nil && !isNil(o.Key) {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -152,7 +218,7 @@ func (o *Variable) SetKey(v string) {
 
 // GetRequiresValue returns the RequiresValue field value if set, zero value otherwise.
 func (o *Variable) GetRequiresValue() bool {
-	if o == nil || isNil(o.RequiresValue) {
+	if o == nil || IsNil(o.RequiresValue) {
 		var ret bool
 		return ret
 	}
@@ -162,7 +228,7 @@ func (o *Variable) GetRequiresValue() bool {
 // GetRequiresValueOk returns a tuple with the RequiresValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetRequiresValueOk() (*bool, bool) {
-	if o == nil || isNil(o.RequiresValue) {
+	if o == nil || IsNil(o.RequiresValue) {
 		return nil, false
 	}
 	return o.RequiresValue, true
@@ -170,7 +236,7 @@ func (o *Variable) GetRequiresValueOk() (*bool, bool) {
 
 // HasRequiresValue returns a boolean if a field has been set.
 func (o *Variable) HasRequiresValue() bool {
-	if o != nil && !isNil(o.RequiresValue) {
+	if o != nil && !IsNil(o.RequiresValue) {
 		return true
 	}
 
@@ -184,7 +250,7 @@ func (o *Variable) SetRequiresValue(v bool) {
 
 // GetShowOnReleaseStart returns the ShowOnReleaseStart field value if set, zero value otherwise.
 func (o *Variable) GetShowOnReleaseStart() bool {
-	if o == nil || isNil(o.ShowOnReleaseStart) {
+	if o == nil || IsNil(o.ShowOnReleaseStart) {
 		var ret bool
 		return ret
 	}
@@ -194,7 +260,7 @@ func (o *Variable) GetShowOnReleaseStart() bool {
 // GetShowOnReleaseStartOk returns a tuple with the ShowOnReleaseStart field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetShowOnReleaseStartOk() (*bool, bool) {
-	if o == nil || isNil(o.ShowOnReleaseStart) {
+	if o == nil || IsNil(o.ShowOnReleaseStart) {
 		return nil, false
 	}
 	return o.ShowOnReleaseStart, true
@@ -202,7 +268,7 @@ func (o *Variable) GetShowOnReleaseStartOk() (*bool, bool) {
 
 // HasShowOnReleaseStart returns a boolean if a field has been set.
 func (o *Variable) HasShowOnReleaseStart() bool {
-	if o != nil && !isNil(o.ShowOnReleaseStart) {
+	if o != nil && !IsNil(o.ShowOnReleaseStart) {
 		return true
 	}
 
@@ -216,7 +282,7 @@ func (o *Variable) SetShowOnReleaseStart(v bool) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *Variable) GetLabel() string {
-	if o == nil || isNil(o.Label) {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -226,7 +292,7 @@ func (o *Variable) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetLabelOk() (*string, bool) {
-	if o == nil || isNil(o.Label) {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -234,7 +300,7 @@ func (o *Variable) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *Variable) HasLabel() bool {
-	if o != nil && !isNil(o.Label) {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -248,7 +314,7 @@ func (o *Variable) SetLabel(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Variable) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -258,7 +324,7 @@ func (o *Variable) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -266,7 +332,7 @@ func (o *Variable) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Variable) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -280,7 +346,7 @@ func (o *Variable) SetDescription(v string) {
 
 // GetValueProvider returns the ValueProvider field value if set, zero value otherwise.
 func (o *Variable) GetValueProvider() ValueProviderConfiguration {
-	if o == nil || isNil(o.ValueProvider) {
+	if o == nil || IsNil(o.ValueProvider) {
 		var ret ValueProviderConfiguration
 		return ret
 	}
@@ -290,7 +356,7 @@ func (o *Variable) GetValueProvider() ValueProviderConfiguration {
 // GetValueProviderOk returns a tuple with the ValueProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetValueProviderOk() (*ValueProviderConfiguration, bool) {
-	if o == nil || isNil(o.ValueProvider) {
+	if o == nil || IsNil(o.ValueProvider) {
 		return nil, false
 	}
 	return o.ValueProvider, true
@@ -298,7 +364,7 @@ func (o *Variable) GetValueProviderOk() (*ValueProviderConfiguration, bool) {
 
 // HasValueProvider returns a boolean if a field has been set.
 func (o *Variable) HasValueProvider() bool {
-	if o != nil && !isNil(o.ValueProvider) {
+	if o != nil && !IsNil(o.ValueProvider) {
 		return true
 	}
 
@@ -312,7 +378,7 @@ func (o *Variable) SetValueProvider(v ValueProviderConfiguration) {
 
 // GetInherited returns the Inherited field value if set, zero value otherwise.
 func (o *Variable) GetInherited() bool {
-	if o == nil || isNil(o.Inherited) {
+	if o == nil || IsNil(o.Inherited) {
 		var ret bool
 		return ret
 	}
@@ -322,7 +388,7 @@ func (o *Variable) GetInherited() bool {
 // GetInheritedOk returns a tuple with the Inherited field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetInheritedOk() (*bool, bool) {
-	if o == nil || isNil(o.Inherited) {
+	if o == nil || IsNil(o.Inherited) {
 		return nil, false
 	}
 	return o.Inherited, true
@@ -330,7 +396,7 @@ func (o *Variable) GetInheritedOk() (*bool, bool) {
 
 // HasInherited returns a boolean if a field has been set.
 func (o *Variable) HasInherited() bool {
-	if o != nil && !isNil(o.Inherited) {
+	if o != nil && !IsNil(o.Inherited) {
 		return true
 	}
 
@@ -342,10 +408,10 @@ func (o *Variable) SetInherited(v bool) {
 	o.Inherited = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *Variable) GetValue() map[string]interface{} {
-	if o == nil || isNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Variable) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -353,30 +419,31 @@ func (o *Variable) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Variable) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.Value) {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Variable) GetValueOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
 func (o *Variable) HasValue() bool {
-	if o != nil && !isNil(o.Value) {
+	if o != nil && IsNil(o.Value) {
 		return true
 	}
 
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *Variable) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *Variable) SetValue(v interface{}) {
 	o.Value = v
 }
 
 // GetEmptyValue returns the EmptyValue field value if set, zero value otherwise.
 func (o *Variable) GetEmptyValue() map[string]interface{} {
-	if o == nil || isNil(o.EmptyValue) {
+	if o == nil || IsNil(o.EmptyValue) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -386,7 +453,7 @@ func (o *Variable) GetEmptyValue() map[string]interface{} {
 // GetEmptyValueOk returns a tuple with the EmptyValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetEmptyValueOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.EmptyValue) {
+	if o == nil || IsNil(o.EmptyValue) {
 		return map[string]interface{}{}, false
 	}
 	return o.EmptyValue, true
@@ -394,7 +461,7 @@ func (o *Variable) GetEmptyValueOk() (map[string]interface{}, bool) {
 
 // HasEmptyValue returns a boolean if a field has been set.
 func (o *Variable) HasEmptyValue() bool {
-	if o != nil && !isNil(o.EmptyValue) {
+	if o != nil && !IsNil(o.EmptyValue) {
 		return true
 	}
 
@@ -408,7 +475,7 @@ func (o *Variable) SetEmptyValue(v map[string]interface{}) {
 
 // GetValueEmpty returns the ValueEmpty field value if set, zero value otherwise.
 func (o *Variable) GetValueEmpty() bool {
-	if o == nil || isNil(o.ValueEmpty) {
+	if o == nil || IsNil(o.ValueEmpty) {
 		var ret bool
 		return ret
 	}
@@ -418,7 +485,7 @@ func (o *Variable) GetValueEmpty() bool {
 // GetValueEmptyOk returns a tuple with the ValueEmpty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetValueEmptyOk() (*bool, bool) {
-	if o == nil || isNil(o.ValueEmpty) {
+	if o == nil || IsNil(o.ValueEmpty) {
 		return nil, false
 	}
 	return o.ValueEmpty, true
@@ -426,7 +493,7 @@ func (o *Variable) GetValueEmptyOk() (*bool, bool) {
 
 // HasValueEmpty returns a boolean if a field has been set.
 func (o *Variable) HasValueEmpty() bool {
-	if o != nil && !isNil(o.ValueEmpty) {
+	if o != nil && !IsNil(o.ValueEmpty) {
 		return true
 	}
 
@@ -440,7 +507,7 @@ func (o *Variable) SetValueEmpty(v bool) {
 
 // GetUntypedValue returns the UntypedValue field value if set, zero value otherwise.
 func (o *Variable) GetUntypedValue() map[string]interface{} {
-	if o == nil || isNil(o.UntypedValue) {
+	if o == nil || IsNil(o.UntypedValue) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -450,7 +517,7 @@ func (o *Variable) GetUntypedValue() map[string]interface{} {
 // GetUntypedValueOk returns a tuple with the UntypedValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetUntypedValueOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.UntypedValue) {
+	if o == nil || IsNil(o.UntypedValue) {
 		return map[string]interface{}{}, false
 	}
 	return o.UntypedValue, true
@@ -458,7 +525,7 @@ func (o *Variable) GetUntypedValueOk() (map[string]interface{}, bool) {
 
 // HasUntypedValue returns a boolean if a field has been set.
 func (o *Variable) HasUntypedValue() bool {
-	if o != nil && !isNil(o.UntypedValue) {
+	if o != nil && !IsNil(o.UntypedValue) {
 		return true
 	}
 
@@ -472,7 +539,7 @@ func (o *Variable) SetUntypedValue(v map[string]interface{}) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *Variable) GetPassword() bool {
-	if o == nil || isNil(o.Password) {
+	if o == nil || IsNil(o.Password) {
 		var ret bool
 		return ret
 	}
@@ -482,7 +549,7 @@ func (o *Variable) GetPassword() bool {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetPasswordOk() (*bool, bool) {
-	if o == nil || isNil(o.Password) {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -490,7 +557,7 @@ func (o *Variable) GetPasswordOk() (*bool, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *Variable) HasPassword() bool {
-	if o != nil && !isNil(o.Password) {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -504,7 +571,7 @@ func (o *Variable) SetPassword(v bool) {
 
 // GetValueAsString returns the ValueAsString field value if set, zero value otherwise.
 func (o *Variable) GetValueAsString() string {
-	if o == nil || isNil(o.ValueAsString) {
+	if o == nil || IsNil(o.ValueAsString) {
 		var ret string
 		return ret
 	}
@@ -514,7 +581,7 @@ func (o *Variable) GetValueAsString() string {
 // GetValueAsStringOk returns a tuple with the ValueAsString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetValueAsStringOk() (*string, bool) {
-	if o == nil || isNil(o.ValueAsString) {
+	if o == nil || IsNil(o.ValueAsString) {
 		return nil, false
 	}
 	return o.ValueAsString, true
@@ -522,7 +589,7 @@ func (o *Variable) GetValueAsStringOk() (*string, bool) {
 
 // HasValueAsString returns a boolean if a field has been set.
 func (o *Variable) HasValueAsString() bool {
-	if o != nil && !isNil(o.ValueAsString) {
+	if o != nil && !IsNil(o.ValueAsString) {
 		return true
 	}
 
@@ -536,7 +603,7 @@ func (o *Variable) SetValueAsString(v string) {
 
 // GetEmptyValueAsString returns the EmptyValueAsString field value if set, zero value otherwise.
 func (o *Variable) GetEmptyValueAsString() string {
-	if o == nil || isNil(o.EmptyValueAsString) {
+	if o == nil || IsNil(o.EmptyValueAsString) {
 		var ret string
 		return ret
 	}
@@ -546,7 +613,7 @@ func (o *Variable) GetEmptyValueAsString() string {
 // GetEmptyValueAsStringOk returns a tuple with the EmptyValueAsString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variable) GetEmptyValueAsStringOk() (*string, bool) {
-	if o == nil || isNil(o.EmptyValueAsString) {
+	if o == nil || IsNil(o.EmptyValueAsString) {
 		return nil, false
 	}
 	return o.EmptyValueAsString, true
@@ -554,7 +621,7 @@ func (o *Variable) GetEmptyValueAsStringOk() (*string, bool) {
 
 // HasEmptyValueAsString returns a boolean if a field has been set.
 func (o *Variable) HasEmptyValueAsString() bool {
-	if o != nil && !isNil(o.EmptyValueAsString) {
+	if o != nil && !IsNil(o.EmptyValueAsString) {
 		return true
 	}
 
@@ -567,7 +634,7 @@ func (o *Variable) SetEmptyValueAsString(v string) {
 }
 
 func (o Variable) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -576,52 +643,58 @@ func (o Variable) MarshalJSON() ([]byte, error) {
 
 func (o Variable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Key) {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-	if !isNil(o.RequiresValue) {
+	if !IsNil(o.RequiresValue) {
 		toSerialize["requiresValue"] = o.RequiresValue
 	}
-	if !isNil(o.ShowOnReleaseStart) {
+	if !IsNil(o.ShowOnReleaseStart) {
 		toSerialize["showOnReleaseStart"] = o.ShowOnReleaseStart
 	}
-	if !isNil(o.Label) {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.ValueProvider) {
+	if !IsNil(o.ValueProvider) {
 		toSerialize["valueProvider"] = o.ValueProvider
 	}
-	if !isNil(o.Inherited) {
+	if !IsNil(o.Inherited) {
 		toSerialize["inherited"] = o.Inherited
 	}
-	if !isNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
-	if !isNil(o.EmptyValue) {
+	if !IsNil(o.EmptyValue) {
 		toSerialize["emptyValue"] = o.EmptyValue
 	}
-	if !isNil(o.ValueEmpty) {
+	if !IsNil(o.ValueEmpty) {
 		toSerialize["valueEmpty"] = o.ValueEmpty
 	}
-	if !isNil(o.UntypedValue) {
+	if !IsNil(o.UntypedValue) {
 		toSerialize["untypedValue"] = o.UntypedValue
 	}
-	if !isNil(o.Password) {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if !isNil(o.ValueAsString) {
+	if !IsNil(o.ValueAsString) {
 		toSerialize["valueAsString"] = o.ValueAsString
 	}
-	if !isNil(o.EmptyValueAsString) {
+	if !IsNil(o.EmptyValueAsString) {
 		toSerialize["emptyValueAsString"] = o.EmptyValueAsString
 	}
 	return toSerialize, nil
@@ -662,5 +735,3 @@ func (v *NullableVariable) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

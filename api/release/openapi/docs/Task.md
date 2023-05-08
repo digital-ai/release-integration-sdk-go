@@ -4,28 +4,30 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ScheduledStartDate** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
+**ScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
 **FlagStatus** | Pointer to [**FlagStatus**](FlagStatus.md) |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**DueDate** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**DueDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **PlannedDuration** | Pointer to **int32** |  | [optional] 
 **FlagComment** | Pointer to **string** |  | [optional] 
 **OverdueNotified** | Pointer to **bool** |  | [optional] 
 **Flagged** | Pointer to **bool** |  | [optional] 
-**StartOrScheduledDate** | Pointer to **string** |  | [optional] 
-**EndOrDueDate** | Pointer to **string** |  | [optional] 
+**StartOrScheduledDate** | Pointer to **time.Time** |  | [optional] 
+**EndOrDueDate** | Pointer to **time.Time** |  | [optional] 
 **Overdue** | Pointer to **bool** |  | [optional] 
-**OrCalculateDueDate** | Pointer to **NullableString** |  | [optional] 
+**OrCalculateDueDate** | Pointer to **NullableTime** |  | [optional] 
 **ComputedPlannedDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **ActualDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **ReleaseUid** | Pointer to **int32** |  | [optional] 
 **CiUid** | Pointer to **int32** |  | [optional] 
 **Comments** | Pointer to [**[]Comment**](Comment.md) |  | [optional] 
-**Container** | Pointer to [**TaskContainer**](TaskContainer.md) |  | [optional] 
+**Container** | Pointer to **interface{}** |  | [optional] 
 **Facets** | Pointer to [**[]Facet**](Facet.md) |  | [optional] 
 **Attachments** | Pointer to [**[]Attachment**](Attachment.md) |  | [optional] 
 **Status** | Pointer to [**TaskStatus**](TaskStatus.md) |  | [optional] 
@@ -35,7 +37,7 @@ Name | Type | Description | Notes
 **DelayDuringBlackout** | Pointer to **bool** |  | [optional] 
 **PostponedDueToBlackout** | Pointer to **bool** |  | [optional] 
 **PostponedUntilEnvironmentsAreReserved** | Pointer to **bool** |  | [optional] 
-**OriginalScheduledStartDate** | Pointer to **string** |  | [optional] 
+**OriginalScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
 **HasBeenFlagged** | Pointer to **bool** |  | [optional] 
 **HasBeenDelayed** | Pointer to **bool** |  | [optional] 
 **Precondition** | Pointer to **string** |  | [optional] 
@@ -117,22 +119,72 @@ NewTaskWithDefaults instantiates a new Task object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetId
+
+`func (o *Task) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Task) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Task) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Task) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Task) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Task) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Task) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Task) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
 ### GetScheduledStartDate
 
-`func (o *Task) GetScheduledStartDate() string`
+`func (o *Task) GetScheduledStartDate() time.Time`
 
 GetScheduledStartDate returns the ScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetScheduledStartDateOk
 
-`func (o *Task) GetScheduledStartDateOk() (*string, bool)`
+`func (o *Task) GetScheduledStartDateOk() (*time.Time, bool)`
 
 GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledStartDate
 
-`func (o *Task) SetScheduledStartDate(v string)`
+`func (o *Task) SetScheduledStartDate(v time.Time)`
 
 SetScheduledStartDate sets ScheduledStartDate field to given value.
 
@@ -244,20 +296,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetDueDate
 
-`func (o *Task) GetDueDate() string`
+`func (o *Task) GetDueDate() time.Time`
 
 GetDueDate returns the DueDate field if non-nil, zero value otherwise.
 
 ### GetDueDateOk
 
-`func (o *Task) GetDueDateOk() (*string, bool)`
+`func (o *Task) GetDueDateOk() (*time.Time, bool)`
 
 GetDueDateOk returns a tuple with the DueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDueDate
 
-`func (o *Task) SetDueDate(v string)`
+`func (o *Task) SetDueDate(v time.Time)`
 
 SetDueDate sets DueDate field to given value.
 
@@ -269,20 +321,20 @@ HasDueDate returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *Task) GetStartDate() string`
+`func (o *Task) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *Task) GetStartDateOk() (*string, bool)`
+`func (o *Task) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *Task) SetStartDate(v string)`
+`func (o *Task) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -294,20 +346,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *Task) GetEndDate() string`
+`func (o *Task) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *Task) GetEndDateOk() (*string, bool)`
+`func (o *Task) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *Task) SetEndDate(v string)`
+`func (o *Task) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 
@@ -419,20 +471,20 @@ HasFlagged returns a boolean if a field has been set.
 
 ### GetStartOrScheduledDate
 
-`func (o *Task) GetStartOrScheduledDate() string`
+`func (o *Task) GetStartOrScheduledDate() time.Time`
 
 GetStartOrScheduledDate returns the StartOrScheduledDate field if non-nil, zero value otherwise.
 
 ### GetStartOrScheduledDateOk
 
-`func (o *Task) GetStartOrScheduledDateOk() (*string, bool)`
+`func (o *Task) GetStartOrScheduledDateOk() (*time.Time, bool)`
 
 GetStartOrScheduledDateOk returns a tuple with the StartOrScheduledDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartOrScheduledDate
 
-`func (o *Task) SetStartOrScheduledDate(v string)`
+`func (o *Task) SetStartOrScheduledDate(v time.Time)`
 
 SetStartOrScheduledDate sets StartOrScheduledDate field to given value.
 
@@ -444,20 +496,20 @@ HasStartOrScheduledDate returns a boolean if a field has been set.
 
 ### GetEndOrDueDate
 
-`func (o *Task) GetEndOrDueDate() string`
+`func (o *Task) GetEndOrDueDate() time.Time`
 
 GetEndOrDueDate returns the EndOrDueDate field if non-nil, zero value otherwise.
 
 ### GetEndOrDueDateOk
 
-`func (o *Task) GetEndOrDueDateOk() (*string, bool)`
+`func (o *Task) GetEndOrDueDateOk() (*time.Time, bool)`
 
 GetEndOrDueDateOk returns a tuple with the EndOrDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndOrDueDate
 
-`func (o *Task) SetEndOrDueDate(v string)`
+`func (o *Task) SetEndOrDueDate(v time.Time)`
 
 SetEndOrDueDate sets EndOrDueDate field to given value.
 
@@ -494,20 +546,20 @@ HasOverdue returns a boolean if a field has been set.
 
 ### GetOrCalculateDueDate
 
-`func (o *Task) GetOrCalculateDueDate() string`
+`func (o *Task) GetOrCalculateDueDate() time.Time`
 
 GetOrCalculateDueDate returns the OrCalculateDueDate field if non-nil, zero value otherwise.
 
 ### GetOrCalculateDueDateOk
 
-`func (o *Task) GetOrCalculateDueDateOk() (*string, bool)`
+`func (o *Task) GetOrCalculateDueDateOk() (*time.Time, bool)`
 
 GetOrCalculateDueDateOk returns a tuple with the OrCalculateDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrCalculateDueDate
 
-`func (o *Task) SetOrCalculateDueDate(v string)`
+`func (o *Task) SetOrCalculateDueDate(v time.Time)`
 
 SetOrCalculateDueDate sets OrCalculateDueDate field to given value.
 
@@ -654,20 +706,20 @@ HasComments returns a boolean if a field has been set.
 
 ### GetContainer
 
-`func (o *Task) GetContainer() TaskContainer`
+`func (o *Task) GetContainer() interface{}`
 
 GetContainer returns the Container field if non-nil, zero value otherwise.
 
 ### GetContainerOk
 
-`func (o *Task) GetContainerOk() (*TaskContainer, bool)`
+`func (o *Task) GetContainerOk() (*interface{}, bool)`
 
 GetContainerOk returns a tuple with the Container field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContainer
 
-`func (o *Task) SetContainer(v TaskContainer)`
+`func (o *Task) SetContainer(v interface{})`
 
 SetContainer sets Container field to given value.
 
@@ -677,6 +729,16 @@ SetContainer sets Container field to given value.
 
 HasContainer returns a boolean if a field has been set.
 
+### SetContainerNil
+
+`func (o *Task) SetContainerNil(b bool)`
+
+ SetContainerNil sets the value for Container to be an explicit nil
+
+### UnsetContainer
+`func (o *Task) UnsetContainer()`
+
+UnsetContainer ensures that no value is present for Container, not even an explicit nil
 ### GetFacets
 
 `func (o *Task) GetFacets() []Facet`
@@ -904,20 +966,20 @@ HasPostponedUntilEnvironmentsAreReserved returns a boolean if a field has been s
 
 ### GetOriginalScheduledStartDate
 
-`func (o *Task) GetOriginalScheduledStartDate() string`
+`func (o *Task) GetOriginalScheduledStartDate() time.Time`
 
 GetOriginalScheduledStartDate returns the OriginalScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetOriginalScheduledStartDateOk
 
-`func (o *Task) GetOriginalScheduledStartDateOk() (*string, bool)`
+`func (o *Task) GetOriginalScheduledStartDateOk() (*time.Time, bool)`
 
 GetOriginalScheduledStartDateOk returns a tuple with the OriginalScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOriginalScheduledStartDate
 
-`func (o *Task) SetOriginalScheduledStartDate(v string)`
+`func (o *Task) SetOriginalScheduledStartDate(v time.Time)`
 
 SetOriginalScheduledStartDate sets OriginalScheduledStartDate field to given value.
 

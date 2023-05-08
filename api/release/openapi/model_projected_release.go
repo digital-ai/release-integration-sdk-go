@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the ProjectedRelease type satisfies the MappedNullable interface at compile time
@@ -19,15 +20,15 @@ var _ MappedNullable = &ProjectedRelease{}
 
 // ProjectedRelease struct for ProjectedRelease
 type ProjectedRelease struct {
-	Id *string `json:"id,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	StartDateString *string `json:"startDateString,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	EndDateString *string `json:"endDateString,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Phases []ProjectedPhase `json:"phases,omitempty"`
+	Id              *string          `json:"id,omitempty"`
+	StartDate       *time.Time       `json:"startDate,omitempty"`
+	StartDateString *string          `json:"startDateString,omitempty"`
+	EndDate         *time.Time       `json:"endDate,omitempty"`
+	EndDateString   *string          `json:"endDateString,omitempty"`
+	Status          *string          `json:"status,omitempty"`
+	Type            *string          `json:"type,omitempty"`
+	Title           *string          `json:"title,omitempty"`
+	Phases          []ProjectedPhase `json:"phases,omitempty"`
 }
 
 // NewProjectedRelease instantiates a new ProjectedRelease object
@@ -49,7 +50,7 @@ func NewProjectedReleaseWithDefaults() *ProjectedRelease {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ProjectedRelease) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -59,7 +60,7 @@ func (o *ProjectedRelease) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProjectedRelease) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -67,7 +68,7 @@ func (o *ProjectedRelease) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -80,9 +81,9 @@ func (o *ProjectedRelease) SetId(v string) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *ProjectedRelease) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *ProjectedRelease) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -90,8 +91,8 @@ func (o *ProjectedRelease) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectedRelease) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *ProjectedRelease) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -99,21 +100,21 @@ func (o *ProjectedRelease) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *ProjectedRelease) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *ProjectedRelease) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetStartDateString returns the StartDateString field value if set, zero value otherwise.
 func (o *ProjectedRelease) GetStartDateString() string {
-	if o == nil || isNil(o.StartDateString) {
+	if o == nil || IsNil(o.StartDateString) {
 		var ret string
 		return ret
 	}
@@ -123,7 +124,7 @@ func (o *ProjectedRelease) GetStartDateString() string {
 // GetStartDateStringOk returns a tuple with the StartDateString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProjectedRelease) GetStartDateStringOk() (*string, bool) {
-	if o == nil || isNil(o.StartDateString) {
+	if o == nil || IsNil(o.StartDateString) {
 		return nil, false
 	}
 	return o.StartDateString, true
@@ -131,7 +132,7 @@ func (o *ProjectedRelease) GetStartDateStringOk() (*string, bool) {
 
 // HasStartDateString returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasStartDateString() bool {
-	if o != nil && !isNil(o.StartDateString) {
+	if o != nil && !IsNil(o.StartDateString) {
 		return true
 	}
 
@@ -144,9 +145,9 @@ func (o *ProjectedRelease) SetStartDateString(v string) {
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *ProjectedRelease) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *ProjectedRelease) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -154,8 +155,8 @@ func (o *ProjectedRelease) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectedRelease) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *ProjectedRelease) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -163,21 +164,21 @@ func (o *ProjectedRelease) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *ProjectedRelease) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *ProjectedRelease) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetEndDateString returns the EndDateString field value if set, zero value otherwise.
 func (o *ProjectedRelease) GetEndDateString() string {
-	if o == nil || isNil(o.EndDateString) {
+	if o == nil || IsNil(o.EndDateString) {
 		var ret string
 		return ret
 	}
@@ -187,7 +188,7 @@ func (o *ProjectedRelease) GetEndDateString() string {
 // GetEndDateStringOk returns a tuple with the EndDateString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProjectedRelease) GetEndDateStringOk() (*string, bool) {
-	if o == nil || isNil(o.EndDateString) {
+	if o == nil || IsNil(o.EndDateString) {
 		return nil, false
 	}
 	return o.EndDateString, true
@@ -195,7 +196,7 @@ func (o *ProjectedRelease) GetEndDateStringOk() (*string, bool) {
 
 // HasEndDateString returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasEndDateString() bool {
-	if o != nil && !isNil(o.EndDateString) {
+	if o != nil && !IsNil(o.EndDateString) {
 		return true
 	}
 
@@ -209,7 +210,7 @@ func (o *ProjectedRelease) SetEndDateString(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ProjectedRelease) GetStatus() string {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -219,7 +220,7 @@ func (o *ProjectedRelease) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProjectedRelease) GetStatusOk() (*string, bool) {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -227,7 +228,7 @@ func (o *ProjectedRelease) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasStatus() bool {
-	if o != nil && !isNil(o.Status) {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -241,7 +242,7 @@ func (o *ProjectedRelease) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ProjectedRelease) GetType() string {
-	if o == nil || isNil(o.Type) {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -251,7 +252,7 @@ func (o *ProjectedRelease) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProjectedRelease) GetTypeOk() (*string, bool) {
-	if o == nil || isNil(o.Type) {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -259,7 +260,7 @@ func (o *ProjectedRelease) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasType() bool {
-	if o != nil && !isNil(o.Type) {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -273,7 +274,7 @@ func (o *ProjectedRelease) SetType(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ProjectedRelease) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -283,7 +284,7 @@ func (o *ProjectedRelease) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProjectedRelease) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -291,7 +292,7 @@ func (o *ProjectedRelease) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -305,7 +306,7 @@ func (o *ProjectedRelease) SetTitle(v string) {
 
 // GetPhases returns the Phases field value if set, zero value otherwise.
 func (o *ProjectedRelease) GetPhases() []ProjectedPhase {
-	if o == nil || isNil(o.Phases) {
+	if o == nil || IsNil(o.Phases) {
 		var ret []ProjectedPhase
 		return ret
 	}
@@ -315,7 +316,7 @@ func (o *ProjectedRelease) GetPhases() []ProjectedPhase {
 // GetPhasesOk returns a tuple with the Phases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProjectedRelease) GetPhasesOk() ([]ProjectedPhase, bool) {
-	if o == nil || isNil(o.Phases) {
+	if o == nil || IsNil(o.Phases) {
 		return nil, false
 	}
 	return o.Phases, true
@@ -323,7 +324,7 @@ func (o *ProjectedRelease) GetPhasesOk() ([]ProjectedPhase, bool) {
 
 // HasPhases returns a boolean if a field has been set.
 func (o *ProjectedRelease) HasPhases() bool {
-	if o != nil && !isNil(o.Phases) {
+	if o != nil && !IsNil(o.Phases) {
 		return true
 	}
 
@@ -336,7 +337,7 @@ func (o *ProjectedRelease) SetPhases(v []ProjectedPhase) {
 }
 
 func (o ProjectedRelease) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -345,31 +346,31 @@ func (o ProjectedRelease) MarshalJSON() ([]byte, error) {
 
 func (o ProjectedRelease) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.StartDateString) {
+	if !IsNil(o.StartDateString) {
 		toSerialize["startDateString"] = o.StartDateString
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.EndDateString) {
+	if !IsNil(o.EndDateString) {
 		toSerialize["endDateString"] = o.EndDateString
 	}
-	if !isNil(o.Status) {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !isNil(o.Type) {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Phases) {
+	if !IsNil(o.Phases) {
 		toSerialize["phases"] = o.Phases
 	}
 	return toSerialize, nil
@@ -410,5 +411,3 @@ func (v *NullableProjectedRelease) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

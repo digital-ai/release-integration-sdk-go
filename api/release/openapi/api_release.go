@@ -13,20 +13,19 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // ReleaseApiService ReleaseApi service
 type ReleaseApiService service
 
 type ApiAbortRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
-	releaseId string
+	ctx          context.Context
+	ApiService   *ReleaseApiService
+	releaseId    string
 	abortRelease *AbortRelease
 }
 
@@ -42,26 +41,27 @@ func (r ApiAbortRequest) Execute() (*Release, *http.Response, error) {
 /*
 Abort Method for Abort
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiAbortRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiAbortRequest
 */
 func (a *ReleaseApiService) Abort(ctx context.Context, releaseId string) ApiAbortRequest {
 	return ApiAbortRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *ReleaseApiService) AbortExecute(r ApiAbortRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.Abort")
@@ -95,6 +95,20 @@ func (a *ReleaseApiService) AbortExecute(r ApiAbortRequest) (*Release, *http.Res
 	}
 	// body params
 	localVarPostBody = r.abortRelease
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -105,9 +119,9 @@ func (a *ReleaseApiService) AbortExecute(r ApiAbortRequest) (*Release, *http.Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -133,8 +147,8 @@ func (a *ReleaseApiService) AbortExecute(r ApiAbortRequest) (*Release, *http.Res
 }
 
 type ApiCountReleasesRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
+	ctx             context.Context
+	ApiService      *ReleaseApiService
 	releasesFilters *ReleasesFilters
 }
 
@@ -150,24 +164,25 @@ func (r ApiCountReleasesRequest) Execute() (*ReleaseCountResults, *http.Response
 /*
 CountReleases Method for CountReleases
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCountReleasesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCountReleasesRequest
 */
 func (a *ReleaseApiService) CountReleases(ctx context.Context) ApiCountReleasesRequest {
 	return ApiCountReleasesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseCountResults
+//
+//	@return ReleaseCountResults
 func (a *ReleaseApiService) CountReleasesExecute(r ApiCountReleasesRequest) (*ReleaseCountResults, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseCountResults
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseCountResults
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.CountReleases")
@@ -200,6 +215,20 @@ func (a *ReleaseApiService) CountReleasesExecute(r ApiCountReleasesRequest) (*Re
 	}
 	// body params
 	localVarPostBody = r.releasesFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -210,9 +239,9 @@ func (a *ReleaseApiService) CountReleasesExecute(r ApiCountReleasesRequest) (*Re
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -238,10 +267,10 @@ func (a *ReleaseApiService) CountReleasesExecute(r ApiCountReleasesRequest) (*Re
 }
 
 type ApiCreateReleaseVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
-	variable1 *Variable1
+	releaseId  string
+	variable1  *Variable1
 }
 
 func (r ApiCreateReleaseVariableRequest) Variable1(variable1 Variable1) ApiCreateReleaseVariableRequest {
@@ -256,26 +285,27 @@ func (r ApiCreateReleaseVariableRequest) Execute() (*Variable, *http.Response, e
 /*
 CreateReleaseVariable Method for CreateReleaseVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiCreateReleaseVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiCreateReleaseVariableRequest
 */
 func (a *ReleaseApiService) CreateReleaseVariable(ctx context.Context, releaseId string) ApiCreateReleaseVariableRequest {
 	return ApiCreateReleaseVariableRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *ReleaseApiService) CreateReleaseVariableExecute(r ApiCreateReleaseVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.CreateReleaseVariable")
@@ -309,6 +339,20 @@ func (a *ReleaseApiService) CreateReleaseVariableExecute(r ApiCreateReleaseVaria
 	}
 	// body params
 	localVarPostBody = r.variable1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -319,9 +363,9 @@ func (a *ReleaseApiService) CreateReleaseVariableExecute(r ApiCreateReleaseVaria
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -347,9 +391,9 @@ func (a *ReleaseApiService) CreateReleaseVariableExecute(r ApiCreateReleaseVaria
 }
 
 type ApiDeleteReleaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
+	releaseId  string
 }
 
 func (r ApiDeleteReleaseRequest) Execute() (*http.Response, error) {
@@ -359,24 +403,24 @@ func (r ApiDeleteReleaseRequest) Execute() (*http.Response, error) {
 /*
 DeleteRelease Method for DeleteRelease
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiDeleteReleaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiDeleteReleaseRequest
 */
 func (a *ReleaseApiService) DeleteRelease(ctx context.Context, releaseId string) ApiDeleteReleaseRequest {
 	return ApiDeleteReleaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
 func (a *ReleaseApiService) DeleteReleaseExecute(r ApiDeleteReleaseRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.DeleteRelease")
@@ -408,6 +452,20 @@ func (a *ReleaseApiService) DeleteReleaseExecute(r ApiDeleteReleaseRequest) (*ht
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -418,9 +476,9 @@ func (a *ReleaseApiService) DeleteReleaseExecute(r ApiDeleteReleaseRequest) (*ht
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -437,7 +495,7 @@ func (a *ReleaseApiService) DeleteReleaseExecute(r ApiDeleteReleaseRequest) (*ht
 }
 
 type ApiDeleteReleaseVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
 	variableId string
 }
@@ -449,14 +507,14 @@ func (r ApiDeleteReleaseVariableRequest) Execute() (*http.Response, error) {
 /*
 DeleteReleaseVariable Method for DeleteReleaseVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiDeleteReleaseVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiDeleteReleaseVariableRequest
 */
 func (a *ReleaseApiService) DeleteReleaseVariable(ctx context.Context, variableId string) ApiDeleteReleaseVariableRequest {
 	return ApiDeleteReleaseVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
@@ -464,9 +522,9 @@ func (a *ReleaseApiService) DeleteReleaseVariable(ctx context.Context, variableI
 // Execute executes the request
 func (a *ReleaseApiService) DeleteReleaseVariableExecute(r ApiDeleteReleaseVariableRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.DeleteReleaseVariable")
@@ -498,6 +556,20 @@ func (a *ReleaseApiService) DeleteReleaseVariableExecute(r ApiDeleteReleaseVaria
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -508,9 +580,9 @@ func (a *ReleaseApiService) DeleteReleaseVariableExecute(r ApiDeleteReleaseVaria
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -527,8 +599,8 @@ func (a *ReleaseApiService) DeleteReleaseVariableExecute(r ApiDeleteReleaseVaria
 }
 
 type ApiDownloadAttachmentRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
+	ctx          context.Context
+	ApiService   *ReleaseApiService
 	attachmentId string
 }
 
@@ -539,14 +611,14 @@ func (r ApiDownloadAttachmentRequest) Execute() (*http.Response, error) {
 /*
 DownloadAttachment Method for DownloadAttachment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param attachmentId
- @return ApiDownloadAttachmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param attachmentId
+	@return ApiDownloadAttachmentRequest
 */
 func (a *ReleaseApiService) DownloadAttachment(ctx context.Context, attachmentId string) ApiDownloadAttachmentRequest {
 	return ApiDownloadAttachmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		attachmentId: attachmentId,
 	}
 }
@@ -554,9 +626,9 @@ func (a *ReleaseApiService) DownloadAttachment(ctx context.Context, attachmentId
 // Execute executes the request
 func (a *ReleaseApiService) DownloadAttachmentExecute(r ApiDownloadAttachmentRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.DownloadAttachment")
@@ -588,6 +660,20 @@ func (a *ReleaseApiService) DownloadAttachmentExecute(r ApiDownloadAttachmentReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -598,9 +684,9 @@ func (a *ReleaseApiService) DownloadAttachmentExecute(r ApiDownloadAttachmentReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -617,13 +703,13 @@ func (a *ReleaseApiService) DownloadAttachmentExecute(r ApiDownloadAttachmentReq
 }
 
 type ApiFullSearchReleasesRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
-	archivePage *int64
+	ctx                   context.Context
+	ApiService            *ReleaseApiService
+	archivePage           *int64
 	archiveResultsPerPage *int64
-	page *int64
-	resultsPerPage *int64
-	releasesFilters *ReleasesFilters
+	page                  *int64
+	resultsPerPage        *int64
+	releasesFilters       *ReleasesFilters
 }
 
 func (r ApiFullSearchReleasesRequest) ArchivePage(archivePage int64) ApiFullSearchReleasesRequest {
@@ -658,24 +744,25 @@ func (r ApiFullSearchReleasesRequest) Execute() (*ReleaseFullSearchResult, *http
 /*
 FullSearchReleases Method for FullSearchReleases
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiFullSearchReleasesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiFullSearchReleasesRequest
 */
 func (a *ReleaseApiService) FullSearchReleases(ctx context.Context) ApiFullSearchReleasesRequest {
 	return ApiFullSearchReleasesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseFullSearchResult
+//
+//	@return ReleaseFullSearchResult
 func (a *ReleaseApiService) FullSearchReleasesExecute(r ApiFullSearchReleasesRequest) (*ReleaseFullSearchResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseFullSearchResult
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseFullSearchResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.FullSearchReleases")
@@ -690,16 +777,16 @@ func (a *ReleaseApiService) FullSearchReleasesExecute(r ApiFullSearchReleasesReq
 	localVarFormParams := url.Values{}
 
 	if r.archivePage != nil {
-		parameterAddToQuery(localVarQueryParams, "archivePage", r.archivePage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archivePage", r.archivePage, "")
 	}
 	if r.archiveResultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "archiveResultsPerPage", r.archiveResultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archiveResultsPerPage", r.archiveResultsPerPage, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -720,6 +807,20 @@ func (a *ReleaseApiService) FullSearchReleasesExecute(r ApiFullSearchReleasesReq
 	}
 	// body params
 	localVarPostBody = r.releasesFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -730,9 +831,9 @@ func (a *ReleaseApiService) FullSearchReleasesExecute(r ApiFullSearchReleasesReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -758,9 +859,9 @@ func (a *ReleaseApiService) FullSearchReleasesExecute(r ApiFullSearchReleasesReq
 }
 
 type ApiGetActiveTasksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
+	releaseId  string
 }
 
 func (r ApiGetActiveTasksRequest) Execute() ([]Task, *http.Response, error) {
@@ -770,26 +871,27 @@ func (r ApiGetActiveTasksRequest) Execute() ([]Task, *http.Response, error) {
 /*
 GetActiveTasks Method for GetActiveTasks
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiGetActiveTasksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiGetActiveTasksRequest
 */
 func (a *ReleaseApiService) GetActiveTasks(ctx context.Context, releaseId string) ApiGetActiveTasksRequest {
 	return ApiGetActiveTasksRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return []Task
+//
+//	@return []Task
 func (a *ReleaseApiService) GetActiveTasksExecute(r ApiGetActiveTasksRequest) ([]Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Task
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetActiveTasks")
@@ -821,6 +923,20 @@ func (a *ReleaseApiService) GetActiveTasksExecute(r ApiGetActiveTasksRequest) ([
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -831,9 +947,9 @@ func (a *ReleaseApiService) GetActiveTasksExecute(r ApiGetActiveTasksRequest) ([
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -859,10 +975,10 @@ func (a *ReleaseApiService) GetActiveTasksExecute(r ApiGetActiveTasksRequest) ([
 }
 
 type ApiGetArchivedReleaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
-	roleIds *bool
+	releaseId  string
+	roleIds    *bool
 }
 
 func (r ApiGetArchivedReleaseRequest) RoleIds(roleIds bool) ApiGetArchivedReleaseRequest {
@@ -877,26 +993,27 @@ func (r ApiGetArchivedReleaseRequest) Execute() (*Release, *http.Response, error
 /*
 GetArchivedRelease Method for GetArchivedRelease
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiGetArchivedReleaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiGetArchivedReleaseRequest
 */
 func (a *ReleaseApiService) GetArchivedRelease(ctx context.Context, releaseId string) ApiGetArchivedReleaseRequest {
 	return ApiGetArchivedReleaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *ReleaseApiService) GetArchivedReleaseExecute(r ApiGetArchivedReleaseRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetArchivedRelease")
@@ -912,7 +1029,7 @@ func (a *ReleaseApiService) GetArchivedReleaseExecute(r ApiGetArchivedReleaseReq
 	localVarFormParams := url.Values{}
 
 	if r.roleIds != nil {
-		parameterAddToQuery(localVarQueryParams, "roleIds", r.roleIds, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "roleIds", r.roleIds, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -931,6 +1048,20 @@ func (a *ReleaseApiService) GetArchivedReleaseExecute(r ApiGetArchivedReleaseReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -941,9 +1072,9 @@ func (a *ReleaseApiService) GetArchivedReleaseExecute(r ApiGetArchivedReleaseReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -969,7 +1100,7 @@ func (a *ReleaseApiService) GetArchivedReleaseExecute(r ApiGetArchivedReleaseReq
 }
 
 type ApiGetPossibleReleaseVariableValuesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
 	variableId string
 }
@@ -981,26 +1112,27 @@ func (r ApiGetPossibleReleaseVariableValuesRequest) Execute() ([]map[string]inte
 /*
 GetPossibleReleaseVariableValues Method for GetPossibleReleaseVariableValues
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiGetPossibleReleaseVariableValuesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiGetPossibleReleaseVariableValuesRequest
 */
 func (a *ReleaseApiService) GetPossibleReleaseVariableValues(ctx context.Context, variableId string) ApiGetPossibleReleaseVariableValuesRequest {
 	return ApiGetPossibleReleaseVariableValuesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return []map[string]interface{}
+//
+//	@return []map[string]interface{}
 func (a *ReleaseApiService) GetPossibleReleaseVariableValuesExecute(r ApiGetPossibleReleaseVariableValuesRequest) ([]map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []map[string]interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetPossibleReleaseVariableValues")
@@ -1032,6 +1164,20 @@ func (a *ReleaseApiService) GetPossibleReleaseVariableValuesExecute(r ApiGetPoss
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1042,9 +1188,9 @@ func (a *ReleaseApiService) GetPossibleReleaseVariableValuesExecute(r ApiGetPoss
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1070,10 +1216,10 @@ func (a *ReleaseApiService) GetPossibleReleaseVariableValuesExecute(r ApiGetPoss
 }
 
 type ApiGetReleaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
-	roleIds *bool
+	releaseId  string
+	roleIds    *bool
 }
 
 func (r ApiGetReleaseRequest) RoleIds(roleIds bool) ApiGetReleaseRequest {
@@ -1088,26 +1234,27 @@ func (r ApiGetReleaseRequest) Execute() (*Release, *http.Response, error) {
 /*
 GetRelease Method for GetRelease
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiGetReleaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiGetReleaseRequest
 */
 func (a *ReleaseApiService) GetRelease(ctx context.Context, releaseId string) ApiGetReleaseRequest {
 	return ApiGetReleaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *ReleaseApiService) GetReleaseExecute(r ApiGetReleaseRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetRelease")
@@ -1123,7 +1270,7 @@ func (a *ReleaseApiService) GetReleaseExecute(r ApiGetReleaseRequest) (*Release,
 	localVarFormParams := url.Values{}
 
 	if r.roleIds != nil {
-		parameterAddToQuery(localVarQueryParams, "roleIds", r.roleIds, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "roleIds", r.roleIds, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1142,6 +1289,20 @@ func (a *ReleaseApiService) GetReleaseExecute(r ApiGetReleaseRequest) (*Release,
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1152,9 +1313,9 @@ func (a *ReleaseApiService) GetReleaseExecute(r ApiGetReleaseRequest) (*Release,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1180,7 +1341,7 @@ func (a *ReleaseApiService) GetReleaseExecute(r ApiGetReleaseRequest) (*Release,
 }
 
 type ApiGetReleasePermissionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
 }
 
@@ -1191,24 +1352,25 @@ func (r ApiGetReleasePermissionsRequest) Execute() ([]string, *http.Response, er
 /*
 GetReleasePermissions Method for GetReleasePermissions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetReleasePermissionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetReleasePermissionsRequest
 */
 func (a *ReleaseApiService) GetReleasePermissions(ctx context.Context) ApiGetReleasePermissionsRequest {
 	return ApiGetReleasePermissionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *ReleaseApiService) GetReleasePermissionsExecute(r ApiGetReleasePermissionsRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetReleasePermissions")
@@ -1239,6 +1401,20 @@ func (a *ReleaseApiService) GetReleasePermissionsExecute(r ApiGetReleasePermissi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1249,9 +1425,9 @@ func (a *ReleaseApiService) GetReleasePermissionsExecute(r ApiGetReleasePermissi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1277,9 +1453,9 @@ func (a *ReleaseApiService) GetReleasePermissionsExecute(r ApiGetReleasePermissi
 }
 
 type ApiGetReleaseTeamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
+	releaseId  string
 }
 
 func (r ApiGetReleaseTeamsRequest) Execute() ([]TeamView, *http.Response, error) {
@@ -1289,26 +1465,27 @@ func (r ApiGetReleaseTeamsRequest) Execute() ([]TeamView, *http.Response, error)
 /*
 GetReleaseTeams Method for GetReleaseTeams
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiGetReleaseTeamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiGetReleaseTeamsRequest
 */
 func (a *ReleaseApiService) GetReleaseTeams(ctx context.Context, releaseId string) ApiGetReleaseTeamsRequest {
 	return ApiGetReleaseTeamsRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return []TeamView
+//
+//	@return []TeamView
 func (a *ReleaseApiService) GetReleaseTeamsExecute(r ApiGetReleaseTeamsRequest) ([]TeamView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TeamView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TeamView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetReleaseTeams")
@@ -1340,6 +1517,20 @@ func (a *ReleaseApiService) GetReleaseTeamsExecute(r ApiGetReleaseTeamsRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1350,9 +1541,9 @@ func (a *ReleaseApiService) GetReleaseTeamsExecute(r ApiGetReleaseTeamsRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1378,7 +1569,7 @@ func (a *ReleaseApiService) GetReleaseTeamsExecute(r ApiGetReleaseTeamsRequest) 
 }
 
 type ApiGetReleaseVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
 	variableId string
 }
@@ -1390,26 +1581,27 @@ func (r ApiGetReleaseVariableRequest) Execute() (*Variable, *http.Response, erro
 /*
 GetReleaseVariable Method for GetReleaseVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiGetReleaseVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiGetReleaseVariableRequest
 */
 func (a *ReleaseApiService) GetReleaseVariable(ctx context.Context, variableId string) ApiGetReleaseVariableRequest {
 	return ApiGetReleaseVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *ReleaseApiService) GetReleaseVariableExecute(r ApiGetReleaseVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetReleaseVariable")
@@ -1441,6 +1633,20 @@ func (a *ReleaseApiService) GetReleaseVariableExecute(r ApiGetReleaseVariableReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1451,9 +1657,9 @@ func (a *ReleaseApiService) GetReleaseVariableExecute(r ApiGetReleaseVariableReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1479,9 +1685,9 @@ func (a *ReleaseApiService) GetReleaseVariableExecute(r ApiGetReleaseVariableReq
 }
 
 type ApiGetReleaseVariablesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
+	releaseId  string
 }
 
 func (r ApiGetReleaseVariablesRequest) Execute() ([]Variable, *http.Response, error) {
@@ -1491,26 +1697,27 @@ func (r ApiGetReleaseVariablesRequest) Execute() ([]Variable, *http.Response, er
 /*
 GetReleaseVariables Method for GetReleaseVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiGetReleaseVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiGetReleaseVariablesRequest
 */
 func (a *ReleaseApiService) GetReleaseVariables(ctx context.Context, releaseId string) ApiGetReleaseVariablesRequest {
 	return ApiGetReleaseVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return []Variable
+//
+//	@return []Variable
 func (a *ReleaseApiService) GetReleaseVariablesExecute(r ApiGetReleaseVariablesRequest) ([]Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetReleaseVariables")
@@ -1542,6 +1749,20 @@ func (a *ReleaseApiService) GetReleaseVariablesExecute(r ApiGetReleaseVariablesR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1552,9 +1773,9 @@ func (a *ReleaseApiService) GetReleaseVariablesExecute(r ApiGetReleaseVariablesR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1580,10 +1801,10 @@ func (a *ReleaseApiService) GetReleaseVariablesExecute(r ApiGetReleaseVariablesR
 }
 
 type ApiGetReleasesRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
-	depth *int32
-	page *int64
+	ctx            context.Context
+	ApiService     *ReleaseApiService
+	depth          *int32
+	page           *int64
 	resultsPerPage *int64
 }
 
@@ -1609,24 +1830,25 @@ func (r ApiGetReleasesRequest) Execute() ([]Release, *http.Response, error) {
 /*
 GetReleases Method for GetReleases
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetReleasesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetReleasesRequest
 */
 func (a *ReleaseApiService) GetReleases(ctx context.Context) ApiGetReleasesRequest {
 	return ApiGetReleasesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Release
+//
+//	@return []Release
 func (a *ReleaseApiService) GetReleasesExecute(r ApiGetReleasesRequest) ([]Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Release
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetReleases")
@@ -1641,13 +1863,13 @@ func (a *ReleaseApiService) GetReleasesExecute(r ApiGetReleasesRequest) ([]Relea
 	localVarFormParams := url.Values{}
 
 	if r.depth != nil {
-		parameterAddToQuery(localVarQueryParams, "depth", r.depth, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1666,6 +1888,20 @@ func (a *ReleaseApiService) GetReleasesExecute(r ApiGetReleasesRequest) ([]Relea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1676,9 +1912,9 @@ func (a *ReleaseApiService) GetReleasesExecute(r ApiGetReleasesRequest) ([]Relea
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1704,9 +1940,9 @@ func (a *ReleaseApiService) GetReleasesExecute(r ApiGetReleasesRequest) ([]Relea
 }
 
 type ApiGetVariableValuesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
+	releaseId  string
 }
 
 func (r ApiGetVariableValuesRequest) Execute() (map[string]string, *http.Response, error) {
@@ -1716,26 +1952,27 @@ func (r ApiGetVariableValuesRequest) Execute() (map[string]string, *http.Respons
 /*
 GetVariableValues Method for GetVariableValues
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiGetVariableValuesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiGetVariableValuesRequest
 */
 func (a *ReleaseApiService) GetVariableValues(ctx context.Context, releaseId string) ApiGetVariableValuesRequest {
 	return ApiGetVariableValuesRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return map[string]string
+//
+//	@return map[string]string
 func (a *ReleaseApiService) GetVariableValuesExecute(r ApiGetVariableValuesRequest) (map[string]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  map[string]string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.GetVariableValues")
@@ -1767,6 +2004,20 @@ func (a *ReleaseApiService) GetVariableValuesExecute(r ApiGetVariableValuesReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1777,9 +2028,9 @@ func (a *ReleaseApiService) GetVariableValuesExecute(r ApiGetVariableValuesReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1805,7 +2056,7 @@ func (a *ReleaseApiService) GetVariableValuesExecute(r ApiGetVariableValuesReque
 }
 
 type ApiIsVariableUsedReleaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
 	variableId string
 }
@@ -1817,26 +2068,27 @@ func (r ApiIsVariableUsedReleaseRequest) Execute() (bool, *http.Response, error)
 /*
 IsVariableUsedRelease Method for IsVariableUsedRelease
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiIsVariableUsedReleaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiIsVariableUsedReleaseRequest
 */
 func (a *ReleaseApiService) IsVariableUsedRelease(ctx context.Context, variableId string) ApiIsVariableUsedReleaseRequest {
 	return ApiIsVariableUsedReleaseRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return bool
+//
+//	@return bool
 func (a *ReleaseApiService) IsVariableUsedReleaseExecute(r ApiIsVariableUsedReleaseRequest) (bool, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  bool
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue bool
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.IsVariableUsedRelease")
@@ -1868,6 +2120,20 @@ func (a *ReleaseApiService) IsVariableUsedReleaseExecute(r ApiIsVariableUsedRele
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1878,9 +2144,9 @@ func (a *ReleaseApiService) IsVariableUsedReleaseExecute(r ApiIsVariableUsedRele
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1906,9 +2172,9 @@ func (a *ReleaseApiService) IsVariableUsedReleaseExecute(r ApiIsVariableUsedRele
 }
 
 type ApiReplaceReleaseVariablesRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
-	variableId string
+	ctx             context.Context
+	ApiService      *ReleaseApiService
+	variableId      string
 	variableOrValue *VariableOrValue
 }
 
@@ -1924,14 +2190,14 @@ func (r ApiReplaceReleaseVariablesRequest) Execute() (*http.Response, error) {
 /*
 ReplaceReleaseVariables Method for ReplaceReleaseVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiReplaceReleaseVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiReplaceReleaseVariablesRequest
 */
 func (a *ReleaseApiService) ReplaceReleaseVariables(ctx context.Context, variableId string) ApiReplaceReleaseVariablesRequest {
 	return ApiReplaceReleaseVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
@@ -1939,9 +2205,9 @@ func (a *ReleaseApiService) ReplaceReleaseVariables(ctx context.Context, variabl
 // Execute executes the request
 func (a *ReleaseApiService) ReplaceReleaseVariablesExecute(r ApiReplaceReleaseVariablesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.ReplaceReleaseVariables")
@@ -1975,6 +2241,20 @@ func (a *ReleaseApiService) ReplaceReleaseVariablesExecute(r ApiReplaceReleaseVa
 	}
 	// body params
 	localVarPostBody = r.variableOrValue
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1985,9 +2265,9 @@ func (a *ReleaseApiService) ReplaceReleaseVariablesExecute(r ApiReplaceReleaseVa
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2004,13 +2284,13 @@ func (a *ReleaseApiService) ReplaceReleaseVariablesExecute(r ApiReplaceReleaseVa
 }
 
 type ApiRestartPhasesRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
-	releaseId string
-	fromPhaseId *string
-	fromTaskId *string
+	ctx          context.Context
+	ApiService   *ReleaseApiService
+	releaseId    string
+	fromPhaseId  *string
+	fromTaskId   *string
 	phaseVersion *PhaseVersion
-	resume *bool
+	resume       *bool
 }
 
 func (r ApiRestartPhasesRequest) FromPhaseId(fromPhaseId string) ApiRestartPhasesRequest {
@@ -2040,26 +2320,27 @@ func (r ApiRestartPhasesRequest) Execute() (*Release, *http.Response, error) {
 /*
 RestartPhases Method for RestartPhases
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiRestartPhasesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiRestartPhasesRequest
 */
 func (a *ReleaseApiService) RestartPhases(ctx context.Context, releaseId string) ApiRestartPhasesRequest {
 	return ApiRestartPhasesRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *ReleaseApiService) RestartPhasesExecute(r ApiRestartPhasesRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.RestartPhases")
@@ -2075,16 +2356,16 @@ func (a *ReleaseApiService) RestartPhasesExecute(r ApiRestartPhasesRequest) (*Re
 	localVarFormParams := url.Values{}
 
 	if r.fromPhaseId != nil {
-		parameterAddToQuery(localVarQueryParams, "fromPhaseId", r.fromPhaseId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fromPhaseId", r.fromPhaseId, "")
 	}
 	if r.fromTaskId != nil {
-		parameterAddToQuery(localVarQueryParams, "fromTaskId", r.fromTaskId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fromTaskId", r.fromTaskId, "")
 	}
 	if r.phaseVersion != nil {
-		parameterAddToQuery(localVarQueryParams, "phaseVersion", r.phaseVersion, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "phaseVersion", r.phaseVersion, "")
 	}
 	if r.resume != nil {
-		parameterAddToQuery(localVarQueryParams, "resume", r.resume, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resume", r.resume, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2103,6 +2384,20 @@ func (a *ReleaseApiService) RestartPhasesExecute(r ApiRestartPhasesRequest) (*Re
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2113,9 +2408,9 @@ func (a *ReleaseApiService) RestartPhasesExecute(r ApiRestartPhasesRequest) (*Re
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2141,9 +2436,9 @@ func (a *ReleaseApiService) RestartPhasesExecute(r ApiRestartPhasesRequest) (*Re
 }
 
 type ApiResumeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
+	releaseId  string
 }
 
 func (r ApiResumeRequest) Execute() (*Release, *http.Response, error) {
@@ -2153,26 +2448,27 @@ func (r ApiResumeRequest) Execute() (*Release, *http.Response, error) {
 /*
 Resume Method for Resume
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiResumeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiResumeRequest
 */
 func (a *ReleaseApiService) Resume(ctx context.Context, releaseId string) ApiResumeRequest {
 	return ApiResumeRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *ReleaseApiService) ResumeExecute(r ApiResumeRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.Resume")
@@ -2204,6 +2500,20 @@ func (a *ReleaseApiService) ResumeExecute(r ApiResumeRequest) (*Release, *http.R
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2214,9 +2524,9 @@ func (a *ReleaseApiService) ResumeExecute(r ApiResumeRequest) (*Release, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2242,8 +2552,8 @@ func (a *ReleaseApiService) ResumeExecute(r ApiResumeRequest) (*Release, *http.R
 }
 
 type ApiSearchReleasesByTitleRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
+	ctx          context.Context
+	ApiService   *ReleaseApiService
 	releaseTitle *string
 }
 
@@ -2259,24 +2569,25 @@ func (r ApiSearchReleasesByTitleRequest) Execute() ([]Release, *http.Response, e
 /*
 SearchReleasesByTitle Method for SearchReleasesByTitle
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchReleasesByTitleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchReleasesByTitleRequest
 */
 func (a *ReleaseApiService) SearchReleasesByTitle(ctx context.Context) ApiSearchReleasesByTitleRequest {
 	return ApiSearchReleasesByTitleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Release
+//
+//	@return []Release
 func (a *ReleaseApiService) SearchReleasesByTitleExecute(r ApiSearchReleasesByTitleRequest) ([]Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Release
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.SearchReleasesByTitle")
@@ -2291,7 +2602,7 @@ func (a *ReleaseApiService) SearchReleasesByTitleExecute(r ApiSearchReleasesByTi
 	localVarFormParams := url.Values{}
 
 	if r.releaseTitle != nil {
-		parameterAddToQuery(localVarQueryParams, "releaseTitle", r.releaseTitle, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "releaseTitle", r.releaseTitle, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2310,6 +2621,20 @@ func (a *ReleaseApiService) SearchReleasesByTitleExecute(r ApiSearchReleasesByTi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2320,9 +2645,9 @@ func (a *ReleaseApiService) SearchReleasesByTitleExecute(r ApiSearchReleasesByTi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2348,11 +2673,11 @@ func (a *ReleaseApiService) SearchReleasesByTitleExecute(r ApiSearchReleasesByTi
 }
 
 type ApiSearchReleasesReleaseRequest struct {
-	ctx context.Context
-	ApiService *ReleaseApiService
-	page *int64
-	pageIsOffset *bool
-	resultsPerPage *int64
+	ctx             context.Context
+	ApiService      *ReleaseApiService
+	page            *int64
+	pageIsOffset    *bool
+	resultsPerPage  *int64
 	releasesFilters *ReleasesFilters
 }
 
@@ -2383,24 +2708,25 @@ func (r ApiSearchReleasesReleaseRequest) Execute() ([]Release, *http.Response, e
 /*
 SearchReleasesRelease Method for SearchReleasesRelease
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchReleasesReleaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchReleasesReleaseRequest
 */
 func (a *ReleaseApiService) SearchReleasesRelease(ctx context.Context) ApiSearchReleasesReleaseRequest {
 	return ApiSearchReleasesReleaseRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Release
+//
+//	@return []Release
 func (a *ReleaseApiService) SearchReleasesReleaseExecute(r ApiSearchReleasesReleaseRequest) ([]Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.SearchReleasesRelease")
@@ -2415,13 +2741,13 @@ func (a *ReleaseApiService) SearchReleasesReleaseExecute(r ApiSearchReleasesRele
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.pageIsOffset != nil {
-		parameterAddToQuery(localVarQueryParams, "pageIsOffset", r.pageIsOffset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageIsOffset", r.pageIsOffset, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -2442,6 +2768,20 @@ func (a *ReleaseApiService) SearchReleasesReleaseExecute(r ApiSearchReleasesRele
 	}
 	// body params
 	localVarPostBody = r.releasesFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2452,9 +2792,9 @@ func (a *ReleaseApiService) SearchReleasesReleaseExecute(r ApiSearchReleasesRele
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2480,10 +2820,10 @@ func (a *ReleaseApiService) SearchReleasesReleaseExecute(r ApiSearchReleasesRele
 }
 
 type ApiSetReleaseTeamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
-	teamView *[]TeamView
+	releaseId  string
+	teamView   *[]TeamView
 }
 
 func (r ApiSetReleaseTeamsRequest) TeamView(teamView []TeamView) ApiSetReleaseTeamsRequest {
@@ -2498,26 +2838,27 @@ func (r ApiSetReleaseTeamsRequest) Execute() ([]TeamView, *http.Response, error)
 /*
 SetReleaseTeams Method for SetReleaseTeams
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiSetReleaseTeamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiSetReleaseTeamsRequest
 */
 func (a *ReleaseApiService) SetReleaseTeams(ctx context.Context, releaseId string) ApiSetReleaseTeamsRequest {
 	return ApiSetReleaseTeamsRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return []TeamView
+//
+//	@return []TeamView
 func (a *ReleaseApiService) SetReleaseTeamsExecute(r ApiSetReleaseTeamsRequest) ([]TeamView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TeamView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TeamView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.SetReleaseTeams")
@@ -2551,6 +2892,20 @@ func (a *ReleaseApiService) SetReleaseTeamsExecute(r ApiSetReleaseTeamsRequest) 
 	}
 	// body params
 	localVarPostBody = r.teamView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2561,9 +2916,9 @@ func (a *ReleaseApiService) SetReleaseTeamsExecute(r ApiSetReleaseTeamsRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2589,9 +2944,9 @@ func (a *ReleaseApiService) SetReleaseTeamsExecute(r ApiSetReleaseTeamsRequest) 
 }
 
 type ApiStartReleaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
+	releaseId  string
 }
 
 func (r ApiStartReleaseRequest) Execute() (*Release, *http.Response, error) {
@@ -2601,26 +2956,27 @@ func (r ApiStartReleaseRequest) Execute() (*Release, *http.Response, error) {
 /*
 StartRelease Method for StartRelease
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiStartReleaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiStartReleaseRequest
 */
 func (a *ReleaseApiService) StartRelease(ctx context.Context, releaseId string) ApiStartReleaseRequest {
 	return ApiStartReleaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *ReleaseApiService) StartReleaseExecute(r ApiStartReleaseRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.StartRelease")
@@ -2652,6 +3008,20 @@ func (a *ReleaseApiService) StartReleaseExecute(r ApiStartReleaseRequest) (*Rele
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2662,9 +3032,9 @@ func (a *ReleaseApiService) StartReleaseExecute(r ApiStartReleaseRequest) (*Rele
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2690,10 +3060,10 @@ func (a *ReleaseApiService) StartReleaseExecute(r ApiStartReleaseRequest) (*Rele
 }
 
 type ApiUpdateReleaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
-	release *Release
+	releaseId  string
+	release    *Release
 }
 
 func (r ApiUpdateReleaseRequest) Release(release Release) ApiUpdateReleaseRequest {
@@ -2708,26 +3078,27 @@ func (r ApiUpdateReleaseRequest) Execute() (*Release, *http.Response, error) {
 /*
 UpdateRelease Method for UpdateRelease
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiUpdateReleaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiUpdateReleaseRequest
 */
 func (a *ReleaseApiService) UpdateRelease(ctx context.Context, releaseId string) ApiUpdateReleaseRequest {
 	return ApiUpdateReleaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *ReleaseApiService) UpdateReleaseExecute(r ApiUpdateReleaseRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.UpdateRelease")
@@ -2761,6 +3132,20 @@ func (a *ReleaseApiService) UpdateReleaseExecute(r ApiUpdateReleaseRequest) (*Re
 	}
 	// body params
 	localVarPostBody = r.release
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2771,9 +3156,9 @@ func (a *ReleaseApiService) UpdateReleaseExecute(r ApiUpdateReleaseRequest) (*Re
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2799,10 +3184,10 @@ func (a *ReleaseApiService) UpdateReleaseExecute(r ApiUpdateReleaseRequest) (*Re
 }
 
 type ApiUpdateReleaseVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
 	variableId string
-	variable *Variable
+	variable   *Variable
 }
 
 func (r ApiUpdateReleaseVariableRequest) Variable(variable Variable) ApiUpdateReleaseVariableRequest {
@@ -2817,26 +3202,27 @@ func (r ApiUpdateReleaseVariableRequest) Execute() (*Variable, *http.Response, e
 /*
 UpdateReleaseVariable Method for UpdateReleaseVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiUpdateReleaseVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiUpdateReleaseVariableRequest
 */
 func (a *ReleaseApiService) UpdateReleaseVariable(ctx context.Context, variableId string) ApiUpdateReleaseVariableRequest {
 	return ApiUpdateReleaseVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *ReleaseApiService) UpdateReleaseVariableExecute(r ApiUpdateReleaseVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.UpdateReleaseVariable")
@@ -2870,6 +3256,20 @@ func (a *ReleaseApiService) UpdateReleaseVariableExecute(r ApiUpdateReleaseVaria
 	}
 	// body params
 	localVarPostBody = r.variable
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2880,9 +3280,9 @@ func (a *ReleaseApiService) UpdateReleaseVariableExecute(r ApiUpdateReleaseVaria
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2908,10 +3308,10 @@ func (a *ReleaseApiService) UpdateReleaseVariableExecute(r ApiUpdateReleaseVaria
 }
 
 type ApiUpdateReleaseVariablesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseApiService
-	releaseId string
-	variable *[]Variable
+	releaseId  string
+	variable   *[]Variable
 }
 
 func (r ApiUpdateReleaseVariablesRequest) Variable(variable []Variable) ApiUpdateReleaseVariablesRequest {
@@ -2926,26 +3326,27 @@ func (r ApiUpdateReleaseVariablesRequest) Execute() ([]Variable, *http.Response,
 /*
 UpdateReleaseVariables Method for UpdateReleaseVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiUpdateReleaseVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiUpdateReleaseVariablesRequest
 */
 func (a *ReleaseApiService) UpdateReleaseVariables(ctx context.Context, releaseId string) ApiUpdateReleaseVariablesRequest {
 	return ApiUpdateReleaseVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return []Variable
+//
+//	@return []Variable
 func (a *ReleaseApiService) UpdateReleaseVariablesExecute(r ApiUpdateReleaseVariablesRequest) ([]Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Variable
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseApiService.UpdateReleaseVariables")
@@ -2979,6 +3380,20 @@ func (a *ReleaseApiService) UpdateReleaseVariablesExecute(r ApiUpdateReleaseVari
 	}
 	// body params
 	localVarPostBody = r.variable
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2989,9 +3404,9 @@ func (a *ReleaseApiService) UpdateReleaseVariablesExecute(r ApiUpdateReleaseVari
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -4,10 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Text** | Pointer to **string** |  | [optional] 
 **Author** | Pointer to **string** |  | [optional] 
-**Date** | Pointer to **string** |  | [optional] 
-**CreationDate** | Pointer to **string** |  | [optional] 
+**Date** | Pointer to **time.Time** |  | [optional] 
+**CreationDate** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -27,6 +29,56 @@ will change when the set of required properties is changed
 NewCommentWithDefaults instantiates a new Comment object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *Comment) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Comment) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Comment) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Comment) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Comment) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Comment) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Comment) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Comment) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetText
 
@@ -80,20 +132,20 @@ HasAuthor returns a boolean if a field has been set.
 
 ### GetDate
 
-`func (o *Comment) GetDate() string`
+`func (o *Comment) GetDate() time.Time`
 
 GetDate returns the Date field if non-nil, zero value otherwise.
 
 ### GetDateOk
 
-`func (o *Comment) GetDateOk() (*string, bool)`
+`func (o *Comment) GetDateOk() (*time.Time, bool)`
 
 GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDate
 
-`func (o *Comment) SetDate(v string)`
+`func (o *Comment) SetDate(v time.Time)`
 
 SetDate sets Date field to given value.
 
@@ -105,20 +157,20 @@ HasDate returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *Comment) GetCreationDate() string`
+`func (o *Comment) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *Comment) GetCreationDateOk() (*string, bool)`
+`func (o *Comment) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *Comment) SetCreationDate(v string)`
+`func (o *Comment) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 

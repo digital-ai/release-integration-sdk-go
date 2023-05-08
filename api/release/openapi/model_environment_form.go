@@ -19,10 +19,10 @@ var _ MappedNullable = &EnvironmentForm{}
 
 // EnvironmentForm struct for EnvironmentForm
 type EnvironmentForm struct {
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	StageId *string `json:"stageId,omitempty"`
-	LabelIds []string `json:"labelIds,omitempty"`
+	Title       *string  `json:"title,omitempty"`
+	Description *string  `json:"description,omitempty"`
+	StageId     *string  `json:"stageId,omitempty"`
+	LabelIds    []string `json:"labelIds,omitempty"`
 }
 
 // NewEnvironmentForm instantiates a new EnvironmentForm object
@@ -44,7 +44,7 @@ func NewEnvironmentFormWithDefaults() *EnvironmentForm {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *EnvironmentForm) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *EnvironmentForm) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentForm) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -62,7 +62,7 @@ func (o *EnvironmentForm) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *EnvironmentForm) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -76,7 +76,7 @@ func (o *EnvironmentForm) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EnvironmentForm) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *EnvironmentForm) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentForm) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -94,7 +94,7 @@ func (o *EnvironmentForm) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EnvironmentForm) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -108,7 +108,7 @@ func (o *EnvironmentForm) SetDescription(v string) {
 
 // GetStageId returns the StageId field value if set, zero value otherwise.
 func (o *EnvironmentForm) GetStageId() string {
-	if o == nil || isNil(o.StageId) {
+	if o == nil || IsNil(o.StageId) {
 		var ret string
 		return ret
 	}
@@ -118,7 +118,7 @@ func (o *EnvironmentForm) GetStageId() string {
 // GetStageIdOk returns a tuple with the StageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentForm) GetStageIdOk() (*string, bool) {
-	if o == nil || isNil(o.StageId) {
+	if o == nil || IsNil(o.StageId) {
 		return nil, false
 	}
 	return o.StageId, true
@@ -126,7 +126,7 @@ func (o *EnvironmentForm) GetStageIdOk() (*string, bool) {
 
 // HasStageId returns a boolean if a field has been set.
 func (o *EnvironmentForm) HasStageId() bool {
-	if o != nil && !isNil(o.StageId) {
+	if o != nil && !IsNil(o.StageId) {
 		return true
 	}
 
@@ -140,7 +140,7 @@ func (o *EnvironmentForm) SetStageId(v string) {
 
 // GetLabelIds returns the LabelIds field value if set, zero value otherwise.
 func (o *EnvironmentForm) GetLabelIds() []string {
-	if o == nil || isNil(o.LabelIds) {
+	if o == nil || IsNil(o.LabelIds) {
 		var ret []string
 		return ret
 	}
@@ -150,7 +150,7 @@ func (o *EnvironmentForm) GetLabelIds() []string {
 // GetLabelIdsOk returns a tuple with the LabelIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentForm) GetLabelIdsOk() ([]string, bool) {
-	if o == nil || isNil(o.LabelIds) {
+	if o == nil || IsNil(o.LabelIds) {
 		return nil, false
 	}
 	return o.LabelIds, true
@@ -158,7 +158,7 @@ func (o *EnvironmentForm) GetLabelIdsOk() ([]string, bool) {
 
 // HasLabelIds returns a boolean if a field has been set.
 func (o *EnvironmentForm) HasLabelIds() bool {
-	if o != nil && !isNil(o.LabelIds) {
+	if o != nil && !IsNil(o.LabelIds) {
 		return true
 	}
 
@@ -171,7 +171,7 @@ func (o *EnvironmentForm) SetLabelIds(v []string) {
 }
 
 func (o EnvironmentForm) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +180,16 @@ func (o EnvironmentForm) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentForm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.StageId) {
+	if !IsNil(o.StageId) {
 		toSerialize["stageId"] = o.StageId
 	}
-	if !isNil(o.LabelIds) {
+	if !IsNil(o.LabelIds) {
 		toSerialize["labelIds"] = o.LabelIds
 	}
 	return toSerialize, nil
@@ -230,5 +230,3 @@ func (v *NullableEnvironmentForm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

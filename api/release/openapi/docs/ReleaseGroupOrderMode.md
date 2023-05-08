@@ -3,11 +3,11 @@
 ## Enum
 
 
-* `RISK_GROUP` (value: `"RISK_GROUP"`)
+* `RISK` (value: `"RISK"`)
 
-* `START_DATE_GROUP` (value: `"START_DATE_GROUP"`)
+* `START_DATE` (value: `"START_DATE"`)
 
-* `END_DATE_GROUP` (value: `"END_DATE_GROUP"`)
+* `END_DATE` (value: `"END_DATE"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

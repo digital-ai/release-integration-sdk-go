@@ -41,7 +41,7 @@ func NewUsagePointWithDefaults() *UsagePoint {
 
 // GetTargetProperty returns the TargetProperty field value if set, zero value otherwise.
 func (o *UsagePoint) GetTargetProperty() CiProperty {
-	if o == nil || isNil(o.TargetProperty) {
+	if o == nil || IsNil(o.TargetProperty) {
 		var ret CiProperty
 		return ret
 	}
@@ -51,7 +51,7 @@ func (o *UsagePoint) GetTargetProperty() CiProperty {
 // GetTargetPropertyOk returns a tuple with the TargetProperty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UsagePoint) GetTargetPropertyOk() (*CiProperty, bool) {
-	if o == nil || isNil(o.TargetProperty) {
+	if o == nil || IsNil(o.TargetProperty) {
 		return nil, false
 	}
 	return o.TargetProperty, true
@@ -59,7 +59,7 @@ func (o *UsagePoint) GetTargetPropertyOk() (*CiProperty, bool) {
 
 // HasTargetProperty returns a boolean if a field has been set.
 func (o *UsagePoint) HasTargetProperty() bool {
-	if o != nil && !isNil(o.TargetProperty) {
+	if o != nil && !IsNil(o.TargetProperty) {
 		return true
 	}
 
@@ -72,7 +72,7 @@ func (o *UsagePoint) SetTargetProperty(v CiProperty) {
 }
 
 func (o UsagePoint) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +81,7 @@ func (o UsagePoint) MarshalJSON() ([]byte, error) {
 
 func (o UsagePoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.TargetProperty) {
+	if !IsNil(o.TargetProperty) {
 		toSerialize["targetProperty"] = o.TargetProperty
 	}
 	return toSerialize, nil
@@ -122,5 +122,3 @@ func (v *NullableUsagePoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

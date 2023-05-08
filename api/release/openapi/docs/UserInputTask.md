@@ -4,22 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ScheduledStartDate** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
+**ScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
 **FlagStatus** | Pointer to [**FlagStatus**](FlagStatus.md) |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**DueDate** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**DueDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **PlannedDuration** | Pointer to **int32** |  | [optional] 
 **FlagComment** | Pointer to **string** |  | [optional] 
 **OverdueNotified** | Pointer to **bool** |  | [optional] 
 **Flagged** | Pointer to **bool** |  | [optional] 
-**StartOrScheduledDate** | Pointer to **string** |  | [optional] 
-**EndOrDueDate** | Pointer to **string** |  | [optional] 
+**StartOrScheduledDate** | Pointer to **time.Time** |  | [optional] 
+**EndOrDueDate** | Pointer to **time.Time** |  | [optional] 
 **Overdue** | Pointer to **bool** |  | [optional] 
-**OrCalculateDueDate** | Pointer to **NullableString** |  | [optional] 
+**OrCalculateDueDate** | Pointer to **NullableTime** |  | [optional] 
 **ComputedPlannedDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **ActualDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **ReleaseUid** | Pointer to **int32** |  | [optional] 
@@ -35,7 +37,7 @@ Name | Type | Description | Notes
 **DelayDuringBlackout** | Pointer to **bool** |  | [optional] 
 **PostponedDueToBlackout** | Pointer to **bool** |  | [optional] 
 **PostponedUntilEnvironmentsAreReserved** | Pointer to **bool** |  | [optional] 
-**OriginalScheduledStartDate** | Pointer to **string** |  | [optional] 
+**OriginalScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
 **HasBeenFlagged** | Pointer to **bool** |  | [optional] 
 **HasBeenDelayed** | Pointer to **bool** |  | [optional] 
 **Precondition** | Pointer to **string** |  | [optional] 
@@ -118,22 +120,72 @@ NewUserInputTaskWithDefaults instantiates a new UserInputTask object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetId
+
+`func (o *UserInputTask) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *UserInputTask) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *UserInputTask) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *UserInputTask) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *UserInputTask) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *UserInputTask) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *UserInputTask) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *UserInputTask) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
 ### GetScheduledStartDate
 
-`func (o *UserInputTask) GetScheduledStartDate() string`
+`func (o *UserInputTask) GetScheduledStartDate() time.Time`
 
 GetScheduledStartDate returns the ScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetScheduledStartDateOk
 
-`func (o *UserInputTask) GetScheduledStartDateOk() (*string, bool)`
+`func (o *UserInputTask) GetScheduledStartDateOk() (*time.Time, bool)`
 
 GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledStartDate
 
-`func (o *UserInputTask) SetScheduledStartDate(v string)`
+`func (o *UserInputTask) SetScheduledStartDate(v time.Time)`
 
 SetScheduledStartDate sets ScheduledStartDate field to given value.
 
@@ -245,20 +297,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetDueDate
 
-`func (o *UserInputTask) GetDueDate() string`
+`func (o *UserInputTask) GetDueDate() time.Time`
 
 GetDueDate returns the DueDate field if non-nil, zero value otherwise.
 
 ### GetDueDateOk
 
-`func (o *UserInputTask) GetDueDateOk() (*string, bool)`
+`func (o *UserInputTask) GetDueDateOk() (*time.Time, bool)`
 
 GetDueDateOk returns a tuple with the DueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDueDate
 
-`func (o *UserInputTask) SetDueDate(v string)`
+`func (o *UserInputTask) SetDueDate(v time.Time)`
 
 SetDueDate sets DueDate field to given value.
 
@@ -270,20 +322,20 @@ HasDueDate returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *UserInputTask) GetStartDate() string`
+`func (o *UserInputTask) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *UserInputTask) GetStartDateOk() (*string, bool)`
+`func (o *UserInputTask) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *UserInputTask) SetStartDate(v string)`
+`func (o *UserInputTask) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -295,20 +347,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *UserInputTask) GetEndDate() string`
+`func (o *UserInputTask) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *UserInputTask) GetEndDateOk() (*string, bool)`
+`func (o *UserInputTask) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *UserInputTask) SetEndDate(v string)`
+`func (o *UserInputTask) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 
@@ -420,20 +472,20 @@ HasFlagged returns a boolean if a field has been set.
 
 ### GetStartOrScheduledDate
 
-`func (o *UserInputTask) GetStartOrScheduledDate() string`
+`func (o *UserInputTask) GetStartOrScheduledDate() time.Time`
 
 GetStartOrScheduledDate returns the StartOrScheduledDate field if non-nil, zero value otherwise.
 
 ### GetStartOrScheduledDateOk
 
-`func (o *UserInputTask) GetStartOrScheduledDateOk() (*string, bool)`
+`func (o *UserInputTask) GetStartOrScheduledDateOk() (*time.Time, bool)`
 
 GetStartOrScheduledDateOk returns a tuple with the StartOrScheduledDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartOrScheduledDate
 
-`func (o *UserInputTask) SetStartOrScheduledDate(v string)`
+`func (o *UserInputTask) SetStartOrScheduledDate(v time.Time)`
 
 SetStartOrScheduledDate sets StartOrScheduledDate field to given value.
 
@@ -445,20 +497,20 @@ HasStartOrScheduledDate returns a boolean if a field has been set.
 
 ### GetEndOrDueDate
 
-`func (o *UserInputTask) GetEndOrDueDate() string`
+`func (o *UserInputTask) GetEndOrDueDate() time.Time`
 
 GetEndOrDueDate returns the EndOrDueDate field if non-nil, zero value otherwise.
 
 ### GetEndOrDueDateOk
 
-`func (o *UserInputTask) GetEndOrDueDateOk() (*string, bool)`
+`func (o *UserInputTask) GetEndOrDueDateOk() (*time.Time, bool)`
 
 GetEndOrDueDateOk returns a tuple with the EndOrDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndOrDueDate
 
-`func (o *UserInputTask) SetEndOrDueDate(v string)`
+`func (o *UserInputTask) SetEndOrDueDate(v time.Time)`
 
 SetEndOrDueDate sets EndOrDueDate field to given value.
 
@@ -495,20 +547,20 @@ HasOverdue returns a boolean if a field has been set.
 
 ### GetOrCalculateDueDate
 
-`func (o *UserInputTask) GetOrCalculateDueDate() string`
+`func (o *UserInputTask) GetOrCalculateDueDate() time.Time`
 
 GetOrCalculateDueDate returns the OrCalculateDueDate field if non-nil, zero value otherwise.
 
 ### GetOrCalculateDueDateOk
 
-`func (o *UserInputTask) GetOrCalculateDueDateOk() (*string, bool)`
+`func (o *UserInputTask) GetOrCalculateDueDateOk() (*time.Time, bool)`
 
 GetOrCalculateDueDateOk returns a tuple with the OrCalculateDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrCalculateDueDate
 
-`func (o *UserInputTask) SetOrCalculateDueDate(v string)`
+`func (o *UserInputTask) SetOrCalculateDueDate(v time.Time)`
 
 SetOrCalculateDueDate sets OrCalculateDueDate field to given value.
 
@@ -905,20 +957,20 @@ HasPostponedUntilEnvironmentsAreReserved returns a boolean if a field has been s
 
 ### GetOriginalScheduledStartDate
 
-`func (o *UserInputTask) GetOriginalScheduledStartDate() string`
+`func (o *UserInputTask) GetOriginalScheduledStartDate() time.Time`
 
 GetOriginalScheduledStartDate returns the OriginalScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetOriginalScheduledStartDateOk
 
-`func (o *UserInputTask) GetOriginalScheduledStartDateOk() (*string, bool)`
+`func (o *UserInputTask) GetOriginalScheduledStartDateOk() (*time.Time, bool)`
 
 GetOriginalScheduledStartDateOk returns a tuple with the OriginalScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOriginalScheduledStartDate
 
-`func (o *UserInputTask) SetOriginalScheduledStartDate(v string)`
+`func (o *UserInputTask) SetOriginalScheduledStartDate(v time.Time)`
 
 SetOriginalScheduledStartDate sets OriginalScheduledStartDate field to given value.
 

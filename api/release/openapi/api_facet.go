@@ -13,19 +13,18 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // FacetApiService FacetApi service
 type FacetApiService service
 
 type ApiCreateFacetRequest struct {
-	ctx context.Context
-	ApiService *FacetApiService
+	ctx                context.Context
+	ApiService         *FacetApiService
 	configurationFacet *ConfigurationFacet
 }
 
@@ -41,24 +40,25 @@ func (r ApiCreateFacetRequest) Execute() (*Facet, *http.Response, error) {
 /*
 CreateFacet Method for CreateFacet
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateFacetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateFacetRequest
 */
 func (a *FacetApiService) CreateFacet(ctx context.Context) ApiCreateFacetRequest {
 	return ApiCreateFacetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Facet
+//
+//	@return Facet
 func (a *FacetApiService) CreateFacetExecute(r ApiCreateFacetRequest) (*Facet, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Facet
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Facet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FacetApiService.CreateFacet")
@@ -91,6 +91,20 @@ func (a *FacetApiService) CreateFacetExecute(r ApiCreateFacetRequest) (*Facet, *
 	}
 	// body params
 	localVarPostBody = r.configurationFacet
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -101,9 +115,9 @@ func (a *FacetApiService) CreateFacetExecute(r ApiCreateFacetRequest) (*Facet, *
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -129,9 +143,9 @@ func (a *FacetApiService) CreateFacetExecute(r ApiCreateFacetRequest) (*Facet, *
 }
 
 type ApiDeleteFacetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FacetApiService
-	facetId string
+	facetId    string
 }
 
 func (r ApiDeleteFacetRequest) Execute() (*http.Response, error) {
@@ -141,24 +155,24 @@ func (r ApiDeleteFacetRequest) Execute() (*http.Response, error) {
 /*
 DeleteFacet Method for DeleteFacet
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param facetId
- @return ApiDeleteFacetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param facetId
+	@return ApiDeleteFacetRequest
 */
 func (a *FacetApiService) DeleteFacet(ctx context.Context, facetId string) ApiDeleteFacetRequest {
 	return ApiDeleteFacetRequest{
 		ApiService: a,
-		ctx: ctx,
-		facetId: facetId,
+		ctx:        ctx,
+		facetId:    facetId,
 	}
 }
 
 // Execute executes the request
 func (a *FacetApiService) DeleteFacetExecute(r ApiDeleteFacetRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FacetApiService.DeleteFacet")
@@ -190,6 +204,20 @@ func (a *FacetApiService) DeleteFacetExecute(r ApiDeleteFacetRequest) (*http.Res
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -200,9 +228,9 @@ func (a *FacetApiService) DeleteFacetExecute(r ApiDeleteFacetRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -219,9 +247,9 @@ func (a *FacetApiService) DeleteFacetExecute(r ApiDeleteFacetRequest) (*http.Res
 }
 
 type ApiGetFacetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FacetApiService
-	facetId string
+	facetId    string
 }
 
 func (r ApiGetFacetRequest) Execute() (*Facet, *http.Response, error) {
@@ -231,26 +259,27 @@ func (r ApiGetFacetRequest) Execute() (*Facet, *http.Response, error) {
 /*
 GetFacet Method for GetFacet
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param facetId
- @return ApiGetFacetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param facetId
+	@return ApiGetFacetRequest
 */
 func (a *FacetApiService) GetFacet(ctx context.Context, facetId string) ApiGetFacetRequest {
 	return ApiGetFacetRequest{
 		ApiService: a,
-		ctx: ctx,
-		facetId: facetId,
+		ctx:        ctx,
+		facetId:    facetId,
 	}
 }
 
 // Execute executes the request
-//  @return Facet
+//
+//	@return Facet
 func (a *FacetApiService) GetFacetExecute(r ApiGetFacetRequest) (*Facet, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Facet
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Facet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FacetApiService.GetFacet")
@@ -282,6 +311,20 @@ func (a *FacetApiService) GetFacetExecute(r ApiGetFacetRequest) (*Facet, *http.R
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -292,9 +335,9 @@ func (a *FacetApiService) GetFacetExecute(r ApiGetFacetRequest) (*Facet, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -320,9 +363,9 @@ func (a *FacetApiService) GetFacetExecute(r ApiGetFacetRequest) (*Facet, *http.R
 }
 
 type ApiGetFacetTypesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *FacetApiService
-	baseType *string
+	baseType   *string
 }
 
 func (r ApiGetFacetTypesRequest) BaseType(baseType string) ApiGetFacetTypesRequest {
@@ -337,24 +380,25 @@ func (r ApiGetFacetTypesRequest) Execute() ([]interface{}, *http.Response, error
 /*
 GetFacetTypes Method for GetFacetTypes
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetFacetTypesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetFacetTypesRequest
 */
 func (a *FacetApiService) GetFacetTypes(ctx context.Context) ApiGetFacetTypesRequest {
 	return ApiGetFacetTypesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []interface{}
+//
+//	@return []interface{}
 func (a *FacetApiService) GetFacetTypesExecute(r ApiGetFacetTypesRequest) ([]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FacetApiService.GetFacetTypes")
@@ -369,7 +413,7 @@ func (a *FacetApiService) GetFacetTypesExecute(r ApiGetFacetTypesRequest) ([]int
 	localVarFormParams := url.Values{}
 
 	if r.baseType != nil {
-		parameterAddToQuery(localVarQueryParams, "baseType", r.baseType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "baseType", r.baseType, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -388,6 +432,20 @@ func (a *FacetApiService) GetFacetTypesExecute(r ApiGetFacetTypesRequest) ([]int
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -398,9 +456,9 @@ func (a *FacetApiService) GetFacetTypesExecute(r ApiGetFacetTypesRequest) ([]int
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -426,8 +484,8 @@ func (a *FacetApiService) GetFacetTypesExecute(r ApiGetFacetTypesRequest) ([]int
 }
 
 type ApiSearchFacetsRequest struct {
-	ctx context.Context
-	ApiService *FacetApiService
+	ctx          context.Context
+	ApiService   *FacetApiService
 	facetFilters *FacetFilters
 }
 
@@ -443,24 +501,25 @@ func (r ApiSearchFacetsRequest) Execute() ([]Facet, *http.Response, error) {
 /*
 SearchFacets Method for SearchFacets
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchFacetsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchFacetsRequest
 */
 func (a *FacetApiService) SearchFacets(ctx context.Context) ApiSearchFacetsRequest {
 	return ApiSearchFacetsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Facet
+//
+//	@return []Facet
 func (a *FacetApiService) SearchFacetsExecute(r ApiSearchFacetsRequest) ([]Facet, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Facet
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Facet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FacetApiService.SearchFacets")
@@ -493,6 +552,20 @@ func (a *FacetApiService) SearchFacetsExecute(r ApiSearchFacetsRequest) ([]Facet
 	}
 	// body params
 	localVarPostBody = r.facetFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -503,9 +576,9 @@ func (a *FacetApiService) SearchFacetsExecute(r ApiSearchFacetsRequest) ([]Facet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -531,9 +604,9 @@ func (a *FacetApiService) SearchFacetsExecute(r ApiSearchFacetsRequest) ([]Facet
 }
 
 type ApiUpdateFacetRequest struct {
-	ctx context.Context
-	ApiService *FacetApiService
-	facetId string
+	ctx                context.Context
+	ApiService         *FacetApiService
+	facetId            string
 	configurationFacet *ConfigurationFacet
 }
 
@@ -549,26 +622,27 @@ func (r ApiUpdateFacetRequest) Execute() (*Facet, *http.Response, error) {
 /*
 UpdateFacet Method for UpdateFacet
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param facetId
- @return ApiUpdateFacetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param facetId
+	@return ApiUpdateFacetRequest
 */
 func (a *FacetApiService) UpdateFacet(ctx context.Context, facetId string) ApiUpdateFacetRequest {
 	return ApiUpdateFacetRequest{
 		ApiService: a,
-		ctx: ctx,
-		facetId: facetId,
+		ctx:        ctx,
+		facetId:    facetId,
 	}
 }
 
 // Execute executes the request
-//  @return Facet
+//
+//	@return Facet
 func (a *FacetApiService) UpdateFacetExecute(r ApiUpdateFacetRequest) (*Facet, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Facet
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Facet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FacetApiService.UpdateFacet")
@@ -602,6 +676,20 @@ func (a *FacetApiService) UpdateFacetExecute(r ApiUpdateFacetRequest) (*Facet, *
 	}
 	// body params
 	localVarPostBody = r.configurationFacet
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -612,9 +700,9 @@ func (a *FacetApiService) UpdateFacetExecute(r ApiUpdateFacetRequest) (*Facet, *
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

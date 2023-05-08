@@ -19,8 +19,8 @@ var _ MappedNullable = &ReleaseConfiguration{}
 
 // ReleaseConfiguration struct for ReleaseConfiguration
 type ReleaseConfiguration struct {
-	FolderId *string `json:"folderId,omitempty"`
-	Title *string `json:"title,omitempty"`
+	FolderId        *string            `json:"folderId,omitempty"`
+	Title           *string            `json:"title,omitempty"`
 	VariableMapping *map[string]string `json:"variableMapping,omitempty"`
 }
 
@@ -43,7 +43,7 @@ func NewReleaseConfigurationWithDefaults() *ReleaseConfiguration {
 
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *ReleaseConfiguration) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *ReleaseConfiguration) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseConfiguration) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -61,7 +61,7 @@ func (o *ReleaseConfiguration) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *ReleaseConfiguration) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *ReleaseConfiguration) SetFolderId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ReleaseConfiguration) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *ReleaseConfiguration) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseConfiguration) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -93,7 +93,7 @@ func (o *ReleaseConfiguration) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ReleaseConfiguration) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *ReleaseConfiguration) SetTitle(v string) {
 
 // GetVariableMapping returns the VariableMapping field value if set, zero value otherwise.
 func (o *ReleaseConfiguration) GetVariableMapping() map[string]string {
-	if o == nil || isNil(o.VariableMapping) {
+	if o == nil || IsNil(o.VariableMapping) {
 		var ret map[string]string
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *ReleaseConfiguration) GetVariableMapping() map[string]string {
 // GetVariableMappingOk returns a tuple with the VariableMapping field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseConfiguration) GetVariableMappingOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.VariableMapping) {
+	if o == nil || IsNil(o.VariableMapping) {
 		return nil, false
 	}
 	return o.VariableMapping, true
@@ -125,7 +125,7 @@ func (o *ReleaseConfiguration) GetVariableMappingOk() (*map[string]string, bool)
 
 // HasVariableMapping returns a boolean if a field has been set.
 func (o *ReleaseConfiguration) HasVariableMapping() bool {
-	if o != nil && !isNil(o.VariableMapping) {
+	if o != nil && !IsNil(o.VariableMapping) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *ReleaseConfiguration) SetVariableMapping(v map[string]string) {
 }
 
 func (o ReleaseConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o ReleaseConfiguration) MarshalJSON() ([]byte, error) {
 
 func (o ReleaseConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.VariableMapping) {
+	if !IsNil(o.VariableMapping) {
 		toSerialize["variableMapping"] = o.VariableMapping
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableReleaseConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

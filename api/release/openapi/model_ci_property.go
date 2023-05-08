@@ -19,18 +19,18 @@ var _ MappedNullable = &CiProperty{}
 
 // CiProperty struct for CiProperty
 type CiProperty struct {
-	Wrapped *CiProperty `json:"wrapped,omitempty"`
-	LastProperty *Property `json:"lastProperty,omitempty"`
-	Parent map[string]interface{} `json:"parent,omitempty"`
-	Exists *bool `json:"exists,omitempty"`
-	PropertyName *string `json:"propertyName,omitempty"`
-	Value map[string]interface{} `json:"value,omitempty"`
-	ParentCi map[string]interface{} `json:"parentCi,omitempty"`
-	Descriptor map[string]interface{} `json:"descriptor,omitempty"`
-	Kind map[string]interface{} `json:"kind,omitempty"`
-	Category *string `json:"category,omitempty"`
-	Password *bool `json:"password,omitempty"`
-	Indexed *bool `json:"indexed,omitempty"`
+	Wrapped      *CiProperty            `json:"wrapped,omitempty"`
+	LastProperty *Property              `json:"lastProperty,omitempty"`
+	Parent       map[string]interface{} `json:"parent,omitempty"`
+	Exists       *bool                  `json:"exists,omitempty"`
+	PropertyName *string                `json:"propertyName,omitempty"`
+	Value        map[string]interface{} `json:"value,omitempty"`
+	ParentCi     map[string]interface{} `json:"parentCi,omitempty"`
+	Descriptor   map[string]interface{} `json:"descriptor,omitempty"`
+	Kind         map[string]interface{} `json:"kind,omitempty"`
+	Category     *string                `json:"category,omitempty"`
+	Password     *bool                  `json:"password,omitempty"`
+	Indexed      *bool                  `json:"indexed,omitempty"`
 }
 
 // NewCiProperty instantiates a new CiProperty object
@@ -52,7 +52,7 @@ func NewCiPropertyWithDefaults() *CiProperty {
 
 // GetWrapped returns the Wrapped field value if set, zero value otherwise.
 func (o *CiProperty) GetWrapped() CiProperty {
-	if o == nil || isNil(o.Wrapped) {
+	if o == nil || IsNil(o.Wrapped) {
 		var ret CiProperty
 		return ret
 	}
@@ -62,7 +62,7 @@ func (o *CiProperty) GetWrapped() CiProperty {
 // GetWrappedOk returns a tuple with the Wrapped field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetWrappedOk() (*CiProperty, bool) {
-	if o == nil || isNil(o.Wrapped) {
+	if o == nil || IsNil(o.Wrapped) {
 		return nil, false
 	}
 	return o.Wrapped, true
@@ -70,7 +70,7 @@ func (o *CiProperty) GetWrappedOk() (*CiProperty, bool) {
 
 // HasWrapped returns a boolean if a field has been set.
 func (o *CiProperty) HasWrapped() bool {
-	if o != nil && !isNil(o.Wrapped) {
+	if o != nil && !IsNil(o.Wrapped) {
 		return true
 	}
 
@@ -84,7 +84,7 @@ func (o *CiProperty) SetWrapped(v CiProperty) {
 
 // GetLastProperty returns the LastProperty field value if set, zero value otherwise.
 func (o *CiProperty) GetLastProperty() Property {
-	if o == nil || isNil(o.LastProperty) {
+	if o == nil || IsNil(o.LastProperty) {
 		var ret Property
 		return ret
 	}
@@ -94,7 +94,7 @@ func (o *CiProperty) GetLastProperty() Property {
 // GetLastPropertyOk returns a tuple with the LastProperty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetLastPropertyOk() (*Property, bool) {
-	if o == nil || isNil(o.LastProperty) {
+	if o == nil || IsNil(o.LastProperty) {
 		return nil, false
 	}
 	return o.LastProperty, true
@@ -102,7 +102,7 @@ func (o *CiProperty) GetLastPropertyOk() (*Property, bool) {
 
 // HasLastProperty returns a boolean if a field has been set.
 func (o *CiProperty) HasLastProperty() bool {
-	if o != nil && !isNil(o.LastProperty) {
+	if o != nil && !IsNil(o.LastProperty) {
 		return true
 	}
 
@@ -116,7 +116,7 @@ func (o *CiProperty) SetLastProperty(v Property) {
 
 // GetParent returns the Parent field value if set, zero value otherwise.
 func (o *CiProperty) GetParent() map[string]interface{} {
-	if o == nil || isNil(o.Parent) {
+	if o == nil || IsNil(o.Parent) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -126,7 +126,7 @@ func (o *CiProperty) GetParent() map[string]interface{} {
 // GetParentOk returns a tuple with the Parent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetParentOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.Parent) {
+	if o == nil || IsNil(o.Parent) {
 		return map[string]interface{}{}, false
 	}
 	return o.Parent, true
@@ -134,7 +134,7 @@ func (o *CiProperty) GetParentOk() (map[string]interface{}, bool) {
 
 // HasParent returns a boolean if a field has been set.
 func (o *CiProperty) HasParent() bool {
-	if o != nil && !isNil(o.Parent) {
+	if o != nil && !IsNil(o.Parent) {
 		return true
 	}
 
@@ -148,7 +148,7 @@ func (o *CiProperty) SetParent(v map[string]interface{}) {
 
 // GetExists returns the Exists field value if set, zero value otherwise.
 func (o *CiProperty) GetExists() bool {
-	if o == nil || isNil(o.Exists) {
+	if o == nil || IsNil(o.Exists) {
 		var ret bool
 		return ret
 	}
@@ -158,7 +158,7 @@ func (o *CiProperty) GetExists() bool {
 // GetExistsOk returns a tuple with the Exists field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetExistsOk() (*bool, bool) {
-	if o == nil || isNil(o.Exists) {
+	if o == nil || IsNil(o.Exists) {
 		return nil, false
 	}
 	return o.Exists, true
@@ -166,7 +166,7 @@ func (o *CiProperty) GetExistsOk() (*bool, bool) {
 
 // HasExists returns a boolean if a field has been set.
 func (o *CiProperty) HasExists() bool {
-	if o != nil && !isNil(o.Exists) {
+	if o != nil && !IsNil(o.Exists) {
 		return true
 	}
 
@@ -180,7 +180,7 @@ func (o *CiProperty) SetExists(v bool) {
 
 // GetPropertyName returns the PropertyName field value if set, zero value otherwise.
 func (o *CiProperty) GetPropertyName() string {
-	if o == nil || isNil(o.PropertyName) {
+	if o == nil || IsNil(o.PropertyName) {
 		var ret string
 		return ret
 	}
@@ -190,7 +190,7 @@ func (o *CiProperty) GetPropertyName() string {
 // GetPropertyNameOk returns a tuple with the PropertyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetPropertyNameOk() (*string, bool) {
-	if o == nil || isNil(o.PropertyName) {
+	if o == nil || IsNil(o.PropertyName) {
 		return nil, false
 	}
 	return o.PropertyName, true
@@ -198,7 +198,7 @@ func (o *CiProperty) GetPropertyNameOk() (*string, bool) {
 
 // HasPropertyName returns a boolean if a field has been set.
 func (o *CiProperty) HasPropertyName() bool {
-	if o != nil && !isNil(o.PropertyName) {
+	if o != nil && !IsNil(o.PropertyName) {
 		return true
 	}
 
@@ -212,7 +212,7 @@ func (o *CiProperty) SetPropertyName(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *CiProperty) GetValue() map[string]interface{} {
-	if o == nil || isNil(o.Value) {
+	if o == nil || IsNil(o.Value) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -222,7 +222,7 @@ func (o *CiProperty) GetValue() map[string]interface{} {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.Value) {
+	if o == nil || IsNil(o.Value) {
 		return map[string]interface{}{}, false
 	}
 	return o.Value, true
@@ -230,7 +230,7 @@ func (o *CiProperty) GetValueOk() (map[string]interface{}, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *CiProperty) HasValue() bool {
-	if o != nil && !isNil(o.Value) {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -244,7 +244,7 @@ func (o *CiProperty) SetValue(v map[string]interface{}) {
 
 // GetParentCi returns the ParentCi field value if set, zero value otherwise.
 func (o *CiProperty) GetParentCi() map[string]interface{} {
-	if o == nil || isNil(o.ParentCi) {
+	if o == nil || IsNil(o.ParentCi) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -254,7 +254,7 @@ func (o *CiProperty) GetParentCi() map[string]interface{} {
 // GetParentCiOk returns a tuple with the ParentCi field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetParentCiOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.ParentCi) {
+	if o == nil || IsNil(o.ParentCi) {
 		return map[string]interface{}{}, false
 	}
 	return o.ParentCi, true
@@ -262,7 +262,7 @@ func (o *CiProperty) GetParentCiOk() (map[string]interface{}, bool) {
 
 // HasParentCi returns a boolean if a field has been set.
 func (o *CiProperty) HasParentCi() bool {
-	if o != nil && !isNil(o.ParentCi) {
+	if o != nil && !IsNil(o.ParentCi) {
 		return true
 	}
 
@@ -276,7 +276,7 @@ func (o *CiProperty) SetParentCi(v map[string]interface{}) {
 
 // GetDescriptor returns the Descriptor field value if set, zero value otherwise.
 func (o *CiProperty) GetDescriptor() map[string]interface{} {
-	if o == nil || isNil(o.Descriptor) {
+	if o == nil || IsNil(o.Descriptor) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -286,7 +286,7 @@ func (o *CiProperty) GetDescriptor() map[string]interface{} {
 // GetDescriptorOk returns a tuple with the Descriptor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetDescriptorOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.Descriptor) {
+	if o == nil || IsNil(o.Descriptor) {
 		return map[string]interface{}{}, false
 	}
 	return o.Descriptor, true
@@ -294,7 +294,7 @@ func (o *CiProperty) GetDescriptorOk() (map[string]interface{}, bool) {
 
 // HasDescriptor returns a boolean if a field has been set.
 func (o *CiProperty) HasDescriptor() bool {
-	if o != nil && !isNil(o.Descriptor) {
+	if o != nil && !IsNil(o.Descriptor) {
 		return true
 	}
 
@@ -308,7 +308,7 @@ func (o *CiProperty) SetDescriptor(v map[string]interface{}) {
 
 // GetKind returns the Kind field value if set, zero value otherwise.
 func (o *CiProperty) GetKind() map[string]interface{} {
-	if o == nil || isNil(o.Kind) {
+	if o == nil || IsNil(o.Kind) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -318,7 +318,7 @@ func (o *CiProperty) GetKind() map[string]interface{} {
 // GetKindOk returns a tuple with the Kind field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetKindOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.Kind) {
+	if o == nil || IsNil(o.Kind) {
 		return map[string]interface{}{}, false
 	}
 	return o.Kind, true
@@ -326,7 +326,7 @@ func (o *CiProperty) GetKindOk() (map[string]interface{}, bool) {
 
 // HasKind returns a boolean if a field has been set.
 func (o *CiProperty) HasKind() bool {
-	if o != nil && !isNil(o.Kind) {
+	if o != nil && !IsNil(o.Kind) {
 		return true
 	}
 
@@ -340,7 +340,7 @@ func (o *CiProperty) SetKind(v map[string]interface{}) {
 
 // GetCategory returns the Category field value if set, zero value otherwise.
 func (o *CiProperty) GetCategory() string {
-	if o == nil || isNil(o.Category) {
+	if o == nil || IsNil(o.Category) {
 		var ret string
 		return ret
 	}
@@ -350,7 +350,7 @@ func (o *CiProperty) GetCategory() string {
 // GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetCategoryOk() (*string, bool) {
-	if o == nil || isNil(o.Category) {
+	if o == nil || IsNil(o.Category) {
 		return nil, false
 	}
 	return o.Category, true
@@ -358,7 +358,7 @@ func (o *CiProperty) GetCategoryOk() (*string, bool) {
 
 // HasCategory returns a boolean if a field has been set.
 func (o *CiProperty) HasCategory() bool {
-	if o != nil && !isNil(o.Category) {
+	if o != nil && !IsNil(o.Category) {
 		return true
 	}
 
@@ -372,7 +372,7 @@ func (o *CiProperty) SetCategory(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *CiProperty) GetPassword() bool {
-	if o == nil || isNil(o.Password) {
+	if o == nil || IsNil(o.Password) {
 		var ret bool
 		return ret
 	}
@@ -382,7 +382,7 @@ func (o *CiProperty) GetPassword() bool {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetPasswordOk() (*bool, bool) {
-	if o == nil || isNil(o.Password) {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -390,7 +390,7 @@ func (o *CiProperty) GetPasswordOk() (*bool, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *CiProperty) HasPassword() bool {
-	if o != nil && !isNil(o.Password) {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -404,7 +404,7 @@ func (o *CiProperty) SetPassword(v bool) {
 
 // GetIndexed returns the Indexed field value if set, zero value otherwise.
 func (o *CiProperty) GetIndexed() bool {
-	if o == nil || isNil(o.Indexed) {
+	if o == nil || IsNil(o.Indexed) {
 		var ret bool
 		return ret
 	}
@@ -414,7 +414,7 @@ func (o *CiProperty) GetIndexed() bool {
 // GetIndexedOk returns a tuple with the Indexed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CiProperty) GetIndexedOk() (*bool, bool) {
-	if o == nil || isNil(o.Indexed) {
+	if o == nil || IsNil(o.Indexed) {
 		return nil, false
 	}
 	return o.Indexed, true
@@ -422,7 +422,7 @@ func (o *CiProperty) GetIndexedOk() (*bool, bool) {
 
 // HasIndexed returns a boolean if a field has been set.
 func (o *CiProperty) HasIndexed() bool {
-	if o != nil && !isNil(o.Indexed) {
+	if o != nil && !IsNil(o.Indexed) {
 		return true
 	}
 
@@ -435,7 +435,7 @@ func (o *CiProperty) SetIndexed(v bool) {
 }
 
 func (o CiProperty) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -444,40 +444,40 @@ func (o CiProperty) MarshalJSON() ([]byte, error) {
 
 func (o CiProperty) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Wrapped) {
+	if !IsNil(o.Wrapped) {
 		toSerialize["wrapped"] = o.Wrapped
 	}
-	if !isNil(o.LastProperty) {
+	if !IsNil(o.LastProperty) {
 		toSerialize["lastProperty"] = o.LastProperty
 	}
-	if !isNil(o.Parent) {
+	if !IsNil(o.Parent) {
 		toSerialize["parent"] = o.Parent
 	}
-	if !isNil(o.Exists) {
+	if !IsNil(o.Exists) {
 		toSerialize["exists"] = o.Exists
 	}
-	if !isNil(o.PropertyName) {
+	if !IsNil(o.PropertyName) {
 		toSerialize["propertyName"] = o.PropertyName
 	}
-	if !isNil(o.Value) {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	if !isNil(o.ParentCi) {
+	if !IsNil(o.ParentCi) {
 		toSerialize["parentCi"] = o.ParentCi
 	}
-	if !isNil(o.Descriptor) {
+	if !IsNil(o.Descriptor) {
 		toSerialize["descriptor"] = o.Descriptor
 	}
-	if !isNil(o.Kind) {
+	if !IsNil(o.Kind) {
 		toSerialize["kind"] = o.Kind
 	}
-	if !isNil(o.Category) {
+	if !IsNil(o.Category) {
 		toSerialize["category"] = o.Category
 	}
-	if !isNil(o.Password) {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if !isNil(o.Indexed) {
+	if !IsNil(o.Indexed) {
 		toSerialize["indexed"] = o.Indexed
 	}
 	return toSerialize, nil
@@ -518,5 +518,3 @@ func (v *NullableCiProperty) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

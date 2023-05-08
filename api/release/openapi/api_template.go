@@ -13,21 +13,20 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"strings"
 	"reflect"
+	"strings"
 )
-
 
 // TemplateApiService TemplateApi service
 type TemplateApiService service
 
 type ApiCopyTemplateRequest struct {
-	ctx context.Context
-	ApiService *TemplateApiService
-	templateId string
+	ctx          context.Context
+	ApiService   *TemplateApiService
+	templateId   string
 	copyTemplate *CopyTemplate
 }
 
@@ -43,26 +42,27 @@ func (r ApiCopyTemplateRequest) Execute() (*Release, *http.Response, error) {
 /*
 CopyTemplate Method for CopyTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiCopyTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiCopyTemplateRequest
 */
 func (a *TemplateApiService) CopyTemplate(ctx context.Context, templateId string) ApiCopyTemplateRequest {
 	return ApiCopyTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *TemplateApiService) CopyTemplateExecute(r ApiCopyTemplateRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.CopyTemplate")
@@ -96,6 +96,20 @@ func (a *TemplateApiService) CopyTemplateExecute(r ApiCopyTemplateRequest) (*Rel
 	}
 	// body params
 	localVarPostBody = r.copyTemplate
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -106,9 +120,9 @@ func (a *TemplateApiService) CopyTemplateExecute(r ApiCopyTemplateRequest) (*Rel
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -134,10 +148,10 @@ func (a *TemplateApiService) CopyTemplateExecute(r ApiCopyTemplateRequest) (*Rel
 }
 
 type ApiCreateTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
-	folderId *string
-	release *Release
+	folderId   *string
+	release    *Release
 }
 
 func (r ApiCreateTemplateRequest) FolderId(folderId string) ApiCreateTemplateRequest {
@@ -157,24 +171,25 @@ func (r ApiCreateTemplateRequest) Execute() (*Release, *http.Response, error) {
 /*
 CreateTemplate Method for CreateTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateTemplateRequest
 */
 func (a *TemplateApiService) CreateTemplate(ctx context.Context) ApiCreateTemplateRequest {
 	return ApiCreateTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *TemplateApiService) CreateTemplateExecute(r ApiCreateTemplateRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.CreateTemplate")
@@ -189,7 +204,7 @@ func (a *TemplateApiService) CreateTemplateExecute(r ApiCreateTemplateRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.folderId != nil {
-		parameterAddToQuery(localVarQueryParams, "folderId", r.folderId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folderId", r.folderId, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -210,6 +225,20 @@ func (a *TemplateApiService) CreateTemplateExecute(r ApiCreateTemplateRequest) (
 	}
 	// body params
 	localVarPostBody = r.release
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -220,9 +249,9 @@ func (a *TemplateApiService) CreateTemplateExecute(r ApiCreateTemplateRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -248,9 +277,9 @@ func (a *TemplateApiService) CreateTemplateExecute(r ApiCreateTemplateRequest) (
 }
 
 type ApiCreateTemplate1Request struct {
-	ctx context.Context
-	ApiService *TemplateApiService
-	templateId string
+	ctx           context.Context
+	ApiService    *TemplateApiService
+	templateId    string
 	createRelease *CreateRelease
 }
 
@@ -266,26 +295,27 @@ func (r ApiCreateTemplate1Request) Execute() (*Release, *http.Response, error) {
 /*
 CreateTemplate1 Method for CreateTemplate1
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiCreateTemplate1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiCreateTemplate1Request
 */
 func (a *TemplateApiService) CreateTemplate1(ctx context.Context, templateId string) ApiCreateTemplate1Request {
 	return ApiCreateTemplate1Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *TemplateApiService) CreateTemplate1Execute(r ApiCreateTemplate1Request) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.CreateTemplate1")
@@ -319,6 +349,20 @@ func (a *TemplateApiService) CreateTemplate1Execute(r ApiCreateTemplate1Request)
 	}
 	// body params
 	localVarPostBody = r.createRelease
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -329,9 +373,9 @@ func (a *TemplateApiService) CreateTemplate1Execute(r ApiCreateTemplate1Request)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -357,10 +401,10 @@ func (a *TemplateApiService) CreateTemplate1Execute(r ApiCreateTemplate1Request)
 }
 
 type ApiCreateTemplateVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	templateId string
-	variable1 *Variable1
+	variable1  *Variable1
 }
 
 func (r ApiCreateTemplateVariableRequest) Variable1(variable1 Variable1) ApiCreateTemplateVariableRequest {
@@ -375,26 +419,27 @@ func (r ApiCreateTemplateVariableRequest) Execute() (*Variable, *http.Response, 
 /*
 CreateTemplateVariable Method for CreateTemplateVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiCreateTemplateVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiCreateTemplateVariableRequest
 */
 func (a *TemplateApiService) CreateTemplateVariable(ctx context.Context, templateId string) ApiCreateTemplateVariableRequest {
 	return ApiCreateTemplateVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *TemplateApiService) CreateTemplateVariableExecute(r ApiCreateTemplateVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.CreateTemplateVariable")
@@ -428,6 +473,20 @@ func (a *TemplateApiService) CreateTemplateVariableExecute(r ApiCreateTemplateVa
 	}
 	// body params
 	localVarPostBody = r.variable1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -438,9 +497,9 @@ func (a *TemplateApiService) CreateTemplateVariableExecute(r ApiCreateTemplateVa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -466,7 +525,7 @@ func (a *TemplateApiService) CreateTemplateVariableExecute(r ApiCreateTemplateVa
 }
 
 type ApiDeleteTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	templateId string
 }
@@ -478,14 +537,14 @@ func (r ApiDeleteTemplateRequest) Execute() (*http.Response, error) {
 /*
 DeleteTemplate Method for DeleteTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiDeleteTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiDeleteTemplateRequest
 */
 func (a *TemplateApiService) DeleteTemplate(ctx context.Context, templateId string) ApiDeleteTemplateRequest {
 	return ApiDeleteTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
@@ -493,9 +552,9 @@ func (a *TemplateApiService) DeleteTemplate(ctx context.Context, templateId stri
 // Execute executes the request
 func (a *TemplateApiService) DeleteTemplateExecute(r ApiDeleteTemplateRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.DeleteTemplate")
@@ -527,6 +586,20 @@ func (a *TemplateApiService) DeleteTemplateExecute(r ApiDeleteTemplateRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -537,9 +610,9 @@ func (a *TemplateApiService) DeleteTemplateExecute(r ApiDeleteTemplateRequest) (
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -556,7 +629,7 @@ func (a *TemplateApiService) DeleteTemplateExecute(r ApiDeleteTemplateRequest) (
 }
 
 type ApiDeleteTemplateVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	variableId string
 }
@@ -568,14 +641,14 @@ func (r ApiDeleteTemplateVariableRequest) Execute() (*http.Response, error) {
 /*
 DeleteTemplateVariable Method for DeleteTemplateVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiDeleteTemplateVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiDeleteTemplateVariableRequest
 */
 func (a *TemplateApiService) DeleteTemplateVariable(ctx context.Context, variableId string) ApiDeleteTemplateVariableRequest {
 	return ApiDeleteTemplateVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
@@ -583,9 +656,9 @@ func (a *TemplateApiService) DeleteTemplateVariable(ctx context.Context, variabl
 // Execute executes the request
 func (a *TemplateApiService) DeleteTemplateVariableExecute(r ApiDeleteTemplateVariableRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.DeleteTemplateVariable")
@@ -617,6 +690,20 @@ func (a *TemplateApiService) DeleteTemplateVariableExecute(r ApiDeleteTemplateVa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -627,9 +714,9 @@ func (a *TemplateApiService) DeleteTemplateVariableExecute(r ApiDeleteTemplateVa
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -646,7 +733,7 @@ func (a *TemplateApiService) DeleteTemplateVariableExecute(r ApiDeleteTemplateVa
 }
 
 type ApiExportTemplateToZipRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	templateId string
 }
@@ -658,14 +745,14 @@ func (r ApiExportTemplateToZipRequest) Execute() (*http.Response, error) {
 /*
 ExportTemplateToZip Method for ExportTemplateToZip
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiExportTemplateToZipRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiExportTemplateToZipRequest
 */
 func (a *TemplateApiService) ExportTemplateToZip(ctx context.Context, templateId string) ApiExportTemplateToZipRequest {
 	return ApiExportTemplateToZipRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
@@ -673,9 +760,9 @@ func (a *TemplateApiService) ExportTemplateToZip(ctx context.Context, templateId
 // Execute executes the request
 func (a *TemplateApiService) ExportTemplateToZipExecute(r ApiExportTemplateToZipRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.ExportTemplateToZip")
@@ -707,6 +794,20 @@ func (a *TemplateApiService) ExportTemplateToZipExecute(r ApiExportTemplateToZip
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -717,9 +818,9 @@ func (a *TemplateApiService) ExportTemplateToZipExecute(r ApiExportTemplateToZip
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -736,7 +837,7 @@ func (a *TemplateApiService) ExportTemplateToZipExecute(r ApiExportTemplateToZip
 }
 
 type ApiGetPossibleTemplateVariableValuesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	variableId string
 }
@@ -748,26 +849,27 @@ func (r ApiGetPossibleTemplateVariableValuesRequest) Execute() ([]map[string]int
 /*
 GetPossibleTemplateVariableValues Method for GetPossibleTemplateVariableValues
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiGetPossibleTemplateVariableValuesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiGetPossibleTemplateVariableValuesRequest
 */
 func (a *TemplateApiService) GetPossibleTemplateVariableValues(ctx context.Context, variableId string) ApiGetPossibleTemplateVariableValuesRequest {
 	return ApiGetPossibleTemplateVariableValuesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return []map[string]interface{}
+//
+//	@return []map[string]interface{}
 func (a *TemplateApiService) GetPossibleTemplateVariableValuesExecute(r ApiGetPossibleTemplateVariableValuesRequest) ([]map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []map[string]interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.GetPossibleTemplateVariableValues")
@@ -799,6 +901,20 @@ func (a *TemplateApiService) GetPossibleTemplateVariableValuesExecute(r ApiGetPo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -809,9 +925,9 @@ func (a *TemplateApiService) GetPossibleTemplateVariableValuesExecute(r ApiGetPo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -837,7 +953,7 @@ func (a *TemplateApiService) GetPossibleTemplateVariableValuesExecute(r ApiGetPo
 }
 
 type ApiGetTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	templateId string
 }
@@ -849,26 +965,27 @@ func (r ApiGetTemplateRequest) Execute() (*Release, *http.Response, error) {
 /*
 GetTemplate Method for GetTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiGetTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiGetTemplateRequest
 */
 func (a *TemplateApiService) GetTemplate(ctx context.Context, templateId string) ApiGetTemplateRequest {
 	return ApiGetTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *TemplateApiService) GetTemplateExecute(r ApiGetTemplateRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.GetTemplate")
@@ -900,6 +1017,20 @@ func (a *TemplateApiService) GetTemplateExecute(r ApiGetTemplateRequest) (*Relea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -910,9 +1041,9 @@ func (a *TemplateApiService) GetTemplateExecute(r ApiGetTemplateRequest) (*Relea
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -938,7 +1069,7 @@ func (a *TemplateApiService) GetTemplateExecute(r ApiGetTemplateRequest) (*Relea
 }
 
 type ApiGetTemplatePermissionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 }
 
@@ -949,24 +1080,25 @@ func (r ApiGetTemplatePermissionsRequest) Execute() ([]string, *http.Response, e
 /*
 GetTemplatePermissions Method for GetTemplatePermissions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTemplatePermissionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTemplatePermissionsRequest
 */
 func (a *TemplateApiService) GetTemplatePermissions(ctx context.Context) ApiGetTemplatePermissionsRequest {
 	return ApiGetTemplatePermissionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *TemplateApiService) GetTemplatePermissionsExecute(r ApiGetTemplatePermissionsRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.GetTemplatePermissions")
@@ -997,6 +1129,20 @@ func (a *TemplateApiService) GetTemplatePermissionsExecute(r ApiGetTemplatePermi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1007,9 +1153,9 @@ func (a *TemplateApiService) GetTemplatePermissionsExecute(r ApiGetTemplatePermi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1035,7 +1181,7 @@ func (a *TemplateApiService) GetTemplatePermissionsExecute(r ApiGetTemplatePermi
 }
 
 type ApiGetTemplateTeamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	templateId string
 }
@@ -1047,26 +1193,27 @@ func (r ApiGetTemplateTeamsRequest) Execute() ([]TeamView, *http.Response, error
 /*
 GetTemplateTeams Method for GetTemplateTeams
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiGetTemplateTeamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiGetTemplateTeamsRequest
 */
 func (a *TemplateApiService) GetTemplateTeams(ctx context.Context, templateId string) ApiGetTemplateTeamsRequest {
 	return ApiGetTemplateTeamsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return []TeamView
+//
+//	@return []TeamView
 func (a *TemplateApiService) GetTemplateTeamsExecute(r ApiGetTemplateTeamsRequest) ([]TeamView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TeamView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TeamView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.GetTemplateTeams")
@@ -1098,6 +1245,20 @@ func (a *TemplateApiService) GetTemplateTeamsExecute(r ApiGetTemplateTeamsReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1108,9 +1269,9 @@ func (a *TemplateApiService) GetTemplateTeamsExecute(r ApiGetTemplateTeamsReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1136,7 +1297,7 @@ func (a *TemplateApiService) GetTemplateTeamsExecute(r ApiGetTemplateTeamsReques
 }
 
 type ApiGetTemplateVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	variableId string
 }
@@ -1148,26 +1309,27 @@ func (r ApiGetTemplateVariableRequest) Execute() (*Variable, *http.Response, err
 /*
 GetTemplateVariable Method for GetTemplateVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiGetTemplateVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiGetTemplateVariableRequest
 */
 func (a *TemplateApiService) GetTemplateVariable(ctx context.Context, variableId string) ApiGetTemplateVariableRequest {
 	return ApiGetTemplateVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *TemplateApiService) GetTemplateVariableExecute(r ApiGetTemplateVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.GetTemplateVariable")
@@ -1199,6 +1361,20 @@ func (a *TemplateApiService) GetTemplateVariableExecute(r ApiGetTemplateVariable
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1209,9 +1385,9 @@ func (a *TemplateApiService) GetTemplateVariableExecute(r ApiGetTemplateVariable
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1237,7 +1413,7 @@ func (a *TemplateApiService) GetTemplateVariableExecute(r ApiGetTemplateVariable
 }
 
 type ApiGetTemplateVariablesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	templateId string
 }
@@ -1249,26 +1425,27 @@ func (r ApiGetTemplateVariablesRequest) Execute() ([]Variable, *http.Response, e
 /*
 GetTemplateVariables Method for GetTemplateVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiGetTemplateVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiGetTemplateVariablesRequest
 */
 func (a *TemplateApiService) GetTemplateVariables(ctx context.Context, templateId string) ApiGetTemplateVariablesRequest {
 	return ApiGetTemplateVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return []Variable
+//
+//	@return []Variable
 func (a *TemplateApiService) GetTemplateVariablesExecute(r ApiGetTemplateVariablesRequest) ([]Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.GetTemplateVariables")
@@ -1300,6 +1477,20 @@ func (a *TemplateApiService) GetTemplateVariablesExecute(r ApiGetTemplateVariabl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1310,9 +1501,9 @@ func (a *TemplateApiService) GetTemplateVariablesExecute(r ApiGetTemplateVariabl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1338,13 +1529,13 @@ func (a *TemplateApiService) GetTemplateVariablesExecute(r ApiGetTemplateVariabl
 }
 
 type ApiGetTemplatesRequest struct {
-	ctx context.Context
-	ApiService *TemplateApiService
-	depth *int32
-	page *int64
+	ctx            context.Context
+	ApiService     *TemplateApiService
+	depth          *int32
+	page           *int64
 	resultsPerPage *int64
-	tag *[]string
-	title *string
+	tag            *[]string
+	title          *string
 }
 
 func (r ApiGetTemplatesRequest) Depth(depth int32) ApiGetTemplatesRequest {
@@ -1379,24 +1570,25 @@ func (r ApiGetTemplatesRequest) Execute() ([]Release, *http.Response, error) {
 /*
 GetTemplates Method for GetTemplates
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTemplatesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTemplatesRequest
 */
 func (a *TemplateApiService) GetTemplates(ctx context.Context) ApiGetTemplatesRequest {
 	return ApiGetTemplatesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Release
+//
+//	@return []Release
 func (a *TemplateApiService) GetTemplatesExecute(r ApiGetTemplatesRequest) ([]Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Release
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.GetTemplates")
@@ -1411,27 +1603,27 @@ func (a *TemplateApiService) GetTemplatesExecute(r ApiGetTemplatesRequest) ([]Re
 	localVarFormParams := url.Values{}
 
 	if r.depth != nil {
-		parameterAddToQuery(localVarQueryParams, "depth", r.depth, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	if r.tag != nil {
 		t := *r.tag
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToQuery(localVarQueryParams, "tag", s.Index(i), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tag", s.Index(i), "multi")
 			}
 		} else {
-			parameterAddToQuery(localVarQueryParams, "tag", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tag", t, "multi")
 		}
 	}
 	if r.title != nil {
-		parameterAddToQuery(localVarQueryParams, "title", r.title, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "title", r.title, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1450,6 +1642,20 @@ func (a *TemplateApiService) GetTemplatesExecute(r ApiGetTemplatesRequest) ([]Re
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1460,9 +1666,9 @@ func (a *TemplateApiService) GetTemplatesExecute(r ApiGetTemplatesRequest) ([]Re
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1488,11 +1694,11 @@ func (a *TemplateApiService) GetTemplatesExecute(r ApiGetTemplatesRequest) ([]Re
 }
 
 type ApiImportTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
-	folderId *string
-	version *string
-	body *string
+	folderId   *string
+	version    *string
+	body       *string
 }
 
 func (r ApiImportTemplateRequest) FolderId(folderId string) ApiImportTemplateRequest {
@@ -1517,24 +1723,25 @@ func (r ApiImportTemplateRequest) Execute() ([]ImportResult, *http.Response, err
 /*
 ImportTemplate Method for ImportTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiImportTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiImportTemplateRequest
 */
 func (a *TemplateApiService) ImportTemplate(ctx context.Context) ApiImportTemplateRequest {
 	return ApiImportTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ImportResult
+//
+//	@return []ImportResult
 func (a *TemplateApiService) ImportTemplateExecute(r ApiImportTemplateRequest) ([]ImportResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ImportResult
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ImportResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.ImportTemplate")
@@ -1549,10 +1756,10 @@ func (a *TemplateApiService) ImportTemplateExecute(r ApiImportTemplateRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.folderId != nil {
-		parameterAddToQuery(localVarQueryParams, "folderId", r.folderId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folderId", r.folderId, "")
 	}
 	if r.version != nil {
-		parameterAddToQuery(localVarQueryParams, "version", r.version, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1573,6 +1780,20 @@ func (a *TemplateApiService) ImportTemplateExecute(r ApiImportTemplateRequest) (
 	}
 	// body params
 	localVarPostBody = r.body
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1583,9 +1804,9 @@ func (a *TemplateApiService) ImportTemplateExecute(r ApiImportTemplateRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1611,7 +1832,7 @@ func (a *TemplateApiService) ImportTemplateExecute(r ApiImportTemplateRequest) (
 }
 
 type ApiIsVariableUsedTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	variableId string
 }
@@ -1623,26 +1844,27 @@ func (r ApiIsVariableUsedTemplateRequest) Execute() (bool, *http.Response, error
 /*
 IsVariableUsedTemplate Method for IsVariableUsedTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiIsVariableUsedTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiIsVariableUsedTemplateRequest
 */
 func (a *TemplateApiService) IsVariableUsedTemplate(ctx context.Context, variableId string) ApiIsVariableUsedTemplateRequest {
 	return ApiIsVariableUsedTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return bool
+//
+//	@return bool
 func (a *TemplateApiService) IsVariableUsedTemplateExecute(r ApiIsVariableUsedTemplateRequest) (bool, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  bool
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue bool
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.IsVariableUsedTemplate")
@@ -1674,6 +1896,20 @@ func (a *TemplateApiService) IsVariableUsedTemplateExecute(r ApiIsVariableUsedTe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1684,9 +1920,9 @@ func (a *TemplateApiService) IsVariableUsedTemplateExecute(r ApiIsVariableUsedTe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1712,9 +1948,9 @@ func (a *TemplateApiService) IsVariableUsedTemplateExecute(r ApiIsVariableUsedTe
 }
 
 type ApiReplaceTemplateVariablesRequest struct {
-	ctx context.Context
-	ApiService *TemplateApiService
-	variableId string
+	ctx             context.Context
+	ApiService      *TemplateApiService
+	variableId      string
 	variableOrValue *VariableOrValue
 }
 
@@ -1730,14 +1966,14 @@ func (r ApiReplaceTemplateVariablesRequest) Execute() (*http.Response, error) {
 /*
 ReplaceTemplateVariables Method for ReplaceTemplateVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiReplaceTemplateVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiReplaceTemplateVariablesRequest
 */
 func (a *TemplateApiService) ReplaceTemplateVariables(ctx context.Context, variableId string) ApiReplaceTemplateVariablesRequest {
 	return ApiReplaceTemplateVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
@@ -1745,9 +1981,9 @@ func (a *TemplateApiService) ReplaceTemplateVariables(ctx context.Context, varia
 // Execute executes the request
 func (a *TemplateApiService) ReplaceTemplateVariablesExecute(r ApiReplaceTemplateVariablesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.ReplaceTemplateVariables")
@@ -1781,6 +2017,20 @@ func (a *TemplateApiService) ReplaceTemplateVariablesExecute(r ApiReplaceTemplat
 	}
 	// body params
 	localVarPostBody = r.variableOrValue
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1791,9 +2041,9 @@ func (a *TemplateApiService) ReplaceTemplateVariablesExecute(r ApiReplaceTemplat
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1810,10 +2060,10 @@ func (a *TemplateApiService) ReplaceTemplateVariablesExecute(r ApiReplaceTemplat
 }
 
 type ApiSetTemplateTeamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	templateId string
-	teamView *[]TeamView
+	teamView   *[]TeamView
 }
 
 func (r ApiSetTemplateTeamsRequest) TeamView(teamView []TeamView) ApiSetTemplateTeamsRequest {
@@ -1828,26 +2078,27 @@ func (r ApiSetTemplateTeamsRequest) Execute() ([]TeamView, *http.Response, error
 /*
 SetTemplateTeams Method for SetTemplateTeams
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiSetTemplateTeamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiSetTemplateTeamsRequest
 */
 func (a *TemplateApiService) SetTemplateTeams(ctx context.Context, templateId string) ApiSetTemplateTeamsRequest {
 	return ApiSetTemplateTeamsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return []TeamView
+//
+//	@return []TeamView
 func (a *TemplateApiService) SetTemplateTeamsExecute(r ApiSetTemplateTeamsRequest) ([]TeamView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TeamView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TeamView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.SetTemplateTeams")
@@ -1881,6 +2132,20 @@ func (a *TemplateApiService) SetTemplateTeamsExecute(r ApiSetTemplateTeamsReques
 	}
 	// body params
 	localVarPostBody = r.teamView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1891,9 +2156,9 @@ func (a *TemplateApiService) SetTemplateTeamsExecute(r ApiSetTemplateTeamsReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1919,9 +2184,9 @@ func (a *TemplateApiService) SetTemplateTeamsExecute(r ApiSetTemplateTeamsReques
 }
 
 type ApiStartTemplateRequest struct {
-	ctx context.Context
-	ApiService *TemplateApiService
-	templateId string
+	ctx          context.Context
+	ApiService   *TemplateApiService
+	templateId   string
 	startRelease *StartRelease
 }
 
@@ -1937,26 +2202,27 @@ func (r ApiStartTemplateRequest) Execute() (*Release, *http.Response, error) {
 /*
 StartTemplate Method for StartTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiStartTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiStartTemplateRequest
 */
 func (a *TemplateApiService) StartTemplate(ctx context.Context, templateId string) ApiStartTemplateRequest {
 	return ApiStartTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *TemplateApiService) StartTemplateExecute(r ApiStartTemplateRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.StartTemplate")
@@ -1990,6 +2256,20 @@ func (a *TemplateApiService) StartTemplateExecute(r ApiStartTemplateRequest) (*R
 	}
 	// body params
 	localVarPostBody = r.startRelease
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2000,9 +2280,9 @@ func (a *TemplateApiService) StartTemplateExecute(r ApiStartTemplateRequest) (*R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2028,10 +2308,10 @@ func (a *TemplateApiService) StartTemplateExecute(r ApiStartTemplateRequest) (*R
 }
 
 type ApiUpdateTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	templateId string
-	release *Release
+	release    *Release
 }
 
 func (r ApiUpdateTemplateRequest) Release(release Release) ApiUpdateTemplateRequest {
@@ -2046,26 +2326,27 @@ func (r ApiUpdateTemplateRequest) Execute() (*Release, *http.Response, error) {
 /*
 UpdateTemplate Method for UpdateTemplate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiUpdateTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiUpdateTemplateRequest
 */
 func (a *TemplateApiService) UpdateTemplate(ctx context.Context, templateId string) ApiUpdateTemplateRequest {
 	return ApiUpdateTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
 
 // Execute executes the request
-//  @return Release
+//
+//	@return Release
 func (a *TemplateApiService) UpdateTemplateExecute(r ApiUpdateTemplateRequest) (*Release, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Release
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Release
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.UpdateTemplate")
@@ -2099,6 +2380,20 @@ func (a *TemplateApiService) UpdateTemplateExecute(r ApiUpdateTemplateRequest) (
 	}
 	// body params
 	localVarPostBody = r.release
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2109,9 +2404,9 @@ func (a *TemplateApiService) UpdateTemplateExecute(r ApiUpdateTemplateRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2137,10 +2432,10 @@ func (a *TemplateApiService) UpdateTemplateExecute(r ApiUpdateTemplateRequest) (
 }
 
 type ApiUpdateTemplateVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
 	variableId string
-	variable *Variable
+	variable   *Variable
 }
 
 func (r ApiUpdateTemplateVariableRequest) Variable(variable Variable) ApiUpdateTemplateVariableRequest {
@@ -2155,26 +2450,27 @@ func (r ApiUpdateTemplateVariableRequest) Execute() (*Variable, *http.Response, 
 /*
 UpdateTemplateVariable Method for UpdateTemplateVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiUpdateTemplateVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiUpdateTemplateVariableRequest
 */
 func (a *TemplateApiService) UpdateTemplateVariable(ctx context.Context, variableId string) ApiUpdateTemplateVariableRequest {
 	return ApiUpdateTemplateVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *TemplateApiService) UpdateTemplateVariableExecute(r ApiUpdateTemplateVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.UpdateTemplateVariable")
@@ -2208,6 +2504,20 @@ func (a *TemplateApiService) UpdateTemplateVariableExecute(r ApiUpdateTemplateVa
 	}
 	// body params
 	localVarPostBody = r.variable
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2218,9 +2528,9 @@ func (a *TemplateApiService) UpdateTemplateVariableExecute(r ApiUpdateTemplateVa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2246,10 +2556,10 @@ func (a *TemplateApiService) UpdateTemplateVariableExecute(r ApiUpdateTemplateVa
 }
 
 type ApiUpdateTemplateVariablesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TemplateApiService
-	releaseId string
-	variable *[]Variable
+	releaseId  string
+	variable   *[]Variable
 }
 
 func (r ApiUpdateTemplateVariablesRequest) Variable(variable []Variable) ApiUpdateTemplateVariablesRequest {
@@ -2264,26 +2574,27 @@ func (r ApiUpdateTemplateVariablesRequest) Execute() ([]Variable, *http.Response
 /*
 UpdateTemplateVariables Method for UpdateTemplateVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiUpdateTemplateVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiUpdateTemplateVariablesRequest
 */
 func (a *TemplateApiService) UpdateTemplateVariables(ctx context.Context, releaseId string) ApiUpdateTemplateVariablesRequest {
 	return ApiUpdateTemplateVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return []Variable
+//
+//	@return []Variable
 func (a *TemplateApiService) UpdateTemplateVariablesExecute(r ApiUpdateTemplateVariablesRequest) ([]Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Variable
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateApiService.UpdateTemplateVariables")
@@ -2317,6 +2628,20 @@ func (a *TemplateApiService) UpdateTemplateVariablesExecute(r ApiUpdateTemplateV
 	}
 	// body params
 	localVarPostBody = r.variable
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2327,9 +2652,9 @@ func (a *TemplateApiService) UpdateTemplateVariablesExecute(r ApiUpdateTemplateV
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -13,19 +13,18 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
-
 
 // PlannerApiService PlannerApi service
 type PlannerApiService service
 
 type ApiGetActiveReleasesRequest struct {
-	ctx context.Context
-	ApiService *PlannerApiService
-	page *int64
+	ctx            context.Context
+	ApiService     *PlannerApiService
+	page           *int64
 	resultsPerPage *int64
 }
 
@@ -46,24 +45,25 @@ func (r ApiGetActiveReleasesRequest) Execute() ([]ProjectedRelease, *http.Respon
 /*
 GetActiveReleases Method for GetActiveReleases
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetActiveReleasesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetActiveReleasesRequest
 */
 func (a *PlannerApiService) GetActiveReleases(ctx context.Context) ApiGetActiveReleasesRequest {
 	return ApiGetActiveReleasesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ProjectedRelease
+//
+//	@return []ProjectedRelease
 func (a *PlannerApiService) GetActiveReleasesExecute(r ApiGetActiveReleasesRequest) ([]ProjectedRelease, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ProjectedRelease
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ProjectedRelease
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlannerApiService.GetActiveReleases")
@@ -78,10 +78,10 @@ func (a *PlannerApiService) GetActiveReleasesExecute(r ApiGetActiveReleasesReque
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -100,6 +100,20 @@ func (a *PlannerApiService) GetActiveReleasesExecute(r ApiGetActiveReleasesReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -110,9 +124,9 @@ func (a *PlannerApiService) GetActiveReleasesExecute(r ApiGetActiveReleasesReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -138,11 +152,11 @@ func (a *PlannerApiService) GetActiveReleasesExecute(r ApiGetActiveReleasesReque
 }
 
 type ApiGetCompletedReleasesRequest struct {
-	ctx context.Context
-	ApiService *PlannerApiService
-	page *int64
+	ctx            context.Context
+	ApiService     *PlannerApiService
+	page           *int64
 	resultsPerPage *int64
-	since *int64
+	since          *int64
 }
 
 func (r ApiGetCompletedReleasesRequest) Page(page int64) ApiGetCompletedReleasesRequest {
@@ -167,24 +181,25 @@ func (r ApiGetCompletedReleasesRequest) Execute() ([]ProjectedRelease, *http.Res
 /*
 GetCompletedReleases Method for GetCompletedReleases
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCompletedReleasesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCompletedReleasesRequest
 */
 func (a *PlannerApiService) GetCompletedReleases(ctx context.Context) ApiGetCompletedReleasesRequest {
 	return ApiGetCompletedReleasesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ProjectedRelease
+//
+//	@return []ProjectedRelease
 func (a *PlannerApiService) GetCompletedReleasesExecute(r ApiGetCompletedReleasesRequest) ([]ProjectedRelease, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ProjectedRelease
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ProjectedRelease
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlannerApiService.GetCompletedReleases")
@@ -199,13 +214,13 @@ func (a *PlannerApiService) GetCompletedReleasesExecute(r ApiGetCompletedRelease
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	if r.since != nil {
-		parameterAddToQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -224,6 +239,20 @@ func (a *PlannerApiService) GetCompletedReleasesExecute(r ApiGetCompletedRelease
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -234,9 +263,9 @@ func (a *PlannerApiService) GetCompletedReleasesExecute(r ApiGetCompletedRelease
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -262,8 +291,8 @@ func (a *PlannerApiService) GetCompletedReleasesExecute(r ApiGetCompletedRelease
 }
 
 type ApiGetReleasesByIdsRequest struct {
-	ctx context.Context
-	ApiService *PlannerApiService
+	ctx         context.Context
+	ApiService  *PlannerApiService
 	requestBody *[]string
 }
 
@@ -279,24 +308,25 @@ func (r ApiGetReleasesByIdsRequest) Execute() ([]ProjectedRelease, *http.Respons
 /*
 GetReleasesByIds Method for GetReleasesByIds
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetReleasesByIdsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetReleasesByIdsRequest
 */
 func (a *PlannerApiService) GetReleasesByIds(ctx context.Context) ApiGetReleasesByIdsRequest {
 	return ApiGetReleasesByIdsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ProjectedRelease
+//
+//	@return []ProjectedRelease
 func (a *PlannerApiService) GetReleasesByIdsExecute(r ApiGetReleasesByIdsRequest) ([]ProjectedRelease, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ProjectedRelease
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ProjectedRelease
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlannerApiService.GetReleasesByIds")
@@ -329,6 +359,20 @@ func (a *PlannerApiService) GetReleasesByIdsExecute(r ApiGetReleasesByIdsRequest
 	}
 	// body params
 	localVarPostBody = r.requestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -339,9 +383,9 @@ func (a *PlannerApiService) GetReleasesByIdsExecute(r ApiGetReleasesByIdsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

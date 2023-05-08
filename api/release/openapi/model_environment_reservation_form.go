@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the EnvironmentReservationForm type satisfies the MappedNullable interface at compile time
@@ -19,11 +20,11 @@ var _ MappedNullable = &EnvironmentReservationForm{}
 
 // EnvironmentReservationForm struct for EnvironmentReservationForm
 type EnvironmentReservationForm struct {
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	Note *string `json:"note,omitempty"`
-	EnvironmentId *string `json:"environmentId,omitempty"`
-	ApplicationIds []string `json:"applicationIds,omitempty"`
+	StartDate      *time.Time `json:"startDate,omitempty"`
+	EndDate        *time.Time `json:"endDate,omitempty"`
+	Note           *string    `json:"note,omitempty"`
+	EnvironmentId  *string    `json:"environmentId,omitempty"`
+	ApplicationIds []string   `json:"applicationIds,omitempty"`
 }
 
 // NewEnvironmentReservationForm instantiates a new EnvironmentReservationForm object
@@ -44,9 +45,9 @@ func NewEnvironmentReservationFormWithDefaults() *EnvironmentReservationForm {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *EnvironmentReservationForm) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *EnvironmentReservationForm) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -54,8 +55,8 @@ func (o *EnvironmentReservationForm) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReservationForm) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *EnvironmentReservationForm) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -63,22 +64,22 @@ func (o *EnvironmentReservationForm) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *EnvironmentReservationForm) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *EnvironmentReservationForm) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *EnvironmentReservationForm) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *EnvironmentReservationForm) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *EnvironmentReservationForm) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -86,8 +87,8 @@ func (o *EnvironmentReservationForm) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReservationForm) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *EnvironmentReservationForm) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -95,21 +96,21 @@ func (o *EnvironmentReservationForm) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *EnvironmentReservationForm) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *EnvironmentReservationForm) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *EnvironmentReservationForm) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetNote returns the Note field value if set, zero value otherwise.
 func (o *EnvironmentReservationForm) GetNote() string {
-	if o == nil || isNil(o.Note) {
+	if o == nil || IsNil(o.Note) {
 		var ret string
 		return ret
 	}
@@ -119,7 +120,7 @@ func (o *EnvironmentReservationForm) GetNote() string {
 // GetNoteOk returns a tuple with the Note field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationForm) GetNoteOk() (*string, bool) {
-	if o == nil || isNil(o.Note) {
+	if o == nil || IsNil(o.Note) {
 		return nil, false
 	}
 	return o.Note, true
@@ -127,7 +128,7 @@ func (o *EnvironmentReservationForm) GetNoteOk() (*string, bool) {
 
 // HasNote returns a boolean if a field has been set.
 func (o *EnvironmentReservationForm) HasNote() bool {
-	if o != nil && !isNil(o.Note) {
+	if o != nil && !IsNil(o.Note) {
 		return true
 	}
 
@@ -141,7 +142,7 @@ func (o *EnvironmentReservationForm) SetNote(v string) {
 
 // GetEnvironmentId returns the EnvironmentId field value if set, zero value otherwise.
 func (o *EnvironmentReservationForm) GetEnvironmentId() string {
-	if o == nil || isNil(o.EnvironmentId) {
+	if o == nil || IsNil(o.EnvironmentId) {
 		var ret string
 		return ret
 	}
@@ -151,7 +152,7 @@ func (o *EnvironmentReservationForm) GetEnvironmentId() string {
 // GetEnvironmentIdOk returns a tuple with the EnvironmentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationForm) GetEnvironmentIdOk() (*string, bool) {
-	if o == nil || isNil(o.EnvironmentId) {
+	if o == nil || IsNil(o.EnvironmentId) {
 		return nil, false
 	}
 	return o.EnvironmentId, true
@@ -159,7 +160,7 @@ func (o *EnvironmentReservationForm) GetEnvironmentIdOk() (*string, bool) {
 
 // HasEnvironmentId returns a boolean if a field has been set.
 func (o *EnvironmentReservationForm) HasEnvironmentId() bool {
-	if o != nil && !isNil(o.EnvironmentId) {
+	if o != nil && !IsNil(o.EnvironmentId) {
 		return true
 	}
 
@@ -173,7 +174,7 @@ func (o *EnvironmentReservationForm) SetEnvironmentId(v string) {
 
 // GetApplicationIds returns the ApplicationIds field value if set, zero value otherwise.
 func (o *EnvironmentReservationForm) GetApplicationIds() []string {
-	if o == nil || isNil(o.ApplicationIds) {
+	if o == nil || IsNil(o.ApplicationIds) {
 		var ret []string
 		return ret
 	}
@@ -183,7 +184,7 @@ func (o *EnvironmentReservationForm) GetApplicationIds() []string {
 // GetApplicationIdsOk returns a tuple with the ApplicationIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationForm) GetApplicationIdsOk() ([]string, bool) {
-	if o == nil || isNil(o.ApplicationIds) {
+	if o == nil || IsNil(o.ApplicationIds) {
 		return nil, false
 	}
 	return o.ApplicationIds, true
@@ -191,7 +192,7 @@ func (o *EnvironmentReservationForm) GetApplicationIdsOk() ([]string, bool) {
 
 // HasApplicationIds returns a boolean if a field has been set.
 func (o *EnvironmentReservationForm) HasApplicationIds() bool {
-	if o != nil && !isNil(o.ApplicationIds) {
+	if o != nil && !IsNil(o.ApplicationIds) {
 		return true
 	}
 
@@ -204,7 +205,7 @@ func (o *EnvironmentReservationForm) SetApplicationIds(v []string) {
 }
 
 func (o EnvironmentReservationForm) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -213,19 +214,19 @@ func (o EnvironmentReservationForm) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentReservationForm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.Note) {
+	if !IsNil(o.Note) {
 		toSerialize["note"] = o.Note
 	}
-	if !isNil(o.EnvironmentId) {
+	if !IsNil(o.EnvironmentId) {
 		toSerialize["environmentId"] = o.EnvironmentId
 	}
-	if !isNil(o.ApplicationIds) {
+	if !IsNil(o.ApplicationIds) {
 		toSerialize["applicationIds"] = o.ApplicationIds
 	}
 	return toSerialize, nil
@@ -266,5 +267,3 @@ func (v *NullableEnvironmentReservationForm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

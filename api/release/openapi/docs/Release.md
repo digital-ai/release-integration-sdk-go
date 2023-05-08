@@ -4,10 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StartDate** | Pointer to **string** |  | [optional] 
-**ScheduledStartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
-**DueDate** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**ScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
+**DueDate** | Pointer to **time.Time** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
@@ -16,10 +18,10 @@ Name | Type | Description | Notes
 **FlagComment** | Pointer to **string** |  | [optional] 
 **OverdueNotified** | Pointer to **bool** |  | [optional] 
 **Flagged** | Pointer to **bool** |  | [optional] 
-**StartOrScheduledDate** | Pointer to **string** |  | [optional] 
-**EndOrDueDate** | Pointer to **string** |  | [optional] 
+**StartOrScheduledDate** | Pointer to **time.Time** |  | [optional] 
+**EndOrDueDate** | Pointer to **time.Time** |  | [optional] 
 **Overdue** | Pointer to **bool** |  | [optional] 
-**OrCalculateDueDate** | Pointer to **NullableString** |  | [optional] 
+**OrCalculateDueDate** | Pointer to **NullableTime** |  | [optional] 
 **ComputedPlannedDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **ActualDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **RootReleaseId** | Pointer to **string** |  | [optional] 
@@ -30,8 +32,8 @@ Name | Type | Description | Notes
 **RoleViewers** | Pointer to **[]string** |  | [optional] 
 **Attachments** | Pointer to [**[]Attachment**](Attachment.md) |  | [optional] 
 **Phases** | Pointer to [**[]Phase**](Phase.md) |  | [optional] 
-**QueryableStartDate** | Pointer to **string** |  | [optional] 
-**QueryableEndDate** | Pointer to **string** |  | [optional] 
+**QueryableStartDate** | Pointer to **time.Time** |  | [optional] 
+**QueryableEndDate** | Pointer to **time.Time** |  | [optional] 
 **RealFlagStatus** | Pointer to [**FlagStatus**](FlagStatus.md) |  | [optional] 
 **Status** | Pointer to [**ReleaseStatus**](ReleaseStatus.md) |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
@@ -55,7 +57,7 @@ Name | Type | Description | Notes
 **MaxAutomatedResumes** | Pointer to **int32** |  | [optional] 
 **AbortComment** | Pointer to **string** |  | [optional] 
 **VariableMapping** | Pointer to **map[string]string** |  | [optional] 
-**RiskProfile** | Pointer to [**RiskProfile**](RiskProfile.md) |  | [optional] 
+**RiskProfile** | Pointer to **interface{}** |  | [optional] 
 **Metadata** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **Archived** | Pointer to **bool** |  | [optional] 
 **CiUid** | Pointer to **int32** |  | [optional] 
@@ -118,22 +120,72 @@ NewReleaseWithDefaults instantiates a new Release object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetId
+
+`func (o *Release) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Release) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Release) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Release) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Release) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Release) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Release) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Release) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
 ### GetStartDate
 
-`func (o *Release) GetStartDate() string`
+`func (o *Release) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *Release) GetStartDateOk() (*string, bool)`
+`func (o *Release) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *Release) SetStartDate(v string)`
+`func (o *Release) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -145,20 +197,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetScheduledStartDate
 
-`func (o *Release) GetScheduledStartDate() string`
+`func (o *Release) GetScheduledStartDate() time.Time`
 
 GetScheduledStartDate returns the ScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetScheduledStartDateOk
 
-`func (o *Release) GetScheduledStartDateOk() (*string, bool)`
+`func (o *Release) GetScheduledStartDateOk() (*time.Time, bool)`
 
 GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledStartDate
 
-`func (o *Release) SetScheduledStartDate(v string)`
+`func (o *Release) SetScheduledStartDate(v time.Time)`
 
 SetScheduledStartDate sets ScheduledStartDate field to given value.
 
@@ -170,20 +222,20 @@ HasScheduledStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *Release) GetEndDate() string`
+`func (o *Release) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *Release) GetEndDateOk() (*string, bool)`
+`func (o *Release) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *Release) SetEndDate(v string)`
+`func (o *Release) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 
@@ -195,20 +247,20 @@ HasEndDate returns a boolean if a field has been set.
 
 ### GetDueDate
 
-`func (o *Release) GetDueDate() string`
+`func (o *Release) GetDueDate() time.Time`
 
 GetDueDate returns the DueDate field if non-nil, zero value otherwise.
 
 ### GetDueDateOk
 
-`func (o *Release) GetDueDateOk() (*string, bool)`
+`func (o *Release) GetDueDateOk() (*time.Time, bool)`
 
 GetDueDateOk returns a tuple with the DueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDueDate
 
-`func (o *Release) SetDueDate(v string)`
+`func (o *Release) SetDueDate(v time.Time)`
 
 SetDueDate sets DueDate field to given value.
 
@@ -420,20 +472,20 @@ HasFlagged returns a boolean if a field has been set.
 
 ### GetStartOrScheduledDate
 
-`func (o *Release) GetStartOrScheduledDate() string`
+`func (o *Release) GetStartOrScheduledDate() time.Time`
 
 GetStartOrScheduledDate returns the StartOrScheduledDate field if non-nil, zero value otherwise.
 
 ### GetStartOrScheduledDateOk
 
-`func (o *Release) GetStartOrScheduledDateOk() (*string, bool)`
+`func (o *Release) GetStartOrScheduledDateOk() (*time.Time, bool)`
 
 GetStartOrScheduledDateOk returns a tuple with the StartOrScheduledDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartOrScheduledDate
 
-`func (o *Release) SetStartOrScheduledDate(v string)`
+`func (o *Release) SetStartOrScheduledDate(v time.Time)`
 
 SetStartOrScheduledDate sets StartOrScheduledDate field to given value.
 
@@ -445,20 +497,20 @@ HasStartOrScheduledDate returns a boolean if a field has been set.
 
 ### GetEndOrDueDate
 
-`func (o *Release) GetEndOrDueDate() string`
+`func (o *Release) GetEndOrDueDate() time.Time`
 
 GetEndOrDueDate returns the EndOrDueDate field if non-nil, zero value otherwise.
 
 ### GetEndOrDueDateOk
 
-`func (o *Release) GetEndOrDueDateOk() (*string, bool)`
+`func (o *Release) GetEndOrDueDateOk() (*time.Time, bool)`
 
 GetEndOrDueDateOk returns a tuple with the EndOrDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndOrDueDate
 
-`func (o *Release) SetEndOrDueDate(v string)`
+`func (o *Release) SetEndOrDueDate(v time.Time)`
 
 SetEndOrDueDate sets EndOrDueDate field to given value.
 
@@ -495,20 +547,20 @@ HasOverdue returns a boolean if a field has been set.
 
 ### GetOrCalculateDueDate
 
-`func (o *Release) GetOrCalculateDueDate() string`
+`func (o *Release) GetOrCalculateDueDate() time.Time`
 
 GetOrCalculateDueDate returns the OrCalculateDueDate field if non-nil, zero value otherwise.
 
 ### GetOrCalculateDueDateOk
 
-`func (o *Release) GetOrCalculateDueDateOk() (*string, bool)`
+`func (o *Release) GetOrCalculateDueDateOk() (*time.Time, bool)`
 
 GetOrCalculateDueDateOk returns a tuple with the OrCalculateDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrCalculateDueDate
 
-`func (o *Release) SetOrCalculateDueDate(v string)`
+`func (o *Release) SetOrCalculateDueDate(v time.Time)`
 
 SetOrCalculateDueDate sets OrCalculateDueDate field to given value.
 
@@ -780,20 +832,20 @@ HasPhases returns a boolean if a field has been set.
 
 ### GetQueryableStartDate
 
-`func (o *Release) GetQueryableStartDate() string`
+`func (o *Release) GetQueryableStartDate() time.Time`
 
 GetQueryableStartDate returns the QueryableStartDate field if non-nil, zero value otherwise.
 
 ### GetQueryableStartDateOk
 
-`func (o *Release) GetQueryableStartDateOk() (*string, bool)`
+`func (o *Release) GetQueryableStartDateOk() (*time.Time, bool)`
 
 GetQueryableStartDateOk returns a tuple with the QueryableStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueryableStartDate
 
-`func (o *Release) SetQueryableStartDate(v string)`
+`func (o *Release) SetQueryableStartDate(v time.Time)`
 
 SetQueryableStartDate sets QueryableStartDate field to given value.
 
@@ -805,20 +857,20 @@ HasQueryableStartDate returns a boolean if a field has been set.
 
 ### GetQueryableEndDate
 
-`func (o *Release) GetQueryableEndDate() string`
+`func (o *Release) GetQueryableEndDate() time.Time`
 
 GetQueryableEndDate returns the QueryableEndDate field if non-nil, zero value otherwise.
 
 ### GetQueryableEndDateOk
 
-`func (o *Release) GetQueryableEndDateOk() (*string, bool)`
+`func (o *Release) GetQueryableEndDateOk() (*time.Time, bool)`
 
 GetQueryableEndDateOk returns a tuple with the QueryableEndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueryableEndDate
 
-`func (o *Release) SetQueryableEndDate(v string)`
+`func (o *Release) SetQueryableEndDate(v time.Time)`
 
 SetQueryableEndDate sets QueryableEndDate field to given value.
 
@@ -1405,20 +1457,20 @@ HasVariableMapping returns a boolean if a field has been set.
 
 ### GetRiskProfile
 
-`func (o *Release) GetRiskProfile() RiskProfile`
+`func (o *Release) GetRiskProfile() interface{}`
 
 GetRiskProfile returns the RiskProfile field if non-nil, zero value otherwise.
 
 ### GetRiskProfileOk
 
-`func (o *Release) GetRiskProfileOk() (*RiskProfile, bool)`
+`func (o *Release) GetRiskProfileOk() (*interface{}, bool)`
 
 GetRiskProfileOk returns a tuple with the RiskProfile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRiskProfile
 
-`func (o *Release) SetRiskProfile(v RiskProfile)`
+`func (o *Release) SetRiskProfile(v interface{})`
 
 SetRiskProfile sets RiskProfile field to given value.
 
@@ -1428,6 +1480,16 @@ SetRiskProfile sets RiskProfile field to given value.
 
 HasRiskProfile returns a boolean if a field has been set.
 
+### SetRiskProfileNil
+
+`func (o *Release) SetRiskProfileNil(b bool)`
+
+ SetRiskProfileNil sets the value for RiskProfile to be an explicit nil
+
+### UnsetRiskProfile
+`func (o *Release) UnsetRiskProfile()`
+
+UnsetRiskProfile ensures that no value is present for RiskProfile, not even an explicit nil
 ### GetMetadata
 
 `func (o *Release) GetMetadata() map[string]map[string]interface{}`

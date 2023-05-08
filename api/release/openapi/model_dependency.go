@@ -19,19 +19,21 @@ var _ MappedNullable = &Dependency{}
 
 // Dependency struct for Dependency
 type Dependency struct {
-	GateTask *GateTask `json:"gateTask,omitempty"`
-	Target *PlanItem `json:"target,omitempty"`
-	TargetId *string `json:"targetId,omitempty"`
-	ArchivedTargetTitle *string `json:"archivedTargetTitle,omitempty"`
-	ArchivedTargetId *string `json:"archivedTargetId,omitempty"`
-	ArchivedAsResolved *bool `json:"archivedAsResolved,omitempty"`
-	Metadata *map[string]map[string]interface{} `json:"$metadata,omitempty"`
-	Archived *bool `json:"archived,omitempty"`
-	Done *bool `json:"done,omitempty"`
-	Aborted *bool `json:"aborted,omitempty"`
-	TargetDisplayPath *string `json:"targetDisplayPath,omitempty"`
-	TargetTitle *string `json:"targetTitle,omitempty"`
-	ValidAllowedPlanItemId *bool `json:"validAllowedPlanItemId,omitempty"`
+	Id                     *string                            `json:"id,omitempty"`
+	Type                   *string                            `json:"type,omitempty"`
+	GateTask               *GateTask                          `json:"gateTask,omitempty"`
+	Target                 *PlanItem                          `json:"target,omitempty"`
+	TargetId               *string                            `json:"targetId,omitempty"`
+	ArchivedTargetTitle    *string                            `json:"archivedTargetTitle,omitempty"`
+	ArchivedTargetId       *string                            `json:"archivedTargetId,omitempty"`
+	ArchivedAsResolved     *bool                              `json:"archivedAsResolved,omitempty"`
+	Metadata               *map[string]map[string]interface{} `json:"$metadata,omitempty"`
+	Archived               *bool                              `json:"archived,omitempty"`
+	Done                   *bool                              `json:"done,omitempty"`
+	Aborted                *bool                              `json:"aborted,omitempty"`
+	TargetDisplayPath      *string                            `json:"targetDisplayPath,omitempty"`
+	TargetTitle            *string                            `json:"targetTitle,omitempty"`
+	ValidAllowedPlanItemId *bool                              `json:"validAllowedPlanItemId,omitempty"`
 }
 
 // NewDependency instantiates a new Dependency object
@@ -51,9 +53,73 @@ func NewDependencyWithDefaults() *Dependency {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Dependency) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Dependency) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Dependency) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Dependency) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Dependency) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Dependency) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Dependency) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Dependency) SetType(v string) {
+	o.Type = &v
+}
+
 // GetGateTask returns the GateTask field value if set, zero value otherwise.
 func (o *Dependency) GetGateTask() GateTask {
-	if o == nil || isNil(o.GateTask) {
+	if o == nil || IsNil(o.GateTask) {
 		var ret GateTask
 		return ret
 	}
@@ -63,7 +129,7 @@ func (o *Dependency) GetGateTask() GateTask {
 // GetGateTaskOk returns a tuple with the GateTask field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetGateTaskOk() (*GateTask, bool) {
-	if o == nil || isNil(o.GateTask) {
+	if o == nil || IsNil(o.GateTask) {
 		return nil, false
 	}
 	return o.GateTask, true
@@ -71,7 +137,7 @@ func (o *Dependency) GetGateTaskOk() (*GateTask, bool) {
 
 // HasGateTask returns a boolean if a field has been set.
 func (o *Dependency) HasGateTask() bool {
-	if o != nil && !isNil(o.GateTask) {
+	if o != nil && !IsNil(o.GateTask) {
 		return true
 	}
 
@@ -85,7 +151,7 @@ func (o *Dependency) SetGateTask(v GateTask) {
 
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *Dependency) GetTarget() PlanItem {
-	if o == nil || isNil(o.Target) {
+	if o == nil || IsNil(o.Target) {
 		var ret PlanItem
 		return ret
 	}
@@ -95,7 +161,7 @@ func (o *Dependency) GetTarget() PlanItem {
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetTargetOk() (*PlanItem, bool) {
-	if o == nil || isNil(o.Target) {
+	if o == nil || IsNil(o.Target) {
 		return nil, false
 	}
 	return o.Target, true
@@ -103,7 +169,7 @@ func (o *Dependency) GetTargetOk() (*PlanItem, bool) {
 
 // HasTarget returns a boolean if a field has been set.
 func (o *Dependency) HasTarget() bool {
-	if o != nil && !isNil(o.Target) {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
@@ -117,7 +183,7 @@ func (o *Dependency) SetTarget(v PlanItem) {
 
 // GetTargetId returns the TargetId field value if set, zero value otherwise.
 func (o *Dependency) GetTargetId() string {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		var ret string
 		return ret
 	}
@@ -127,7 +193,7 @@ func (o *Dependency) GetTargetId() string {
 // GetTargetIdOk returns a tuple with the TargetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetTargetIdOk() (*string, bool) {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		return nil, false
 	}
 	return o.TargetId, true
@@ -135,7 +201,7 @@ func (o *Dependency) GetTargetIdOk() (*string, bool) {
 
 // HasTargetId returns a boolean if a field has been set.
 func (o *Dependency) HasTargetId() bool {
-	if o != nil && !isNil(o.TargetId) {
+	if o != nil && !IsNil(o.TargetId) {
 		return true
 	}
 
@@ -149,7 +215,7 @@ func (o *Dependency) SetTargetId(v string) {
 
 // GetArchivedTargetTitle returns the ArchivedTargetTitle field value if set, zero value otherwise.
 func (o *Dependency) GetArchivedTargetTitle() string {
-	if o == nil || isNil(o.ArchivedTargetTitle) {
+	if o == nil || IsNil(o.ArchivedTargetTitle) {
 		var ret string
 		return ret
 	}
@@ -159,7 +225,7 @@ func (o *Dependency) GetArchivedTargetTitle() string {
 // GetArchivedTargetTitleOk returns a tuple with the ArchivedTargetTitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetArchivedTargetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.ArchivedTargetTitle) {
+	if o == nil || IsNil(o.ArchivedTargetTitle) {
 		return nil, false
 	}
 	return o.ArchivedTargetTitle, true
@@ -167,7 +233,7 @@ func (o *Dependency) GetArchivedTargetTitleOk() (*string, bool) {
 
 // HasArchivedTargetTitle returns a boolean if a field has been set.
 func (o *Dependency) HasArchivedTargetTitle() bool {
-	if o != nil && !isNil(o.ArchivedTargetTitle) {
+	if o != nil && !IsNil(o.ArchivedTargetTitle) {
 		return true
 	}
 
@@ -181,7 +247,7 @@ func (o *Dependency) SetArchivedTargetTitle(v string) {
 
 // GetArchivedTargetId returns the ArchivedTargetId field value if set, zero value otherwise.
 func (o *Dependency) GetArchivedTargetId() string {
-	if o == nil || isNil(o.ArchivedTargetId) {
+	if o == nil || IsNil(o.ArchivedTargetId) {
 		var ret string
 		return ret
 	}
@@ -191,7 +257,7 @@ func (o *Dependency) GetArchivedTargetId() string {
 // GetArchivedTargetIdOk returns a tuple with the ArchivedTargetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetArchivedTargetIdOk() (*string, bool) {
-	if o == nil || isNil(o.ArchivedTargetId) {
+	if o == nil || IsNil(o.ArchivedTargetId) {
 		return nil, false
 	}
 	return o.ArchivedTargetId, true
@@ -199,7 +265,7 @@ func (o *Dependency) GetArchivedTargetIdOk() (*string, bool) {
 
 // HasArchivedTargetId returns a boolean if a field has been set.
 func (o *Dependency) HasArchivedTargetId() bool {
-	if o != nil && !isNil(o.ArchivedTargetId) {
+	if o != nil && !IsNil(o.ArchivedTargetId) {
 		return true
 	}
 
@@ -213,7 +279,7 @@ func (o *Dependency) SetArchivedTargetId(v string) {
 
 // GetArchivedAsResolved returns the ArchivedAsResolved field value if set, zero value otherwise.
 func (o *Dependency) GetArchivedAsResolved() bool {
-	if o == nil || isNil(o.ArchivedAsResolved) {
+	if o == nil || IsNil(o.ArchivedAsResolved) {
 		var ret bool
 		return ret
 	}
@@ -223,7 +289,7 @@ func (o *Dependency) GetArchivedAsResolved() bool {
 // GetArchivedAsResolvedOk returns a tuple with the ArchivedAsResolved field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetArchivedAsResolvedOk() (*bool, bool) {
-	if o == nil || isNil(o.ArchivedAsResolved) {
+	if o == nil || IsNil(o.ArchivedAsResolved) {
 		return nil, false
 	}
 	return o.ArchivedAsResolved, true
@@ -231,7 +297,7 @@ func (o *Dependency) GetArchivedAsResolvedOk() (*bool, bool) {
 
 // HasArchivedAsResolved returns a boolean if a field has been set.
 func (o *Dependency) HasArchivedAsResolved() bool {
-	if o != nil && !isNil(o.ArchivedAsResolved) {
+	if o != nil && !IsNil(o.ArchivedAsResolved) {
 		return true
 	}
 
@@ -245,7 +311,7 @@ func (o *Dependency) SetArchivedAsResolved(v bool) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *Dependency) GetMetadata() map[string]map[string]interface{} {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -255,7 +321,7 @@ func (o *Dependency) GetMetadata() map[string]map[string]interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetMetadataOk() (*map[string]map[string]interface{}, bool) {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -263,7 +329,7 @@ func (o *Dependency) GetMetadataOk() (*map[string]map[string]interface{}, bool) 
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *Dependency) HasMetadata() bool {
-	if o != nil && !isNil(o.Metadata) {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -277,7 +343,7 @@ func (o *Dependency) SetMetadata(v map[string]map[string]interface{}) {
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *Dependency) GetArchived() bool {
-	if o == nil || isNil(o.Archived) {
+	if o == nil || IsNil(o.Archived) {
 		var ret bool
 		return ret
 	}
@@ -287,7 +353,7 @@ func (o *Dependency) GetArchived() bool {
 // GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetArchivedOk() (*bool, bool) {
-	if o == nil || isNil(o.Archived) {
+	if o == nil || IsNil(o.Archived) {
 		return nil, false
 	}
 	return o.Archived, true
@@ -295,7 +361,7 @@ func (o *Dependency) GetArchivedOk() (*bool, bool) {
 
 // HasArchived returns a boolean if a field has been set.
 func (o *Dependency) HasArchived() bool {
-	if o != nil && !isNil(o.Archived) {
+	if o != nil && !IsNil(o.Archived) {
 		return true
 	}
 
@@ -309,7 +375,7 @@ func (o *Dependency) SetArchived(v bool) {
 
 // GetDone returns the Done field value if set, zero value otherwise.
 func (o *Dependency) GetDone() bool {
-	if o == nil || isNil(o.Done) {
+	if o == nil || IsNil(o.Done) {
 		var ret bool
 		return ret
 	}
@@ -319,7 +385,7 @@ func (o *Dependency) GetDone() bool {
 // GetDoneOk returns a tuple with the Done field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetDoneOk() (*bool, bool) {
-	if o == nil || isNil(o.Done) {
+	if o == nil || IsNil(o.Done) {
 		return nil, false
 	}
 	return o.Done, true
@@ -327,7 +393,7 @@ func (o *Dependency) GetDoneOk() (*bool, bool) {
 
 // HasDone returns a boolean if a field has been set.
 func (o *Dependency) HasDone() bool {
-	if o != nil && !isNil(o.Done) {
+	if o != nil && !IsNil(o.Done) {
 		return true
 	}
 
@@ -341,7 +407,7 @@ func (o *Dependency) SetDone(v bool) {
 
 // GetAborted returns the Aborted field value if set, zero value otherwise.
 func (o *Dependency) GetAborted() bool {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		var ret bool
 		return ret
 	}
@@ -351,7 +417,7 @@ func (o *Dependency) GetAborted() bool {
 // GetAbortedOk returns a tuple with the Aborted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetAbortedOk() (*bool, bool) {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		return nil, false
 	}
 	return o.Aborted, true
@@ -359,7 +425,7 @@ func (o *Dependency) GetAbortedOk() (*bool, bool) {
 
 // HasAborted returns a boolean if a field has been set.
 func (o *Dependency) HasAborted() bool {
-	if o != nil && !isNil(o.Aborted) {
+	if o != nil && !IsNil(o.Aborted) {
 		return true
 	}
 
@@ -373,7 +439,7 @@ func (o *Dependency) SetAborted(v bool) {
 
 // GetTargetDisplayPath returns the TargetDisplayPath field value if set, zero value otherwise.
 func (o *Dependency) GetTargetDisplayPath() string {
-	if o == nil || isNil(o.TargetDisplayPath) {
+	if o == nil || IsNil(o.TargetDisplayPath) {
 		var ret string
 		return ret
 	}
@@ -383,7 +449,7 @@ func (o *Dependency) GetTargetDisplayPath() string {
 // GetTargetDisplayPathOk returns a tuple with the TargetDisplayPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetTargetDisplayPathOk() (*string, bool) {
-	if o == nil || isNil(o.TargetDisplayPath) {
+	if o == nil || IsNil(o.TargetDisplayPath) {
 		return nil, false
 	}
 	return o.TargetDisplayPath, true
@@ -391,7 +457,7 @@ func (o *Dependency) GetTargetDisplayPathOk() (*string, bool) {
 
 // HasTargetDisplayPath returns a boolean if a field has been set.
 func (o *Dependency) HasTargetDisplayPath() bool {
-	if o != nil && !isNil(o.TargetDisplayPath) {
+	if o != nil && !IsNil(o.TargetDisplayPath) {
 		return true
 	}
 
@@ -405,7 +471,7 @@ func (o *Dependency) SetTargetDisplayPath(v string) {
 
 // GetTargetTitle returns the TargetTitle field value if set, zero value otherwise.
 func (o *Dependency) GetTargetTitle() string {
-	if o == nil || isNil(o.TargetTitle) {
+	if o == nil || IsNil(o.TargetTitle) {
 		var ret string
 		return ret
 	}
@@ -415,7 +481,7 @@ func (o *Dependency) GetTargetTitle() string {
 // GetTargetTitleOk returns a tuple with the TargetTitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetTargetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.TargetTitle) {
+	if o == nil || IsNil(o.TargetTitle) {
 		return nil, false
 	}
 	return o.TargetTitle, true
@@ -423,7 +489,7 @@ func (o *Dependency) GetTargetTitleOk() (*string, bool) {
 
 // HasTargetTitle returns a boolean if a field has been set.
 func (o *Dependency) HasTargetTitle() bool {
-	if o != nil && !isNil(o.TargetTitle) {
+	if o != nil && !IsNil(o.TargetTitle) {
 		return true
 	}
 
@@ -437,7 +503,7 @@ func (o *Dependency) SetTargetTitle(v string) {
 
 // GetValidAllowedPlanItemId returns the ValidAllowedPlanItemId field value if set, zero value otherwise.
 func (o *Dependency) GetValidAllowedPlanItemId() bool {
-	if o == nil || isNil(o.ValidAllowedPlanItemId) {
+	if o == nil || IsNil(o.ValidAllowedPlanItemId) {
 		var ret bool
 		return ret
 	}
@@ -447,7 +513,7 @@ func (o *Dependency) GetValidAllowedPlanItemId() bool {
 // GetValidAllowedPlanItemIdOk returns a tuple with the ValidAllowedPlanItemId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Dependency) GetValidAllowedPlanItemIdOk() (*bool, bool) {
-	if o == nil || isNil(o.ValidAllowedPlanItemId) {
+	if o == nil || IsNil(o.ValidAllowedPlanItemId) {
 		return nil, false
 	}
 	return o.ValidAllowedPlanItemId, true
@@ -455,7 +521,7 @@ func (o *Dependency) GetValidAllowedPlanItemIdOk() (*bool, bool) {
 
 // HasValidAllowedPlanItemId returns a boolean if a field has been set.
 func (o *Dependency) HasValidAllowedPlanItemId() bool {
-	if o != nil && !isNil(o.ValidAllowedPlanItemId) {
+	if o != nil && !IsNil(o.ValidAllowedPlanItemId) {
 		return true
 	}
 
@@ -468,7 +534,7 @@ func (o *Dependency) SetValidAllowedPlanItemId(v bool) {
 }
 
 func (o Dependency) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -477,43 +543,49 @@ func (o Dependency) MarshalJSON() ([]byte, error) {
 
 func (o Dependency) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.GateTask) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.GateTask) {
 		toSerialize["gateTask"] = o.GateTask
 	}
-	if !isNil(o.Target) {
+	if !IsNil(o.Target) {
 		toSerialize["target"] = o.Target
 	}
-	if !isNil(o.TargetId) {
+	if !IsNil(o.TargetId) {
 		toSerialize["targetId"] = o.TargetId
 	}
-	if !isNil(o.ArchivedTargetTitle) {
+	if !IsNil(o.ArchivedTargetTitle) {
 		toSerialize["archivedTargetTitle"] = o.ArchivedTargetTitle
 	}
-	if !isNil(o.ArchivedTargetId) {
+	if !IsNil(o.ArchivedTargetId) {
 		toSerialize["archivedTargetId"] = o.ArchivedTargetId
 	}
-	if !isNil(o.ArchivedAsResolved) {
+	if !IsNil(o.ArchivedAsResolved) {
 		toSerialize["archivedAsResolved"] = o.ArchivedAsResolved
 	}
-	if !isNil(o.Metadata) {
+	if !IsNil(o.Metadata) {
 		toSerialize["$metadata"] = o.Metadata
 	}
-	if !isNil(o.Archived) {
+	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
-	if !isNil(o.Done) {
+	if !IsNil(o.Done) {
 		toSerialize["done"] = o.Done
 	}
-	if !isNil(o.Aborted) {
+	if !IsNil(o.Aborted) {
 		toSerialize["aborted"] = o.Aborted
 	}
-	if !isNil(o.TargetDisplayPath) {
+	if !IsNil(o.TargetDisplayPath) {
 		toSerialize["targetDisplayPath"] = o.TargetDisplayPath
 	}
-	if !isNil(o.TargetTitle) {
+	if !IsNil(o.TargetTitle) {
 		toSerialize["targetTitle"] = o.TargetTitle
 	}
-	if !isNil(o.ValidAllowedPlanItemId) {
+	if !IsNil(o.ValidAllowedPlanItemId) {
 		toSerialize["validAllowedPlanItemId"] = o.ValidAllowedPlanItemId
 	}
 	return toSerialize, nil
@@ -554,5 +626,3 @@ func (v *NullableDependency) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

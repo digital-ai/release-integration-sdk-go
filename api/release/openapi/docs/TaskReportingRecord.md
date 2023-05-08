@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Scope** | Pointer to [**FacetScope**](FacetScope.md) |  | [optional] 
 **TargetId** | Pointer to **string** |  | [optional] 
 **ConfigurationUri** | Pointer to **string** |  | [optional] 
@@ -12,7 +14,7 @@ Name | Type | Description | Notes
 **PropertiesWithVariables** | Pointer to **[]interface{}** |  | [optional] 
 **ServerUrl** | Pointer to **string** |  | [optional] 
 **ServerUser** | Pointer to **string** |  | [optional] 
-**CreationDate** | Pointer to **string** |  | [optional] 
+**CreationDate** | Pointer to **time.Time** |  | [optional] 
 **RetryAttemptNumber** | Pointer to **int32** |  | [optional] 
 **CreatedViaApi** | Pointer to **bool** |  | [optional] 
 
@@ -34,6 +36,56 @@ will change when the set of required properties is changed
 NewTaskReportingRecordWithDefaults instantiates a new TaskReportingRecord object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *TaskReportingRecord) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *TaskReportingRecord) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *TaskReportingRecord) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *TaskReportingRecord) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *TaskReportingRecord) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *TaskReportingRecord) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *TaskReportingRecord) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *TaskReportingRecord) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetScope
 
@@ -237,20 +289,20 @@ HasServerUser returns a boolean if a field has been set.
 
 ### GetCreationDate
 
-`func (o *TaskReportingRecord) GetCreationDate() string`
+`func (o *TaskReportingRecord) GetCreationDate() time.Time`
 
 GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
 
 ### GetCreationDateOk
 
-`func (o *TaskReportingRecord) GetCreationDateOk() (*string, bool)`
+`func (o *TaskReportingRecord) GetCreationDateOk() (*time.Time, bool)`
 
 GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreationDate
 
-`func (o *TaskReportingRecord) SetCreationDate(v string)`
+`func (o *TaskReportingRecord) SetCreationDate(v time.Time)`
 
 SetCreationDate sets CreationDate field to given value.
 

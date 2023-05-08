@@ -20,19 +20,19 @@ type ReleaseGroupStatus string
 
 // List of ReleaseGroupStatus
 const (
-	PLANNED_GROUP ReleaseGroupStatus = "PLANNED_GROUP"
-	IN_PROGRESS ReleaseGroupStatus = "IN_PROGRESS"
-	PAUSED_GROUP ReleaseGroupStatus = "PAUSED_GROUP"
-	FAILING_GROUP ReleaseGroupStatus = "FAILING_GROUP"
-	FAILED_GROUP ReleaseGroupStatus = "FAILED_GROUP"
+	PLANNED_GROUP   ReleaseGroupStatus = "PLANNED_GROUP"
+	IN_PROGRESS     ReleaseGroupStatus = "IN_PROGRESS_DELIVERY"
+	PAUSED_GROUP    ReleaseGroupStatus = "PAUSED_GROUP"
+	FAILING_GROUP   ReleaseGroupStatus = "FAILING_GROUP"
+	FAILED_GROUP    ReleaseGroupStatus = "FAILED_GROUP"
 	COMPLETED_GROUP ReleaseGroupStatus = "COMPLETED_GROUP"
-	ABORTED_GROUP ReleaseGroupStatus = "ABORTED_GROUP"
+	ABORTED_GROUP   ReleaseGroupStatus = "ABORTED_GROUP"
 )
 
 // All allowed values of ReleaseGroupStatus enum
 var AllowedReleaseGroupStatusEnumValues = []ReleaseGroupStatus{
 	"PLANNED_GROUP",
-	"IN_PROGRESS",
+	"IN_PROGRESS_DELIVERY",
 	"PAUSED_GROUP",
 	"FAILING_GROUP",
 	"FAILED_GROUP",
@@ -118,4 +118,3 @@ func (v *NullableReleaseGroupStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

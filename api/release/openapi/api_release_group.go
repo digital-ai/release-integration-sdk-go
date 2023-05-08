@@ -13,20 +13,19 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // ReleaseGroupApiService ReleaseGroupApi service
 type ReleaseGroupApiService service
 
 type ApiAddMembersToGroupRequest struct {
-	ctx context.Context
-	ApiService *ReleaseGroupApiService
-	groupId string
+	ctx         context.Context
+	ApiService  *ReleaseGroupApiService
+	groupId     string
 	requestBody *[]string
 }
 
@@ -42,24 +41,24 @@ func (r ApiAddMembersToGroupRequest) Execute() (*http.Response, error) {
 /*
 AddMembersToGroup Method for AddMembersToGroup
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId
- @return ApiAddMembersToGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiAddMembersToGroupRequest
 */
 func (a *ReleaseGroupApiService) AddMembersToGroup(ctx context.Context, groupId string) ApiAddMembersToGroupRequest {
 	return ApiAddMembersToGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 	}
 }
 
 // Execute executes the request
 func (a *ReleaseGroupApiService) AddMembersToGroupExecute(r ApiAddMembersToGroupRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.AddMembersToGroup")
@@ -93,6 +92,20 @@ func (a *ReleaseGroupApiService) AddMembersToGroupExecute(r ApiAddMembersToGroup
 	}
 	// body params
 	localVarPostBody = r.requestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -103,9 +116,9 @@ func (a *ReleaseGroupApiService) AddMembersToGroupExecute(r ApiAddMembersToGroup
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -122,8 +135,8 @@ func (a *ReleaseGroupApiService) AddMembersToGroupExecute(r ApiAddMembersToGroup
 }
 
 type ApiCreateGroupRequest struct {
-	ctx context.Context
-	ApiService *ReleaseGroupApiService
+	ctx          context.Context
+	ApiService   *ReleaseGroupApiService
 	releaseGroup *ReleaseGroup
 }
 
@@ -139,24 +152,25 @@ func (r ApiCreateGroupRequest) Execute() (*ReleaseGroup, *http.Response, error) 
 /*
 CreateGroup Method for CreateGroup
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateGroupRequest
 */
 func (a *ReleaseGroupApiService) CreateGroup(ctx context.Context) ApiCreateGroupRequest {
 	return ApiCreateGroupRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseGroup
+//
+//	@return ReleaseGroup
 func (a *ReleaseGroupApiService) CreateGroupExecute(r ApiCreateGroupRequest) (*ReleaseGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseGroup
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.CreateGroup")
@@ -189,6 +203,20 @@ func (a *ReleaseGroupApiService) CreateGroupExecute(r ApiCreateGroupRequest) (*R
 	}
 	// body params
 	localVarPostBody = r.releaseGroup
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -199,9 +227,9 @@ func (a *ReleaseGroupApiService) CreateGroupExecute(r ApiCreateGroupRequest) (*R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -227,9 +255,9 @@ func (a *ReleaseGroupApiService) CreateGroupExecute(r ApiCreateGroupRequest) (*R
 }
 
 type ApiDeleteGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseGroupApiService
-	groupId string
+	groupId    string
 }
 
 func (r ApiDeleteGroupRequest) Execute() (*http.Response, error) {
@@ -239,24 +267,24 @@ func (r ApiDeleteGroupRequest) Execute() (*http.Response, error) {
 /*
 DeleteGroup Method for DeleteGroup
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId
- @return ApiDeleteGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiDeleteGroupRequest
 */
 func (a *ReleaseGroupApiService) DeleteGroup(ctx context.Context, groupId string) ApiDeleteGroupRequest {
 	return ApiDeleteGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 	}
 }
 
 // Execute executes the request
 func (a *ReleaseGroupApiService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.DeleteGroup")
@@ -288,6 +316,20 @@ func (a *ReleaseGroupApiService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*h
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -298,9 +340,9 @@ func (a *ReleaseGroupApiService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*h
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -317,9 +359,9 @@ func (a *ReleaseGroupApiService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*h
 }
 
 type ApiGetGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseGroupApiService
-	groupId string
+	groupId    string
 }
 
 func (r ApiGetGroupRequest) Execute() (*ReleaseGroup, *http.Response, error) {
@@ -329,26 +371,27 @@ func (r ApiGetGroupRequest) Execute() (*ReleaseGroup, *http.Response, error) {
 /*
 GetGroup Method for GetGroup
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId
- @return ApiGetGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiGetGroupRequest
 */
 func (a *ReleaseGroupApiService) GetGroup(ctx context.Context, groupId string) ApiGetGroupRequest {
 	return ApiGetGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseGroup
+//
+//	@return ReleaseGroup
 func (a *ReleaseGroupApiService) GetGroupExecute(r ApiGetGroupRequest) (*ReleaseGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseGroup
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.GetGroup")
@@ -380,6 +423,20 @@ func (a *ReleaseGroupApiService) GetGroupExecute(r ApiGetGroupRequest) (*Release
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -390,9 +447,9 @@ func (a *ReleaseGroupApiService) GetGroupExecute(r ApiGetGroupRequest) (*Release
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -418,9 +475,9 @@ func (a *ReleaseGroupApiService) GetGroupExecute(r ApiGetGroupRequest) (*Release
 }
 
 type ApiGetMembersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseGroupApiService
-	groupId string
+	groupId    string
 }
 
 func (r ApiGetMembersRequest) Execute() ([]string, *http.Response, error) {
@@ -430,26 +487,27 @@ func (r ApiGetMembersRequest) Execute() ([]string, *http.Response, error) {
 /*
 GetMembers Method for GetMembers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId
- @return ApiGetMembersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiGetMembersRequest
 */
 func (a *ReleaseGroupApiService) GetMembers(ctx context.Context, groupId string) ApiGetMembersRequest {
 	return ApiGetMembersRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *ReleaseGroupApiService) GetMembersExecute(r ApiGetMembersRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.GetMembers")
@@ -481,6 +539,20 @@ func (a *ReleaseGroupApiService) GetMembersExecute(r ApiGetMembersRequest) ([]st
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -491,9 +563,9 @@ func (a *ReleaseGroupApiService) GetMembersExecute(r ApiGetMembersRequest) ([]st
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -519,9 +591,9 @@ func (a *ReleaseGroupApiService) GetMembersExecute(r ApiGetMembersRequest) ([]st
 }
 
 type ApiGetReleaseGroupTimelineRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReleaseGroupApiService
-	groupId string
+	groupId    string
 }
 
 func (r ApiGetReleaseGroupTimelineRequest) Execute() (*ReleaseGroupTimeline, *http.Response, error) {
@@ -531,26 +603,27 @@ func (r ApiGetReleaseGroupTimelineRequest) Execute() (*ReleaseGroupTimeline, *ht
 /*
 GetReleaseGroupTimeline Method for GetReleaseGroupTimeline
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId
- @return ApiGetReleaseGroupTimelineRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiGetReleaseGroupTimelineRequest
 */
 func (a *ReleaseGroupApiService) GetReleaseGroupTimeline(ctx context.Context, groupId string) ApiGetReleaseGroupTimelineRequest {
 	return ApiGetReleaseGroupTimelineRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseGroupTimeline
+//
+//	@return ReleaseGroupTimeline
 func (a *ReleaseGroupApiService) GetReleaseGroupTimelineExecute(r ApiGetReleaseGroupTimelineRequest) (*ReleaseGroupTimeline, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseGroupTimeline
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseGroupTimeline
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.GetReleaseGroupTimeline")
@@ -582,6 +655,20 @@ func (a *ReleaseGroupApiService) GetReleaseGroupTimelineExecute(r ApiGetReleaseG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -592,9 +679,9 @@ func (a *ReleaseGroupApiService) GetReleaseGroupTimelineExecute(r ApiGetReleaseG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -620,9 +707,9 @@ func (a *ReleaseGroupApiService) GetReleaseGroupTimelineExecute(r ApiGetReleaseG
 }
 
 type ApiRemoveMembersFromGroupRequest struct {
-	ctx context.Context
-	ApiService *ReleaseGroupApiService
-	groupId string
+	ctx         context.Context
+	ApiService  *ReleaseGroupApiService
+	groupId     string
 	requestBody *[]string
 }
 
@@ -638,24 +725,24 @@ func (r ApiRemoveMembersFromGroupRequest) Execute() (*http.Response, error) {
 /*
 RemoveMembersFromGroup Method for RemoveMembersFromGroup
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId
- @return ApiRemoveMembersFromGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiRemoveMembersFromGroupRequest
 */
 func (a *ReleaseGroupApiService) RemoveMembersFromGroup(ctx context.Context, groupId string) ApiRemoveMembersFromGroupRequest {
 	return ApiRemoveMembersFromGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 	}
 }
 
 // Execute executes the request
 func (a *ReleaseGroupApiService) RemoveMembersFromGroupExecute(r ApiRemoveMembersFromGroupRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.RemoveMembersFromGroup")
@@ -689,6 +776,20 @@ func (a *ReleaseGroupApiService) RemoveMembersFromGroupExecute(r ApiRemoveMember
 	}
 	// body params
 	localVarPostBody = r.requestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -699,9 +800,9 @@ func (a *ReleaseGroupApiService) RemoveMembersFromGroupExecute(r ApiRemoveMember
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -718,11 +819,11 @@ func (a *ReleaseGroupApiService) RemoveMembersFromGroupExecute(r ApiRemoveMember
 }
 
 type ApiSearchGroupsRequest struct {
-	ctx context.Context
-	ApiService *ReleaseGroupApiService
-	orderBy *ReleaseGroupOrderMode
-	page *int64
-	resultsPerPage *int64
+	ctx                 context.Context
+	ApiService          *ReleaseGroupApiService
+	orderBy             *ReleaseGroupOrderMode
+	page                *int64
+	resultsPerPage      *int64
 	releaseGroupFilters *ReleaseGroupFilters
 }
 
@@ -753,24 +854,25 @@ func (r ApiSearchGroupsRequest) Execute() ([]ReleaseGroup, *http.Response, error
 /*
 SearchGroups Method for SearchGroups
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchGroupsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchGroupsRequest
 */
 func (a *ReleaseGroupApiService) SearchGroups(ctx context.Context) ApiSearchGroupsRequest {
 	return ApiSearchGroupsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ReleaseGroup
+//
+//	@return []ReleaseGroup
 func (a *ReleaseGroupApiService) SearchGroupsExecute(r ApiSearchGroupsRequest) ([]ReleaseGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ReleaseGroup
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ReleaseGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.SearchGroups")
@@ -785,13 +887,13 @@ func (a *ReleaseGroupApiService) SearchGroupsExecute(r ApiSearchGroupsRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.orderBy != nil {
-		parameterAddToQuery(localVarQueryParams, "orderBy", r.orderBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "orderBy", r.orderBy, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -812,6 +914,20 @@ func (a *ReleaseGroupApiService) SearchGroupsExecute(r ApiSearchGroupsRequest) (
 	}
 	// body params
 	localVarPostBody = r.releaseGroupFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -822,9 +938,9 @@ func (a *ReleaseGroupApiService) SearchGroupsExecute(r ApiSearchGroupsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -850,9 +966,9 @@ func (a *ReleaseGroupApiService) SearchGroupsExecute(r ApiSearchGroupsRequest) (
 }
 
 type ApiUpdateGroupRequest struct {
-	ctx context.Context
-	ApiService *ReleaseGroupApiService
-	groupId string
+	ctx          context.Context
+	ApiService   *ReleaseGroupApiService
+	groupId      string
 	releaseGroup *ReleaseGroup
 }
 
@@ -868,26 +984,27 @@ func (r ApiUpdateGroupRequest) Execute() (*ReleaseGroup, *http.Response, error) 
 /*
 UpdateGroup Method for UpdateGroup
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId
- @return ApiUpdateGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiUpdateGroupRequest
 */
 func (a *ReleaseGroupApiService) UpdateGroup(ctx context.Context, groupId string) ApiUpdateGroupRequest {
 	return ApiUpdateGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseGroup
+//
+//	@return ReleaseGroup
 func (a *ReleaseGroupApiService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*ReleaseGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseGroup
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleaseGroupApiService.UpdateGroup")
@@ -921,6 +1038,20 @@ func (a *ReleaseGroupApiService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*R
 	}
 	// body params
 	localVarPostBody = r.releaseGroup
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -931,9 +1062,9 @@ func (a *ReleaseGroupApiService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -19,12 +19,14 @@ var _ MappedNullable = &ConfigurationFacet{}
 
 // ConfigurationFacet struct for ConfigurationFacet
 type ConfigurationFacet struct {
-	Scope *FacetScope `json:"scope,omitempty"`
-	TargetId *string `json:"targetId,omitempty"`
-	ConfigurationUri *string `json:"configurationUri,omitempty"`
-	VariableMapping *map[string]string `json:"variableMapping,omitempty"`
-	VariableUsages []UsagePoint `json:"variableUsages,omitempty"`
-	PropertiesWithVariables []interface{} `json:"propertiesWithVariables,omitempty"`
+	Id                      *string            `json:"id,omitempty"`
+	Type                    *string            `json:"type,omitempty"`
+	Scope                   *FacetScope        `json:"scope,omitempty"`
+	TargetId                *string            `json:"targetId,omitempty"`
+	ConfigurationUri        *string            `json:"configurationUri,omitempty"`
+	VariableMapping         *map[string]string `json:"variableMapping,omitempty"`
+	VariableUsages          []UsagePoint       `json:"variableUsages,omitempty"`
+	PropertiesWithVariables []interface{}      `json:"propertiesWithVariables,omitempty"`
 }
 
 // NewConfigurationFacet instantiates a new ConfigurationFacet object
@@ -44,9 +46,73 @@ func NewConfigurationFacetWithDefaults() *ConfigurationFacet {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ConfigurationFacet) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConfigurationFacet) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ConfigurationFacet) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ConfigurationFacet) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ConfigurationFacet) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConfigurationFacet) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ConfigurationFacet) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *ConfigurationFacet) SetType(v string) {
+	o.Type = &v
+}
+
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *ConfigurationFacet) GetScope() FacetScope {
-	if o == nil || isNil(o.Scope) {
+	if o == nil || IsNil(o.Scope) {
 		var ret FacetScope
 		return ret
 	}
@@ -56,7 +122,7 @@ func (o *ConfigurationFacet) GetScope() FacetScope {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationFacet) GetScopeOk() (*FacetScope, bool) {
-	if o == nil || isNil(o.Scope) {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -64,7 +130,7 @@ func (o *ConfigurationFacet) GetScopeOk() (*FacetScope, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *ConfigurationFacet) HasScope() bool {
-	if o != nil && !isNil(o.Scope) {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -78,7 +144,7 @@ func (o *ConfigurationFacet) SetScope(v FacetScope) {
 
 // GetTargetId returns the TargetId field value if set, zero value otherwise.
 func (o *ConfigurationFacet) GetTargetId() string {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		var ret string
 		return ret
 	}
@@ -88,7 +154,7 @@ func (o *ConfigurationFacet) GetTargetId() string {
 // GetTargetIdOk returns a tuple with the TargetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationFacet) GetTargetIdOk() (*string, bool) {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		return nil, false
 	}
 	return o.TargetId, true
@@ -96,7 +162,7 @@ func (o *ConfigurationFacet) GetTargetIdOk() (*string, bool) {
 
 // HasTargetId returns a boolean if a field has been set.
 func (o *ConfigurationFacet) HasTargetId() bool {
-	if o != nil && !isNil(o.TargetId) {
+	if o != nil && !IsNil(o.TargetId) {
 		return true
 	}
 
@@ -110,7 +176,7 @@ func (o *ConfigurationFacet) SetTargetId(v string) {
 
 // GetConfigurationUri returns the ConfigurationUri field value if set, zero value otherwise.
 func (o *ConfigurationFacet) GetConfigurationUri() string {
-	if o == nil || isNil(o.ConfigurationUri) {
+	if o == nil || IsNil(o.ConfigurationUri) {
 		var ret string
 		return ret
 	}
@@ -120,7 +186,7 @@ func (o *ConfigurationFacet) GetConfigurationUri() string {
 // GetConfigurationUriOk returns a tuple with the ConfigurationUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationFacet) GetConfigurationUriOk() (*string, bool) {
-	if o == nil || isNil(o.ConfigurationUri) {
+	if o == nil || IsNil(o.ConfigurationUri) {
 		return nil, false
 	}
 	return o.ConfigurationUri, true
@@ -128,7 +194,7 @@ func (o *ConfigurationFacet) GetConfigurationUriOk() (*string, bool) {
 
 // HasConfigurationUri returns a boolean if a field has been set.
 func (o *ConfigurationFacet) HasConfigurationUri() bool {
-	if o != nil && !isNil(o.ConfigurationUri) {
+	if o != nil && !IsNil(o.ConfigurationUri) {
 		return true
 	}
 
@@ -142,7 +208,7 @@ func (o *ConfigurationFacet) SetConfigurationUri(v string) {
 
 // GetVariableMapping returns the VariableMapping field value if set, zero value otherwise.
 func (o *ConfigurationFacet) GetVariableMapping() map[string]string {
-	if o == nil || isNil(o.VariableMapping) {
+	if o == nil || IsNil(o.VariableMapping) {
 		var ret map[string]string
 		return ret
 	}
@@ -152,7 +218,7 @@ func (o *ConfigurationFacet) GetVariableMapping() map[string]string {
 // GetVariableMappingOk returns a tuple with the VariableMapping field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationFacet) GetVariableMappingOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.VariableMapping) {
+	if o == nil || IsNil(o.VariableMapping) {
 		return nil, false
 	}
 	return o.VariableMapping, true
@@ -160,7 +226,7 @@ func (o *ConfigurationFacet) GetVariableMappingOk() (*map[string]string, bool) {
 
 // HasVariableMapping returns a boolean if a field has been set.
 func (o *ConfigurationFacet) HasVariableMapping() bool {
-	if o != nil && !isNil(o.VariableMapping) {
+	if o != nil && !IsNil(o.VariableMapping) {
 		return true
 	}
 
@@ -174,7 +240,7 @@ func (o *ConfigurationFacet) SetVariableMapping(v map[string]string) {
 
 // GetVariableUsages returns the VariableUsages field value if set, zero value otherwise.
 func (o *ConfigurationFacet) GetVariableUsages() []UsagePoint {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		var ret []UsagePoint
 		return ret
 	}
@@ -184,7 +250,7 @@ func (o *ConfigurationFacet) GetVariableUsages() []UsagePoint {
 // GetVariableUsagesOk returns a tuple with the VariableUsages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationFacet) GetVariableUsagesOk() ([]UsagePoint, bool) {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		return nil, false
 	}
 	return o.VariableUsages, true
@@ -192,7 +258,7 @@ func (o *ConfigurationFacet) GetVariableUsagesOk() ([]UsagePoint, bool) {
 
 // HasVariableUsages returns a boolean if a field has been set.
 func (o *ConfigurationFacet) HasVariableUsages() bool {
-	if o != nil && !isNil(o.VariableUsages) {
+	if o != nil && !IsNil(o.VariableUsages) {
 		return true
 	}
 
@@ -206,7 +272,7 @@ func (o *ConfigurationFacet) SetVariableUsages(v []UsagePoint) {
 
 // GetPropertiesWithVariables returns the PropertiesWithVariables field value if set, zero value otherwise.
 func (o *ConfigurationFacet) GetPropertiesWithVariables() []interface{} {
-	if o == nil || isNil(o.PropertiesWithVariables) {
+	if o == nil || IsNil(o.PropertiesWithVariables) {
 		var ret []interface{}
 		return ret
 	}
@@ -216,7 +282,7 @@ func (o *ConfigurationFacet) GetPropertiesWithVariables() []interface{} {
 // GetPropertiesWithVariablesOk returns a tuple with the PropertiesWithVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationFacet) GetPropertiesWithVariablesOk() ([]interface{}, bool) {
-	if o == nil || isNil(o.PropertiesWithVariables) {
+	if o == nil || IsNil(o.PropertiesWithVariables) {
 		return nil, false
 	}
 	return o.PropertiesWithVariables, true
@@ -224,7 +290,7 @@ func (o *ConfigurationFacet) GetPropertiesWithVariablesOk() ([]interface{}, bool
 
 // HasPropertiesWithVariables returns a boolean if a field has been set.
 func (o *ConfigurationFacet) HasPropertiesWithVariables() bool {
-	if o != nil && !isNil(o.PropertiesWithVariables) {
+	if o != nil && !IsNil(o.PropertiesWithVariables) {
 		return true
 	}
 
@@ -237,7 +303,7 @@ func (o *ConfigurationFacet) SetPropertiesWithVariables(v []interface{}) {
 }
 
 func (o ConfigurationFacet) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -246,22 +312,28 @@ func (o ConfigurationFacet) MarshalJSON() ([]byte, error) {
 
 func (o ConfigurationFacet) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Scope) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if !isNil(o.TargetId) {
+	if !IsNil(o.TargetId) {
 		toSerialize["targetId"] = o.TargetId
 	}
-	if !isNil(o.ConfigurationUri) {
+	if !IsNil(o.ConfigurationUri) {
 		toSerialize["configurationUri"] = o.ConfigurationUri
 	}
-	if !isNil(o.VariableMapping) {
+	if !IsNil(o.VariableMapping) {
 		toSerialize["variableMapping"] = o.VariableMapping
 	}
-	if !isNil(o.VariableUsages) {
+	if !IsNil(o.VariableUsages) {
 		toSerialize["variableUsages"] = o.VariableUsages
 	}
-	if !isNil(o.PropertiesWithVariables) {
+	if !IsNil(o.PropertiesWithVariables) {
 		toSerialize["propertiesWithVariables"] = o.PropertiesWithVariables
 	}
 	return toSerialize, nil
@@ -302,5 +374,3 @@ func (v *NullableConfigurationFacet) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

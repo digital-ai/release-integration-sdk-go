@@ -19,15 +19,17 @@ var _ MappedNullable = &Team{}
 
 // Team struct for Team
 type Team struct {
-	TeamName *string `json:"teamName,omitempty"`
-	Members []string `json:"members,omitempty"`
-	Roles []string `json:"roles,omitempty"`
-	Permissions []string `json:"permissions,omitempty"`
-	ReleaseAdminTeam *bool `json:"releaseAdminTeam,omitempty"`
-	TemplateOwnerTeam *bool `json:"templateOwnerTeam,omitempty"`
-	FolderOwnerTeam *bool `json:"folderOwnerTeam,omitempty"`
-	FolderAdminTeam *bool `json:"folderAdminTeam,omitempty"`
-	SystemTeam *bool `json:"systemTeam,omitempty"`
+	Id                *string  `json:"id,omitempty"`
+	Type              *string  `json:"type,omitempty"`
+	TeamName          *string  `json:"teamName,omitempty"`
+	Members           []string `json:"members,omitempty"`
+	Roles             []string `json:"roles,omitempty"`
+	Permissions       []string `json:"permissions,omitempty"`
+	ReleaseAdminTeam  *bool    `json:"releaseAdminTeam,omitempty"`
+	TemplateOwnerTeam *bool    `json:"templateOwnerTeam,omitempty"`
+	FolderOwnerTeam   *bool    `json:"folderOwnerTeam,omitempty"`
+	FolderAdminTeam   *bool    `json:"folderAdminTeam,omitempty"`
+	SystemTeam        *bool    `json:"systemTeam,omitempty"`
 }
 
 // NewTeam instantiates a new Team object
@@ -47,9 +49,73 @@ func NewTeamWithDefaults() *Team {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Team) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Team) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Team) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Team) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Team) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Team) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Team) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Team) SetType(v string) {
+	o.Type = &v
+}
+
 // GetTeamName returns the TeamName field value if set, zero value otherwise.
 func (o *Team) GetTeamName() string {
-	if o == nil || isNil(o.TeamName) {
+	if o == nil || IsNil(o.TeamName) {
 		var ret string
 		return ret
 	}
@@ -59,7 +125,7 @@ func (o *Team) GetTeamName() string {
 // GetTeamNameOk returns a tuple with the TeamName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetTeamNameOk() (*string, bool) {
-	if o == nil || isNil(o.TeamName) {
+	if o == nil || IsNil(o.TeamName) {
 		return nil, false
 	}
 	return o.TeamName, true
@@ -67,7 +133,7 @@ func (o *Team) GetTeamNameOk() (*string, bool) {
 
 // HasTeamName returns a boolean if a field has been set.
 func (o *Team) HasTeamName() bool {
-	if o != nil && !isNil(o.TeamName) {
+	if o != nil && !IsNil(o.TeamName) {
 		return true
 	}
 
@@ -81,7 +147,7 @@ func (o *Team) SetTeamName(v string) {
 
 // GetMembers returns the Members field value if set, zero value otherwise.
 func (o *Team) GetMembers() []string {
-	if o == nil || isNil(o.Members) {
+	if o == nil || IsNil(o.Members) {
 		var ret []string
 		return ret
 	}
@@ -91,7 +157,7 @@ func (o *Team) GetMembers() []string {
 // GetMembersOk returns a tuple with the Members field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetMembersOk() ([]string, bool) {
-	if o == nil || isNil(o.Members) {
+	if o == nil || IsNil(o.Members) {
 		return nil, false
 	}
 	return o.Members, true
@@ -99,7 +165,7 @@ func (o *Team) GetMembersOk() ([]string, bool) {
 
 // HasMembers returns a boolean if a field has been set.
 func (o *Team) HasMembers() bool {
-	if o != nil && !isNil(o.Members) {
+	if o != nil && !IsNil(o.Members) {
 		return true
 	}
 
@@ -113,7 +179,7 @@ func (o *Team) SetMembers(v []string) {
 
 // GetRoles returns the Roles field value if set, zero value otherwise.
 func (o *Team) GetRoles() []string {
-	if o == nil || isNil(o.Roles) {
+	if o == nil || IsNil(o.Roles) {
 		var ret []string
 		return ret
 	}
@@ -123,7 +189,7 @@ func (o *Team) GetRoles() []string {
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetRolesOk() ([]string, bool) {
-	if o == nil || isNil(o.Roles) {
+	if o == nil || IsNil(o.Roles) {
 		return nil, false
 	}
 	return o.Roles, true
@@ -131,7 +197,7 @@ func (o *Team) GetRolesOk() ([]string, bool) {
 
 // HasRoles returns a boolean if a field has been set.
 func (o *Team) HasRoles() bool {
-	if o != nil && !isNil(o.Roles) {
+	if o != nil && !IsNil(o.Roles) {
 		return true
 	}
 
@@ -145,7 +211,7 @@ func (o *Team) SetRoles(v []string) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *Team) GetPermissions() []string {
-	if o == nil || isNil(o.Permissions) {
+	if o == nil || IsNil(o.Permissions) {
 		var ret []string
 		return ret
 	}
@@ -155,7 +221,7 @@ func (o *Team) GetPermissions() []string {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetPermissionsOk() ([]string, bool) {
-	if o == nil || isNil(o.Permissions) {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -163,7 +229,7 @@ func (o *Team) GetPermissionsOk() ([]string, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *Team) HasPermissions() bool {
-	if o != nil && !isNil(o.Permissions) {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -177,7 +243,7 @@ func (o *Team) SetPermissions(v []string) {
 
 // GetReleaseAdminTeam returns the ReleaseAdminTeam field value if set, zero value otherwise.
 func (o *Team) GetReleaseAdminTeam() bool {
-	if o == nil || isNil(o.ReleaseAdminTeam) {
+	if o == nil || IsNil(o.ReleaseAdminTeam) {
 		var ret bool
 		return ret
 	}
@@ -187,7 +253,7 @@ func (o *Team) GetReleaseAdminTeam() bool {
 // GetReleaseAdminTeamOk returns a tuple with the ReleaseAdminTeam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetReleaseAdminTeamOk() (*bool, bool) {
-	if o == nil || isNil(o.ReleaseAdminTeam) {
+	if o == nil || IsNil(o.ReleaseAdminTeam) {
 		return nil, false
 	}
 	return o.ReleaseAdminTeam, true
@@ -195,7 +261,7 @@ func (o *Team) GetReleaseAdminTeamOk() (*bool, bool) {
 
 // HasReleaseAdminTeam returns a boolean if a field has been set.
 func (o *Team) HasReleaseAdminTeam() bool {
-	if o != nil && !isNil(o.ReleaseAdminTeam) {
+	if o != nil && !IsNil(o.ReleaseAdminTeam) {
 		return true
 	}
 
@@ -209,7 +275,7 @@ func (o *Team) SetReleaseAdminTeam(v bool) {
 
 // GetTemplateOwnerTeam returns the TemplateOwnerTeam field value if set, zero value otherwise.
 func (o *Team) GetTemplateOwnerTeam() bool {
-	if o == nil || isNil(o.TemplateOwnerTeam) {
+	if o == nil || IsNil(o.TemplateOwnerTeam) {
 		var ret bool
 		return ret
 	}
@@ -219,7 +285,7 @@ func (o *Team) GetTemplateOwnerTeam() bool {
 // GetTemplateOwnerTeamOk returns a tuple with the TemplateOwnerTeam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetTemplateOwnerTeamOk() (*bool, bool) {
-	if o == nil || isNil(o.TemplateOwnerTeam) {
+	if o == nil || IsNil(o.TemplateOwnerTeam) {
 		return nil, false
 	}
 	return o.TemplateOwnerTeam, true
@@ -227,7 +293,7 @@ func (o *Team) GetTemplateOwnerTeamOk() (*bool, bool) {
 
 // HasTemplateOwnerTeam returns a boolean if a field has been set.
 func (o *Team) HasTemplateOwnerTeam() bool {
-	if o != nil && !isNil(o.TemplateOwnerTeam) {
+	if o != nil && !IsNil(o.TemplateOwnerTeam) {
 		return true
 	}
 
@@ -241,7 +307,7 @@ func (o *Team) SetTemplateOwnerTeam(v bool) {
 
 // GetFolderOwnerTeam returns the FolderOwnerTeam field value if set, zero value otherwise.
 func (o *Team) GetFolderOwnerTeam() bool {
-	if o == nil || isNil(o.FolderOwnerTeam) {
+	if o == nil || IsNil(o.FolderOwnerTeam) {
 		var ret bool
 		return ret
 	}
@@ -251,7 +317,7 @@ func (o *Team) GetFolderOwnerTeam() bool {
 // GetFolderOwnerTeamOk returns a tuple with the FolderOwnerTeam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetFolderOwnerTeamOk() (*bool, bool) {
-	if o == nil || isNil(o.FolderOwnerTeam) {
+	if o == nil || IsNil(o.FolderOwnerTeam) {
 		return nil, false
 	}
 	return o.FolderOwnerTeam, true
@@ -259,7 +325,7 @@ func (o *Team) GetFolderOwnerTeamOk() (*bool, bool) {
 
 // HasFolderOwnerTeam returns a boolean if a field has been set.
 func (o *Team) HasFolderOwnerTeam() bool {
-	if o != nil && !isNil(o.FolderOwnerTeam) {
+	if o != nil && !IsNil(o.FolderOwnerTeam) {
 		return true
 	}
 
@@ -273,7 +339,7 @@ func (o *Team) SetFolderOwnerTeam(v bool) {
 
 // GetFolderAdminTeam returns the FolderAdminTeam field value if set, zero value otherwise.
 func (o *Team) GetFolderAdminTeam() bool {
-	if o == nil || isNil(o.FolderAdminTeam) {
+	if o == nil || IsNil(o.FolderAdminTeam) {
 		var ret bool
 		return ret
 	}
@@ -283,7 +349,7 @@ func (o *Team) GetFolderAdminTeam() bool {
 // GetFolderAdminTeamOk returns a tuple with the FolderAdminTeam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetFolderAdminTeamOk() (*bool, bool) {
-	if o == nil || isNil(o.FolderAdminTeam) {
+	if o == nil || IsNil(o.FolderAdminTeam) {
 		return nil, false
 	}
 	return o.FolderAdminTeam, true
@@ -291,7 +357,7 @@ func (o *Team) GetFolderAdminTeamOk() (*bool, bool) {
 
 // HasFolderAdminTeam returns a boolean if a field has been set.
 func (o *Team) HasFolderAdminTeam() bool {
-	if o != nil && !isNil(o.FolderAdminTeam) {
+	if o != nil && !IsNil(o.FolderAdminTeam) {
 		return true
 	}
 
@@ -305,7 +371,7 @@ func (o *Team) SetFolderAdminTeam(v bool) {
 
 // GetSystemTeam returns the SystemTeam field value if set, zero value otherwise.
 func (o *Team) GetSystemTeam() bool {
-	if o == nil || isNil(o.SystemTeam) {
+	if o == nil || IsNil(o.SystemTeam) {
 		var ret bool
 		return ret
 	}
@@ -315,7 +381,7 @@ func (o *Team) GetSystemTeam() bool {
 // GetSystemTeamOk returns a tuple with the SystemTeam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Team) GetSystemTeamOk() (*bool, bool) {
-	if o == nil || isNil(o.SystemTeam) {
+	if o == nil || IsNil(o.SystemTeam) {
 		return nil, false
 	}
 	return o.SystemTeam, true
@@ -323,7 +389,7 @@ func (o *Team) GetSystemTeamOk() (*bool, bool) {
 
 // HasSystemTeam returns a boolean if a field has been set.
 func (o *Team) HasSystemTeam() bool {
-	if o != nil && !isNil(o.SystemTeam) {
+	if o != nil && !IsNil(o.SystemTeam) {
 		return true
 	}
 
@@ -336,7 +402,7 @@ func (o *Team) SetSystemTeam(v bool) {
 }
 
 func (o Team) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -345,31 +411,37 @@ func (o Team) MarshalJSON() ([]byte, error) {
 
 func (o Team) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.TeamName) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.TeamName) {
 		toSerialize["teamName"] = o.TeamName
 	}
-	if !isNil(o.Members) {
+	if !IsNil(o.Members) {
 		toSerialize["members"] = o.Members
 	}
-	if !isNil(o.Roles) {
+	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}
-	if !isNil(o.Permissions) {
+	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
-	if !isNil(o.ReleaseAdminTeam) {
+	if !IsNil(o.ReleaseAdminTeam) {
 		toSerialize["releaseAdminTeam"] = o.ReleaseAdminTeam
 	}
-	if !isNil(o.TemplateOwnerTeam) {
+	if !IsNil(o.TemplateOwnerTeam) {
 		toSerialize["templateOwnerTeam"] = o.TemplateOwnerTeam
 	}
-	if !isNil(o.FolderOwnerTeam) {
+	if !IsNil(o.FolderOwnerTeam) {
 		toSerialize["folderOwnerTeam"] = o.FolderOwnerTeam
 	}
-	if !isNil(o.FolderAdminTeam) {
+	if !IsNil(o.FolderAdminTeam) {
 		toSerialize["folderAdminTeam"] = o.FolderAdminTeam
 	}
-	if !isNil(o.SystemTeam) {
+	if !IsNil(o.SystemTeam) {
 		toSerialize["systemTeam"] = o.SystemTeam
 	}
 	return toSerialize, nil
@@ -410,5 +482,3 @@ func (v *NullableTeam) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

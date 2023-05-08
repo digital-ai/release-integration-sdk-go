@@ -13,19 +13,18 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // ApplicationApiService ApplicationApi service
 type ApplicationApiService service
 
 type ApiCreateApplicationRequest struct {
-	ctx context.Context
-	ApiService *ApplicationApiService
+	ctx             context.Context
+	ApiService      *ApplicationApiService
 	applicationForm *ApplicationForm
 }
 
@@ -41,24 +40,25 @@ func (r ApiCreateApplicationRequest) Execute() (*ApplicationView, *http.Response
 /*
 CreateApplication Method for CreateApplication
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateApplicationRequest
 */
 func (a *ApplicationApiService) CreateApplication(ctx context.Context) ApiCreateApplicationRequest {
 	return ApiCreateApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ApplicationView
+//
+//	@return ApplicationView
 func (a *ApplicationApiService) CreateApplicationExecute(r ApiCreateApplicationRequest) (*ApplicationView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApplicationView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ApplicationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationApiService.CreateApplication")
@@ -91,6 +91,20 @@ func (a *ApplicationApiService) CreateApplicationExecute(r ApiCreateApplicationR
 	}
 	// body params
 	localVarPostBody = r.applicationForm
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -101,9 +115,9 @@ func (a *ApplicationApiService) CreateApplicationExecute(r ApiCreateApplicationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -129,8 +143,8 @@ func (a *ApplicationApiService) CreateApplicationExecute(r ApiCreateApplicationR
 }
 
 type ApiDeleteApplicationRequest struct {
-	ctx context.Context
-	ApiService *ApplicationApiService
+	ctx           context.Context
+	ApiService    *ApplicationApiService
 	applicationId string
 }
 
@@ -141,14 +155,14 @@ func (r ApiDeleteApplicationRequest) Execute() (*http.Response, error) {
 /*
 DeleteApplication Method for DeleteApplication
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param applicationId
- @return ApiDeleteApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiDeleteApplicationRequest
 */
 func (a *ApplicationApiService) DeleteApplication(ctx context.Context, applicationId string) ApiDeleteApplicationRequest {
 	return ApiDeleteApplicationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		applicationId: applicationId,
 	}
 }
@@ -156,9 +170,9 @@ func (a *ApplicationApiService) DeleteApplication(ctx context.Context, applicati
 // Execute executes the request
 func (a *ApplicationApiService) DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationApiService.DeleteApplication")
@@ -190,6 +204,20 @@ func (a *ApplicationApiService) DeleteApplicationExecute(r ApiDeleteApplicationR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -200,9 +228,9 @@ func (a *ApplicationApiService) DeleteApplicationExecute(r ApiDeleteApplicationR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -219,8 +247,8 @@ func (a *ApplicationApiService) DeleteApplicationExecute(r ApiDeleteApplicationR
 }
 
 type ApiGetApplicationRequest struct {
-	ctx context.Context
-	ApiService *ApplicationApiService
+	ctx           context.Context
+	ApiService    *ApplicationApiService
 	applicationId string
 }
 
@@ -231,26 +259,27 @@ func (r ApiGetApplicationRequest) Execute() (*ApplicationView, *http.Response, e
 /*
 GetApplication Method for GetApplication
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param applicationId
- @return ApiGetApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiGetApplicationRequest
 */
 func (a *ApplicationApiService) GetApplication(ctx context.Context, applicationId string) ApiGetApplicationRequest {
 	return ApiGetApplicationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		applicationId: applicationId,
 	}
 }
 
 // Execute executes the request
-//  @return ApplicationView
+//
+//	@return ApplicationView
 func (a *ApplicationApiService) GetApplicationExecute(r ApiGetApplicationRequest) (*ApplicationView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApplicationView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ApplicationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationApiService.GetApplication")
@@ -282,6 +311,20 @@ func (a *ApplicationApiService) GetApplicationExecute(r ApiGetApplicationRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -292,9 +335,9 @@ func (a *ApplicationApiService) GetApplicationExecute(r ApiGetApplicationRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -320,8 +363,8 @@ func (a *ApplicationApiService) GetApplicationExecute(r ApiGetApplicationRequest
 }
 
 type ApiSearchApplicationsRequest struct {
-	ctx context.Context
-	ApiService *ApplicationApiService
+	ctx                context.Context
+	ApiService         *ApplicationApiService
 	applicationFilters *ApplicationFilters
 }
 
@@ -337,24 +380,25 @@ func (r ApiSearchApplicationsRequest) Execute() ([]ApplicationView, *http.Respon
 /*
 SearchApplications Method for SearchApplications
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchApplicationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchApplicationsRequest
 */
 func (a *ApplicationApiService) SearchApplications(ctx context.Context) ApiSearchApplicationsRequest {
 	return ApiSearchApplicationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ApplicationView
+//
+//	@return []ApplicationView
 func (a *ApplicationApiService) SearchApplicationsExecute(r ApiSearchApplicationsRequest) ([]ApplicationView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ApplicationView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ApplicationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationApiService.SearchApplications")
@@ -387,6 +431,20 @@ func (a *ApplicationApiService) SearchApplicationsExecute(r ApiSearchApplication
 	}
 	// body params
 	localVarPostBody = r.applicationFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -397,9 +455,9 @@ func (a *ApplicationApiService) SearchApplicationsExecute(r ApiSearchApplication
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -425,9 +483,9 @@ func (a *ApplicationApiService) SearchApplicationsExecute(r ApiSearchApplication
 }
 
 type ApiUpdateApplicationRequest struct {
-	ctx context.Context
-	ApiService *ApplicationApiService
-	applicationId string
+	ctx             context.Context
+	ApiService      *ApplicationApiService
+	applicationId   string
 	applicationForm *ApplicationForm
 }
 
@@ -443,26 +501,27 @@ func (r ApiUpdateApplicationRequest) Execute() (*ApplicationView, *http.Response
 /*
 UpdateApplication Method for UpdateApplication
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param applicationId
- @return ApiUpdateApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiUpdateApplicationRequest
 */
 func (a *ApplicationApiService) UpdateApplication(ctx context.Context, applicationId string) ApiUpdateApplicationRequest {
 	return ApiUpdateApplicationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		applicationId: applicationId,
 	}
 }
 
 // Execute executes the request
-//  @return ApplicationView
+//
+//	@return ApplicationView
 func (a *ApplicationApiService) UpdateApplicationExecute(r ApiUpdateApplicationRequest) (*ApplicationView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApplicationView
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ApplicationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationApiService.UpdateApplication")
@@ -496,6 +555,20 @@ func (a *ApplicationApiService) UpdateApplicationExecute(r ApiUpdateApplicationR
 	}
 	// body params
 	localVarPostBody = r.applicationForm
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -506,9 +579,9 @@ func (a *ApplicationApiService) UpdateApplicationExecute(r ApiUpdateApplicationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

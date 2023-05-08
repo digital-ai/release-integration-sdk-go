@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Type** | Pointer to **string** |  | [optional] 
 **RequiresValue** | Pointer to **bool** |  | [optional] 
 **ShowOnReleaseStart** | Pointer to **bool** |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
+**Value** | Pointer to **interface{}** |  | [optional] 
 **Label** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Multiline** | Pointer to **bool** |  | [optional] 
@@ -164,20 +164,20 @@ HasShowOnReleaseStart returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *Variable1) GetValue() map[string]interface{}`
+`func (o *Variable1) GetValue() interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *Variable1) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *Variable1) GetValueOk() (*interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *Variable1) SetValue(v map[string]interface{})`
+`func (o *Variable1) SetValue(v interface{})`
 
 SetValue sets Value field to given value.
 
@@ -187,6 +187,16 @@ SetValue sets Value field to given value.
 
 HasValue returns a boolean if a field has been set.
 
+### SetValueNil
+
+`func (o *Variable1) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *Variable1) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 ### GetLabel
 
 `func (o *Variable1) GetLabel() string`

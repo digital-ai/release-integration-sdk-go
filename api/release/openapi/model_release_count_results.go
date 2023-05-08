@@ -19,9 +19,9 @@ var _ MappedNullable = &ReleaseCountResults{}
 
 // ReleaseCountResults struct for ReleaseCountResults
 type ReleaseCountResults struct {
-	Live *ReleaseCountResult `json:"live,omitempty"`
+	Live     *ReleaseCountResult `json:"live,omitempty"`
 	Archived *ReleaseCountResult `json:"archived,omitempty"`
-	All *ReleaseCountResult `json:"all,omitempty"`
+	All      *ReleaseCountResult `json:"all,omitempty"`
 }
 
 // NewReleaseCountResults instantiates a new ReleaseCountResults object
@@ -43,7 +43,7 @@ func NewReleaseCountResultsWithDefaults() *ReleaseCountResults {
 
 // GetLive returns the Live field value if set, zero value otherwise.
 func (o *ReleaseCountResults) GetLive() ReleaseCountResult {
-	if o == nil || isNil(o.Live) {
+	if o == nil || IsNil(o.Live) {
 		var ret ReleaseCountResult
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *ReleaseCountResults) GetLive() ReleaseCountResult {
 // GetLiveOk returns a tuple with the Live field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseCountResults) GetLiveOk() (*ReleaseCountResult, bool) {
-	if o == nil || isNil(o.Live) {
+	if o == nil || IsNil(o.Live) {
 		return nil, false
 	}
 	return o.Live, true
@@ -61,7 +61,7 @@ func (o *ReleaseCountResults) GetLiveOk() (*ReleaseCountResult, bool) {
 
 // HasLive returns a boolean if a field has been set.
 func (o *ReleaseCountResults) HasLive() bool {
-	if o != nil && !isNil(o.Live) {
+	if o != nil && !IsNil(o.Live) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *ReleaseCountResults) SetLive(v ReleaseCountResult) {
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *ReleaseCountResults) GetArchived() ReleaseCountResult {
-	if o == nil || isNil(o.Archived) {
+	if o == nil || IsNil(o.Archived) {
 		var ret ReleaseCountResult
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *ReleaseCountResults) GetArchived() ReleaseCountResult {
 // GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseCountResults) GetArchivedOk() (*ReleaseCountResult, bool) {
-	if o == nil || isNil(o.Archived) {
+	if o == nil || IsNil(o.Archived) {
 		return nil, false
 	}
 	return o.Archived, true
@@ -93,7 +93,7 @@ func (o *ReleaseCountResults) GetArchivedOk() (*ReleaseCountResult, bool) {
 
 // HasArchived returns a boolean if a field has been set.
 func (o *ReleaseCountResults) HasArchived() bool {
-	if o != nil && !isNil(o.Archived) {
+	if o != nil && !IsNil(o.Archived) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *ReleaseCountResults) SetArchived(v ReleaseCountResult) {
 
 // GetAll returns the All field value if set, zero value otherwise.
 func (o *ReleaseCountResults) GetAll() ReleaseCountResult {
-	if o == nil || isNil(o.All) {
+	if o == nil || IsNil(o.All) {
 		var ret ReleaseCountResult
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *ReleaseCountResults) GetAll() ReleaseCountResult {
 // GetAllOk returns a tuple with the All field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseCountResults) GetAllOk() (*ReleaseCountResult, bool) {
-	if o == nil || isNil(o.All) {
+	if o == nil || IsNil(o.All) {
 		return nil, false
 	}
 	return o.All, true
@@ -125,7 +125,7 @@ func (o *ReleaseCountResults) GetAllOk() (*ReleaseCountResult, bool) {
 
 // HasAll returns a boolean if a field has been set.
 func (o *ReleaseCountResults) HasAll() bool {
-	if o != nil && !isNil(o.All) {
+	if o != nil && !IsNil(o.All) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *ReleaseCountResults) SetAll(v ReleaseCountResult) {
 }
 
 func (o ReleaseCountResults) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o ReleaseCountResults) MarshalJSON() ([]byte, error) {
 
 func (o ReleaseCountResults) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Live) {
+	if !IsNil(o.Live) {
 		toSerialize["live"] = o.Live
 	}
-	if !isNil(o.Archived) {
+	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
-	if !isNil(o.All) {
+	if !IsNil(o.All) {
 		toSerialize["all"] = o.All
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableReleaseCountResults) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

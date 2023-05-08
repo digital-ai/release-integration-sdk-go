@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Releases** | Pointer to [**[]ReleaseTimeline**](ReleaseTimeline.md) |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -106,20 +106,20 @@ HasReleases returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *DeliveryTimeline) GetStartDate() string`
+`func (o *DeliveryTimeline) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *DeliveryTimeline) GetStartDateOk() (*string, bool)`
+`func (o *DeliveryTimeline) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *DeliveryTimeline) SetStartDate(v string)`
+`func (o *DeliveryTimeline) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -131,20 +131,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *DeliveryTimeline) GetEndDate() string`
+`func (o *DeliveryTimeline) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *DeliveryTimeline) GetEndDateOk() (*string, bool)`
+`func (o *DeliveryTimeline) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *DeliveryTimeline) SetEndDate(v string)`
+`func (o *DeliveryTimeline) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 

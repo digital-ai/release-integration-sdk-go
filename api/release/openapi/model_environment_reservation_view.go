@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the EnvironmentReservationView type satisfies the MappedNullable interface at compile time
@@ -19,11 +20,11 @@ var _ MappedNullable = &EnvironmentReservationView{}
 
 // EnvironmentReservationView struct for EnvironmentReservationView
 type EnvironmentReservationView struct {
-	Id *string `json:"id,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	Note *string `json:"note,omitempty"`
-	Environment *EnvironmentView `json:"environment,omitempty"`
+	Id           *string               `json:"id,omitempty"`
+	StartDate    *time.Time            `json:"startDate,omitempty"`
+	EndDate      *time.Time            `json:"endDate,omitempty"`
+	Note         *string               `json:"note,omitempty"`
+	Environment  *EnvironmentView      `json:"environment,omitempty"`
 	Applications []BaseApplicationView `json:"applications,omitempty"`
 }
 
@@ -46,7 +47,7 @@ func NewEnvironmentReservationViewWithDefaults() *EnvironmentReservationView {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EnvironmentReservationView) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -56,7 +57,7 @@ func (o *EnvironmentReservationView) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationView) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -64,7 +65,7 @@ func (o *EnvironmentReservationView) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EnvironmentReservationView) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -77,9 +78,9 @@ func (o *EnvironmentReservationView) SetId(v string) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *EnvironmentReservationView) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *EnvironmentReservationView) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -87,8 +88,8 @@ func (o *EnvironmentReservationView) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReservationView) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *EnvironmentReservationView) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -96,22 +97,22 @@ func (o *EnvironmentReservationView) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *EnvironmentReservationView) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *EnvironmentReservationView) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *EnvironmentReservationView) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *EnvironmentReservationView) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *EnvironmentReservationView) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -119,8 +120,8 @@ func (o *EnvironmentReservationView) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReservationView) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *EnvironmentReservationView) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -128,21 +129,21 @@ func (o *EnvironmentReservationView) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *EnvironmentReservationView) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *EnvironmentReservationView) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *EnvironmentReservationView) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetNote returns the Note field value if set, zero value otherwise.
 func (o *EnvironmentReservationView) GetNote() string {
-	if o == nil || isNil(o.Note) {
+	if o == nil || IsNil(o.Note) {
 		var ret string
 		return ret
 	}
@@ -152,7 +153,7 @@ func (o *EnvironmentReservationView) GetNote() string {
 // GetNoteOk returns a tuple with the Note field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationView) GetNoteOk() (*string, bool) {
-	if o == nil || isNil(o.Note) {
+	if o == nil || IsNil(o.Note) {
 		return nil, false
 	}
 	return o.Note, true
@@ -160,7 +161,7 @@ func (o *EnvironmentReservationView) GetNoteOk() (*string, bool) {
 
 // HasNote returns a boolean if a field has been set.
 func (o *EnvironmentReservationView) HasNote() bool {
-	if o != nil && !isNil(o.Note) {
+	if o != nil && !IsNil(o.Note) {
 		return true
 	}
 
@@ -174,7 +175,7 @@ func (o *EnvironmentReservationView) SetNote(v string) {
 
 // GetEnvironment returns the Environment field value if set, zero value otherwise.
 func (o *EnvironmentReservationView) GetEnvironment() EnvironmentView {
-	if o == nil || isNil(o.Environment) {
+	if o == nil || IsNil(o.Environment) {
 		var ret EnvironmentView
 		return ret
 	}
@@ -184,7 +185,7 @@ func (o *EnvironmentReservationView) GetEnvironment() EnvironmentView {
 // GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationView) GetEnvironmentOk() (*EnvironmentView, bool) {
-	if o == nil || isNil(o.Environment) {
+	if o == nil || IsNil(o.Environment) {
 		return nil, false
 	}
 	return o.Environment, true
@@ -192,7 +193,7 @@ func (o *EnvironmentReservationView) GetEnvironmentOk() (*EnvironmentView, bool)
 
 // HasEnvironment returns a boolean if a field has been set.
 func (o *EnvironmentReservationView) HasEnvironment() bool {
-	if o != nil && !isNil(o.Environment) {
+	if o != nil && !IsNil(o.Environment) {
 		return true
 	}
 
@@ -206,7 +207,7 @@ func (o *EnvironmentReservationView) SetEnvironment(v EnvironmentView) {
 
 // GetApplications returns the Applications field value if set, zero value otherwise.
 func (o *EnvironmentReservationView) GetApplications() []BaseApplicationView {
-	if o == nil || isNil(o.Applications) {
+	if o == nil || IsNil(o.Applications) {
 		var ret []BaseApplicationView
 		return ret
 	}
@@ -216,7 +217,7 @@ func (o *EnvironmentReservationView) GetApplications() []BaseApplicationView {
 // GetApplicationsOk returns a tuple with the Applications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentReservationView) GetApplicationsOk() ([]BaseApplicationView, bool) {
-	if o == nil || isNil(o.Applications) {
+	if o == nil || IsNil(o.Applications) {
 		return nil, false
 	}
 	return o.Applications, true
@@ -224,7 +225,7 @@ func (o *EnvironmentReservationView) GetApplicationsOk() ([]BaseApplicationView,
 
 // HasApplications returns a boolean if a field has been set.
 func (o *EnvironmentReservationView) HasApplications() bool {
-	if o != nil && !isNil(o.Applications) {
+	if o != nil && !IsNil(o.Applications) {
 		return true
 	}
 
@@ -237,7 +238,7 @@ func (o *EnvironmentReservationView) SetApplications(v []BaseApplicationView) {
 }
 
 func (o EnvironmentReservationView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -246,22 +247,22 @@ func (o EnvironmentReservationView) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentReservationView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.Note) {
+	if !IsNil(o.Note) {
 		toSerialize["note"] = o.Note
 	}
-	if !isNil(o.Environment) {
+	if !IsNil(o.Environment) {
 		toSerialize["environment"] = o.Environment
 	}
-	if !isNil(o.Applications) {
+	if !IsNil(o.Applications) {
 		toSerialize["applications"] = o.Applications
 	}
 	return toSerialize, nil
@@ -302,5 +303,3 @@ func (v *NullableEnvironmentReservationView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

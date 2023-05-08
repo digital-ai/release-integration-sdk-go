@@ -13,20 +13,19 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // RolesApiService RolesApi service
 type RolesApiService service
 
 type ApiCreateRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RolesApiService
-	roleView *[]RoleView
+	roleView   *[]RoleView
 }
 
 func (r ApiCreateRolesRequest) RoleView(roleView []RoleView) ApiCreateRolesRequest {
@@ -41,22 +40,22 @@ func (r ApiCreateRolesRequest) Execute() (*http.Response, error) {
 /*
 CreateRoles Method for CreateRoles
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRolesRequest
 */
 func (a *RolesApiService) CreateRoles(ctx context.Context) ApiCreateRolesRequest {
 	return ApiCreateRolesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *RolesApiService) CreateRolesExecute(r ApiCreateRolesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesApiService.CreateRoles")
@@ -89,6 +88,20 @@ func (a *RolesApiService) CreateRolesExecute(r ApiCreateRolesRequest) (*http.Res
 	}
 	// body params
 	localVarPostBody = r.roleView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -99,9 +112,9 @@ func (a *RolesApiService) CreateRolesExecute(r ApiCreateRolesRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -118,10 +131,10 @@ func (a *RolesApiService) CreateRolesExecute(r ApiCreateRolesRequest) (*http.Res
 }
 
 type ApiCreateRoles1Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RolesApiService
-	roleName string
-	roleView *RoleView
+	roleName   string
+	roleView   *RoleView
 }
 
 func (r ApiCreateRoles1Request) RoleView(roleView RoleView) ApiCreateRoles1Request {
@@ -136,24 +149,24 @@ func (r ApiCreateRoles1Request) Execute() (*http.Response, error) {
 /*
 CreateRoles1 Method for CreateRoles1
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleName
- @return ApiCreateRoles1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiCreateRoles1Request
 */
 func (a *RolesApiService) CreateRoles1(ctx context.Context, roleName string) ApiCreateRoles1Request {
 	return ApiCreateRoles1Request{
 		ApiService: a,
-		ctx: ctx,
-		roleName: roleName,
+		ctx:        ctx,
+		roleName:   roleName,
 	}
 }
 
 // Execute executes the request
 func (a *RolesApiService) CreateRoles1Execute(r ApiCreateRoles1Request) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesApiService.CreateRoles1")
@@ -187,6 +200,20 @@ func (a *RolesApiService) CreateRoles1Execute(r ApiCreateRoles1Request) (*http.R
 	}
 	// body params
 	localVarPostBody = r.roleView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -197,9 +224,9 @@ func (a *RolesApiService) CreateRoles1Execute(r ApiCreateRoles1Request) (*http.R
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -216,9 +243,9 @@ func (a *RolesApiService) CreateRoles1Execute(r ApiCreateRoles1Request) (*http.R
 }
 
 type ApiDeleteRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RolesApiService
-	roleName string
+	roleName   string
 }
 
 func (r ApiDeleteRolesRequest) Execute() (*http.Response, error) {
@@ -228,24 +255,24 @@ func (r ApiDeleteRolesRequest) Execute() (*http.Response, error) {
 /*
 DeleteRoles Method for DeleteRoles
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleName
- @return ApiDeleteRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiDeleteRolesRequest
 */
 func (a *RolesApiService) DeleteRoles(ctx context.Context, roleName string) ApiDeleteRolesRequest {
 	return ApiDeleteRolesRequest{
 		ApiService: a,
-		ctx: ctx,
-		roleName: roleName,
+		ctx:        ctx,
+		roleName:   roleName,
 	}
 }
 
 // Execute executes the request
 func (a *RolesApiService) DeleteRolesExecute(r ApiDeleteRolesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesApiService.DeleteRoles")
@@ -277,6 +304,20 @@ func (a *RolesApiService) DeleteRolesExecute(r ApiDeleteRolesRequest) (*http.Res
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -287,9 +328,9 @@ func (a *RolesApiService) DeleteRolesExecute(r ApiDeleteRolesRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -306,9 +347,9 @@ func (a *RolesApiService) DeleteRolesExecute(r ApiDeleteRolesRequest) (*http.Res
 }
 
 type ApiGetRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RolesApiService
-	roleName string
+	roleName   string
 }
 
 func (r ApiGetRoleRequest) Execute() (*RoleView, *http.Response, error) {
@@ -318,26 +359,27 @@ func (r ApiGetRoleRequest) Execute() (*RoleView, *http.Response, error) {
 /*
 GetRole Method for GetRole
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleName
- @return ApiGetRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiGetRoleRequest
 */
 func (a *RolesApiService) GetRole(ctx context.Context, roleName string) ApiGetRoleRequest {
 	return ApiGetRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		roleName: roleName,
+		ctx:        ctx,
+		roleName:   roleName,
 	}
 }
 
 // Execute executes the request
-//  @return RoleView
+//
+//	@return RoleView
 func (a *RolesApiService) GetRoleExecute(r ApiGetRoleRequest) (*RoleView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RoleView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RoleView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesApiService.GetRole")
@@ -369,6 +411,20 @@ func (a *RolesApiService) GetRoleExecute(r ApiGetRoleRequest) (*RoleView, *http.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -379,9 +435,9 @@ func (a *RolesApiService) GetRoleExecute(r ApiGetRoleRequest) (*RoleView, *http.
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -407,9 +463,9 @@ func (a *RolesApiService) GetRoleExecute(r ApiGetRoleRequest) (*RoleView, *http.
 }
 
 type ApiGetRolesRequest struct {
-	ctx context.Context
-	ApiService *RolesApiService
-	page *int32
+	ctx            context.Context
+	ApiService     *RolesApiService
+	page           *int32
 	resultsPerPage *int32
 }
 
@@ -430,24 +486,25 @@ func (r ApiGetRolesRequest) Execute() ([]RoleView, *http.Response, error) {
 /*
 GetRoles Method for GetRoles
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRolesRequest
 */
 func (a *RolesApiService) GetRoles(ctx context.Context) ApiGetRolesRequest {
 	return ApiGetRolesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []RoleView
+//
+//	@return []RoleView
 func (a *RolesApiService) GetRolesExecute(r ApiGetRolesRequest) ([]RoleView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []RoleView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []RoleView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesApiService.GetRoles")
@@ -462,10 +519,10 @@ func (a *RolesApiService) GetRolesExecute(r ApiGetRolesRequest) ([]RoleView, *ht
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -484,6 +541,20 @@ func (a *RolesApiService) GetRolesExecute(r ApiGetRolesRequest) ([]RoleView, *ht
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -494,9 +565,9 @@ func (a *RolesApiService) GetRolesExecute(r ApiGetRolesRequest) ([]RoleView, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -522,10 +593,10 @@ func (a *RolesApiService) GetRolesExecute(r ApiGetRolesRequest) ([]RoleView, *ht
 }
 
 type ApiRenameRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RolesApiService
-	roleName string
-	newName *string
+	roleName   string
+	newName    *string
 }
 
 func (r ApiRenameRolesRequest) NewName(newName string) ApiRenameRolesRequest {
@@ -540,24 +611,24 @@ func (r ApiRenameRolesRequest) Execute() (*http.Response, error) {
 /*
 RenameRoles Method for RenameRoles
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleName
- @return ApiRenameRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiRenameRolesRequest
 */
 func (a *RolesApiService) RenameRoles(ctx context.Context, roleName string) ApiRenameRolesRequest {
 	return ApiRenameRolesRequest{
 		ApiService: a,
-		ctx: ctx,
-		roleName: roleName,
+		ctx:        ctx,
+		roleName:   roleName,
 	}
 }
 
 // Execute executes the request
 func (a *RolesApiService) RenameRolesExecute(r ApiRenameRolesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesApiService.RenameRoles")
@@ -573,7 +644,7 @@ func (a *RolesApiService) RenameRolesExecute(r ApiRenameRolesRequest) (*http.Res
 	localVarFormParams := url.Values{}
 
 	if r.newName != nil {
-		parameterAddToQuery(localVarQueryParams, "newName", r.newName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "newName", r.newName, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -592,6 +663,20 @@ func (a *RolesApiService) RenameRolesExecute(r ApiRenameRolesRequest) (*http.Res
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -602,9 +687,9 @@ func (a *RolesApiService) RenameRolesExecute(r ApiRenameRolesRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -621,9 +706,9 @@ func (a *RolesApiService) RenameRolesExecute(r ApiRenameRolesRequest) (*http.Res
 }
 
 type ApiUpdateRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RolesApiService
-	roleView *[]RoleView
+	roleView   *[]RoleView
 }
 
 func (r ApiUpdateRolesRequest) RoleView(roleView []RoleView) ApiUpdateRolesRequest {
@@ -638,22 +723,22 @@ func (r ApiUpdateRolesRequest) Execute() (*http.Response, error) {
 /*
 UpdateRoles Method for UpdateRoles
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateRolesRequest
 */
 func (a *RolesApiService) UpdateRoles(ctx context.Context) ApiUpdateRolesRequest {
 	return ApiUpdateRolesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *RolesApiService) UpdateRolesExecute(r ApiUpdateRolesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesApiService.UpdateRoles")
@@ -686,6 +771,20 @@ func (a *RolesApiService) UpdateRolesExecute(r ApiUpdateRolesRequest) (*http.Res
 	}
 	// body params
 	localVarPostBody = r.roleView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -696,9 +795,9 @@ func (a *RolesApiService) UpdateRolesExecute(r ApiUpdateRolesRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -715,10 +814,10 @@ func (a *RolesApiService) UpdateRolesExecute(r ApiUpdateRolesRequest) (*http.Res
 }
 
 type ApiUpdateRoles1Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RolesApiService
-	roleName string
-	roleView *RoleView
+	roleName   string
+	roleView   *RoleView
 }
 
 func (r ApiUpdateRoles1Request) RoleView(roleView RoleView) ApiUpdateRoles1Request {
@@ -733,24 +832,24 @@ func (r ApiUpdateRoles1Request) Execute() (*http.Response, error) {
 /*
 UpdateRoles1 Method for UpdateRoles1
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleName
- @return ApiUpdateRoles1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiUpdateRoles1Request
 */
 func (a *RolesApiService) UpdateRoles1(ctx context.Context, roleName string) ApiUpdateRoles1Request {
 	return ApiUpdateRoles1Request{
 		ApiService: a,
-		ctx: ctx,
-		roleName: roleName,
+		ctx:        ctx,
+		roleName:   roleName,
 	}
 }
 
 // Execute executes the request
 func (a *RolesApiService) UpdateRoles1Execute(r ApiUpdateRoles1Request) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesApiService.UpdateRoles1")
@@ -784,6 +883,20 @@ func (a *RolesApiService) UpdateRoles1Execute(r ApiUpdateRoles1Request) (*http.R
 	}
 	// body params
 	localVarPostBody = r.roleView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -794,9 +907,9 @@ func (a *RolesApiService) UpdateRoles1Execute(r ApiUpdateRoles1Request) (*http.R
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

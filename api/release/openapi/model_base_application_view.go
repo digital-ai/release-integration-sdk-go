@@ -19,7 +19,7 @@ var _ MappedNullable = &BaseApplicationView{}
 
 // BaseApplicationView struct for BaseApplicationView
 type BaseApplicationView struct {
-	Id *string `json:"id,omitempty"`
+	Id    *string `json:"id,omitempty"`
 	Title *string `json:"title,omitempty"`
 }
 
@@ -42,7 +42,7 @@ func NewBaseApplicationViewWithDefaults() *BaseApplicationView {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BaseApplicationView) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *BaseApplicationView) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseApplicationView) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -60,7 +60,7 @@ func (o *BaseApplicationView) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *BaseApplicationView) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *BaseApplicationView) SetId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *BaseApplicationView) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *BaseApplicationView) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseApplicationView) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -92,7 +92,7 @@ func (o *BaseApplicationView) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *BaseApplicationView) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *BaseApplicationView) SetTitle(v string) {
 }
 
 func (o BaseApplicationView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o BaseApplicationView) MarshalJSON() ([]byte, error) {
 
 func (o BaseApplicationView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableBaseApplicationView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

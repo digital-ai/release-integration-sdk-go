@@ -4,20 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**ScheduledStartDate** | Pointer to **string** |  | [optional] 
-**DueDate** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**ScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
+**DueDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **PlannedDuration** | Pointer to **int32** |  | [optional] 
 **FlagStatus** | Pointer to [**FlagStatus**](FlagStatus.md) |  | [optional] 
 **FlagComment** | Pointer to **string** |  | [optional] 
 **OverdueNotified** | Pointer to **bool** |  | [optional] 
 **Flagged** | Pointer to **bool** |  | [optional] 
-**StartOrScheduledDate** | Pointer to **string** |  | [optional] 
-**EndOrDueDate** | Pointer to **string** |  | [optional] 
+**StartOrScheduledDate** | Pointer to **time.Time** |  | [optional] 
+**EndOrDueDate** | Pointer to **time.Time** |  | [optional] 
 **Children** | Pointer to [**[]PlanItem**](PlanItem.md) |  | [optional] 
 **Overdue** | Pointer to **bool** |  | [optional] 
 **Done** | Pointer to **bool** |  | [optional] 
@@ -28,7 +30,7 @@ Name | Type | Description | Notes
 **Aborted** | Pointer to **bool** |  | [optional] 
 **Active** | Pointer to **bool** |  | [optional] 
 **VariableUsages** | Pointer to [**[]UsagePoint**](UsagePoint.md) |  | [optional] 
-**OrCalculateDueDate** | Pointer to **NullableString** |  | [optional] 
+**OrCalculateDueDate** | Pointer to **NullableTime** |  | [optional] 
 **ComputedPlannedDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **ActualDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 
@@ -50,6 +52,56 @@ will change when the set of required properties is changed
 NewPlanItemWithDefaults instantiates a new PlanItem object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *PlanItem) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *PlanItem) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *PlanItem) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *PlanItem) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *PlanItem) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *PlanItem) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *PlanItem) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *PlanItem) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetTitle
 
@@ -128,20 +180,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetScheduledStartDate
 
-`func (o *PlanItem) GetScheduledStartDate() string`
+`func (o *PlanItem) GetScheduledStartDate() time.Time`
 
 GetScheduledStartDate returns the ScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetScheduledStartDateOk
 
-`func (o *PlanItem) GetScheduledStartDateOk() (*string, bool)`
+`func (o *PlanItem) GetScheduledStartDateOk() (*time.Time, bool)`
 
 GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledStartDate
 
-`func (o *PlanItem) SetScheduledStartDate(v string)`
+`func (o *PlanItem) SetScheduledStartDate(v time.Time)`
 
 SetScheduledStartDate sets ScheduledStartDate field to given value.
 
@@ -153,20 +205,20 @@ HasScheduledStartDate returns a boolean if a field has been set.
 
 ### GetDueDate
 
-`func (o *PlanItem) GetDueDate() string`
+`func (o *PlanItem) GetDueDate() time.Time`
 
 GetDueDate returns the DueDate field if non-nil, zero value otherwise.
 
 ### GetDueDateOk
 
-`func (o *PlanItem) GetDueDateOk() (*string, bool)`
+`func (o *PlanItem) GetDueDateOk() (*time.Time, bool)`
 
 GetDueDateOk returns a tuple with the DueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDueDate
 
-`func (o *PlanItem) SetDueDate(v string)`
+`func (o *PlanItem) SetDueDate(v time.Time)`
 
 SetDueDate sets DueDate field to given value.
 
@@ -178,20 +230,20 @@ HasDueDate returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *PlanItem) GetStartDate() string`
+`func (o *PlanItem) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *PlanItem) GetStartDateOk() (*string, bool)`
+`func (o *PlanItem) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *PlanItem) SetStartDate(v string)`
+`func (o *PlanItem) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -203,20 +255,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *PlanItem) GetEndDate() string`
+`func (o *PlanItem) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *PlanItem) GetEndDateOk() (*string, bool)`
+`func (o *PlanItem) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *PlanItem) SetEndDate(v string)`
+`func (o *PlanItem) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 
@@ -353,20 +405,20 @@ HasFlagged returns a boolean if a field has been set.
 
 ### GetStartOrScheduledDate
 
-`func (o *PlanItem) GetStartOrScheduledDate() string`
+`func (o *PlanItem) GetStartOrScheduledDate() time.Time`
 
 GetStartOrScheduledDate returns the StartOrScheduledDate field if non-nil, zero value otherwise.
 
 ### GetStartOrScheduledDateOk
 
-`func (o *PlanItem) GetStartOrScheduledDateOk() (*string, bool)`
+`func (o *PlanItem) GetStartOrScheduledDateOk() (*time.Time, bool)`
 
 GetStartOrScheduledDateOk returns a tuple with the StartOrScheduledDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartOrScheduledDate
 
-`func (o *PlanItem) SetStartOrScheduledDate(v string)`
+`func (o *PlanItem) SetStartOrScheduledDate(v time.Time)`
 
 SetStartOrScheduledDate sets StartOrScheduledDate field to given value.
 
@@ -378,20 +430,20 @@ HasStartOrScheduledDate returns a boolean if a field has been set.
 
 ### GetEndOrDueDate
 
-`func (o *PlanItem) GetEndOrDueDate() string`
+`func (o *PlanItem) GetEndOrDueDate() time.Time`
 
 GetEndOrDueDate returns the EndOrDueDate field if non-nil, zero value otherwise.
 
 ### GetEndOrDueDateOk
 
-`func (o *PlanItem) GetEndOrDueDateOk() (*string, bool)`
+`func (o *PlanItem) GetEndOrDueDateOk() (*time.Time, bool)`
 
 GetEndOrDueDateOk returns a tuple with the EndOrDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndOrDueDate
 
-`func (o *PlanItem) SetEndOrDueDate(v string)`
+`func (o *PlanItem) SetEndOrDueDate(v time.Time)`
 
 SetEndOrDueDate sets EndOrDueDate field to given value.
 
@@ -653,20 +705,20 @@ HasVariableUsages returns a boolean if a field has been set.
 
 ### GetOrCalculateDueDate
 
-`func (o *PlanItem) GetOrCalculateDueDate() string`
+`func (o *PlanItem) GetOrCalculateDueDate() time.Time`
 
 GetOrCalculateDueDate returns the OrCalculateDueDate field if non-nil, zero value otherwise.
 
 ### GetOrCalculateDueDateOk
 
-`func (o *PlanItem) GetOrCalculateDueDateOk() (*string, bool)`
+`func (o *PlanItem) GetOrCalculateDueDateOk() (*time.Time, bool)`
 
 GetOrCalculateDueDateOk returns a tuple with the OrCalculateDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrCalculateDueDate
 
-`func (o *PlanItem) SetOrCalculateDueDate(v string)`
+`func (o *PlanItem) SetOrCalculateDueDate(v time.Time)`
 
 SetOrCalculateDueDate sets OrCalculateDueDate field to given value.
 

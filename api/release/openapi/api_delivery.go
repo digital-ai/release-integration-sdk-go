@@ -13,20 +13,19 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // DeliveryApiService DeliveryApi service
 type DeliveryApiService service
 
 type ApiCompleteStageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	stageId string
+	stageId    string
 }
 
 func (r ApiCompleteStageRequest) Execute() (*http.Response, error) {
@@ -36,24 +35,24 @@ func (r ApiCompleteStageRequest) Execute() (*http.Response, error) {
 /*
 CompleteStage Method for CompleteStage
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stageId
- @return ApiCompleteStageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stageId
+	@return ApiCompleteStageRequest
 */
 func (a *DeliveryApiService) CompleteStage(ctx context.Context, stageId string) ApiCompleteStageRequest {
 	return ApiCompleteStageRequest{
 		ApiService: a,
-		ctx: ctx,
-		stageId: stageId,
+		ctx:        ctx,
+		stageId:    stageId,
 	}
 }
 
 // Execute executes the request
 func (a *DeliveryApiService) CompleteStageExecute(r ApiCompleteStageRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.CompleteStage")
@@ -85,6 +84,20 @@ func (a *DeliveryApiService) CompleteStageExecute(r ApiCompleteStageRequest) (*h
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -95,9 +108,9 @@ func (a *DeliveryApiService) CompleteStageExecute(r ApiCompleteStageRequest) (*h
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -114,10 +127,10 @@ func (a *DeliveryApiService) CompleteStageExecute(r ApiCompleteStageRequest) (*h
 }
 
 type ApiCompleteTrackedItemRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	itemId string
-	stageId string
+	itemId     string
+	stageId    string
 }
 
 func (r ApiCompleteTrackedItemRequest) Execute() (*http.Response, error) {
@@ -127,26 +140,26 @@ func (r ApiCompleteTrackedItemRequest) Execute() (*http.Response, error) {
 /*
 CompleteTrackedItem Method for CompleteTrackedItem
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param itemId
- @param stageId
- @return ApiCompleteTrackedItemRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param itemId
+	@param stageId
+	@return ApiCompleteTrackedItemRequest
 */
 func (a *DeliveryApiService) CompleteTrackedItem(ctx context.Context, itemId string, stageId string) ApiCompleteTrackedItemRequest {
 	return ApiCompleteTrackedItemRequest{
 		ApiService: a,
-		ctx: ctx,
-		itemId: itemId,
-		stageId: stageId,
+		ctx:        ctx,
+		itemId:     itemId,
+		stageId:    stageId,
 	}
 }
 
 // Execute executes the request
 func (a *DeliveryApiService) CompleteTrackedItemExecute(r ApiCompleteTrackedItemRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.CompleteTrackedItem")
@@ -179,6 +192,20 @@ func (a *DeliveryApiService) CompleteTrackedItemExecute(r ApiCompleteTrackedItem
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -189,9 +216,9 @@ func (a *DeliveryApiService) CompleteTrackedItemExecute(r ApiCompleteTrackedItem
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -208,9 +235,9 @@ func (a *DeliveryApiService) CompleteTrackedItemExecute(r ApiCompleteTrackedItem
 }
 
 type ApiCompleteTransitionRequest struct {
-	ctx context.Context
-	ApiService *DeliveryApiService
-	transitionId string
+	ctx                context.Context
+	ApiService         *DeliveryApiService
+	transitionId       string
 	completeTransition *CompleteTransition
 }
 
@@ -226,14 +253,14 @@ func (r ApiCompleteTransitionRequest) Execute() (*http.Response, error) {
 /*
 CompleteTransition Method for CompleteTransition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param transitionId
- @return ApiCompleteTransitionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param transitionId
+	@return ApiCompleteTransitionRequest
 */
 func (a *DeliveryApiService) CompleteTransition(ctx context.Context, transitionId string) ApiCompleteTransitionRequest {
 	return ApiCompleteTransitionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		transitionId: transitionId,
 	}
 }
@@ -241,9 +268,9 @@ func (a *DeliveryApiService) CompleteTransition(ctx context.Context, transitionI
 // Execute executes the request
 func (a *DeliveryApiService) CompleteTransitionExecute(r ApiCompleteTransitionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.CompleteTransition")
@@ -277,6 +304,20 @@ func (a *DeliveryApiService) CompleteTransitionExecute(r ApiCompleteTransitionRe
 	}
 	// body params
 	localVarPostBody = r.completeTransition
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -287,9 +328,9 @@ func (a *DeliveryApiService) CompleteTransitionExecute(r ApiCompleteTransitionRe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -306,9 +347,9 @@ func (a *DeliveryApiService) CompleteTransitionExecute(r ApiCompleteTransitionRe
 }
 
 type ApiCreateTrackedItemInDeliveryRequest struct {
-	ctx context.Context
-	ApiService *DeliveryApiService
-	deliveryId string
+	ctx         context.Context
+	ApiService  *DeliveryApiService
+	deliveryId  string
 	trackedItem *TrackedItem
 }
 
@@ -324,26 +365,27 @@ func (r ApiCreateTrackedItemInDeliveryRequest) Execute() (*TrackedItem, *http.Re
 /*
 CreateTrackedItemInDelivery Method for CreateTrackedItemInDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deliveryId
- @return ApiCreateTrackedItemInDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deliveryId
+	@return ApiCreateTrackedItemInDeliveryRequest
 */
 func (a *DeliveryApiService) CreateTrackedItemInDelivery(ctx context.Context, deliveryId string) ApiCreateTrackedItemInDeliveryRequest {
 	return ApiCreateTrackedItemInDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		deliveryId: deliveryId,
 	}
 }
 
 // Execute executes the request
-//  @return TrackedItem
+//
+//	@return TrackedItem
 func (a *DeliveryApiService) CreateTrackedItemInDeliveryExecute(r ApiCreateTrackedItemInDeliveryRequest) (*TrackedItem, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *TrackedItem
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrackedItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.CreateTrackedItemInDelivery")
@@ -377,6 +419,20 @@ func (a *DeliveryApiService) CreateTrackedItemInDeliveryExecute(r ApiCreateTrack
 	}
 	// body params
 	localVarPostBody = r.trackedItem
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -387,9 +443,9 @@ func (a *DeliveryApiService) CreateTrackedItemInDeliveryExecute(r ApiCreateTrack
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -415,7 +471,7 @@ func (a *DeliveryApiService) CreateTrackedItemInDeliveryExecute(r ApiCreateTrack
 }
 
 type ApiDeleteDeliveryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
 	deliveryId string
 }
@@ -427,14 +483,14 @@ func (r ApiDeleteDeliveryRequest) Execute() (*http.Response, error) {
 /*
 DeleteDelivery Method for DeleteDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deliveryId
- @return ApiDeleteDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deliveryId
+	@return ApiDeleteDeliveryRequest
 */
 func (a *DeliveryApiService) DeleteDelivery(ctx context.Context, deliveryId string) ApiDeleteDeliveryRequest {
 	return ApiDeleteDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		deliveryId: deliveryId,
 	}
 }
@@ -442,9 +498,9 @@ func (a *DeliveryApiService) DeleteDelivery(ctx context.Context, deliveryId stri
 // Execute executes the request
 func (a *DeliveryApiService) DeleteDeliveryExecute(r ApiDeleteDeliveryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.DeleteDelivery")
@@ -476,6 +532,20 @@ func (a *DeliveryApiService) DeleteDeliveryExecute(r ApiDeleteDeliveryRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -486,9 +556,9 @@ func (a *DeliveryApiService) DeleteDeliveryExecute(r ApiDeleteDeliveryRequest) (
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -505,9 +575,9 @@ func (a *DeliveryApiService) DeleteDeliveryExecute(r ApiDeleteDeliveryRequest) (
 }
 
 type ApiDeleteTrackedItemDeliveryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	itemId string
+	itemId     string
 }
 
 func (r ApiDeleteTrackedItemDeliveryRequest) Execute() (*http.Response, error) {
@@ -517,24 +587,24 @@ func (r ApiDeleteTrackedItemDeliveryRequest) Execute() (*http.Response, error) {
 /*
 DeleteTrackedItemDelivery Method for DeleteTrackedItemDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param itemId
- @return ApiDeleteTrackedItemDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param itemId
+	@return ApiDeleteTrackedItemDeliveryRequest
 */
 func (a *DeliveryApiService) DeleteTrackedItemDelivery(ctx context.Context, itemId string) ApiDeleteTrackedItemDeliveryRequest {
 	return ApiDeleteTrackedItemDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
-		itemId: itemId,
+		ctx:        ctx,
+		itemId:     itemId,
 	}
 }
 
 // Execute executes the request
 func (a *DeliveryApiService) DeleteTrackedItemDeliveryExecute(r ApiDeleteTrackedItemDeliveryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.DeleteTrackedItemDelivery")
@@ -566,6 +636,20 @@ func (a *DeliveryApiService) DeleteTrackedItemDeliveryExecute(r ApiDeleteTracked
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -576,9 +660,9 @@ func (a *DeliveryApiService) DeleteTrackedItemDeliveryExecute(r ApiDeleteTracked
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -595,9 +679,9 @@ func (a *DeliveryApiService) DeleteTrackedItemDeliveryExecute(r ApiDeleteTracked
 }
 
 type ApiDescopeTrackedItemRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	itemId string
+	itemId     string
 }
 
 func (r ApiDescopeTrackedItemRequest) Execute() (*http.Response, error) {
@@ -607,24 +691,24 @@ func (r ApiDescopeTrackedItemRequest) Execute() (*http.Response, error) {
 /*
 DescopeTrackedItem Method for DescopeTrackedItem
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param itemId
- @return ApiDescopeTrackedItemRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param itemId
+	@return ApiDescopeTrackedItemRequest
 */
 func (a *DeliveryApiService) DescopeTrackedItem(ctx context.Context, itemId string) ApiDescopeTrackedItemRequest {
 	return ApiDescopeTrackedItemRequest{
 		ApiService: a,
-		ctx: ctx,
-		itemId: itemId,
+		ctx:        ctx,
+		itemId:     itemId,
 	}
 }
 
 // Execute executes the request
 func (a *DeliveryApiService) DescopeTrackedItemExecute(r ApiDescopeTrackedItemRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.DescopeTrackedItem")
@@ -656,6 +740,20 @@ func (a *DeliveryApiService) DescopeTrackedItemExecute(r ApiDescopeTrackedItemRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -666,9 +764,9 @@ func (a *DeliveryApiService) DescopeTrackedItemExecute(r ApiDescopeTrackedItemRe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -685,7 +783,7 @@ func (a *DeliveryApiService) DescopeTrackedItemExecute(r ApiDescopeTrackedItemRe
 }
 
 type ApiGetDeliveryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
 	deliveryId string
 }
@@ -697,26 +795,27 @@ func (r ApiGetDeliveryRequest) Execute() (*Delivery, *http.Response, error) {
 /*
 GetDelivery Method for GetDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deliveryId
- @return ApiGetDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deliveryId
+	@return ApiGetDeliveryRequest
 */
 func (a *DeliveryApiService) GetDelivery(ctx context.Context, deliveryId string) ApiGetDeliveryRequest {
 	return ApiGetDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		deliveryId: deliveryId,
 	}
 }
 
 // Execute executes the request
-//  @return Delivery
+//
+//	@return Delivery
 func (a *DeliveryApiService) GetDeliveryExecute(r ApiGetDeliveryRequest) (*Delivery, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Delivery
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Delivery
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.GetDelivery")
@@ -748,6 +847,20 @@ func (a *DeliveryApiService) GetDeliveryExecute(r ApiGetDeliveryRequest) (*Deliv
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -758,9 +871,9 @@ func (a *DeliveryApiService) GetDeliveryExecute(r ApiGetDeliveryRequest) (*Deliv
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -786,7 +899,7 @@ func (a *DeliveryApiService) GetDeliveryExecute(r ApiGetDeliveryRequest) (*Deliv
 }
 
 type ApiGetDeliveryTimelineRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
 	deliveryId string
 }
@@ -798,26 +911,27 @@ func (r ApiGetDeliveryTimelineRequest) Execute() (*DeliveryTimeline, *http.Respo
 /*
 GetDeliveryTimeline Method for GetDeliveryTimeline
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deliveryId
- @return ApiGetDeliveryTimelineRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deliveryId
+	@return ApiGetDeliveryTimelineRequest
 */
 func (a *DeliveryApiService) GetDeliveryTimeline(ctx context.Context, deliveryId string) ApiGetDeliveryTimelineRequest {
 	return ApiGetDeliveryTimelineRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		deliveryId: deliveryId,
 	}
 }
 
 // Execute executes the request
-//  @return DeliveryTimeline
+//
+//	@return DeliveryTimeline
 func (a *DeliveryApiService) GetDeliveryTimelineExecute(r ApiGetDeliveryTimelineRequest) (*DeliveryTimeline, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DeliveryTimeline
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeliveryTimeline
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.GetDeliveryTimeline")
@@ -849,6 +963,20 @@ func (a *DeliveryApiService) GetDeliveryTimelineExecute(r ApiGetDeliveryTimeline
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -859,9 +987,9 @@ func (a *DeliveryApiService) GetDeliveryTimelineExecute(r ApiGetDeliveryTimeline
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -887,7 +1015,7 @@ func (a *DeliveryApiService) GetDeliveryTimelineExecute(r ApiGetDeliveryTimeline
 }
 
 type ApiGetReleasesForDeliveryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
 	deliveryId string
 }
@@ -899,26 +1027,27 @@ func (r ApiGetReleasesForDeliveryRequest) Execute() ([]DeliveryFlowReleaseInfo, 
 /*
 GetReleasesForDelivery Method for GetReleasesForDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deliveryId
- @return ApiGetReleasesForDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deliveryId
+	@return ApiGetReleasesForDeliveryRequest
 */
 func (a *DeliveryApiService) GetReleasesForDelivery(ctx context.Context, deliveryId string) ApiGetReleasesForDeliveryRequest {
 	return ApiGetReleasesForDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		deliveryId: deliveryId,
 	}
 }
 
 // Execute executes the request
-//  @return []DeliveryFlowReleaseInfo
+//
+//	@return []DeliveryFlowReleaseInfo
 func (a *DeliveryApiService) GetReleasesForDeliveryExecute(r ApiGetReleasesForDeliveryRequest) ([]DeliveryFlowReleaseInfo, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []DeliveryFlowReleaseInfo
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []DeliveryFlowReleaseInfo
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.GetReleasesForDelivery")
@@ -950,6 +1079,20 @@ func (a *DeliveryApiService) GetReleasesForDeliveryExecute(r ApiGetReleasesForDe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -960,9 +1103,9 @@ func (a *DeliveryApiService) GetReleasesForDeliveryExecute(r ApiGetReleasesForDe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -988,7 +1131,7 @@ func (a *DeliveryApiService) GetReleasesForDeliveryExecute(r ApiGetReleasesForDe
 }
 
 type ApiGetStagesInDeliveryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
 	deliveryId string
 }
@@ -1000,26 +1143,27 @@ func (r ApiGetStagesInDeliveryRequest) Execute() ([]Stage, *http.Response, error
 /*
 GetStagesInDelivery Method for GetStagesInDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deliveryId
- @return ApiGetStagesInDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deliveryId
+	@return ApiGetStagesInDeliveryRequest
 */
 func (a *DeliveryApiService) GetStagesInDelivery(ctx context.Context, deliveryId string) ApiGetStagesInDeliveryRequest {
 	return ApiGetStagesInDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		deliveryId: deliveryId,
 	}
 }
 
 // Execute executes the request
-//  @return []Stage
+//
+//	@return []Stage
 func (a *DeliveryApiService) GetStagesInDeliveryExecute(r ApiGetStagesInDeliveryRequest) ([]Stage, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Stage
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Stage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.GetStagesInDelivery")
@@ -1051,6 +1195,20 @@ func (a *DeliveryApiService) GetStagesInDeliveryExecute(r ApiGetStagesInDelivery
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1061,9 +1219,9 @@ func (a *DeliveryApiService) GetStagesInDeliveryExecute(r ApiGetStagesInDelivery
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1089,7 +1247,7 @@ func (a *DeliveryApiService) GetStagesInDeliveryExecute(r ApiGetStagesInDelivery
 }
 
 type ApiGetTrackedItemsinDeliveryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
 	deliveryId string
 }
@@ -1101,26 +1259,27 @@ func (r ApiGetTrackedItemsinDeliveryRequest) Execute() ([]TrackedItem, *http.Res
 /*
 GetTrackedItemsinDelivery Method for GetTrackedItemsinDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deliveryId
- @return ApiGetTrackedItemsinDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deliveryId
+	@return ApiGetTrackedItemsinDeliveryRequest
 */
 func (a *DeliveryApiService) GetTrackedItemsinDelivery(ctx context.Context, deliveryId string) ApiGetTrackedItemsinDeliveryRequest {
 	return ApiGetTrackedItemsinDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		deliveryId: deliveryId,
 	}
 }
 
 // Execute executes the request
-//  @return []TrackedItem
+//
+//	@return []TrackedItem
 func (a *DeliveryApiService) GetTrackedItemsinDeliveryExecute(r ApiGetTrackedItemsinDeliveryRequest) ([]TrackedItem, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TrackedItem
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TrackedItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.GetTrackedItemsinDelivery")
@@ -1152,6 +1311,20 @@ func (a *DeliveryApiService) GetTrackedItemsinDeliveryExecute(r ApiGetTrackedIte
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1162,9 +1335,9 @@ func (a *DeliveryApiService) GetTrackedItemsinDeliveryExecute(r ApiGetTrackedIte
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1190,9 +1363,9 @@ func (a *DeliveryApiService) GetTrackedItemsinDeliveryExecute(r ApiGetTrackedIte
 }
 
 type ApiReopenStageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	stageId string
+	stageId    string
 }
 
 func (r ApiReopenStageRequest) Execute() (*http.Response, error) {
@@ -1202,24 +1375,24 @@ func (r ApiReopenStageRequest) Execute() (*http.Response, error) {
 /*
 ReopenStage Method for ReopenStage
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stageId
- @return ApiReopenStageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stageId
+	@return ApiReopenStageRequest
 */
 func (a *DeliveryApiService) ReopenStage(ctx context.Context, stageId string) ApiReopenStageRequest {
 	return ApiReopenStageRequest{
 		ApiService: a,
-		ctx: ctx,
-		stageId: stageId,
+		ctx:        ctx,
+		stageId:    stageId,
 	}
 }
 
 // Execute executes the request
 func (a *DeliveryApiService) ReopenStageExecute(r ApiReopenStageRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.ReopenStage")
@@ -1251,6 +1424,20 @@ func (a *DeliveryApiService) ReopenStageExecute(r ApiReopenStageRequest) (*http.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1261,9 +1448,9 @@ func (a *DeliveryApiService) ReopenStageExecute(r ApiReopenStageRequest) (*http.
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1280,9 +1467,9 @@ func (a *DeliveryApiService) ReopenStageExecute(r ApiReopenStageRequest) (*http.
 }
 
 type ApiRescopeTrackedItemRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	itemId string
+	itemId     string
 }
 
 func (r ApiRescopeTrackedItemRequest) Execute() (*http.Response, error) {
@@ -1292,24 +1479,24 @@ func (r ApiRescopeTrackedItemRequest) Execute() (*http.Response, error) {
 /*
 RescopeTrackedItem Method for RescopeTrackedItem
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param itemId
- @return ApiRescopeTrackedItemRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param itemId
+	@return ApiRescopeTrackedItemRequest
 */
 func (a *DeliveryApiService) RescopeTrackedItem(ctx context.Context, itemId string) ApiRescopeTrackedItemRequest {
 	return ApiRescopeTrackedItemRequest{
 		ApiService: a,
-		ctx: ctx,
-		itemId: itemId,
+		ctx:        ctx,
+		itemId:     itemId,
 	}
 }
 
 // Execute executes the request
 func (a *DeliveryApiService) RescopeTrackedItemExecute(r ApiRescopeTrackedItemRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.RescopeTrackedItem")
@@ -1341,6 +1528,20 @@ func (a *DeliveryApiService) RescopeTrackedItemExecute(r ApiRescopeTrackedItemRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1351,9 +1552,9 @@ func (a *DeliveryApiService) RescopeTrackedItemExecute(r ApiRescopeTrackedItemRe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1370,10 +1571,10 @@ func (a *DeliveryApiService) RescopeTrackedItemExecute(r ApiRescopeTrackedItemRe
 }
 
 type ApiResetTrackedItemRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	itemId string
-	stageId string
+	itemId     string
+	stageId    string
 }
 
 func (r ApiResetTrackedItemRequest) Execute() (*http.Response, error) {
@@ -1383,26 +1584,26 @@ func (r ApiResetTrackedItemRequest) Execute() (*http.Response, error) {
 /*
 ResetTrackedItem Method for ResetTrackedItem
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param itemId
- @param stageId
- @return ApiResetTrackedItemRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param itemId
+	@param stageId
+	@return ApiResetTrackedItemRequest
 */
 func (a *DeliveryApiService) ResetTrackedItem(ctx context.Context, itemId string, stageId string) ApiResetTrackedItemRequest {
 	return ApiResetTrackedItemRequest{
 		ApiService: a,
-		ctx: ctx,
-		itemId: itemId,
-		stageId: stageId,
+		ctx:        ctx,
+		itemId:     itemId,
+		stageId:    stageId,
 	}
 }
 
 // Execute executes the request
 func (a *DeliveryApiService) ResetTrackedItemExecute(r ApiResetTrackedItemRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.ResetTrackedItem")
@@ -1435,6 +1636,20 @@ func (a *DeliveryApiService) ResetTrackedItemExecute(r ApiResetTrackedItemReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1445,9 +1660,9 @@ func (a *DeliveryApiService) ResetTrackedItemExecute(r ApiResetTrackedItemReques
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1464,11 +1679,11 @@ func (a *DeliveryApiService) ResetTrackedItemExecute(r ApiResetTrackedItemReques
 }
 
 type ApiSearchDeliveriesRequest struct {
-	ctx context.Context
-	ApiService *DeliveryApiService
-	orderBy *DeliveryOrderMode
-	page *int64
-	resultsPerPage *int64
+	ctx             context.Context
+	ApiService      *DeliveryApiService
+	orderBy         *DeliveryOrderMode
+	page            *int64
+	resultsPerPage  *int64
 	deliveryFilters *DeliveryFilters
 }
 
@@ -1499,24 +1714,25 @@ func (r ApiSearchDeliveriesRequest) Execute() ([]Delivery, *http.Response, error
 /*
 SearchDeliveries Method for SearchDeliveries
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchDeliveriesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchDeliveriesRequest
 */
 func (a *DeliveryApiService) SearchDeliveries(ctx context.Context) ApiSearchDeliveriesRequest {
 	return ApiSearchDeliveriesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Delivery
+//
+//	@return []Delivery
 func (a *DeliveryApiService) SearchDeliveriesExecute(r ApiSearchDeliveriesRequest) ([]Delivery, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Delivery
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Delivery
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.SearchDeliveries")
@@ -1531,13 +1747,13 @@ func (a *DeliveryApiService) SearchDeliveriesExecute(r ApiSearchDeliveriesReques
 	localVarFormParams := url.Values{}
 
 	if r.orderBy != nil {
-		parameterAddToQuery(localVarQueryParams, "orderBy", r.orderBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "orderBy", r.orderBy, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1558,6 +1774,20 @@ func (a *DeliveryApiService) SearchDeliveriesExecute(r ApiSearchDeliveriesReques
 	}
 	// body params
 	localVarPostBody = r.deliveryFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1568,9 +1798,9 @@ func (a *DeliveryApiService) SearchDeliveriesExecute(r ApiSearchDeliveriesReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1596,10 +1826,10 @@ func (a *DeliveryApiService) SearchDeliveriesExecute(r ApiSearchDeliveriesReques
 }
 
 type ApiSkipTrackedItemRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	itemId string
-	stageId string
+	itemId     string
+	stageId    string
 }
 
 func (r ApiSkipTrackedItemRequest) Execute() (*http.Response, error) {
@@ -1609,26 +1839,26 @@ func (r ApiSkipTrackedItemRequest) Execute() (*http.Response, error) {
 /*
 SkipTrackedItem Method for SkipTrackedItem
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param itemId
- @param stageId
- @return ApiSkipTrackedItemRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param itemId
+	@param stageId
+	@return ApiSkipTrackedItemRequest
 */
 func (a *DeliveryApiService) SkipTrackedItem(ctx context.Context, itemId string, stageId string) ApiSkipTrackedItemRequest {
 	return ApiSkipTrackedItemRequest{
 		ApiService: a,
-		ctx: ctx,
-		itemId: itemId,
-		stageId: stageId,
+		ctx:        ctx,
+		itemId:     itemId,
+		stageId:    stageId,
 	}
 }
 
 // Execute executes the request
 func (a *DeliveryApiService) SkipTrackedItemExecute(r ApiSkipTrackedItemRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.SkipTrackedItem")
@@ -1661,6 +1891,20 @@ func (a *DeliveryApiService) SkipTrackedItemExecute(r ApiSkipTrackedItemRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1671,9 +1915,9 @@ func (a *DeliveryApiService) SkipTrackedItemExecute(r ApiSkipTrackedItemRequest)
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1690,10 +1934,10 @@ func (a *DeliveryApiService) SkipTrackedItemExecute(r ApiSkipTrackedItemRequest)
 }
 
 type ApiUpdateDeliveryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
 	deliveryId string
-	delivery *Delivery
+	delivery   *Delivery
 }
 
 func (r ApiUpdateDeliveryRequest) Delivery(delivery Delivery) ApiUpdateDeliveryRequest {
@@ -1708,26 +1952,27 @@ func (r ApiUpdateDeliveryRequest) Execute() (*Delivery, *http.Response, error) {
 /*
 UpdateDelivery Method for UpdateDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deliveryId
- @return ApiUpdateDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deliveryId
+	@return ApiUpdateDeliveryRequest
 */
 func (a *DeliveryApiService) UpdateDelivery(ctx context.Context, deliveryId string) ApiUpdateDeliveryRequest {
 	return ApiUpdateDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		deliveryId: deliveryId,
 	}
 }
 
 // Execute executes the request
-//  @return Delivery
+//
+//	@return Delivery
 func (a *DeliveryApiService) UpdateDeliveryExecute(r ApiUpdateDeliveryRequest) (*Delivery, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Delivery
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Delivery
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.UpdateDelivery")
@@ -1761,6 +2006,20 @@ func (a *DeliveryApiService) UpdateDeliveryExecute(r ApiUpdateDeliveryRequest) (
 	}
 	// body params
 	localVarPostBody = r.delivery
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1771,9 +2030,9 @@ func (a *DeliveryApiService) UpdateDeliveryExecute(r ApiUpdateDeliveryRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1799,10 +2058,10 @@ func (a *DeliveryApiService) UpdateDeliveryExecute(r ApiUpdateDeliveryRequest) (
 }
 
 type ApiUpdateStageInDeliveryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *DeliveryApiService
-	stageId string
-	stage *Stage
+	stageId    string
+	stage      *Stage
 }
 
 func (r ApiUpdateStageInDeliveryRequest) Stage(stage Stage) ApiUpdateStageInDeliveryRequest {
@@ -1817,26 +2076,27 @@ func (r ApiUpdateStageInDeliveryRequest) Execute() (*Stage, *http.Response, erro
 /*
 UpdateStageInDelivery Method for UpdateStageInDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stageId
- @return ApiUpdateStageInDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param stageId
+	@return ApiUpdateStageInDeliveryRequest
 */
 func (a *DeliveryApiService) UpdateStageInDelivery(ctx context.Context, stageId string) ApiUpdateStageInDeliveryRequest {
 	return ApiUpdateStageInDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
-		stageId: stageId,
+		ctx:        ctx,
+		stageId:    stageId,
 	}
 }
 
 // Execute executes the request
-//  @return Stage
+//
+//	@return Stage
 func (a *DeliveryApiService) UpdateStageInDeliveryExecute(r ApiUpdateStageInDeliveryRequest) (*Stage, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Stage
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Stage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.UpdateStageInDelivery")
@@ -1870,6 +2130,20 @@ func (a *DeliveryApiService) UpdateStageInDeliveryExecute(r ApiUpdateStageInDeli
 	}
 	// body params
 	localVarPostBody = r.stage
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1880,9 +2154,9 @@ func (a *DeliveryApiService) UpdateStageInDeliveryExecute(r ApiUpdateStageInDeli
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1908,9 +2182,9 @@ func (a *DeliveryApiService) UpdateStageInDeliveryExecute(r ApiUpdateStageInDeli
 }
 
 type ApiUpdateTrackedItemInDeliveryRequest struct {
-	ctx context.Context
-	ApiService *DeliveryApiService
-	itemId string
+	ctx         context.Context
+	ApiService  *DeliveryApiService
+	itemId      string
 	trackedItem *TrackedItem
 }
 
@@ -1926,26 +2200,27 @@ func (r ApiUpdateTrackedItemInDeliveryRequest) Execute() (*TrackedItem, *http.Re
 /*
 UpdateTrackedItemInDelivery Method for UpdateTrackedItemInDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param itemId
- @return ApiUpdateTrackedItemInDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param itemId
+	@return ApiUpdateTrackedItemInDeliveryRequest
 */
 func (a *DeliveryApiService) UpdateTrackedItemInDelivery(ctx context.Context, itemId string) ApiUpdateTrackedItemInDeliveryRequest {
 	return ApiUpdateTrackedItemInDeliveryRequest{
 		ApiService: a,
-		ctx: ctx,
-		itemId: itemId,
+		ctx:        ctx,
+		itemId:     itemId,
 	}
 }
 
 // Execute executes the request
-//  @return TrackedItem
+//
+//	@return TrackedItem
 func (a *DeliveryApiService) UpdateTrackedItemInDeliveryExecute(r ApiUpdateTrackedItemInDeliveryRequest) (*TrackedItem, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *TrackedItem
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrackedItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.UpdateTrackedItemInDelivery")
@@ -1979,6 +2254,20 @@ func (a *DeliveryApiService) UpdateTrackedItemInDeliveryExecute(r ApiUpdateTrack
 	}
 	// body params
 	localVarPostBody = r.trackedItem
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1989,9 +2278,9 @@ func (a *DeliveryApiService) UpdateTrackedItemInDeliveryExecute(r ApiUpdateTrack
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2017,10 +2306,10 @@ func (a *DeliveryApiService) UpdateTrackedItemInDeliveryExecute(r ApiUpdateTrack
 }
 
 type ApiUpdateTransitionInDeliveryRequest struct {
-	ctx context.Context
-	ApiService *DeliveryApiService
+	ctx          context.Context
+	ApiService   *DeliveryApiService
 	transitionId string
-	transition *Transition
+	transition   *Transition
 }
 
 func (r ApiUpdateTransitionInDeliveryRequest) Transition(transition Transition) ApiUpdateTransitionInDeliveryRequest {
@@ -2035,26 +2324,27 @@ func (r ApiUpdateTransitionInDeliveryRequest) Execute() (*Transition, *http.Resp
 /*
 UpdateTransitionInDelivery Method for UpdateTransitionInDelivery
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param transitionId
- @return ApiUpdateTransitionInDeliveryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param transitionId
+	@return ApiUpdateTransitionInDeliveryRequest
 */
 func (a *DeliveryApiService) UpdateTransitionInDelivery(ctx context.Context, transitionId string) ApiUpdateTransitionInDeliveryRequest {
 	return ApiUpdateTransitionInDeliveryRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		transitionId: transitionId,
 	}
 }
 
 // Execute executes the request
-//  @return Transition
+//
+//	@return Transition
 func (a *DeliveryApiService) UpdateTransitionInDeliveryExecute(r ApiUpdateTransitionInDeliveryRequest) (*Transition, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Transition
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Transition
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeliveryApiService.UpdateTransitionInDelivery")
@@ -2088,6 +2378,20 @@ func (a *DeliveryApiService) UpdateTransitionInDeliveryExecute(r ApiUpdateTransi
 	}
 	// body params
 	localVarPostBody = r.transition
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2098,9 +2402,9 @@ func (a *DeliveryApiService) UpdateTransitionInDeliveryExecute(r ApiUpdateTransi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

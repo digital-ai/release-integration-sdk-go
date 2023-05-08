@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FolderId** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
 **Automated** | Pointer to **bool** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -31,30 +32,55 @@ NewSystemMessageSettingsWithDefaults instantiates a new SystemMessageSettings ob
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetFolderId
+### GetId
 
-`func (o *SystemMessageSettings) GetFolderId() string`
+`func (o *SystemMessageSettings) GetId() string`
 
-GetFolderId returns the FolderId field if non-nil, zero value otherwise.
+GetId returns the Id field if non-nil, zero value otherwise.
 
-### GetFolderIdOk
+### GetIdOk
 
-`func (o *SystemMessageSettings) GetFolderIdOk() (*string, bool)`
+`func (o *SystemMessageSettings) GetIdOk() (*string, bool)`
 
-GetFolderIdOk returns a tuple with the FolderId field if it's non-nil, zero value otherwise
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFolderId
+### SetId
 
-`func (o *SystemMessageSettings) SetFolderId(v string)`
+`func (o *SystemMessageSettings) SetId(v string)`
 
-SetFolderId sets FolderId field to given value.
+SetId sets Id field to given value.
 
-### HasFolderId
+### HasId
 
-`func (o *SystemMessageSettings) HasFolderId() bool`
+`func (o *SystemMessageSettings) HasId() bool`
 
-HasFolderId returns a boolean if a field has been set.
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *SystemMessageSettings) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *SystemMessageSettings) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *SystemMessageSettings) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *SystemMessageSettings) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetTitle
 
@@ -158,20 +184,20 @@ HasAutomated returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *SystemMessageSettings) GetStartDate() string`
+`func (o *SystemMessageSettings) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *SystemMessageSettings) GetStartDateOk() (*string, bool)`
+`func (o *SystemMessageSettings) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *SystemMessageSettings) SetStartDate(v string)`
+`func (o *SystemMessageSettings) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -183,20 +209,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *SystemMessageSettings) GetEndDate() string`
+`func (o *SystemMessageSettings) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *SystemMessageSettings) GetEndDateOk() (*string, bool)`
+`func (o *SystemMessageSettings) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *SystemMessageSettings) SetEndDate(v string)`
+`func (o *SystemMessageSettings) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 

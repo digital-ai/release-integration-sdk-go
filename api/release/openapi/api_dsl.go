@@ -13,20 +13,19 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // DslApiService DslApi service
 type DslApiService service
 
 type ApiExportTemplateToXFileRequest struct {
-	ctx context.Context
-	ApiService *DslApiService
-	templateId string
+	ctx            context.Context
+	ApiService     *DslApiService
+	templateId     string
 	exportTemplate *bool
 }
 
@@ -42,14 +41,14 @@ func (r ApiExportTemplateToXFileRequest) Execute() (*http.Response, error) {
 /*
 ExportTemplateToXFile Method for ExportTemplateToXFile
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiExportTemplateToXFileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiExportTemplateToXFileRequest
 */
 func (a *DslApiService) ExportTemplateToXFile(ctx context.Context, templateId string) ApiExportTemplateToXFileRequest {
 	return ApiExportTemplateToXFileRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
@@ -57,9 +56,9 @@ func (a *DslApiService) ExportTemplateToXFile(ctx context.Context, templateId st
 // Execute executes the request
 func (a *DslApiService) ExportTemplateToXFileExecute(r ApiExportTemplateToXFileRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DslApiService.ExportTemplateToXFile")
@@ -75,7 +74,7 @@ func (a *DslApiService) ExportTemplateToXFileExecute(r ApiExportTemplateToXFileR
 	localVarFormParams := url.Values{}
 
 	if r.exportTemplate != nil {
-		parameterAddToQuery(localVarQueryParams, "exportTemplate", r.exportTemplate, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exportTemplate", r.exportTemplate, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -94,6 +93,20 @@ func (a *DslApiService) ExportTemplateToXFileExecute(r ApiExportTemplateToXFileR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -104,9 +117,9 @@ func (a *DslApiService) ExportTemplateToXFileExecute(r ApiExportTemplateToXFileR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -123,9 +136,9 @@ func (a *DslApiService) ExportTemplateToXFileExecute(r ApiExportTemplateToXFileR
 }
 
 type ApiPreviewExportTemplateToXFileRequest struct {
-	ctx context.Context
-	ApiService *DslApiService
-	templateId string
+	ctx            context.Context
+	ApiService     *DslApiService
+	templateId     string
 	exportTemplate *bool
 }
 
@@ -141,14 +154,14 @@ func (r ApiPreviewExportTemplateToXFileRequest) Execute() (*http.Response, error
 /*
 PreviewExportTemplateToXFile Method for PreviewExportTemplateToXFile
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId
- @return ApiPreviewExportTemplateToXFileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId
+	@return ApiPreviewExportTemplateToXFileRequest
 */
 func (a *DslApiService) PreviewExportTemplateToXFile(ctx context.Context, templateId string) ApiPreviewExportTemplateToXFileRequest {
 	return ApiPreviewExportTemplateToXFileRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 	}
 }
@@ -156,9 +169,9 @@ func (a *DslApiService) PreviewExportTemplateToXFile(ctx context.Context, templa
 // Execute executes the request
 func (a *DslApiService) PreviewExportTemplateToXFileExecute(r ApiPreviewExportTemplateToXFileRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DslApiService.PreviewExportTemplateToXFile")
@@ -174,7 +187,7 @@ func (a *DslApiService) PreviewExportTemplateToXFileExecute(r ApiPreviewExportTe
 	localVarFormParams := url.Values{}
 
 	if r.exportTemplate != nil {
-		parameterAddToQuery(localVarQueryParams, "exportTemplate", r.exportTemplate, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exportTemplate", r.exportTemplate, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -193,6 +206,20 @@ func (a *DslApiService) PreviewExportTemplateToXFileExecute(r ApiPreviewExportTe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -203,9 +230,9 @@ func (a *DslApiService) PreviewExportTemplateToXFileExecute(r ApiPreviewExportTe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

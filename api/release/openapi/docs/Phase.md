@@ -4,28 +4,30 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Locked** | Pointer to **bool** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**ScheduledStartDate** | Pointer to **string** |  | [optional] 
-**DueDate** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**ScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
+**DueDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **PlannedDuration** | Pointer to **int32** |  | [optional] 
 **FlagStatus** | Pointer to [**FlagStatus**](FlagStatus.md) |  | [optional] 
 **FlagComment** | Pointer to **string** |  | [optional] 
 **OverdueNotified** | Pointer to **bool** |  | [optional] 
 **Flagged** | Pointer to **bool** |  | [optional] 
-**StartOrScheduledDate** | Pointer to **string** |  | [optional] 
-**EndOrDueDate** | Pointer to **string** |  | [optional] 
+**StartOrScheduledDate** | Pointer to **time.Time** |  | [optional] 
+**EndOrDueDate** | Pointer to **time.Time** |  | [optional] 
 **Overdue** | Pointer to **bool** |  | [optional] 
-**OrCalculateDueDate** | Pointer to **NullableString** |  | [optional] 
+**OrCalculateDueDate** | Pointer to **NullableTime** |  | [optional] 
 **ComputedPlannedDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **ActualDuration** | Pointer to **map[string]interface{}** |  | [optional] 
 **ReleaseUid** | Pointer to **int32** |  | [optional] 
 **Tasks** | Pointer to [**[]Task**](Task.md) |  | [optional] 
-**Release** | Pointer to [**Release**](Release.md) |  | [optional] 
+**Release** | Pointer to **interface{}** |  | [optional] 
 **Status** | Pointer to [**PhaseStatus**](PhaseStatus.md) |  | [optional] 
 **Color** | Pointer to **string** |  | [optional] 
 **OriginId** | Pointer to **string** |  | [optional] 
@@ -67,6 +69,56 @@ will change when the set of required properties is changed
 NewPhaseWithDefaults instantiates a new Phase object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *Phase) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Phase) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Phase) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Phase) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Phase) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Phase) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Phase) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Phase) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetLocked
 
@@ -170,20 +222,20 @@ HasOwner returns a boolean if a field has been set.
 
 ### GetScheduledStartDate
 
-`func (o *Phase) GetScheduledStartDate() string`
+`func (o *Phase) GetScheduledStartDate() time.Time`
 
 GetScheduledStartDate returns the ScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetScheduledStartDateOk
 
-`func (o *Phase) GetScheduledStartDateOk() (*string, bool)`
+`func (o *Phase) GetScheduledStartDateOk() (*time.Time, bool)`
 
 GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledStartDate
 
-`func (o *Phase) SetScheduledStartDate(v string)`
+`func (o *Phase) SetScheduledStartDate(v time.Time)`
 
 SetScheduledStartDate sets ScheduledStartDate field to given value.
 
@@ -195,20 +247,20 @@ HasScheduledStartDate returns a boolean if a field has been set.
 
 ### GetDueDate
 
-`func (o *Phase) GetDueDate() string`
+`func (o *Phase) GetDueDate() time.Time`
 
 GetDueDate returns the DueDate field if non-nil, zero value otherwise.
 
 ### GetDueDateOk
 
-`func (o *Phase) GetDueDateOk() (*string, bool)`
+`func (o *Phase) GetDueDateOk() (*time.Time, bool)`
 
 GetDueDateOk returns a tuple with the DueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDueDate
 
-`func (o *Phase) SetDueDate(v string)`
+`func (o *Phase) SetDueDate(v time.Time)`
 
 SetDueDate sets DueDate field to given value.
 
@@ -220,20 +272,20 @@ HasDueDate returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *Phase) GetStartDate() string`
+`func (o *Phase) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *Phase) GetStartDateOk() (*string, bool)`
+`func (o *Phase) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *Phase) SetStartDate(v string)`
+`func (o *Phase) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -245,20 +297,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *Phase) GetEndDate() string`
+`func (o *Phase) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *Phase) GetEndDateOk() (*string, bool)`
+`func (o *Phase) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *Phase) SetEndDate(v string)`
+`func (o *Phase) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 
@@ -395,20 +447,20 @@ HasFlagged returns a boolean if a field has been set.
 
 ### GetStartOrScheduledDate
 
-`func (o *Phase) GetStartOrScheduledDate() string`
+`func (o *Phase) GetStartOrScheduledDate() time.Time`
 
 GetStartOrScheduledDate returns the StartOrScheduledDate field if non-nil, zero value otherwise.
 
 ### GetStartOrScheduledDateOk
 
-`func (o *Phase) GetStartOrScheduledDateOk() (*string, bool)`
+`func (o *Phase) GetStartOrScheduledDateOk() (*time.Time, bool)`
 
 GetStartOrScheduledDateOk returns a tuple with the StartOrScheduledDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartOrScheduledDate
 
-`func (o *Phase) SetStartOrScheduledDate(v string)`
+`func (o *Phase) SetStartOrScheduledDate(v time.Time)`
 
 SetStartOrScheduledDate sets StartOrScheduledDate field to given value.
 
@@ -420,20 +472,20 @@ HasStartOrScheduledDate returns a boolean if a field has been set.
 
 ### GetEndOrDueDate
 
-`func (o *Phase) GetEndOrDueDate() string`
+`func (o *Phase) GetEndOrDueDate() time.Time`
 
 GetEndOrDueDate returns the EndOrDueDate field if non-nil, zero value otherwise.
 
 ### GetEndOrDueDateOk
 
-`func (o *Phase) GetEndOrDueDateOk() (*string, bool)`
+`func (o *Phase) GetEndOrDueDateOk() (*time.Time, bool)`
 
 GetEndOrDueDateOk returns a tuple with the EndOrDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndOrDueDate
 
-`func (o *Phase) SetEndOrDueDate(v string)`
+`func (o *Phase) SetEndOrDueDate(v time.Time)`
 
 SetEndOrDueDate sets EndOrDueDate field to given value.
 
@@ -470,20 +522,20 @@ HasOverdue returns a boolean if a field has been set.
 
 ### GetOrCalculateDueDate
 
-`func (o *Phase) GetOrCalculateDueDate() string`
+`func (o *Phase) GetOrCalculateDueDate() time.Time`
 
 GetOrCalculateDueDate returns the OrCalculateDueDate field if non-nil, zero value otherwise.
 
 ### GetOrCalculateDueDateOk
 
-`func (o *Phase) GetOrCalculateDueDateOk() (*string, bool)`
+`func (o *Phase) GetOrCalculateDueDateOk() (*time.Time, bool)`
 
 GetOrCalculateDueDateOk returns a tuple with the OrCalculateDueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrCalculateDueDate
 
-`func (o *Phase) SetOrCalculateDueDate(v string)`
+`func (o *Phase) SetOrCalculateDueDate(v time.Time)`
 
 SetOrCalculateDueDate sets OrCalculateDueDate field to given value.
 
@@ -605,20 +657,20 @@ HasTasks returns a boolean if a field has been set.
 
 ### GetRelease
 
-`func (o *Phase) GetRelease() Release`
+`func (o *Phase) GetRelease() interface{}`
 
 GetRelease returns the Release field if non-nil, zero value otherwise.
 
 ### GetReleaseOk
 
-`func (o *Phase) GetReleaseOk() (*Release, bool)`
+`func (o *Phase) GetReleaseOk() (*interface{}, bool)`
 
 GetReleaseOk returns a tuple with the Release field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRelease
 
-`func (o *Phase) SetRelease(v Release)`
+`func (o *Phase) SetRelease(v interface{})`
 
 SetRelease sets Release field to given value.
 
@@ -628,6 +680,16 @@ SetRelease sets Release field to given value.
 
 HasRelease returns a boolean if a field has been set.
 
+### SetReleaseNil
+
+`func (o *Phase) SetReleaseNil(b bool)`
+
+ SetReleaseNil sets the value for Release to be an explicit nil
+
+### UnsetRelease
+`func (o *Phase) UnsetRelease()`
+
+UnsetRelease ensures that no value is present for Release, not even an explicit nil
 ### GetStatus
 
 `func (o *Phase) GetStatus() PhaseStatus`

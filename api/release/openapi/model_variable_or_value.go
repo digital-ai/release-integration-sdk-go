@@ -19,8 +19,8 @@ var _ MappedNullable = &VariableOrValue{}
 
 // VariableOrValue struct for VariableOrValue
 type VariableOrValue struct {
-	Variable *string `json:"variable,omitempty"`
-	Value map[string]interface{} `json:"value,omitempty"`
+	Variable *string     `json:"variable,omitempty"`
+	Value    interface{} `json:"value,omitempty"`
 }
 
 // NewVariableOrValue instantiates a new VariableOrValue object
@@ -42,7 +42,7 @@ func NewVariableOrValueWithDefaults() *VariableOrValue {
 
 // GetVariable returns the Variable field value if set, zero value otherwise.
 func (o *VariableOrValue) GetVariable() string {
-	if o == nil || isNil(o.Variable) {
+	if o == nil || IsNil(o.Variable) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *VariableOrValue) GetVariable() string {
 // GetVariableOk returns a tuple with the Variable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VariableOrValue) GetVariableOk() (*string, bool) {
-	if o == nil || isNil(o.Variable) {
+	if o == nil || IsNil(o.Variable) {
 		return nil, false
 	}
 	return o.Variable, true
@@ -60,7 +60,7 @@ func (o *VariableOrValue) GetVariableOk() (*string, bool) {
 
 // HasVariable returns a boolean if a field has been set.
 func (o *VariableOrValue) HasVariable() bool {
-	if o != nil && !isNil(o.Variable) {
+	if o != nil && !IsNil(o.Variable) {
 		return true
 	}
 
@@ -72,10 +72,10 @@ func (o *VariableOrValue) SetVariable(v string) {
 	o.Variable = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *VariableOrValue) GetValue() map[string]interface{} {
-	if o == nil || isNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VariableOrValue) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -83,29 +83,30 @@ func (o *VariableOrValue) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VariableOrValue) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.Value) {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *VariableOrValue) GetValueOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
 func (o *VariableOrValue) HasValue() bool {
-	if o != nil && !isNil(o.Value) {
+	if o != nil && IsNil(o.Value) {
 		return true
 	}
 
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *VariableOrValue) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *VariableOrValue) SetValue(v interface{}) {
 	o.Value = v
 }
 
 func (o VariableOrValue) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +115,10 @@ func (o VariableOrValue) MarshalJSON() ([]byte, error) {
 
 func (o VariableOrValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Variable) {
+	if !IsNil(o.Variable) {
 		toSerialize["variable"] = o.Variable
 	}
-	if !isNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
 	return toSerialize, nil
@@ -158,5 +159,3 @@ func (v *NullableVariableOrValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

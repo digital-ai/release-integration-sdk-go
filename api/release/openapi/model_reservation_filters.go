@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the ReservationFilters type satisfies the MappedNullable interface at compile time
@@ -19,12 +20,12 @@ var _ MappedNullable = &ReservationFilters{}
 
 // ReservationFilters struct for ReservationFilters
 type ReservationFilters struct {
-	EnvironmentTitle *string `json:"environmentTitle,omitempty"`
-	Stages []string `json:"stages,omitempty"`
-	Labels []string `json:"labels,omitempty"`
-	Applications []string `json:"applications,omitempty"`
-	From *string `json:"from,omitempty"`
-	To *string `json:"to,omitempty"`
+	EnvironmentTitle *string    `json:"environmentTitle,omitempty"`
+	Stages           []string   `json:"stages,omitempty"`
+	Labels           []string   `json:"labels,omitempty"`
+	Applications     []string   `json:"applications,omitempty"`
+	From             *time.Time `json:"from,omitempty"`
+	To               *time.Time `json:"to,omitempty"`
 }
 
 // NewReservationFilters instantiates a new ReservationFilters object
@@ -46,7 +47,7 @@ func NewReservationFiltersWithDefaults() *ReservationFilters {
 
 // GetEnvironmentTitle returns the EnvironmentTitle field value if set, zero value otherwise.
 func (o *ReservationFilters) GetEnvironmentTitle() string {
-	if o == nil || isNil(o.EnvironmentTitle) {
+	if o == nil || IsNil(o.EnvironmentTitle) {
 		var ret string
 		return ret
 	}
@@ -56,7 +57,7 @@ func (o *ReservationFilters) GetEnvironmentTitle() string {
 // GetEnvironmentTitleOk returns a tuple with the EnvironmentTitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReservationFilters) GetEnvironmentTitleOk() (*string, bool) {
-	if o == nil || isNil(o.EnvironmentTitle) {
+	if o == nil || IsNil(o.EnvironmentTitle) {
 		return nil, false
 	}
 	return o.EnvironmentTitle, true
@@ -64,7 +65,7 @@ func (o *ReservationFilters) GetEnvironmentTitleOk() (*string, bool) {
 
 // HasEnvironmentTitle returns a boolean if a field has been set.
 func (o *ReservationFilters) HasEnvironmentTitle() bool {
-	if o != nil && !isNil(o.EnvironmentTitle) {
+	if o != nil && !IsNil(o.EnvironmentTitle) {
 		return true
 	}
 
@@ -78,7 +79,7 @@ func (o *ReservationFilters) SetEnvironmentTitle(v string) {
 
 // GetStages returns the Stages field value if set, zero value otherwise.
 func (o *ReservationFilters) GetStages() []string {
-	if o == nil || isNil(o.Stages) {
+	if o == nil || IsNil(o.Stages) {
 		var ret []string
 		return ret
 	}
@@ -88,7 +89,7 @@ func (o *ReservationFilters) GetStages() []string {
 // GetStagesOk returns a tuple with the Stages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReservationFilters) GetStagesOk() ([]string, bool) {
-	if o == nil || isNil(o.Stages) {
+	if o == nil || IsNil(o.Stages) {
 		return nil, false
 	}
 	return o.Stages, true
@@ -96,7 +97,7 @@ func (o *ReservationFilters) GetStagesOk() ([]string, bool) {
 
 // HasStages returns a boolean if a field has been set.
 func (o *ReservationFilters) HasStages() bool {
-	if o != nil && !isNil(o.Stages) {
+	if o != nil && !IsNil(o.Stages) {
 		return true
 	}
 
@@ -110,7 +111,7 @@ func (o *ReservationFilters) SetStages(v []string) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *ReservationFilters) GetLabels() []string {
-	if o == nil || isNil(o.Labels) {
+	if o == nil || IsNil(o.Labels) {
 		var ret []string
 		return ret
 	}
@@ -120,7 +121,7 @@ func (o *ReservationFilters) GetLabels() []string {
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReservationFilters) GetLabelsOk() ([]string, bool) {
-	if o == nil || isNil(o.Labels) {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -128,7 +129,7 @@ func (o *ReservationFilters) GetLabelsOk() ([]string, bool) {
 
 // HasLabels returns a boolean if a field has been set.
 func (o *ReservationFilters) HasLabels() bool {
-	if o != nil && !isNil(o.Labels) {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -142,7 +143,7 @@ func (o *ReservationFilters) SetLabels(v []string) {
 
 // GetApplications returns the Applications field value if set, zero value otherwise.
 func (o *ReservationFilters) GetApplications() []string {
-	if o == nil || isNil(o.Applications) {
+	if o == nil || IsNil(o.Applications) {
 		var ret []string
 		return ret
 	}
@@ -152,7 +153,7 @@ func (o *ReservationFilters) GetApplications() []string {
 // GetApplicationsOk returns a tuple with the Applications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReservationFilters) GetApplicationsOk() ([]string, bool) {
-	if o == nil || isNil(o.Applications) {
+	if o == nil || IsNil(o.Applications) {
 		return nil, false
 	}
 	return o.Applications, true
@@ -160,7 +161,7 @@ func (o *ReservationFilters) GetApplicationsOk() ([]string, bool) {
 
 // HasApplications returns a boolean if a field has been set.
 func (o *ReservationFilters) HasApplications() bool {
-	if o != nil && !isNil(o.Applications) {
+	if o != nil && !IsNil(o.Applications) {
 		return true
 	}
 
@@ -173,9 +174,9 @@ func (o *ReservationFilters) SetApplications(v []string) {
 }
 
 // GetFrom returns the From field value if set, zero value otherwise.
-func (o *ReservationFilters) GetFrom() string {
-	if o == nil || isNil(o.From) {
-		var ret string
+func (o *ReservationFilters) GetFrom() time.Time {
+	if o == nil || IsNil(o.From) {
+		var ret time.Time
 		return ret
 	}
 	return *o.From
@@ -183,8 +184,8 @@ func (o *ReservationFilters) GetFrom() string {
 
 // GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReservationFilters) GetFromOk() (*string, bool) {
-	if o == nil || isNil(o.From) {
+func (o *ReservationFilters) GetFromOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.From) {
 		return nil, false
 	}
 	return o.From, true
@@ -192,22 +193,22 @@ func (o *ReservationFilters) GetFromOk() (*string, bool) {
 
 // HasFrom returns a boolean if a field has been set.
 func (o *ReservationFilters) HasFrom() bool {
-	if o != nil && !isNil(o.From) {
+	if o != nil && !IsNil(o.From) {
 		return true
 	}
 
 	return false
 }
 
-// SetFrom gets a reference to the given string and assigns it to the From field.
-func (o *ReservationFilters) SetFrom(v string) {
+// SetFrom gets a reference to the given time.Time and assigns it to the From field.
+func (o *ReservationFilters) SetFrom(v time.Time) {
 	o.From = &v
 }
 
 // GetTo returns the To field value if set, zero value otherwise.
-func (o *ReservationFilters) GetTo() string {
-	if o == nil || isNil(o.To) {
-		var ret string
+func (o *ReservationFilters) GetTo() time.Time {
+	if o == nil || IsNil(o.To) {
+		var ret time.Time
 		return ret
 	}
 	return *o.To
@@ -215,8 +216,8 @@ func (o *ReservationFilters) GetTo() string {
 
 // GetToOk returns a tuple with the To field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReservationFilters) GetToOk() (*string, bool) {
-	if o == nil || isNil(o.To) {
+func (o *ReservationFilters) GetToOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.To) {
 		return nil, false
 	}
 	return o.To, true
@@ -224,20 +225,20 @@ func (o *ReservationFilters) GetToOk() (*string, bool) {
 
 // HasTo returns a boolean if a field has been set.
 func (o *ReservationFilters) HasTo() bool {
-	if o != nil && !isNil(o.To) {
+	if o != nil && !IsNil(o.To) {
 		return true
 	}
 
 	return false
 }
 
-// SetTo gets a reference to the given string and assigns it to the To field.
-func (o *ReservationFilters) SetTo(v string) {
+// SetTo gets a reference to the given time.Time and assigns it to the To field.
+func (o *ReservationFilters) SetTo(v time.Time) {
 	o.To = &v
 }
 
 func (o ReservationFilters) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -246,22 +247,22 @@ func (o ReservationFilters) MarshalJSON() ([]byte, error) {
 
 func (o ReservationFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.EnvironmentTitle) {
+	if !IsNil(o.EnvironmentTitle) {
 		toSerialize["environmentTitle"] = o.EnvironmentTitle
 	}
-	if !isNil(o.Stages) {
+	if !IsNil(o.Stages) {
 		toSerialize["stages"] = o.Stages
 	}
-	if !isNil(o.Labels) {
+	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
-	if !isNil(o.Applications) {
+	if !IsNil(o.Applications) {
 		toSerialize["applications"] = o.Applications
 	}
-	if !isNil(o.From) {
+	if !IsNil(o.From) {
 		toSerialize["from"] = o.From
 	}
-	if !isNil(o.To) {
+	if !IsNil(o.To) {
 		toSerialize["to"] = o.To
 	}
 	return toSerialize, nil
@@ -302,5 +303,3 @@ func (v *NullableReservationFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

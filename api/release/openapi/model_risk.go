@@ -19,9 +19,11 @@ var _ MappedNullable = &Risk{}
 
 // Risk struct for Risk
 type Risk struct {
-	VariableUsages []UsagePoint `json:"variableUsages,omitempty"`
-	Score *int32 `json:"score,omitempty"`
-	TotalScore *int32 `json:"totalScore,omitempty"`
+	Id              *string          `json:"id,omitempty"`
+	Type            *string          `json:"type,omitempty"`
+	VariableUsages  []UsagePoint     `json:"variableUsages,omitempty"`
+	Score           *int32           `json:"score,omitempty"`
+	TotalScore      *int32           `json:"totalScore,omitempty"`
 	RiskAssessments []RiskAssessment `json:"riskAssessments,omitempty"`
 }
 
@@ -42,9 +44,73 @@ func NewRiskWithDefaults() *Risk {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Risk) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Risk) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Risk) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Risk) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Risk) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Risk) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Risk) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Risk) SetType(v string) {
+	o.Type = &v
+}
+
 // GetVariableUsages returns the VariableUsages field value if set, zero value otherwise.
 func (o *Risk) GetVariableUsages() []UsagePoint {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		var ret []UsagePoint
 		return ret
 	}
@@ -54,7 +120,7 @@ func (o *Risk) GetVariableUsages() []UsagePoint {
 // GetVariableUsagesOk returns a tuple with the VariableUsages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Risk) GetVariableUsagesOk() ([]UsagePoint, bool) {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		return nil, false
 	}
 	return o.VariableUsages, true
@@ -62,7 +128,7 @@ func (o *Risk) GetVariableUsagesOk() ([]UsagePoint, bool) {
 
 // HasVariableUsages returns a boolean if a field has been set.
 func (o *Risk) HasVariableUsages() bool {
-	if o != nil && !isNil(o.VariableUsages) {
+	if o != nil && !IsNil(o.VariableUsages) {
 		return true
 	}
 
@@ -76,7 +142,7 @@ func (o *Risk) SetVariableUsages(v []UsagePoint) {
 
 // GetScore returns the Score field value if set, zero value otherwise.
 func (o *Risk) GetScore() int32 {
-	if o == nil || isNil(o.Score) {
+	if o == nil || IsNil(o.Score) {
 		var ret int32
 		return ret
 	}
@@ -86,7 +152,7 @@ func (o *Risk) GetScore() int32 {
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Risk) GetScoreOk() (*int32, bool) {
-	if o == nil || isNil(o.Score) {
+	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
 	return o.Score, true
@@ -94,7 +160,7 @@ func (o *Risk) GetScoreOk() (*int32, bool) {
 
 // HasScore returns a boolean if a field has been set.
 func (o *Risk) HasScore() bool {
-	if o != nil && !isNil(o.Score) {
+	if o != nil && !IsNil(o.Score) {
 		return true
 	}
 
@@ -108,7 +174,7 @@ func (o *Risk) SetScore(v int32) {
 
 // GetTotalScore returns the TotalScore field value if set, zero value otherwise.
 func (o *Risk) GetTotalScore() int32 {
-	if o == nil || isNil(o.TotalScore) {
+	if o == nil || IsNil(o.TotalScore) {
 		var ret int32
 		return ret
 	}
@@ -118,7 +184,7 @@ func (o *Risk) GetTotalScore() int32 {
 // GetTotalScoreOk returns a tuple with the TotalScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Risk) GetTotalScoreOk() (*int32, bool) {
-	if o == nil || isNil(o.TotalScore) {
+	if o == nil || IsNil(o.TotalScore) {
 		return nil, false
 	}
 	return o.TotalScore, true
@@ -126,7 +192,7 @@ func (o *Risk) GetTotalScoreOk() (*int32, bool) {
 
 // HasTotalScore returns a boolean if a field has been set.
 func (o *Risk) HasTotalScore() bool {
-	if o != nil && !isNil(o.TotalScore) {
+	if o != nil && !IsNil(o.TotalScore) {
 		return true
 	}
 
@@ -140,7 +206,7 @@ func (o *Risk) SetTotalScore(v int32) {
 
 // GetRiskAssessments returns the RiskAssessments field value if set, zero value otherwise.
 func (o *Risk) GetRiskAssessments() []RiskAssessment {
-	if o == nil || isNil(o.RiskAssessments) {
+	if o == nil || IsNil(o.RiskAssessments) {
 		var ret []RiskAssessment
 		return ret
 	}
@@ -150,7 +216,7 @@ func (o *Risk) GetRiskAssessments() []RiskAssessment {
 // GetRiskAssessmentsOk returns a tuple with the RiskAssessments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Risk) GetRiskAssessmentsOk() ([]RiskAssessment, bool) {
-	if o == nil || isNil(o.RiskAssessments) {
+	if o == nil || IsNil(o.RiskAssessments) {
 		return nil, false
 	}
 	return o.RiskAssessments, true
@@ -158,7 +224,7 @@ func (o *Risk) GetRiskAssessmentsOk() ([]RiskAssessment, bool) {
 
 // HasRiskAssessments returns a boolean if a field has been set.
 func (o *Risk) HasRiskAssessments() bool {
-	if o != nil && !isNil(o.RiskAssessments) {
+	if o != nil && !IsNil(o.RiskAssessments) {
 		return true
 	}
 
@@ -171,7 +237,7 @@ func (o *Risk) SetRiskAssessments(v []RiskAssessment) {
 }
 
 func (o Risk) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +246,22 @@ func (o Risk) MarshalJSON() ([]byte, error) {
 
 func (o Risk) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.VariableUsages) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.VariableUsages) {
 		toSerialize["variableUsages"] = o.VariableUsages
 	}
-	if !isNil(o.Score) {
+	if !IsNil(o.Score) {
 		toSerialize["score"] = o.Score
 	}
-	if !isNil(o.TotalScore) {
+	if !IsNil(o.TotalScore) {
 		toSerialize["totalScore"] = o.TotalScore
 	}
-	if !isNil(o.RiskAssessments) {
+	if !IsNil(o.RiskAssessments) {
 		toSerialize["riskAssessments"] = o.RiskAssessments
 	}
 	return toSerialize, nil
@@ -230,5 +302,3 @@ func (v *NullableRisk) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

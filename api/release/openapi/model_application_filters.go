@@ -19,7 +19,7 @@ var _ MappedNullable = &ApplicationFilters{}
 
 // ApplicationFilters struct for ApplicationFilters
 type ApplicationFilters struct {
-	Title *string `json:"title,omitempty"`
+	Title        *string  `json:"title,omitempty"`
 	Environments []string `json:"environments,omitempty"`
 }
 
@@ -42,7 +42,7 @@ func NewApplicationFiltersWithDefaults() *ApplicationFilters {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ApplicationFilters) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *ApplicationFilters) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationFilters) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -60,7 +60,7 @@ func (o *ApplicationFilters) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ApplicationFilters) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *ApplicationFilters) SetTitle(v string) {
 
 // GetEnvironments returns the Environments field value if set, zero value otherwise.
 func (o *ApplicationFilters) GetEnvironments() []string {
-	if o == nil || isNil(o.Environments) {
+	if o == nil || IsNil(o.Environments) {
 		var ret []string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *ApplicationFilters) GetEnvironments() []string {
 // GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationFilters) GetEnvironmentsOk() ([]string, bool) {
-	if o == nil || isNil(o.Environments) {
+	if o == nil || IsNil(o.Environments) {
 		return nil, false
 	}
 	return o.Environments, true
@@ -92,7 +92,7 @@ func (o *ApplicationFilters) GetEnvironmentsOk() ([]string, bool) {
 
 // HasEnvironments returns a boolean if a field has been set.
 func (o *ApplicationFilters) HasEnvironments() bool {
-	if o != nil && !isNil(o.Environments) {
+	if o != nil && !IsNil(o.Environments) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *ApplicationFilters) SetEnvironments(v []string) {
 }
 
 func (o ApplicationFilters) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o ApplicationFilters) MarshalJSON() ([]byte, error) {
 
 func (o ApplicationFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Environments) {
+	if !IsNil(o.Environments) {
 		toSerialize["environments"] = o.Environments
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableApplicationFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

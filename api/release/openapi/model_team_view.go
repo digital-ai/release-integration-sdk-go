@@ -19,11 +19,11 @@ var _ MappedNullable = &TeamView{}
 
 // TeamView struct for TeamView
 type TeamView struct {
-	Id *string `json:"id,omitempty"`
-	TeamName *string `json:"teamName,omitempty"`
-	Members []TeamMemberView `json:"members,omitempty"`
-	Permissions []string `json:"permissions,omitempty"`
-	SystemTeam *bool `json:"systemTeam,omitempty"`
+	Id          *string          `json:"id,omitempty"`
+	TeamName    *string          `json:"teamName,omitempty"`
+	Members     []TeamMemberView `json:"members,omitempty"`
+	Permissions []string         `json:"permissions,omitempty"`
+	SystemTeam  *bool            `json:"systemTeam,omitempty"`
 }
 
 // NewTeamView instantiates a new TeamView object
@@ -45,7 +45,7 @@ func NewTeamViewWithDefaults() *TeamView {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *TeamView) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -55,7 +55,7 @@ func (o *TeamView) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamView) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -63,7 +63,7 @@ func (o *TeamView) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *TeamView) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -77,7 +77,7 @@ func (o *TeamView) SetId(v string) {
 
 // GetTeamName returns the TeamName field value if set, zero value otherwise.
 func (o *TeamView) GetTeamName() string {
-	if o == nil || isNil(o.TeamName) {
+	if o == nil || IsNil(o.TeamName) {
 		var ret string
 		return ret
 	}
@@ -87,7 +87,7 @@ func (o *TeamView) GetTeamName() string {
 // GetTeamNameOk returns a tuple with the TeamName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamView) GetTeamNameOk() (*string, bool) {
-	if o == nil || isNil(o.TeamName) {
+	if o == nil || IsNil(o.TeamName) {
 		return nil, false
 	}
 	return o.TeamName, true
@@ -95,7 +95,7 @@ func (o *TeamView) GetTeamNameOk() (*string, bool) {
 
 // HasTeamName returns a boolean if a field has been set.
 func (o *TeamView) HasTeamName() bool {
-	if o != nil && !isNil(o.TeamName) {
+	if o != nil && !IsNil(o.TeamName) {
 		return true
 	}
 
@@ -109,7 +109,7 @@ func (o *TeamView) SetTeamName(v string) {
 
 // GetMembers returns the Members field value if set, zero value otherwise.
 func (o *TeamView) GetMembers() []TeamMemberView {
-	if o == nil || isNil(o.Members) {
+	if o == nil || IsNil(o.Members) {
 		var ret []TeamMemberView
 		return ret
 	}
@@ -119,7 +119,7 @@ func (o *TeamView) GetMembers() []TeamMemberView {
 // GetMembersOk returns a tuple with the Members field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamView) GetMembersOk() ([]TeamMemberView, bool) {
-	if o == nil || isNil(o.Members) {
+	if o == nil || IsNil(o.Members) {
 		return nil, false
 	}
 	return o.Members, true
@@ -127,7 +127,7 @@ func (o *TeamView) GetMembersOk() ([]TeamMemberView, bool) {
 
 // HasMembers returns a boolean if a field has been set.
 func (o *TeamView) HasMembers() bool {
-	if o != nil && !isNil(o.Members) {
+	if o != nil && !IsNil(o.Members) {
 		return true
 	}
 
@@ -141,7 +141,7 @@ func (o *TeamView) SetMembers(v []TeamMemberView) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *TeamView) GetPermissions() []string {
-	if o == nil || isNil(o.Permissions) {
+	if o == nil || IsNil(o.Permissions) {
 		var ret []string
 		return ret
 	}
@@ -151,7 +151,7 @@ func (o *TeamView) GetPermissions() []string {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamView) GetPermissionsOk() ([]string, bool) {
-	if o == nil || isNil(o.Permissions) {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -159,7 +159,7 @@ func (o *TeamView) GetPermissionsOk() ([]string, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *TeamView) HasPermissions() bool {
-	if o != nil && !isNil(o.Permissions) {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -173,7 +173,7 @@ func (o *TeamView) SetPermissions(v []string) {
 
 // GetSystemTeam returns the SystemTeam field value if set, zero value otherwise.
 func (o *TeamView) GetSystemTeam() bool {
-	if o == nil || isNil(o.SystemTeam) {
+	if o == nil || IsNil(o.SystemTeam) {
 		var ret bool
 		return ret
 	}
@@ -183,7 +183,7 @@ func (o *TeamView) GetSystemTeam() bool {
 // GetSystemTeamOk returns a tuple with the SystemTeam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TeamView) GetSystemTeamOk() (*bool, bool) {
-	if o == nil || isNil(o.SystemTeam) {
+	if o == nil || IsNil(o.SystemTeam) {
 		return nil, false
 	}
 	return o.SystemTeam, true
@@ -191,7 +191,7 @@ func (o *TeamView) GetSystemTeamOk() (*bool, bool) {
 
 // HasSystemTeam returns a boolean if a field has been set.
 func (o *TeamView) HasSystemTeam() bool {
-	if o != nil && !isNil(o.SystemTeam) {
+	if o != nil && !IsNil(o.SystemTeam) {
 		return true
 	}
 
@@ -204,7 +204,7 @@ func (o *TeamView) SetSystemTeam(v bool) {
 }
 
 func (o TeamView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -213,19 +213,19 @@ func (o TeamView) MarshalJSON() ([]byte, error) {
 
 func (o TeamView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.TeamName) {
+	if !IsNil(o.TeamName) {
 		toSerialize["teamName"] = o.TeamName
 	}
-	if !isNil(o.Members) {
+	if !IsNil(o.Members) {
 		toSerialize["members"] = o.Members
 	}
-	if !isNil(o.Permissions) {
+	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
-	if !isNil(o.SystemTeam) {
+	if !IsNil(o.SystemTeam) {
 		toSerialize["systemTeam"] = o.SystemTeam
 	}
 	return toSerialize, nil
@@ -266,5 +266,3 @@ func (v *NullableTeamView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

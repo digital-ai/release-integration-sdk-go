@@ -20,8 +20,8 @@ type DeliveryOrderMode string
 
 // List of DeliveryOrderMode
 const (
-	START_DATE_DELIVERY DeliveryOrderMode = "START_DATE_DELIVERY"
-	END_DATE_DELIVERY DeliveryOrderMode = "END_DATE_DELIVERY"
+	START_DATE_DELIVERY   DeliveryOrderMode = "START_DATE_DELIVERY"
+	END_DATE_DELIVERY     DeliveryOrderMode = "END_DATE_DELIVERY"
 	CREATED_DATE_DELIVERY DeliveryOrderMode = "CREATED_DATE_DELIVERY"
 )
 
@@ -110,4 +110,3 @@ func (v *NullableDeliveryOrderMode) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
