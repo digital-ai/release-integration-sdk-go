@@ -60,7 +60,7 @@ func (mock MockFactory) InitCommand(commandType command.CommandType) (command.Co
 }
 
 var commandRunner = runner.NewCommandRunner(
-	func(input task.TaskContext) (command.CommandFactory, error) {
+	func(input task.InputContext) (command.CommandFactory, error) {
 		return MockFactory{
 			"result",
 			"secureResult",
