@@ -12,7 +12,7 @@ func TestReleaseClient(t *testing.T) {
 
 func ConveyTest(t *testing.T) {
 	Convey("Test ReleaseApi client", t, func() {
-		clientConfig := NewReleaseClient(ctx).Client.GetConfig()
+		clientConfig := NewReleaseApiClient(ctx).GetConfig()
 
 		So(clientConfig.Host, ShouldEqual, "localhost:5516")
 	})

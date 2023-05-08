@@ -7,15 +7,6 @@ import (
 	"github.com/digital-ai/release-integration-sdk-go/task"
 )
 
-type ReleaseClient struct {
-	Client *openapi.APIClient
-}
-
-func NewReleaseClient(ctx task.ReleaseContext) *ReleaseClient {
-	client := NewReleaseApiClient(ctx)
-	return &ReleaseClient{Client: client}
-}
-
 func NewReleaseApiClient(ctx task.ReleaseContext) *openapi.APIClient {
 	conf := openapi.NewConfiguration()
 	conf.DefaultHeader = map[string]string{

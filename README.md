@@ -25,7 +25,7 @@ func main() {
         Url: "localhost:5516",
     }
 
-	releaseClient := release.NewReleaseClient(ctx)
-	result, err := releaseClient.Client.ReleaseApi.DeleteReleaseVariable(context.TODO(), "variable1").Execute()
+	releaseClient := release.NewReleaseApiClient(ctx)
+	result, err := releaseClient.ReleaseApi.DeleteReleaseVariable(context.TODO(), "variable1").Execute()
 }
 ```
