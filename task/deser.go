@@ -14,9 +14,12 @@ const (
 	OutputLocation   = "OUTPUT_LOCATION"
 	CallbackURL      = "CALLBACK_URL"
 	ResultSecretName = "RESULT_SECRET_NAME"
+	ReleaseURL       = "RELEASE_URL"
 )
 
 func Deserialize(context *InputContext) error {
+	context.Release.Url = os.Getenv(ReleaseURL)
+
 	var inputLocation = os.Getenv(InputLocation)
 	inputContent, err := os.Open(inputLocation)
 	// if we os.Open returns an error then handle it
