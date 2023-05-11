@@ -15,7 +15,6 @@ func NewReleaseApiClient(ctx task.ReleaseContext) *openapi.APIClient {
 		"Content-Type":  "application/json",
 	}
 	conf.Host = withoutProtocol(ctx.Url)
-	conf.Scheme = "http"
 	return openapi.NewAPIClient(conf)
 }
 
