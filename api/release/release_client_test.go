@@ -24,5 +24,5 @@ var ctx = task.ReleaseContext{
 		Username: "admin",
 		Password: "admin",
 	},
-	Url: "localhost:5516",
+	Url: "http://localhost:5516",
 }
