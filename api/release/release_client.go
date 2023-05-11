@@ -3,7 +3,6 @@ package release
 import (
 	"encoding/base64"
 	"github.com/digital-ai/release-integration-sdk-go/api/release/openapi"
-	_ "github.com/digital-ai/release-integration-sdk-go/http"
 	"github.com/digital-ai/release-integration-sdk-go/task"
 	"strings"
 )
