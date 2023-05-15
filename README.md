@@ -14,25 +14,35 @@ openapi-generator generate -i https://raw.githubusercontent.com/digital-ai/relea
 ```
 
 Example of calling Release Api that should be placed in the plugin:
+
 ```go
 package main
 
 import (
-	"github.com/digital-ai/release-integration-sdk-go"
+	"context"
+	"github.com/digital-ai/release-integration-sdk-go/api/release"
 	"github.com/digital-ai/release-integration-sdk-go/task"
+	"k8s.io/klog/v2"
 )
 
 func main() {
-    ctx := task.ReleaseContext{
-        Id: "release-id",
-        AutomatedTaskAsUser: task.AutomatedTaskAsUserContext{
-            Username: "admin",
-            Password: "admin",
-        },
-        Url: "localhost:5516",
-    }
+	ctx := task.ReleaseContext{
+		Id: "release-id",
+		AutomatedTaskAsUser: task.AutomatedTaskAsUserContext{
+			Username: "admin",
+			Password: "admin",
+		},
+		Url: "localhost:5516",
+	}
 
-	releaseClient := release.NewReleaseApiClient(ctx)
-	result, err := releaseClient.ReleaseApi.DeleteReleaseVariable(context.TODO(), "variable1").Execute()
+	releaseClient, err := release.NewReleaseApiClient(ctx)
+	if err != nil {
+		klog.Errorln("Error while getting release client: ", err)
+	}
+
+	_, err = releaseClient.ReleaseApi.DeleteReleaseVariable(context.TODO(), "variable1").Execute()
+	if err != nil {
+		klog.Errorln("Error while deleting release variable: ", err)
+	}
 }
 ```
