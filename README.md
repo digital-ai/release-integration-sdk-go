@@ -9,7 +9,9 @@ Since the release-integration-sdk-go has support for calling Release public API,
 
 Client files are generated with command:
 
-`openapi-generator generate -i release-api.yaml -g go -o api/release/openapi/ -p enumClassPrefix=true`
+```shell
+openapi-generator generate -i https://raw.githubusercontent.com/digital-ai/release-api/main/rest-api/release-api.yaml -g go -o api/release/openapi/ -p enumClassPrefix=true
+```
 
 Example of calling Release Api that should be placed in the plugin:
 ```go
