@@ -7,7 +7,7 @@ import (
 	"net/url"
 )
 
-func NewReleaseApiClient(ctx task.ReleaseContext) *openapi.APIClient {
+func NewReleaseApiClient(ctx task.ReleaseContext) (*openapi.APIClient, error) {
 	conf := openapi.NewConfiguration()
 	conf.DefaultHeader = map[string]string{
 		"Authorization": "Basic " + basicAuth(ctx.AutomatedTaskAsUser.Username, ctx.AutomatedTaskAsUser.Password),
@@ -16,11 +16,11 @@ func NewReleaseApiClient(ctx task.ReleaseContext) *openapi.APIClient {
 
 	baseUrl, err := url.Parse(ctx.Url)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	conf.Host = baseUrl.Host
-	return openapi.NewAPIClient(conf)
+	return openapi.NewAPIClient(conf), nil
 }
 
 func basicAuth(username, password string) string {
