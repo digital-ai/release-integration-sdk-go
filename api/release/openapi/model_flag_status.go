@@ -20,16 +20,16 @@ type FlagStatus string
 
 // List of FlagStatus
 const (
-	OK_FLAG               FlagStatus = "OK_FLAG"
-	ATTENTION_NEEDED_FLAG FlagStatus = "ATTENTION_NEEDED_FLAG"
-	AT_RISK_FLAG          FlagStatus = "AT_RISK_FLAG"
+	FLAGSTATUS_OK               FlagStatus = "OK"
+	FLAGSTATUS_ATTENTION_NEEDED FlagStatus = "ATTENTION_NEEDED"
+	FLAGSTATUS_AT_RISK          FlagStatus = "AT_RISK"
 )
 
 // All allowed values of FlagStatus enum
 var AllowedFlagStatusEnumValues = []FlagStatus{
-	"OK_FLAG",
-	"ATTENTION_NEEDED_FLAG",
-	"AT_RISK_FLAG",
+	"OK",
+	"ATTENTION_NEEDED",
+	"AT_RISK",
 }
 
 func (v *FlagStatus) UnmarshalJSON(src []byte) error {

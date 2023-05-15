@@ -6,6 +6,11 @@ See [Project WIKI](https://github.com/digital-ai/release-integration-sdk-go/wiki
 
 ## Release Api 
 Since the release-integration-sdk-go has support for calling Release public API, plugins can consume them.
+
+Client files are generated with command:
+
+`openapi-generator generate -i release-api.yaml -g go -o api/release/openapi/ -p enumClassPrefix=true`
+
 Example of calling Release Api that should be placed in the plugin:
 ```go
 package main

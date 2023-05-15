@@ -20,8 +20,8 @@ type TriggerExecutionStatus string
 
 // List of TriggerExecutionStatus
 const (
-	SUCCESS TriggerExecutionStatus = "SUCCESS"
-	FAILURE TriggerExecutionStatus = "FAILURE"
+	TRIGGEREXECUTIONSTATUS_SUCCESS TriggerExecutionStatus = "SUCCESS"
+	TRIGGEREXECUTIONSTATUS_FAILURE TriggerExecutionStatus = "FAILURE"
 )
 
 // All allowed values of TriggerExecutionStatus enum
@@ -108,4 +108,3 @@ func (v *NullableTriggerExecutionStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

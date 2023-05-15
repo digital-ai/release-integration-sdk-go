@@ -20,8 +20,8 @@ type ReleaseOrderDirection string
 
 // List of ReleaseOrderDirection
 const (
-	ASC ReleaseOrderDirection = "ASC"
-	DESC ReleaseOrderDirection = "DESC"
+	RELEASEORDERDIRECTION_ASC  ReleaseOrderDirection = "ASC"
+	RELEASEORDERDIRECTION_DESC ReleaseOrderDirection = "DESC"
 )
 
 // All allowed values of ReleaseOrderDirection enum
@@ -108,4 +108,3 @@ func (v *NullableReleaseOrderDirection) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

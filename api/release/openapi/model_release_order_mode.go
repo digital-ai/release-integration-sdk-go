@@ -20,10 +20,10 @@ type ReleaseOrderMode string
 
 // List of ReleaseOrderMode
 const (
-	RISK ReleaseOrderMode = "risk"
-	START_DATE ReleaseOrderMode = "start_date"
-	END_DATE ReleaseOrderMode = "end_date"
-	TITLE ReleaseOrderMode = "title"
+	RELEASEORDERMODE_RISK       ReleaseOrderMode = "risk"
+	RELEASEORDERMODE_START_DATE ReleaseOrderMode = "start_date"
+	RELEASEORDERMODE_END_DATE   ReleaseOrderMode = "end_date"
+	RELEASEORDERMODE_TITLE      ReleaseOrderMode = "title"
 )
 
 // All allowed values of ReleaseOrderMode enum
@@ -112,4 +112,3 @@ func (v *NullableReleaseOrderMode) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

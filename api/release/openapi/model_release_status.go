@@ -20,26 +20,26 @@ type ReleaseStatus string
 
 // List of ReleaseStatus
 const (
-	TEMPLATE_RELEASE    ReleaseStatus = "TEMPLATE_RELEASE"
-	PLANNED_RELEASE     ReleaseStatus = "PLANNED_RELEASE"
-	IN_PROGRESS_RELEASE ReleaseStatus = "IN_PROGRESS_RELEASE"
-	PAUSED_RELEASE      ReleaseStatus = "PAUSED_RELEASE"
-	FAILING_RELEASE     ReleaseStatus = "FAILING_RELEASE"
-	FAILED_RELEASE      ReleaseStatus = "FAILED_RELEASE"
-	COMPLETED_RELEASE   ReleaseStatus = "COMPLETED_RELEASE"
-	ABORTED_RELEASE     ReleaseStatus = "ABORTED_RELEASE"
+	RELEASESTATUS_TEMPLATE    ReleaseStatus = "TEMPLATE"
+	RELEASESTATUS_PLANNED     ReleaseStatus = "PLANNED"
+	RELEASESTATUS_IN_PROGRESS ReleaseStatus = "IN_PROGRESS"
+	RELEASESTATUS_PAUSED      ReleaseStatus = "PAUSED"
+	RELEASESTATUS_FAILING     ReleaseStatus = "FAILING"
+	RELEASESTATUS_FAILED      ReleaseStatus = "FAILED"
+	RELEASESTATUS_COMPLETED   ReleaseStatus = "COMPLETED"
+	RELEASESTATUS_ABORTED     ReleaseStatus = "ABORTED"
 )
 
 // All allowed values of ReleaseStatus enum
 var AllowedReleaseStatusEnumValues = []ReleaseStatus{
-	"TEMPLATE_RELEASE",
-	"PLANNED_RELEASE",
-	"IN_PROGRESS_RELEASE",
-	"PAUSED_RELEASE",
-	"FAILING_RELEASE",
-	"FAILED_RELEASE",
-	"COMPLETED_RELEASE",
-	"ABORTED_RELEASE",
+	"TEMPLATE",
+	"PLANNED",
+	"IN_PROGRESS",
+	"PAUSED",
+	"FAILING",
+	"FAILED",
+	"COMPLETED",
+	"ABORTED",
 }
 
 func (v *ReleaseStatus) UnmarshalJSON(src []byte) error {

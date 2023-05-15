@@ -20,16 +20,16 @@ type DeliveryOrderMode string
 
 // List of DeliveryOrderMode
 const (
-	START_DATE_DELIVERY   DeliveryOrderMode = "START_DATE_DELIVERY"
-	END_DATE_DELIVERY     DeliveryOrderMode = "END_DATE_DELIVERY"
-	CREATED_DATE_DELIVERY DeliveryOrderMode = "CREATED_DATE_DELIVERY"
+	DELIVERYORDERMODE_START_DATE   DeliveryOrderMode = "START_DATE"
+	DELIVERYORDERMODE_END_DATE     DeliveryOrderMode = "END_DATE"
+	DELIVERYORDERMODE_CREATED_DATE DeliveryOrderMode = "CREATED_DATE"
 )
 
 // All allowed values of DeliveryOrderMode enum
 var AllowedDeliveryOrderModeEnumValues = []DeliveryOrderMode{
-	"START_DATE_DELIVERY",
-	"END_DATE_DELIVERY",
-	"CREATED_DATE_DELIVERY",
+	"START_DATE",
+	"END_DATE",
+	"CREATED_DATE",
 }
 
 func (v *DeliveryOrderMode) UnmarshalJSON(src []byte) error {

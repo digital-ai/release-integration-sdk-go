@@ -20,12 +20,12 @@ type TimeFrame string
 
 // List of TimeFrame
 const (
-	LAST_SEVEN_DAYS TimeFrame = "LAST_SEVEN_DAYS"
-	LAST_MONTH TimeFrame = "LAST_MONTH"
-	LAST_THREE_MONTHS TimeFrame = "LAST_THREE_MONTHS"
-	LAST_SIX_MONTHS TimeFrame = "LAST_SIX_MONTHS"
-	LAST_YEAR TimeFrame = "LAST_YEAR"
-	RANGE TimeFrame = "RANGE"
+	TIMEFRAME_LAST_SEVEN_DAYS   TimeFrame = "LAST_SEVEN_DAYS"
+	TIMEFRAME_LAST_MONTH        TimeFrame = "LAST_MONTH"
+	TIMEFRAME_LAST_THREE_MONTHS TimeFrame = "LAST_THREE_MONTHS"
+	TIMEFRAME_LAST_SIX_MONTHS   TimeFrame = "LAST_SIX_MONTHS"
+	TIMEFRAME_LAST_YEAR         TimeFrame = "LAST_YEAR"
+	TIMEFRAME_RANGE             TimeFrame = "RANGE"
 )
 
 // All allowed values of TimeFrame enum
@@ -116,4 +116,3 @@ func (v *NullableTimeFrame) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

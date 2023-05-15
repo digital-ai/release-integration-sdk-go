@@ -20,16 +20,16 @@ type RiskStatus string
 
 // List of RiskStatus
 const (
-	OK               RiskStatus = "OK_FLAG"
-	AT_RISK          RiskStatus = "AT_RISK_FLAG"
-	ATTENTION_NEEDED RiskStatus = "ATTENTION_NEEDED_FLAG"
+	RISKSTATUS_OK               RiskStatus = "OK"
+	RISKSTATUS_AT_RISK          RiskStatus = "AT_RISK"
+	RISKSTATUS_ATTENTION_NEEDED RiskStatus = "ATTENTION_NEEDED"
 )
 
 // All allowed values of RiskStatus enum
 var AllowedRiskStatusEnumValues = []RiskStatus{
-	"OK_FLAG",
-	"AT_RISK_FLAG",
-	"ATTENTION_NEEDED_FLAG",
+	"OK",
+	"AT_RISK",
+	"ATTENTION_NEEDED",
 }
 
 func (v *RiskStatus) UnmarshalJSON(src []byte) error {

@@ -20,8 +20,8 @@ type MemberType string
 
 // List of MemberType
 const (
-	PRINCIPAL MemberType = "PRINCIPAL"
-	ROLE MemberType = "ROLE"
+	MEMBERTYPE_PRINCIPAL MemberType = "PRINCIPAL"
+	MEMBERTYPE_ROLE      MemberType = "ROLE"
 )
 
 // All allowed values of MemberType enum
@@ -108,4 +108,3 @@ func (v *NullableMemberType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

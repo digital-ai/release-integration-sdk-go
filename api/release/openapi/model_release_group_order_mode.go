@@ -20,16 +20,16 @@ type ReleaseGroupOrderMode string
 
 // List of ReleaseGroupOrderMode
 const (
-	RISK_GROUP       ReleaseGroupOrderMode = "RISK_GROUP"
-	START_DATE_GROUP ReleaseGroupOrderMode = "START_DATE_GROUP"
-	END_DATE_GROUP   ReleaseGroupOrderMode = "END_DATE_GROUP"
+	RELEASEGROUPORDERMODE_RISK       ReleaseGroupOrderMode = "RISK"
+	RELEASEGROUPORDERMODE_START_DATE ReleaseGroupOrderMode = "START_DATE"
+	RELEASEGROUPORDERMODE_END_DATE   ReleaseGroupOrderMode = "END_DATE"
 )
 
 // All allowed values of ReleaseGroupOrderMode enum
 var AllowedReleaseGroupOrderModeEnumValues = []ReleaseGroupOrderMode{
-	"RISK_GROUP",
-	"START_DATE_GROUP",
-	"END_DATE_GROUP",
+	"RISK",
+	"START_DATE",
+	"END_DATE",
 }
 
 func (v *ReleaseGroupOrderMode) UnmarshalJSON(src []byte) error {

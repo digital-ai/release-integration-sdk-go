@@ -20,7 +20,7 @@ type FacetScope string
 
 // List of FacetScope
 const (
-	TASK FacetScope = "TASK"
+	FACETSCOPE_TASK FacetScope = "TASK"
 )
 
 // All allowed values of FacetScope enum
@@ -106,4 +106,3 @@ func (v *NullableFacetScope) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
