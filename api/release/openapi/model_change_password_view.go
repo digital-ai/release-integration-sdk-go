@@ -20,7 +20,7 @@ var _ MappedNullable = &ChangePasswordView{}
 // ChangePasswordView struct for ChangePasswordView
 type ChangePasswordView struct {
 	CurrentPassword *string `json:"currentPassword,omitempty"`
-	NewPassword *string `json:"newPassword,omitempty"`
+	NewPassword     *string `json:"newPassword,omitempty"`
 }
 
 // NewChangePasswordView instantiates a new ChangePasswordView object
@@ -42,7 +42,7 @@ func NewChangePasswordViewWithDefaults() *ChangePasswordView {
 
 // GetCurrentPassword returns the CurrentPassword field value if set, zero value otherwise.
 func (o *ChangePasswordView) GetCurrentPassword() string {
-	if o == nil || isNil(o.CurrentPassword) {
+	if o == nil || IsNil(o.CurrentPassword) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *ChangePasswordView) GetCurrentPassword() string {
 // GetCurrentPasswordOk returns a tuple with the CurrentPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChangePasswordView) GetCurrentPasswordOk() (*string, bool) {
-	if o == nil || isNil(o.CurrentPassword) {
+	if o == nil || IsNil(o.CurrentPassword) {
 		return nil, false
 	}
 	return o.CurrentPassword, true
@@ -60,7 +60,7 @@ func (o *ChangePasswordView) GetCurrentPasswordOk() (*string, bool) {
 
 // HasCurrentPassword returns a boolean if a field has been set.
 func (o *ChangePasswordView) HasCurrentPassword() bool {
-	if o != nil && !isNil(o.CurrentPassword) {
+	if o != nil && !IsNil(o.CurrentPassword) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *ChangePasswordView) SetCurrentPassword(v string) {
 
 // GetNewPassword returns the NewPassword field value if set, zero value otherwise.
 func (o *ChangePasswordView) GetNewPassword() string {
-	if o == nil || isNil(o.NewPassword) {
+	if o == nil || IsNil(o.NewPassword) {
 		var ret string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *ChangePasswordView) GetNewPassword() string {
 // GetNewPasswordOk returns a tuple with the NewPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChangePasswordView) GetNewPasswordOk() (*string, bool) {
-	if o == nil || isNil(o.NewPassword) {
+	if o == nil || IsNil(o.NewPassword) {
 		return nil, false
 	}
 	return o.NewPassword, true
@@ -92,7 +92,7 @@ func (o *ChangePasswordView) GetNewPasswordOk() (*string, bool) {
 
 // HasNewPassword returns a boolean if a field has been set.
 func (o *ChangePasswordView) HasNewPassword() bool {
-	if o != nil && !isNil(o.NewPassword) {
+	if o != nil && !IsNil(o.NewPassword) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *ChangePasswordView) SetNewPassword(v string) {
 }
 
 func (o ChangePasswordView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o ChangePasswordView) MarshalJSON() ([]byte, error) {
 
 func (o ChangePasswordView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.CurrentPassword) {
+	if !IsNil(o.CurrentPassword) {
 		toSerialize["currentPassword"] = o.CurrentPassword
 	}
-	if !isNil(o.NewPassword) {
+	if !IsNil(o.NewPassword) {
 		toSerialize["newPassword"] = o.NewPassword
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableChangePasswordView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

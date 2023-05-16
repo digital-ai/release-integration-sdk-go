@@ -73,7 +73,7 @@ ctx = context.WithValue(context.Background(), openapi.ContextOperationServerVari
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:5516*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -471,7 +471,30 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
- Endpoints do not require authorization.
+
+
+### basicAuth
+
+- **Type**: HTTP basic authentication
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAuth{
+    UserName: "username",
+    Password: "password",
+})
+r, err := client.Service.Operation(auth, args)
+```
+
+
+### patAuth
+
+- **Type**: API key
+- **API key parameter name**: x-release-personal-token
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: x-release-personal-token and passed in as the auth context for each request.
 
 
 ## Documentation for Utility Methods

@@ -12,8 +12,12 @@ func TestReleaseClient(t *testing.T) {
 
 func ConveyTest(t *testing.T) {
 	Convey("Test ReleaseApi client", t, func() {
-		clientConfig := NewReleaseClient(ctx).Client.GetConfig()
+		apiClient, err := NewReleaseApiClient(ctx)
+		if err != nil {
+			t.Fail()
+		}
 
+		clientConfig := apiClient.GetConfig()
 		So(clientConfig.Host, ShouldEqual, "localhost:5516")
 	})
 }
@@ -24,5 +28,5 @@ var ctx = task.ReleaseContext{
 		Username: "admin",
 		Password: "admin",
 	},
-	Url: "localhost:5516",
+	Url: "http://localhost:5516",
 }

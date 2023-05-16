@@ -19,8 +19,8 @@ var _ MappedNullable = &Condition1{}
 
 // Condition1 struct for Condition1
 type Condition1 struct {
-	Title *string `json:"title,omitempty"`
-	Checked *bool `json:"checked,omitempty"`
+	Title   *string `json:"title,omitempty"`
+	Checked *bool   `json:"checked,omitempty"`
 }
 
 // NewCondition1 instantiates a new Condition1 object
@@ -42,7 +42,7 @@ func NewCondition1WithDefaults() *Condition1 {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *Condition1) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *Condition1) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition1) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -60,7 +60,7 @@ func (o *Condition1) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *Condition1) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *Condition1) SetTitle(v string) {
 
 // GetChecked returns the Checked field value if set, zero value otherwise.
 func (o *Condition1) GetChecked() bool {
-	if o == nil || isNil(o.Checked) {
+	if o == nil || IsNil(o.Checked) {
 		var ret bool
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *Condition1) GetChecked() bool {
 // GetCheckedOk returns a tuple with the Checked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition1) GetCheckedOk() (*bool, bool) {
-	if o == nil || isNil(o.Checked) {
+	if o == nil || IsNil(o.Checked) {
 		return nil, false
 	}
 	return o.Checked, true
@@ -92,7 +92,7 @@ func (o *Condition1) GetCheckedOk() (*bool, bool) {
 
 // HasChecked returns a boolean if a field has been set.
 func (o *Condition1) HasChecked() bool {
-	if o != nil && !isNil(o.Checked) {
+	if o != nil && !IsNil(o.Checked) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *Condition1) SetChecked(v bool) {
 }
 
 func (o Condition1) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o Condition1) MarshalJSON() ([]byte, error) {
 
 func (o Condition1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Checked) {
+	if !IsNil(o.Checked) {
 		toSerialize["checked"] = o.Checked
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableCondition1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

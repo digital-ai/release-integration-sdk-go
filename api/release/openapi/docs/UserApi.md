@@ -1,6 +1,6 @@
 # \UserApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:5516*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,7 +29,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -38,7 +38,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.CreateUser(context.Background(), username).UserAccount(userAccount).Execute()
+    r, err := apiClient.UserApi.CreateUser(context.Background(), username).UserAccount(userAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.CreateUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -97,7 +97,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -105,7 +105,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.DeleteUserRest(context.Background(), username).Execute()
+    r, err := apiClient.UserApi.DeleteUserRest(context.Background(), username).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.DeleteUserRest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -164,15 +164,15 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
     email := "email_example" // string |  (optional)
     external := true // bool |  (optional)
     fullName := "fullName_example" // string |  (optional)
-    lastActiveAfter := time.Now() // string |  (optional)
-    lastActiveBefore := time.Now() // string |  (optional)
+    lastActiveAfter := time.Now() // time.Time |  (optional)
+    lastActiveBefore := time.Now() // time.Time |  (optional)
     loginAllowed := true // bool |  (optional)
     page := int64(789) // int64 |  (optional) (default to 0)
     resultsPerPage := int64(789) // int64 |  (optional) (default to 100)
@@ -203,8 +203,8 @@ Name | Type | Description  | Notes
  **email** | **string** |  | 
  **external** | **bool** |  | 
  **fullName** | **string** |  | 
- **lastActiveAfter** | **string** |  | 
- **lastActiveBefore** | **string** |  | 
+ **lastActiveAfter** | **time.Time** |  | 
+ **lastActiveBefore** | **time.Time** |  | 
  **loginAllowed** | **bool** |  | 
  **page** | **int64** |  | [default to 0]
  **resultsPerPage** | **int64** |  | [default to 100]
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -242,7 +242,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -310,7 +310,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -319,7 +319,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.UpdatePassword(context.Background(), username).ChangePasswordView(changePasswordView).Execute()
+    r, err := apiClient.UserApi.UpdatePassword(context.Background(), username).ChangePasswordView(changePasswordView).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UpdatePassword``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -378,7 +378,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -387,7 +387,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.UpdateUser(context.Background(), username).UserAccount(userAccount).Execute()
+    r, err := apiClient.UserApi.UpdateUser(context.Background(), username).UserAccount(userAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UpdateUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -446,7 +446,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -454,7 +454,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserApi.UpdateUsersRest(context.Background()).UserAccount(userAccount).Execute()
+    r, err := apiClient.UserApi.UpdateUsersRest(context.Background()).UserAccount(userAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UpdateUsersRest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -481,7 +481,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 

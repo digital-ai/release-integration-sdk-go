@@ -41,7 +41,7 @@ func NewBlackoutMetadataWithDefaults() *BlackoutMetadata {
 
 // GetPeriods returns the Periods field value if set, zero value otherwise.
 func (o *BlackoutMetadata) GetPeriods() []BlackoutPeriod {
-	if o == nil || isNil(o.Periods) {
+	if o == nil || IsNil(o.Periods) {
 		var ret []BlackoutPeriod
 		return ret
 	}
@@ -51,7 +51,7 @@ func (o *BlackoutMetadata) GetPeriods() []BlackoutPeriod {
 // GetPeriodsOk returns a tuple with the Periods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlackoutMetadata) GetPeriodsOk() ([]BlackoutPeriod, bool) {
-	if o == nil || isNil(o.Periods) {
+	if o == nil || IsNil(o.Periods) {
 		return nil, false
 	}
 	return o.Periods, true
@@ -59,7 +59,7 @@ func (o *BlackoutMetadata) GetPeriodsOk() ([]BlackoutPeriod, bool) {
 
 // HasPeriods returns a boolean if a field has been set.
 func (o *BlackoutMetadata) HasPeriods() bool {
-	if o != nil && !isNil(o.Periods) {
+	if o != nil && !IsNil(o.Periods) {
 		return true
 	}
 
@@ -72,7 +72,7 @@ func (o *BlackoutMetadata) SetPeriods(v []BlackoutPeriod) {
 }
 
 func (o BlackoutMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +81,7 @@ func (o BlackoutMetadata) MarshalJSON() ([]byte, error) {
 
 func (o BlackoutMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Periods) {
+	if !IsNil(o.Periods) {
 		toSerialize["periods"] = o.Periods
 	}
 	return toSerialize, nil
@@ -122,5 +122,3 @@ func (v *NullableBlackoutMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

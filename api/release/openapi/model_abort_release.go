@@ -41,7 +41,7 @@ func NewAbortReleaseWithDefaults() *AbortRelease {
 
 // GetAbortComment returns the AbortComment field value if set, zero value otherwise.
 func (o *AbortRelease) GetAbortComment() string {
-	if o == nil || isNil(o.AbortComment) {
+	if o == nil || IsNil(o.AbortComment) {
 		var ret string
 		return ret
 	}
@@ -51,7 +51,7 @@ func (o *AbortRelease) GetAbortComment() string {
 // GetAbortCommentOk returns a tuple with the AbortComment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AbortRelease) GetAbortCommentOk() (*string, bool) {
-	if o == nil || isNil(o.AbortComment) {
+	if o == nil || IsNil(o.AbortComment) {
 		return nil, false
 	}
 	return o.AbortComment, true
@@ -59,7 +59,7 @@ func (o *AbortRelease) GetAbortCommentOk() (*string, bool) {
 
 // HasAbortComment returns a boolean if a field has been set.
 func (o *AbortRelease) HasAbortComment() bool {
-	if o != nil && !isNil(o.AbortComment) {
+	if o != nil && !IsNil(o.AbortComment) {
 		return true
 	}
 
@@ -72,7 +72,7 @@ func (o *AbortRelease) SetAbortComment(v string) {
 }
 
 func (o AbortRelease) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +81,7 @@ func (o AbortRelease) MarshalJSON() ([]byte, error) {
 
 func (o AbortRelease) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.AbortComment) {
+	if !IsNil(o.AbortComment) {
 		toSerialize["abortComment"] = o.AbortComment
 	}
 	return toSerialize, nil
@@ -122,5 +122,3 @@ func (v *NullableAbortRelease) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

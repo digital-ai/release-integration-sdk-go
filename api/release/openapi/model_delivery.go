@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the Delivery type satisfies the MappedNullable interface at compile time
@@ -19,24 +20,24 @@ var _ MappedNullable = &Delivery{}
 
 // Delivery struct for Delivery
 type Delivery struct {
-	Metadata *map[string]map[string]interface{} `json:"$metadata,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Status *DeliveryStatus `json:"status,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	PlannedDuration *int32 `json:"plannedDuration,omitempty"`
-	ReleaseIds []string `json:"releaseIds,omitempty"`
-	FolderId *string `json:"folderId,omitempty"`
-	OriginPatternId *string `json:"originPatternId,omitempty"`
-	Stages []Stage `json:"stages,omitempty"`
-	TrackedItems []TrackedItem `json:"trackedItems,omitempty"`
-	Subscribers []Subscriber `json:"subscribers,omitempty"`
-	AutoComplete *bool `json:"autoComplete,omitempty"`
-	Template *bool `json:"template,omitempty"`
-	Transitions []Transition `json:"transitions,omitempty"`
-	StagesBeforeFirstOpenTransition []Stage `json:"stagesBeforeFirstOpenTransition,omitempty"`
-	Updatable *bool `json:"updatable,omitempty"`
+	Metadata                        *map[string]map[string]interface{} `json:"$metadata,omitempty"`
+	Title                           *string                            `json:"title,omitempty"`
+	Description                     *string                            `json:"description,omitempty"`
+	Status                          *DeliveryStatus                    `json:"status,omitempty"`
+	StartDate                       *time.Time                         `json:"startDate,omitempty"`
+	EndDate                         *time.Time                         `json:"endDate,omitempty"`
+	PlannedDuration                 *int32                             `json:"plannedDuration,omitempty"`
+	ReleaseIds                      []string                           `json:"releaseIds,omitempty"`
+	FolderId                        *string                            `json:"folderId,omitempty"`
+	OriginPatternId                 *string                            `json:"originPatternId,omitempty"`
+	Stages                          []Stage                            `json:"stages,omitempty"`
+	TrackedItems                    []TrackedItem                      `json:"trackedItems,omitempty"`
+	Subscribers                     []Subscriber                       `json:"subscribers,omitempty"`
+	AutoComplete                    *bool                              `json:"autoComplete,omitempty"`
+	Template                        *bool                              `json:"template,omitempty"`
+	Transitions                     []Transition                       `json:"transitions,omitempty"`
+	StagesBeforeFirstOpenTransition []Stage                            `json:"stagesBeforeFirstOpenTransition,omitempty"`
+	Updatable                       *bool                              `json:"updatable,omitempty"`
 }
 
 // NewDelivery instantiates a new Delivery object
@@ -58,7 +59,7 @@ func NewDeliveryWithDefaults() *Delivery {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *Delivery) GetMetadata() map[string]map[string]interface{} {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -68,7 +69,7 @@ func (o *Delivery) GetMetadata() map[string]map[string]interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetMetadataOk() (*map[string]map[string]interface{}, bool) {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -76,7 +77,7 @@ func (o *Delivery) GetMetadataOk() (*map[string]map[string]interface{}, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *Delivery) HasMetadata() bool {
-	if o != nil && !isNil(o.Metadata) {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -90,7 +91,7 @@ func (o *Delivery) SetMetadata(v map[string]map[string]interface{}) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *Delivery) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -100,7 +101,7 @@ func (o *Delivery) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -108,7 +109,7 @@ func (o *Delivery) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *Delivery) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -122,7 +123,7 @@ func (o *Delivery) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Delivery) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -132,7 +133,7 @@ func (o *Delivery) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -140,7 +141,7 @@ func (o *Delivery) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Delivery) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -154,7 +155,7 @@ func (o *Delivery) SetDescription(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Delivery) GetStatus() DeliveryStatus {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		var ret DeliveryStatus
 		return ret
 	}
@@ -164,7 +165,7 @@ func (o *Delivery) GetStatus() DeliveryStatus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetStatusOk() (*DeliveryStatus, bool) {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -172,7 +173,7 @@ func (o *Delivery) GetStatusOk() (*DeliveryStatus, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Delivery) HasStatus() bool {
-	if o != nil && !isNil(o.Status) {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -185,9 +186,9 @@ func (o *Delivery) SetStatus(v DeliveryStatus) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *Delivery) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *Delivery) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -195,8 +196,8 @@ func (o *Delivery) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Delivery) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *Delivery) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -204,22 +205,22 @@ func (o *Delivery) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *Delivery) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *Delivery) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *Delivery) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *Delivery) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *Delivery) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -227,8 +228,8 @@ func (o *Delivery) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Delivery) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *Delivery) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -236,21 +237,21 @@ func (o *Delivery) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *Delivery) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *Delivery) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *Delivery) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetPlannedDuration returns the PlannedDuration field value if set, zero value otherwise.
 func (o *Delivery) GetPlannedDuration() int32 {
-	if o == nil || isNil(o.PlannedDuration) {
+	if o == nil || IsNil(o.PlannedDuration) {
 		var ret int32
 		return ret
 	}
@@ -260,7 +261,7 @@ func (o *Delivery) GetPlannedDuration() int32 {
 // GetPlannedDurationOk returns a tuple with the PlannedDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetPlannedDurationOk() (*int32, bool) {
-	if o == nil || isNil(o.PlannedDuration) {
+	if o == nil || IsNil(o.PlannedDuration) {
 		return nil, false
 	}
 	return o.PlannedDuration, true
@@ -268,7 +269,7 @@ func (o *Delivery) GetPlannedDurationOk() (*int32, bool) {
 
 // HasPlannedDuration returns a boolean if a field has been set.
 func (o *Delivery) HasPlannedDuration() bool {
-	if o != nil && !isNil(o.PlannedDuration) {
+	if o != nil && !IsNil(o.PlannedDuration) {
 		return true
 	}
 
@@ -282,7 +283,7 @@ func (o *Delivery) SetPlannedDuration(v int32) {
 
 // GetReleaseIds returns the ReleaseIds field value if set, zero value otherwise.
 func (o *Delivery) GetReleaseIds() []string {
-	if o == nil || isNil(o.ReleaseIds) {
+	if o == nil || IsNil(o.ReleaseIds) {
 		var ret []string
 		return ret
 	}
@@ -292,7 +293,7 @@ func (o *Delivery) GetReleaseIds() []string {
 // GetReleaseIdsOk returns a tuple with the ReleaseIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetReleaseIdsOk() ([]string, bool) {
-	if o == nil || isNil(o.ReleaseIds) {
+	if o == nil || IsNil(o.ReleaseIds) {
 		return nil, false
 	}
 	return o.ReleaseIds, true
@@ -300,7 +301,7 @@ func (o *Delivery) GetReleaseIdsOk() ([]string, bool) {
 
 // HasReleaseIds returns a boolean if a field has been set.
 func (o *Delivery) HasReleaseIds() bool {
-	if o != nil && !isNil(o.ReleaseIds) {
+	if o != nil && !IsNil(o.ReleaseIds) {
 		return true
 	}
 
@@ -314,7 +315,7 @@ func (o *Delivery) SetReleaseIds(v []string) {
 
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *Delivery) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -324,7 +325,7 @@ func (o *Delivery) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -332,7 +333,7 @@ func (o *Delivery) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *Delivery) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -346,7 +347,7 @@ func (o *Delivery) SetFolderId(v string) {
 
 // GetOriginPatternId returns the OriginPatternId field value if set, zero value otherwise.
 func (o *Delivery) GetOriginPatternId() string {
-	if o == nil || isNil(o.OriginPatternId) {
+	if o == nil || IsNil(o.OriginPatternId) {
 		var ret string
 		return ret
 	}
@@ -356,7 +357,7 @@ func (o *Delivery) GetOriginPatternId() string {
 // GetOriginPatternIdOk returns a tuple with the OriginPatternId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetOriginPatternIdOk() (*string, bool) {
-	if o == nil || isNil(o.OriginPatternId) {
+	if o == nil || IsNil(o.OriginPatternId) {
 		return nil, false
 	}
 	return o.OriginPatternId, true
@@ -364,7 +365,7 @@ func (o *Delivery) GetOriginPatternIdOk() (*string, bool) {
 
 // HasOriginPatternId returns a boolean if a field has been set.
 func (o *Delivery) HasOriginPatternId() bool {
-	if o != nil && !isNil(o.OriginPatternId) {
+	if o != nil && !IsNil(o.OriginPatternId) {
 		return true
 	}
 
@@ -378,7 +379,7 @@ func (o *Delivery) SetOriginPatternId(v string) {
 
 // GetStages returns the Stages field value if set, zero value otherwise.
 func (o *Delivery) GetStages() []Stage {
-	if o == nil || isNil(o.Stages) {
+	if o == nil || IsNil(o.Stages) {
 		var ret []Stage
 		return ret
 	}
@@ -388,7 +389,7 @@ func (o *Delivery) GetStages() []Stage {
 // GetStagesOk returns a tuple with the Stages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetStagesOk() ([]Stage, bool) {
-	if o == nil || isNil(o.Stages) {
+	if o == nil || IsNil(o.Stages) {
 		return nil, false
 	}
 	return o.Stages, true
@@ -396,7 +397,7 @@ func (o *Delivery) GetStagesOk() ([]Stage, bool) {
 
 // HasStages returns a boolean if a field has been set.
 func (o *Delivery) HasStages() bool {
-	if o != nil && !isNil(o.Stages) {
+	if o != nil && !IsNil(o.Stages) {
 		return true
 	}
 
@@ -410,7 +411,7 @@ func (o *Delivery) SetStages(v []Stage) {
 
 // GetTrackedItems returns the TrackedItems field value if set, zero value otherwise.
 func (o *Delivery) GetTrackedItems() []TrackedItem {
-	if o == nil || isNil(o.TrackedItems) {
+	if o == nil || IsNil(o.TrackedItems) {
 		var ret []TrackedItem
 		return ret
 	}
@@ -420,7 +421,7 @@ func (o *Delivery) GetTrackedItems() []TrackedItem {
 // GetTrackedItemsOk returns a tuple with the TrackedItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetTrackedItemsOk() ([]TrackedItem, bool) {
-	if o == nil || isNil(o.TrackedItems) {
+	if o == nil || IsNil(o.TrackedItems) {
 		return nil, false
 	}
 	return o.TrackedItems, true
@@ -428,7 +429,7 @@ func (o *Delivery) GetTrackedItemsOk() ([]TrackedItem, bool) {
 
 // HasTrackedItems returns a boolean if a field has been set.
 func (o *Delivery) HasTrackedItems() bool {
-	if o != nil && !isNil(o.TrackedItems) {
+	if o != nil && !IsNil(o.TrackedItems) {
 		return true
 	}
 
@@ -442,7 +443,7 @@ func (o *Delivery) SetTrackedItems(v []TrackedItem) {
 
 // GetSubscribers returns the Subscribers field value if set, zero value otherwise.
 func (o *Delivery) GetSubscribers() []Subscriber {
-	if o == nil || isNil(o.Subscribers) {
+	if o == nil || IsNil(o.Subscribers) {
 		var ret []Subscriber
 		return ret
 	}
@@ -452,7 +453,7 @@ func (o *Delivery) GetSubscribers() []Subscriber {
 // GetSubscribersOk returns a tuple with the Subscribers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetSubscribersOk() ([]Subscriber, bool) {
-	if o == nil || isNil(o.Subscribers) {
+	if o == nil || IsNil(o.Subscribers) {
 		return nil, false
 	}
 	return o.Subscribers, true
@@ -460,7 +461,7 @@ func (o *Delivery) GetSubscribersOk() ([]Subscriber, bool) {
 
 // HasSubscribers returns a boolean if a field has been set.
 func (o *Delivery) HasSubscribers() bool {
-	if o != nil && !isNil(o.Subscribers) {
+	if o != nil && !IsNil(o.Subscribers) {
 		return true
 	}
 
@@ -474,7 +475,7 @@ func (o *Delivery) SetSubscribers(v []Subscriber) {
 
 // GetAutoComplete returns the AutoComplete field value if set, zero value otherwise.
 func (o *Delivery) GetAutoComplete() bool {
-	if o == nil || isNil(o.AutoComplete) {
+	if o == nil || IsNil(o.AutoComplete) {
 		var ret bool
 		return ret
 	}
@@ -484,7 +485,7 @@ func (o *Delivery) GetAutoComplete() bool {
 // GetAutoCompleteOk returns a tuple with the AutoComplete field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetAutoCompleteOk() (*bool, bool) {
-	if o == nil || isNil(o.AutoComplete) {
+	if o == nil || IsNil(o.AutoComplete) {
 		return nil, false
 	}
 	return o.AutoComplete, true
@@ -492,7 +493,7 @@ func (o *Delivery) GetAutoCompleteOk() (*bool, bool) {
 
 // HasAutoComplete returns a boolean if a field has been set.
 func (o *Delivery) HasAutoComplete() bool {
-	if o != nil && !isNil(o.AutoComplete) {
+	if o != nil && !IsNil(o.AutoComplete) {
 		return true
 	}
 
@@ -506,7 +507,7 @@ func (o *Delivery) SetAutoComplete(v bool) {
 
 // GetTemplate returns the Template field value if set, zero value otherwise.
 func (o *Delivery) GetTemplate() bool {
-	if o == nil || isNil(o.Template) {
+	if o == nil || IsNil(o.Template) {
 		var ret bool
 		return ret
 	}
@@ -516,7 +517,7 @@ func (o *Delivery) GetTemplate() bool {
 // GetTemplateOk returns a tuple with the Template field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetTemplateOk() (*bool, bool) {
-	if o == nil || isNil(o.Template) {
+	if o == nil || IsNil(o.Template) {
 		return nil, false
 	}
 	return o.Template, true
@@ -524,7 +525,7 @@ func (o *Delivery) GetTemplateOk() (*bool, bool) {
 
 // HasTemplate returns a boolean if a field has been set.
 func (o *Delivery) HasTemplate() bool {
-	if o != nil && !isNil(o.Template) {
+	if o != nil && !IsNil(o.Template) {
 		return true
 	}
 
@@ -538,7 +539,7 @@ func (o *Delivery) SetTemplate(v bool) {
 
 // GetTransitions returns the Transitions field value if set, zero value otherwise.
 func (o *Delivery) GetTransitions() []Transition {
-	if o == nil || isNil(o.Transitions) {
+	if o == nil || IsNil(o.Transitions) {
 		var ret []Transition
 		return ret
 	}
@@ -548,7 +549,7 @@ func (o *Delivery) GetTransitions() []Transition {
 // GetTransitionsOk returns a tuple with the Transitions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetTransitionsOk() ([]Transition, bool) {
-	if o == nil || isNil(o.Transitions) {
+	if o == nil || IsNil(o.Transitions) {
 		return nil, false
 	}
 	return o.Transitions, true
@@ -556,7 +557,7 @@ func (o *Delivery) GetTransitionsOk() ([]Transition, bool) {
 
 // HasTransitions returns a boolean if a field has been set.
 func (o *Delivery) HasTransitions() bool {
-	if o != nil && !isNil(o.Transitions) {
+	if o != nil && !IsNil(o.Transitions) {
 		return true
 	}
 
@@ -570,7 +571,7 @@ func (o *Delivery) SetTransitions(v []Transition) {
 
 // GetStagesBeforeFirstOpenTransition returns the StagesBeforeFirstOpenTransition field value if set, zero value otherwise.
 func (o *Delivery) GetStagesBeforeFirstOpenTransition() []Stage {
-	if o == nil || isNil(o.StagesBeforeFirstOpenTransition) {
+	if o == nil || IsNil(o.StagesBeforeFirstOpenTransition) {
 		var ret []Stage
 		return ret
 	}
@@ -580,7 +581,7 @@ func (o *Delivery) GetStagesBeforeFirstOpenTransition() []Stage {
 // GetStagesBeforeFirstOpenTransitionOk returns a tuple with the StagesBeforeFirstOpenTransition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetStagesBeforeFirstOpenTransitionOk() ([]Stage, bool) {
-	if o == nil || isNil(o.StagesBeforeFirstOpenTransition) {
+	if o == nil || IsNil(o.StagesBeforeFirstOpenTransition) {
 		return nil, false
 	}
 	return o.StagesBeforeFirstOpenTransition, true
@@ -588,7 +589,7 @@ func (o *Delivery) GetStagesBeforeFirstOpenTransitionOk() ([]Stage, bool) {
 
 // HasStagesBeforeFirstOpenTransition returns a boolean if a field has been set.
 func (o *Delivery) HasStagesBeforeFirstOpenTransition() bool {
-	if o != nil && !isNil(o.StagesBeforeFirstOpenTransition) {
+	if o != nil && !IsNil(o.StagesBeforeFirstOpenTransition) {
 		return true
 	}
 
@@ -602,7 +603,7 @@ func (o *Delivery) SetStagesBeforeFirstOpenTransition(v []Stage) {
 
 // GetUpdatable returns the Updatable field value if set, zero value otherwise.
 func (o *Delivery) GetUpdatable() bool {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		var ret bool
 		return ret
 	}
@@ -612,7 +613,7 @@ func (o *Delivery) GetUpdatable() bool {
 // GetUpdatableOk returns a tuple with the Updatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Delivery) GetUpdatableOk() (*bool, bool) {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		return nil, false
 	}
 	return o.Updatable, true
@@ -620,7 +621,7 @@ func (o *Delivery) GetUpdatableOk() (*bool, bool) {
 
 // HasUpdatable returns a boolean if a field has been set.
 func (o *Delivery) HasUpdatable() bool {
-	if o != nil && !isNil(o.Updatable) {
+	if o != nil && !IsNil(o.Updatable) {
 		return true
 	}
 
@@ -633,7 +634,7 @@ func (o *Delivery) SetUpdatable(v bool) {
 }
 
 func (o Delivery) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -642,58 +643,58 @@ func (o Delivery) MarshalJSON() ([]byte, error) {
 
 func (o Delivery) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Metadata) {
+	if !IsNil(o.Metadata) {
 		toSerialize["$metadata"] = o.Metadata
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Status) {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.PlannedDuration) {
+	if !IsNil(o.PlannedDuration) {
 		toSerialize["plannedDuration"] = o.PlannedDuration
 	}
-	if !isNil(o.ReleaseIds) {
+	if !IsNil(o.ReleaseIds) {
 		toSerialize["releaseIds"] = o.ReleaseIds
 	}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.OriginPatternId) {
+	if !IsNil(o.OriginPatternId) {
 		toSerialize["originPatternId"] = o.OriginPatternId
 	}
-	if !isNil(o.Stages) {
+	if !IsNil(o.Stages) {
 		toSerialize["stages"] = o.Stages
 	}
-	if !isNil(o.TrackedItems) {
+	if !IsNil(o.TrackedItems) {
 		toSerialize["trackedItems"] = o.TrackedItems
 	}
-	if !isNil(o.Subscribers) {
+	if !IsNil(o.Subscribers) {
 		toSerialize["subscribers"] = o.Subscribers
 	}
-	if !isNil(o.AutoComplete) {
+	if !IsNil(o.AutoComplete) {
 		toSerialize["autoComplete"] = o.AutoComplete
 	}
-	if !isNil(o.Template) {
+	if !IsNil(o.Template) {
 		toSerialize["template"] = o.Template
 	}
-	if !isNil(o.Transitions) {
+	if !IsNil(o.Transitions) {
 		toSerialize["transitions"] = o.Transitions
 	}
-	if !isNil(o.StagesBeforeFirstOpenTransition) {
+	if !IsNil(o.StagesBeforeFirstOpenTransition) {
 		toSerialize["stagesBeforeFirstOpenTransition"] = o.StagesBeforeFirstOpenTransition
 	}
-	if !isNil(o.Updatable) {
+	if !IsNil(o.Updatable) {
 		toSerialize["updatable"] = o.Updatable
 	}
 	return toSerialize, nil
@@ -734,5 +735,3 @@ func (v *NullableDelivery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

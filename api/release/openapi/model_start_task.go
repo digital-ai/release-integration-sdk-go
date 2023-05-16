@@ -41,7 +41,7 @@ func NewStartTaskWithDefaults() *StartTask {
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
 func (o *StartTask) GetVariables() []Variable {
-	if o == nil || isNil(o.Variables) {
+	if o == nil || IsNil(o.Variables) {
 		var ret []Variable
 		return ret
 	}
@@ -51,7 +51,7 @@ func (o *StartTask) GetVariables() []Variable {
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StartTask) GetVariablesOk() ([]Variable, bool) {
-	if o == nil || isNil(o.Variables) {
+	if o == nil || IsNil(o.Variables) {
 		return nil, false
 	}
 	return o.Variables, true
@@ -59,7 +59,7 @@ func (o *StartTask) GetVariablesOk() ([]Variable, bool) {
 
 // HasVariables returns a boolean if a field has been set.
 func (o *StartTask) HasVariables() bool {
-	if o != nil && !isNil(o.Variables) {
+	if o != nil && !IsNil(o.Variables) {
 		return true
 	}
 
@@ -72,7 +72,7 @@ func (o *StartTask) SetVariables(v []Variable) {
 }
 
 func (o StartTask) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +81,7 @@ func (o StartTask) MarshalJSON() ([]byte, error) {
 
 func (o StartTask) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Variables) {
+	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
 	return toSerialize, nil
@@ -122,5 +122,3 @@ func (v *NullableStartTask) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

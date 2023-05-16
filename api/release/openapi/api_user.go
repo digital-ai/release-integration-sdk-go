@@ -13,20 +13,20 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
-
 
 // UserApiService UserApi service
 type UserApiService service
 
 type ApiCreateUserRequest struct {
-	ctx context.Context
-	ApiService *UserApiService
-	username string
+	ctx         context.Context
+	ApiService  *UserApiService
+	username    string
 	userAccount *UserAccount
 }
 
@@ -42,24 +42,24 @@ func (r ApiCreateUserRequest) Execute() (*http.Response, error) {
 /*
 CreateUser Method for CreateUser
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param username
- @return ApiCreateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param username
+	@return ApiCreateUserRequest
 */
 func (a *UserApiService) CreateUser(ctx context.Context, username string) ApiCreateUserRequest {
 	return ApiCreateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
 // Execute executes the request
 func (a *UserApiService) CreateUserExecute(r ApiCreateUserRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.CreateUser")
@@ -93,6 +93,20 @@ func (a *UserApiService) CreateUserExecute(r ApiCreateUserRequest) (*http.Respon
 	}
 	// body params
 	localVarPostBody = r.userAccount
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -103,9 +117,9 @@ func (a *UserApiService) CreateUserExecute(r ApiCreateUserRequest) (*http.Respon
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -122,9 +136,9 @@ func (a *UserApiService) CreateUserExecute(r ApiCreateUserRequest) (*http.Respon
 }
 
 type ApiDeleteUserRestRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UserApiService
-	username string
+	username   string
 }
 
 func (r ApiDeleteUserRestRequest) Execute() (*http.Response, error) {
@@ -134,24 +148,24 @@ func (r ApiDeleteUserRestRequest) Execute() (*http.Response, error) {
 /*
 DeleteUserRest Method for DeleteUserRest
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param username
- @return ApiDeleteUserRestRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param username
+	@return ApiDeleteUserRestRequest
 */
 func (a *UserApiService) DeleteUserRest(ctx context.Context, username string) ApiDeleteUserRestRequest {
 	return ApiDeleteUserRestRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
 // Execute executes the request
 func (a *UserApiService) DeleteUserRestExecute(r ApiDeleteUserRestRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.DeleteUserRest")
@@ -183,6 +197,20 @@ func (a *UserApiService) DeleteUserRestExecute(r ApiDeleteUserRestRequest) (*htt
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -193,9 +221,9 @@ func (a *UserApiService) DeleteUserRestExecute(r ApiDeleteUserRestRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -212,16 +240,16 @@ func (a *UserApiService) DeleteUserRestExecute(r ApiDeleteUserRestRequest) (*htt
 }
 
 type ApiFindUsersRequest struct {
-	ctx context.Context
-	ApiService *UserApiService
-	email *string
-	external *bool
-	fullName *string
-	lastActiveAfter *string
-	lastActiveBefore *string
-	loginAllowed *bool
-	page *int64
-	resultsPerPage *int64
+	ctx              context.Context
+	ApiService       *UserApiService
+	email            *string
+	external         *bool
+	fullName         *string
+	lastActiveAfter  *time.Time
+	lastActiveBefore *time.Time
+	loginAllowed     *bool
+	page             *int64
+	resultsPerPage   *int64
 }
 
 func (r ApiFindUsersRequest) Email(email string) ApiFindUsersRequest {
@@ -239,12 +267,12 @@ func (r ApiFindUsersRequest) FullName(fullName string) ApiFindUsersRequest {
 	return r
 }
 
-func (r ApiFindUsersRequest) LastActiveAfter(lastActiveAfter string) ApiFindUsersRequest {
+func (r ApiFindUsersRequest) LastActiveAfter(lastActiveAfter time.Time) ApiFindUsersRequest {
 	r.lastActiveAfter = &lastActiveAfter
 	return r
 }
 
-func (r ApiFindUsersRequest) LastActiveBefore(lastActiveBefore string) ApiFindUsersRequest {
+func (r ApiFindUsersRequest) LastActiveBefore(lastActiveBefore time.Time) ApiFindUsersRequest {
 	r.lastActiveBefore = &lastActiveBefore
 	return r
 }
@@ -271,24 +299,25 @@ func (r ApiFindUsersRequest) Execute() ([]UserAccount, *http.Response, error) {
 /*
 FindUsers Method for FindUsers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiFindUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiFindUsersRequest
 */
 func (a *UserApiService) FindUsers(ctx context.Context) ApiFindUsersRequest {
 	return ApiFindUsersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []UserAccount
+//
+//	@return []UserAccount
 func (a *UserApiService) FindUsersExecute(r ApiFindUsersRequest) ([]UserAccount, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []UserAccount
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []UserAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.FindUsers")
@@ -303,28 +332,28 @@ func (a *UserApiService) FindUsersExecute(r ApiFindUsersRequest) ([]UserAccount,
 	localVarFormParams := url.Values{}
 
 	if r.email != nil {
-		parameterAddToQuery(localVarQueryParams, "email", r.email, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "email", r.email, "")
 	}
 	if r.external != nil {
-		parameterAddToQuery(localVarQueryParams, "external", r.external, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "external", r.external, "")
 	}
 	if r.fullName != nil {
-		parameterAddToQuery(localVarQueryParams, "fullName", r.fullName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fullName", r.fullName, "")
 	}
 	if r.lastActiveAfter != nil {
-		parameterAddToQuery(localVarQueryParams, "lastActiveAfter", r.lastActiveAfter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "lastActiveAfter", r.lastActiveAfter, "")
 	}
 	if r.lastActiveBefore != nil {
-		parameterAddToQuery(localVarQueryParams, "lastActiveBefore", r.lastActiveBefore, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "lastActiveBefore", r.lastActiveBefore, "")
 	}
 	if r.loginAllowed != nil {
-		parameterAddToQuery(localVarQueryParams, "loginAllowed", r.loginAllowed, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "loginAllowed", r.loginAllowed, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -343,6 +372,20 @@ func (a *UserApiService) FindUsersExecute(r ApiFindUsersRequest) ([]UserAccount,
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -353,9 +396,9 @@ func (a *UserApiService) FindUsersExecute(r ApiFindUsersRequest) ([]UserAccount,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -381,9 +424,9 @@ func (a *UserApiService) FindUsersExecute(r ApiFindUsersRequest) ([]UserAccount,
 }
 
 type ApiGetUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UserApiService
-	username string
+	username   string
 }
 
 func (r ApiGetUserRequest) Execute() (*UserAccount, *http.Response, error) {
@@ -393,26 +436,27 @@ func (r ApiGetUserRequest) Execute() (*UserAccount, *http.Response, error) {
 /*
 GetUser Method for GetUser
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param username
- @return ApiGetUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param username
+	@return ApiGetUserRequest
 */
 func (a *UserApiService) GetUser(ctx context.Context, username string) ApiGetUserRequest {
 	return ApiGetUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
 // Execute executes the request
-//  @return UserAccount
+//
+//	@return UserAccount
 func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (*UserAccount, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *UserAccount
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UserAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUser")
@@ -444,6 +488,20 @@ func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (*UserAccount, *htt
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -454,9 +512,9 @@ func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (*UserAccount, *htt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -482,9 +540,9 @@ func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (*UserAccount, *htt
 }
 
 type ApiUpdatePasswordRequest struct {
-	ctx context.Context
-	ApiService *UserApiService
-	username string
+	ctx                context.Context
+	ApiService         *UserApiService
+	username           string
 	changePasswordView *ChangePasswordView
 }
 
@@ -500,24 +558,24 @@ func (r ApiUpdatePasswordRequest) Execute() (*http.Response, error) {
 /*
 UpdatePassword Method for UpdatePassword
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param username
- @return ApiUpdatePasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param username
+	@return ApiUpdatePasswordRequest
 */
 func (a *UserApiService) UpdatePassword(ctx context.Context, username string) ApiUpdatePasswordRequest {
 	return ApiUpdatePasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
 // Execute executes the request
 func (a *UserApiService) UpdatePasswordExecute(r ApiUpdatePasswordRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.UpdatePassword")
@@ -551,6 +609,20 @@ func (a *UserApiService) UpdatePasswordExecute(r ApiUpdatePasswordRequest) (*htt
 	}
 	// body params
 	localVarPostBody = r.changePasswordView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -561,9 +633,9 @@ func (a *UserApiService) UpdatePasswordExecute(r ApiUpdatePasswordRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -580,9 +652,9 @@ func (a *UserApiService) UpdatePasswordExecute(r ApiUpdatePasswordRequest) (*htt
 }
 
 type ApiUpdateUserRequest struct {
-	ctx context.Context
-	ApiService *UserApiService
-	username string
+	ctx         context.Context
+	ApiService  *UserApiService
+	username    string
 	userAccount *UserAccount
 }
 
@@ -598,24 +670,24 @@ func (r ApiUpdateUserRequest) Execute() (*http.Response, error) {
 /*
 UpdateUser Method for UpdateUser
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param username
- @return ApiUpdateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param username
+	@return ApiUpdateUserRequest
 */
 func (a *UserApiService) UpdateUser(ctx context.Context, username string) ApiUpdateUserRequest {
 	return ApiUpdateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
 // Execute executes the request
 func (a *UserApiService) UpdateUserExecute(r ApiUpdateUserRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.UpdateUser")
@@ -649,6 +721,20 @@ func (a *UserApiService) UpdateUserExecute(r ApiUpdateUserRequest) (*http.Respon
 	}
 	// body params
 	localVarPostBody = r.userAccount
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -659,9 +745,9 @@ func (a *UserApiService) UpdateUserExecute(r ApiUpdateUserRequest) (*http.Respon
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -678,8 +764,8 @@ func (a *UserApiService) UpdateUserExecute(r ApiUpdateUserRequest) (*http.Respon
 }
 
 type ApiUpdateUsersRestRequest struct {
-	ctx context.Context
-	ApiService *UserApiService
+	ctx         context.Context
+	ApiService  *UserApiService
 	userAccount *[]UserAccount
 }
 
@@ -695,22 +781,22 @@ func (r ApiUpdateUsersRestRequest) Execute() (*http.Response, error) {
 /*
 UpdateUsersRest Method for UpdateUsersRest
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateUsersRestRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateUsersRestRequest
 */
 func (a *UserApiService) UpdateUsersRest(ctx context.Context) ApiUpdateUsersRestRequest {
 	return ApiUpdateUsersRestRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *UserApiService) UpdateUsersRestExecute(r ApiUpdateUsersRestRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.UpdateUsersRest")
@@ -743,6 +829,20 @@ func (a *UserApiService) UpdateUsersRestExecute(r ApiUpdateUsersRestRequest) (*h
 	}
 	// body params
 	localVarPostBody = r.userAccount
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -753,9 +853,9 @@ func (a *UserApiService) UpdateUsersRestExecute(r ApiUpdateUsersRestRequest) (*h
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

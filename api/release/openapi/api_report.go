@@ -13,20 +13,19 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // ReportApiService ReportApi service
 type ReportApiService service
 
 type ApiDownloadReleaseReportRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReportApiService
-	releaseId string
+	releaseId  string
 	reportType string
 }
 
@@ -37,16 +36,16 @@ func (r ApiDownloadReleaseReportRequest) Execute() (*http.Response, error) {
 /*
 DownloadReleaseReport Method for DownloadReleaseReport
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @param reportType
- @return ApiDownloadReleaseReportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@param reportType
+	@return ApiDownloadReleaseReportRequest
 */
 func (a *ReportApiService) DownloadReleaseReport(ctx context.Context, releaseId string, reportType string) ApiDownloadReleaseReportRequest {
 	return ApiDownloadReleaseReportRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 		reportType: reportType,
 	}
 }
@@ -54,9 +53,9 @@ func (a *ReportApiService) DownloadReleaseReport(ctx context.Context, releaseId 
 // Execute executes the request
 func (a *ReportApiService) DownloadReleaseReportExecute(r ApiDownloadReleaseReportRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportApiService.DownloadReleaseReport")
@@ -89,6 +88,20 @@ func (a *ReportApiService) DownloadReleaseReportExecute(r ApiDownloadReleaseRepo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -99,9 +112,9 @@ func (a *ReportApiService) DownloadReleaseReportExecute(r ApiDownloadReleaseRepo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -118,9 +131,9 @@ func (a *ReportApiService) DownloadReleaseReportExecute(r ApiDownloadReleaseRepo
 }
 
 type ApiGetRecordsForReleaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReportApiService
-	releaseId string
+	releaseId  string
 }
 
 func (r ApiGetRecordsForReleaseRequest) Execute() ([]TaskReportingRecord, *http.Response, error) {
@@ -130,26 +143,27 @@ func (r ApiGetRecordsForReleaseRequest) Execute() ([]TaskReportingRecord, *http.
 /*
 GetRecordsForRelease Method for GetRecordsForRelease
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiGetRecordsForReleaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiGetRecordsForReleaseRequest
 */
 func (a *ReportApiService) GetRecordsForRelease(ctx context.Context, releaseId string) ApiGetRecordsForReleaseRequest {
 	return ApiGetRecordsForReleaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return []TaskReportingRecord
+//
+//	@return []TaskReportingRecord
 func (a *ReportApiService) GetRecordsForReleaseExecute(r ApiGetRecordsForReleaseRequest) ([]TaskReportingRecord, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TaskReportingRecord
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TaskReportingRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportApiService.GetRecordsForRelease")
@@ -181,6 +195,20 @@ func (a *ReportApiService) GetRecordsForReleaseExecute(r ApiGetRecordsForRelease
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -191,9 +219,9 @@ func (a *ReportApiService) GetRecordsForReleaseExecute(r ApiGetRecordsForRelease
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -219,9 +247,9 @@ func (a *ReportApiService) GetRecordsForReleaseExecute(r ApiGetRecordsForRelease
 }
 
 type ApiGetRecordsForTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ReportApiService
-	taskId string
+	taskId     string
 }
 
 func (r ApiGetRecordsForTaskRequest) Execute() ([]TaskReportingRecord, *http.Response, error) {
@@ -231,26 +259,27 @@ func (r ApiGetRecordsForTaskRequest) Execute() ([]TaskReportingRecord, *http.Res
 /*
 GetRecordsForTask Method for GetRecordsForTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiGetRecordsForTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiGetRecordsForTaskRequest
 */
 func (a *ReportApiService) GetRecordsForTask(ctx context.Context, taskId string) ApiGetRecordsForTaskRequest {
 	return ApiGetRecordsForTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return []TaskReportingRecord
+//
+//	@return []TaskReportingRecord
 func (a *ReportApiService) GetRecordsForTaskExecute(r ApiGetRecordsForTaskRequest) ([]TaskReportingRecord, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TaskReportingRecord
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TaskReportingRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportApiService.GetRecordsForTask")
@@ -282,6 +311,20 @@ func (a *ReportApiService) GetRecordsForTaskExecute(r ApiGetRecordsForTaskReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -292,9 +335,9 @@ func (a *ReportApiService) GetRecordsForTaskExecute(r ApiGetRecordsForTaskReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -320,8 +363,8 @@ func (a *ReportApiService) GetRecordsForTaskExecute(r ApiGetRecordsForTaskReques
 }
 
 type ApiSearchRecordsRequest struct {
-	ctx context.Context
-	ApiService *ReportApiService
+	ctx          context.Context
+	ApiService   *ReportApiService
 	facetFilters *FacetFilters
 }
 
@@ -337,24 +380,25 @@ func (r ApiSearchRecordsRequest) Execute() ([]TaskReportingRecord, *http.Respons
 /*
 SearchRecords Method for SearchRecords
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchRecordsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchRecordsRequest
 */
 func (a *ReportApiService) SearchRecords(ctx context.Context) ApiSearchRecordsRequest {
 	return ApiSearchRecordsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []TaskReportingRecord
+//
+//	@return []TaskReportingRecord
 func (a *ReportApiService) SearchRecordsExecute(r ApiSearchRecordsRequest) ([]TaskReportingRecord, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TaskReportingRecord
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TaskReportingRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportApiService.SearchRecords")
@@ -387,6 +431,20 @@ func (a *ReportApiService) SearchRecordsExecute(r ApiSearchRecordsRequest) ([]Ta
 	}
 	// body params
 	localVarPostBody = r.facetFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -397,9 +455,9 @@ func (a *ReportApiService) SearchRecordsExecute(r ApiSearchRecordsRequest) ([]Ta
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

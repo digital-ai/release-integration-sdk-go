@@ -1,6 +1,6 @@
 # \EnvironmentReservationApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:5516*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -28,7 +28,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EnvironmentReservationApi.AddApplication(context.Background(), environmentReservationId).ApplicationId(applicationId).Execute()
+    r, err := apiClient.EnvironmentReservationApi.AddApplication(context.Background(), environmentReservationId).ApplicationId(applicationId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentReservationApi.AddApplication``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -96,7 +96,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -160,7 +160,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -168,7 +168,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EnvironmentReservationApi.DeleteEnvironmentReservation(context.Background(), environmentReservationId).Execute()
+    r, err := apiClient.EnvironmentReservationApi.DeleteEnvironmentReservation(context.Background(), environmentReservationId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentReservationApi.DeleteEnvironmentReservation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -199,7 +199,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -226,7 +226,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -267,7 +267,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -294,7 +294,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -331,7 +331,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -358,7 +358,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 

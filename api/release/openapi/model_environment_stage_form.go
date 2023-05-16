@@ -41,7 +41,7 @@ func NewEnvironmentStageFormWithDefaults() *EnvironmentStageForm {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *EnvironmentStageForm) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -51,7 +51,7 @@ func (o *EnvironmentStageForm) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentStageForm) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -59,7 +59,7 @@ func (o *EnvironmentStageForm) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *EnvironmentStageForm) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -72,7 +72,7 @@ func (o *EnvironmentStageForm) SetTitle(v string) {
 }
 
 func (o EnvironmentStageForm) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +81,7 @@ func (o EnvironmentStageForm) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentStageForm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
 	return toSerialize, nil
@@ -122,5 +122,3 @@ func (v *NullableEnvironmentStageForm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

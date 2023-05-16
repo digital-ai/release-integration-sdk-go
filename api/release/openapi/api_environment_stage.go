@@ -13,19 +13,18 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // EnvironmentStageApiService EnvironmentStageApi service
 type EnvironmentStageApiService service
 
 type ApiCreateStage3Request struct {
-	ctx context.Context
-	ApiService *EnvironmentStageApiService
+	ctx                  context.Context
+	ApiService           *EnvironmentStageApiService
 	environmentStageForm *EnvironmentStageForm
 }
 
@@ -41,24 +40,25 @@ func (r ApiCreateStage3Request) Execute() (*EnvironmentStageView, *http.Response
 /*
 CreateStage3 Method for CreateStage3
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateStage3Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateStage3Request
 */
 func (a *EnvironmentStageApiService) CreateStage3(ctx context.Context) ApiCreateStage3Request {
 	return ApiCreateStage3Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentStageView
+//
+//	@return EnvironmentStageView
 func (a *EnvironmentStageApiService) CreateStage3Execute(r ApiCreateStage3Request) (*EnvironmentStageView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentStageView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentStageView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentStageApiService.CreateStage3")
@@ -91,6 +91,20 @@ func (a *EnvironmentStageApiService) CreateStage3Execute(r ApiCreateStage3Reques
 	}
 	// body params
 	localVarPostBody = r.environmentStageForm
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -101,9 +115,9 @@ func (a *EnvironmentStageApiService) CreateStage3Execute(r ApiCreateStage3Reques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -129,8 +143,8 @@ func (a *EnvironmentStageApiService) CreateStage3Execute(r ApiCreateStage3Reques
 }
 
 type ApiDeleteEnvironmentStageRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentStageApiService
+	ctx                context.Context
+	ApiService         *EnvironmentStageApiService
 	environmentStageId string
 }
 
@@ -141,14 +155,14 @@ func (r ApiDeleteEnvironmentStageRequest) Execute() (*http.Response, error) {
 /*
 DeleteEnvironmentStage Method for DeleteEnvironmentStage
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentStageId
- @return ApiDeleteEnvironmentStageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentStageId
+	@return ApiDeleteEnvironmentStageRequest
 */
 func (a *EnvironmentStageApiService) DeleteEnvironmentStage(ctx context.Context, environmentStageId string) ApiDeleteEnvironmentStageRequest {
 	return ApiDeleteEnvironmentStageRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		environmentStageId: environmentStageId,
 	}
 }
@@ -156,9 +170,9 @@ func (a *EnvironmentStageApiService) DeleteEnvironmentStage(ctx context.Context,
 // Execute executes the request
 func (a *EnvironmentStageApiService) DeleteEnvironmentStageExecute(r ApiDeleteEnvironmentStageRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentStageApiService.DeleteEnvironmentStage")
@@ -190,6 +204,20 @@ func (a *EnvironmentStageApiService) DeleteEnvironmentStageExecute(r ApiDeleteEn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -200,9 +228,9 @@ func (a *EnvironmentStageApiService) DeleteEnvironmentStageExecute(r ApiDeleteEn
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -219,8 +247,8 @@ func (a *EnvironmentStageApiService) DeleteEnvironmentStageExecute(r ApiDeleteEn
 }
 
 type ApiGetStageByIdRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentStageApiService
+	ctx                context.Context
+	ApiService         *EnvironmentStageApiService
 	environmentStageId string
 }
 
@@ -231,26 +259,27 @@ func (r ApiGetStageByIdRequest) Execute() (*EnvironmentStageView, *http.Response
 /*
 GetStageById Method for GetStageById
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentStageId
- @return ApiGetStageByIdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentStageId
+	@return ApiGetStageByIdRequest
 */
 func (a *EnvironmentStageApiService) GetStageById(ctx context.Context, environmentStageId string) ApiGetStageByIdRequest {
 	return ApiGetStageByIdRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		environmentStageId: environmentStageId,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentStageView
+//
+//	@return EnvironmentStageView
 func (a *EnvironmentStageApiService) GetStageByIdExecute(r ApiGetStageByIdRequest) (*EnvironmentStageView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentStageView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentStageView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentStageApiService.GetStageById")
@@ -282,6 +311,20 @@ func (a *EnvironmentStageApiService) GetStageByIdExecute(r ApiGetStageByIdReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -292,9 +335,9 @@ func (a *EnvironmentStageApiService) GetStageByIdExecute(r ApiGetStageByIdReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -320,8 +363,8 @@ func (a *EnvironmentStageApiService) GetStageByIdExecute(r ApiGetStageByIdReques
 }
 
 type ApiSearchStagesRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentStageApiService
+	ctx                     context.Context
+	ApiService              *EnvironmentStageApiService
 	environmentStageFilters *EnvironmentStageFilters
 }
 
@@ -337,24 +380,25 @@ func (r ApiSearchStagesRequest) Execute() ([]EnvironmentStageView, *http.Respons
 /*
 SearchStages Method for SearchStages
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchStagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchStagesRequest
 */
 func (a *EnvironmentStageApiService) SearchStages(ctx context.Context) ApiSearchStagesRequest {
 	return ApiSearchStagesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []EnvironmentStageView
+//
+//	@return []EnvironmentStageView
 func (a *EnvironmentStageApiService) SearchStagesExecute(r ApiSearchStagesRequest) ([]EnvironmentStageView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []EnvironmentStageView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []EnvironmentStageView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentStageApiService.SearchStages")
@@ -387,6 +431,20 @@ func (a *EnvironmentStageApiService) SearchStagesExecute(r ApiSearchStagesReques
 	}
 	// body params
 	localVarPostBody = r.environmentStageFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -397,9 +455,9 @@ func (a *EnvironmentStageApiService) SearchStagesExecute(r ApiSearchStagesReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -425,9 +483,9 @@ func (a *EnvironmentStageApiService) SearchStagesExecute(r ApiSearchStagesReques
 }
 
 type ApiUpdateStageInEnvironmentRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentStageApiService
-	environmentStageId string
+	ctx                  context.Context
+	ApiService           *EnvironmentStageApiService
+	environmentStageId   string
 	environmentStageForm *EnvironmentStageForm
 }
 
@@ -443,26 +501,27 @@ func (r ApiUpdateStageInEnvironmentRequest) Execute() (*EnvironmentStageView, *h
 /*
 UpdateStageInEnvironment Method for UpdateStageInEnvironment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentStageId
- @return ApiUpdateStageInEnvironmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentStageId
+	@return ApiUpdateStageInEnvironmentRequest
 */
 func (a *EnvironmentStageApiService) UpdateStageInEnvironment(ctx context.Context, environmentStageId string) ApiUpdateStageInEnvironmentRequest {
 	return ApiUpdateStageInEnvironmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		environmentStageId: environmentStageId,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentStageView
+//
+//	@return EnvironmentStageView
 func (a *EnvironmentStageApiService) UpdateStageInEnvironmentExecute(r ApiUpdateStageInEnvironmentRequest) (*EnvironmentStageView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentStageView
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentStageView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentStageApiService.UpdateStageInEnvironment")
@@ -496,6 +555,20 @@ func (a *EnvironmentStageApiService) UpdateStageInEnvironmentExecute(r ApiUpdate
 	}
 	// body params
 	localVarPostBody = r.environmentStageForm
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -506,9 +579,9 @@ func (a *EnvironmentStageApiService) UpdateStageInEnvironmentExecute(r ApiUpdate
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the SystemMessageSettings type satisfies the MappedNullable interface at compile time
@@ -19,13 +20,14 @@ var _ MappedNullable = &SystemMessageSettings{}
 
 // SystemMessageSettings struct for SystemMessageSettings
 type SystemMessageSettings struct {
-	FolderId *string `json:"folderId,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Enabled *bool `json:"enabled,omitempty"`
-	Message *string `json:"message,omitempty"`
-	Automated *bool `json:"automated,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
+	Id        *string    `json:"id,omitempty"`
+	Type      *string    `json:"type,omitempty"`
+	Title     *string    `json:"title,omitempty"`
+	Enabled   *bool      `json:"enabled,omitempty"`
+	Message   *string    `json:"message,omitempty"`
+	Automated *bool      `json:"automated,omitempty"`
+	StartDate *time.Time `json:"startDate,omitempty"`
+	EndDate   *time.Time `json:"endDate,omitempty"`
 }
 
 // NewSystemMessageSettings instantiates a new SystemMessageSettings object
@@ -45,41 +47,73 @@ func NewSystemMessageSettingsWithDefaults() *SystemMessageSettings {
 	return &this
 }
 
-// GetFolderId returns the FolderId field value if set, zero value otherwise.
-func (o *SystemMessageSettings) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *SystemMessageSettings) GetId() string {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-	return *o.FolderId
+	return *o.Id
 }
 
-// GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemMessageSettings) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+func (o *SystemMessageSettings) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return o.FolderId, true
+	return o.Id, true
 }
 
-// HasFolderId returns a boolean if a field has been set.
-func (o *SystemMessageSettings) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+// HasId returns a boolean if a field has been set.
+func (o *SystemMessageSettings) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// SetFolderId gets a reference to the given string and assigns it to the FolderId field.
-func (o *SystemMessageSettings) SetFolderId(v string) {
-	o.FolderId = &v
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *SystemMessageSettings) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *SystemMessageSettings) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemMessageSettings) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *SystemMessageSettings) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *SystemMessageSettings) SetType(v string) {
+	o.Type = &v
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *SystemMessageSettings) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -89,7 +123,7 @@ func (o *SystemMessageSettings) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemMessageSettings) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -97,7 +131,7 @@ func (o *SystemMessageSettings) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *SystemMessageSettings) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -111,7 +145,7 @@ func (o *SystemMessageSettings) SetTitle(v string) {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *SystemMessageSettings) GetEnabled() bool {
-	if o == nil || isNil(o.Enabled) {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -121,7 +155,7 @@ func (o *SystemMessageSettings) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemMessageSettings) GetEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.Enabled) {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -129,7 +163,7 @@ func (o *SystemMessageSettings) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *SystemMessageSettings) HasEnabled() bool {
-	if o != nil && !isNil(o.Enabled) {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -143,7 +177,7 @@ func (o *SystemMessageSettings) SetEnabled(v bool) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *SystemMessageSettings) GetMessage() string {
-	if o == nil || isNil(o.Message) {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -153,7 +187,7 @@ func (o *SystemMessageSettings) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemMessageSettings) GetMessageOk() (*string, bool) {
-	if o == nil || isNil(o.Message) {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -161,7 +195,7 @@ func (o *SystemMessageSettings) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *SystemMessageSettings) HasMessage() bool {
-	if o != nil && !isNil(o.Message) {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -175,7 +209,7 @@ func (o *SystemMessageSettings) SetMessage(v string) {
 
 // GetAutomated returns the Automated field value if set, zero value otherwise.
 func (o *SystemMessageSettings) GetAutomated() bool {
-	if o == nil || isNil(o.Automated) {
+	if o == nil || IsNil(o.Automated) {
 		var ret bool
 		return ret
 	}
@@ -185,7 +219,7 @@ func (o *SystemMessageSettings) GetAutomated() bool {
 // GetAutomatedOk returns a tuple with the Automated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemMessageSettings) GetAutomatedOk() (*bool, bool) {
-	if o == nil || isNil(o.Automated) {
+	if o == nil || IsNil(o.Automated) {
 		return nil, false
 	}
 	return o.Automated, true
@@ -193,7 +227,7 @@ func (o *SystemMessageSettings) GetAutomatedOk() (*bool, bool) {
 
 // HasAutomated returns a boolean if a field has been set.
 func (o *SystemMessageSettings) HasAutomated() bool {
-	if o != nil && !isNil(o.Automated) {
+	if o != nil && !IsNil(o.Automated) {
 		return true
 	}
 
@@ -206,9 +240,9 @@ func (o *SystemMessageSettings) SetAutomated(v bool) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *SystemMessageSettings) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *SystemMessageSettings) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -216,8 +250,8 @@ func (o *SystemMessageSettings) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemMessageSettings) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *SystemMessageSettings) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -225,22 +259,22 @@ func (o *SystemMessageSettings) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *SystemMessageSettings) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *SystemMessageSettings) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *SystemMessageSettings) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *SystemMessageSettings) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *SystemMessageSettings) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -248,8 +282,8 @@ func (o *SystemMessageSettings) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemMessageSettings) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *SystemMessageSettings) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -257,20 +291,20 @@ func (o *SystemMessageSettings) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *SystemMessageSettings) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *SystemMessageSettings) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *SystemMessageSettings) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 func (o SystemMessageSettings) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -279,25 +313,28 @@ func (o SystemMessageSettings) MarshalJSON() ([]byte, error) {
 
 func (o SystemMessageSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.FolderId) {
-		toSerialize["folderId"] = o.FolderId
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Enabled) {
+	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if !isNil(o.Message) {
+	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-	if !isNil(o.Automated) {
+	if !IsNil(o.Automated) {
 		toSerialize["automated"] = o.Automated
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
 	return toSerialize, nil
@@ -338,5 +375,3 @@ func (v *NullableSystemMessageSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

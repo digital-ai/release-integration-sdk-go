@@ -41,7 +41,7 @@ func NewBulkActionResultViewWithDefaults() *BulkActionResultView {
 
 // GetUpdatedIds returns the UpdatedIds field value if set, zero value otherwise.
 func (o *BulkActionResultView) GetUpdatedIds() []string {
-	if o == nil || isNil(o.UpdatedIds) {
+	if o == nil || IsNil(o.UpdatedIds) {
 		var ret []string
 		return ret
 	}
@@ -51,7 +51,7 @@ func (o *BulkActionResultView) GetUpdatedIds() []string {
 // GetUpdatedIdsOk returns a tuple with the UpdatedIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkActionResultView) GetUpdatedIdsOk() ([]string, bool) {
-	if o == nil || isNil(o.UpdatedIds) {
+	if o == nil || IsNil(o.UpdatedIds) {
 		return nil, false
 	}
 	return o.UpdatedIds, true
@@ -59,7 +59,7 @@ func (o *BulkActionResultView) GetUpdatedIdsOk() ([]string, bool) {
 
 // HasUpdatedIds returns a boolean if a field has been set.
 func (o *BulkActionResultView) HasUpdatedIds() bool {
-	if o != nil && !isNil(o.UpdatedIds) {
+	if o != nil && !IsNil(o.UpdatedIds) {
 		return true
 	}
 
@@ -72,7 +72,7 @@ func (o *BulkActionResultView) SetUpdatedIds(v []string) {
 }
 
 func (o BulkActionResultView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +81,7 @@ func (o BulkActionResultView) MarshalJSON() ([]byte, error) {
 
 func (o BulkActionResultView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.UpdatedIds) {
+	if !IsNil(o.UpdatedIds) {
 		toSerialize["updatedIds"] = o.UpdatedIds
 	}
 	return toSerialize, nil
@@ -122,5 +122,3 @@ func (v *NullableBulkActionResultView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

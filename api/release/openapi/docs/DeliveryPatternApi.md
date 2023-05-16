@@ -1,6 +1,6 @@
 # \DeliveryPatternApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:5516*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -45,7 +45,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -109,7 +109,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -179,7 +179,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -243,7 +243,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -313,7 +313,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -383,7 +383,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -456,7 +456,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -499,7 +499,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -526,7 +526,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -569,7 +569,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -596,7 +596,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -604,7 +604,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeliveryPatternApi.DeletePattern(context.Background(), patternId).Execute()
+    r, err := apiClient.DeliveryPatternApi.DeletePattern(context.Background(), patternId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DeliveryPatternApi.DeletePattern``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -635,7 +635,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -662,7 +662,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -670,7 +670,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeliveryPatternApi.DeleteStage(context.Background(), stageId).Execute()
+    r, err := apiClient.DeliveryPatternApi.DeleteStage(context.Background(), stageId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DeliveryPatternApi.DeleteStage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -701,7 +701,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -728,7 +728,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -736,7 +736,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeliveryPatternApi.DeleteTrackedItemDeliveryPattern(context.Background(), itemId).Execute()
+    r, err := apiClient.DeliveryPatternApi.DeleteTrackedItemDeliveryPattern(context.Background(), itemId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DeliveryPatternApi.DeleteTrackedItemDeliveryPattern``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -767,7 +767,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -794,7 +794,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -802,7 +802,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeliveryPatternApi.DeleteTransition(context.Background(), transitionId).Execute()
+    r, err := apiClient.DeliveryPatternApi.DeleteTransition(context.Background(), transitionId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DeliveryPatternApi.DeleteTransition``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -833,7 +833,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -860,7 +860,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -903,7 +903,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -930,7 +930,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -971,7 +971,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -998,7 +998,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1039,7 +1039,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -1066,7 +1066,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1107,7 +1107,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -1134,7 +1134,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1175,7 +1175,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -1202,7 +1202,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1243,7 +1243,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -1270,7 +1270,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1313,7 +1313,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -1340,7 +1340,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1383,7 +1383,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -1410,7 +1410,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1453,7 +1453,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -1480,7 +1480,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1523,7 +1523,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -1550,7 +1550,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -1593,7 +1593,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 

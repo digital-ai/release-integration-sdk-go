@@ -19,7 +19,7 @@ var _ MappedNullable = &ApplicationForm{}
 
 // ApplicationForm struct for ApplicationForm
 type ApplicationForm struct {
-	Title *string `json:"title,omitempty"`
+	Title          *string  `json:"title,omitempty"`
 	EnvironmentIds []string `json:"environmentIds,omitempty"`
 }
 
@@ -42,7 +42,7 @@ func NewApplicationFormWithDefaults() *ApplicationForm {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ApplicationForm) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *ApplicationForm) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationForm) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -60,7 +60,7 @@ func (o *ApplicationForm) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ApplicationForm) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *ApplicationForm) SetTitle(v string) {
 
 // GetEnvironmentIds returns the EnvironmentIds field value if set, zero value otherwise.
 func (o *ApplicationForm) GetEnvironmentIds() []string {
-	if o == nil || isNil(o.EnvironmentIds) {
+	if o == nil || IsNil(o.EnvironmentIds) {
 		var ret []string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *ApplicationForm) GetEnvironmentIds() []string {
 // GetEnvironmentIdsOk returns a tuple with the EnvironmentIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationForm) GetEnvironmentIdsOk() ([]string, bool) {
-	if o == nil || isNil(o.EnvironmentIds) {
+	if o == nil || IsNil(o.EnvironmentIds) {
 		return nil, false
 	}
 	return o.EnvironmentIds, true
@@ -92,7 +92,7 @@ func (o *ApplicationForm) GetEnvironmentIdsOk() ([]string, bool) {
 
 // HasEnvironmentIds returns a boolean if a field has been set.
 func (o *ApplicationForm) HasEnvironmentIds() bool {
-	if o != nil && !isNil(o.EnvironmentIds) {
+	if o != nil && !IsNil(o.EnvironmentIds) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *ApplicationForm) SetEnvironmentIds(v []string) {
 }
 
 func (o ApplicationForm) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o ApplicationForm) MarshalJSON() ([]byte, error) {
 
 func (o ApplicationForm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.EnvironmentIds) {
+	if !IsNil(o.EnvironmentIds) {
 		toSerialize["environmentIds"] = o.EnvironmentIds
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableApplicationForm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

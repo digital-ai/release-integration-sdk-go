@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the ReleaseGroup type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,18 @@ var _ MappedNullable = &ReleaseGroup{}
 
 // ReleaseGroup struct for ReleaseGroup
 type ReleaseGroup struct {
-	Metadata *map[string]map[string]interface{} `json:"$metadata,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Status *ReleaseGroupStatus `json:"status,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	RiskScore *int32 `json:"riskScore,omitempty"`
-	ReleaseIds []string `json:"releaseIds,omitempty"`
-	Progress *int32 `json:"progress,omitempty"`
-	FolderId *string `json:"folderId,omitempty"`
-	Updatable *bool `json:"updatable,omitempty"`
+	Id         *string                            `json:"id,omitempty"`
+	Type       *string                            `json:"type,omitempty"`
+	Metadata   *map[string]map[string]interface{} `json:"$metadata,omitempty"`
+	Title      *string                            `json:"title,omitempty"`
+	Status     *ReleaseGroupStatus                `json:"status,omitempty"`
+	StartDate  *time.Time                         `json:"startDate,omitempty"`
+	EndDate    *time.Time                         `json:"endDate,omitempty"`
+	RiskScore  *int32                             `json:"riskScore,omitempty"`
+	ReleaseIds []string                           `json:"releaseIds,omitempty"`
+	Progress   *int32                             `json:"progress,omitempty"`
+	FolderId   *string                            `json:"folderId,omitempty"`
+	Updatable  *bool                              `json:"updatable,omitempty"`
 }
 
 // NewReleaseGroup instantiates a new ReleaseGroup object
@@ -48,9 +51,73 @@ func NewReleaseGroupWithDefaults() *ReleaseGroup {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ReleaseGroup) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReleaseGroup) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ReleaseGroup) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ReleaseGroup) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ReleaseGroup) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReleaseGroup) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ReleaseGroup) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *ReleaseGroup) SetType(v string) {
+	o.Type = &v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *ReleaseGroup) GetMetadata() map[string]map[string]interface{} {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -60,7 +127,7 @@ func (o *ReleaseGroup) GetMetadata() map[string]map[string]interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroup) GetMetadataOk() (*map[string]map[string]interface{}, bool) {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -68,7 +135,7 @@ func (o *ReleaseGroup) GetMetadataOk() (*map[string]map[string]interface{}, bool
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasMetadata() bool {
-	if o != nil && !isNil(o.Metadata) {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -82,7 +149,7 @@ func (o *ReleaseGroup) SetMetadata(v map[string]map[string]interface{}) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ReleaseGroup) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -92,7 +159,7 @@ func (o *ReleaseGroup) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroup) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -100,7 +167,7 @@ func (o *ReleaseGroup) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -114,7 +181,7 @@ func (o *ReleaseGroup) SetTitle(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ReleaseGroup) GetStatus() ReleaseGroupStatus {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		var ret ReleaseGroupStatus
 		return ret
 	}
@@ -124,7 +191,7 @@ func (o *ReleaseGroup) GetStatus() ReleaseGroupStatus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroup) GetStatusOk() (*ReleaseGroupStatus, bool) {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -132,7 +199,7 @@ func (o *ReleaseGroup) GetStatusOk() (*ReleaseGroupStatus, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasStatus() bool {
-	if o != nil && !isNil(o.Status) {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -145,9 +212,9 @@ func (o *ReleaseGroup) SetStatus(v ReleaseGroupStatus) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *ReleaseGroup) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *ReleaseGroup) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -155,8 +222,8 @@ func (o *ReleaseGroup) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReleaseGroup) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *ReleaseGroup) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -164,22 +231,22 @@ func (o *ReleaseGroup) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *ReleaseGroup) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *ReleaseGroup) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *ReleaseGroup) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *ReleaseGroup) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -187,8 +254,8 @@ func (o *ReleaseGroup) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReleaseGroup) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *ReleaseGroup) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -196,21 +263,21 @@ func (o *ReleaseGroup) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *ReleaseGroup) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *ReleaseGroup) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetRiskScore returns the RiskScore field value if set, zero value otherwise.
 func (o *ReleaseGroup) GetRiskScore() int32 {
-	if o == nil || isNil(o.RiskScore) {
+	if o == nil || IsNil(o.RiskScore) {
 		var ret int32
 		return ret
 	}
@@ -220,7 +287,7 @@ func (o *ReleaseGroup) GetRiskScore() int32 {
 // GetRiskScoreOk returns a tuple with the RiskScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroup) GetRiskScoreOk() (*int32, bool) {
-	if o == nil || isNil(o.RiskScore) {
+	if o == nil || IsNil(o.RiskScore) {
 		return nil, false
 	}
 	return o.RiskScore, true
@@ -228,7 +295,7 @@ func (o *ReleaseGroup) GetRiskScoreOk() (*int32, bool) {
 
 // HasRiskScore returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasRiskScore() bool {
-	if o != nil && !isNil(o.RiskScore) {
+	if o != nil && !IsNil(o.RiskScore) {
 		return true
 	}
 
@@ -242,7 +309,7 @@ func (o *ReleaseGroup) SetRiskScore(v int32) {
 
 // GetReleaseIds returns the ReleaseIds field value if set, zero value otherwise.
 func (o *ReleaseGroup) GetReleaseIds() []string {
-	if o == nil || isNil(o.ReleaseIds) {
+	if o == nil || IsNil(o.ReleaseIds) {
 		var ret []string
 		return ret
 	}
@@ -252,7 +319,7 @@ func (o *ReleaseGroup) GetReleaseIds() []string {
 // GetReleaseIdsOk returns a tuple with the ReleaseIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroup) GetReleaseIdsOk() ([]string, bool) {
-	if o == nil || isNil(o.ReleaseIds) {
+	if o == nil || IsNil(o.ReleaseIds) {
 		return nil, false
 	}
 	return o.ReleaseIds, true
@@ -260,7 +327,7 @@ func (o *ReleaseGroup) GetReleaseIdsOk() ([]string, bool) {
 
 // HasReleaseIds returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasReleaseIds() bool {
-	if o != nil && !isNil(o.ReleaseIds) {
+	if o != nil && !IsNil(o.ReleaseIds) {
 		return true
 	}
 
@@ -274,7 +341,7 @@ func (o *ReleaseGroup) SetReleaseIds(v []string) {
 
 // GetProgress returns the Progress field value if set, zero value otherwise.
 func (o *ReleaseGroup) GetProgress() int32 {
-	if o == nil || isNil(o.Progress) {
+	if o == nil || IsNil(o.Progress) {
 		var ret int32
 		return ret
 	}
@@ -284,7 +351,7 @@ func (o *ReleaseGroup) GetProgress() int32 {
 // GetProgressOk returns a tuple with the Progress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroup) GetProgressOk() (*int32, bool) {
-	if o == nil || isNil(o.Progress) {
+	if o == nil || IsNil(o.Progress) {
 		return nil, false
 	}
 	return o.Progress, true
@@ -292,7 +359,7 @@ func (o *ReleaseGroup) GetProgressOk() (*int32, bool) {
 
 // HasProgress returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasProgress() bool {
-	if o != nil && !isNil(o.Progress) {
+	if o != nil && !IsNil(o.Progress) {
 		return true
 	}
 
@@ -306,7 +373,7 @@ func (o *ReleaseGroup) SetProgress(v int32) {
 
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *ReleaseGroup) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -316,7 +383,7 @@ func (o *ReleaseGroup) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroup) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -324,7 +391,7 @@ func (o *ReleaseGroup) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -338,7 +405,7 @@ func (o *ReleaseGroup) SetFolderId(v string) {
 
 // GetUpdatable returns the Updatable field value if set, zero value otherwise.
 func (o *ReleaseGroup) GetUpdatable() bool {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		var ret bool
 		return ret
 	}
@@ -348,7 +415,7 @@ func (o *ReleaseGroup) GetUpdatable() bool {
 // GetUpdatableOk returns a tuple with the Updatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroup) GetUpdatableOk() (*bool, bool) {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		return nil, false
 	}
 	return o.Updatable, true
@@ -356,7 +423,7 @@ func (o *ReleaseGroup) GetUpdatableOk() (*bool, bool) {
 
 // HasUpdatable returns a boolean if a field has been set.
 func (o *ReleaseGroup) HasUpdatable() bool {
-	if o != nil && !isNil(o.Updatable) {
+	if o != nil && !IsNil(o.Updatable) {
 		return true
 	}
 
@@ -369,7 +436,7 @@ func (o *ReleaseGroup) SetUpdatable(v bool) {
 }
 
 func (o ReleaseGroup) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -378,34 +445,40 @@ func (o ReleaseGroup) MarshalJSON() ([]byte, error) {
 
 func (o ReleaseGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Metadata) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Metadata) {
 		toSerialize["$metadata"] = o.Metadata
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Status) {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.RiskScore) {
+	if !IsNil(o.RiskScore) {
 		toSerialize["riskScore"] = o.RiskScore
 	}
-	if !isNil(o.ReleaseIds) {
+	if !IsNil(o.ReleaseIds) {
 		toSerialize["releaseIds"] = o.ReleaseIds
 	}
-	if !isNil(o.Progress) {
+	if !IsNil(o.Progress) {
 		toSerialize["progress"] = o.Progress
 	}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Updatable) {
+	if !IsNil(o.Updatable) {
 		toSerialize["updatable"] = o.Updatable
 	}
 	return toSerialize, nil
@@ -446,5 +519,3 @@ func (v *NullableReleaseGroup) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

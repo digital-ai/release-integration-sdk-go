@@ -20,9 +20,9 @@ type TrackedItemStatus string
 
 // List of TrackedItemStatus
 const (
-	NOT_READY TrackedItemStatus = "NOT_READY"
-	READY TrackedItemStatus = "READY"
-	SKIPPED TrackedItemStatus = "SKIPPED"
+	TRACKEDITEMSTATUS_NOT_READY TrackedItemStatus = "NOT_READY"
+	TRACKEDITEMSTATUS_READY     TrackedItemStatus = "READY"
+	TRACKEDITEMSTATUS_SKIPPED   TrackedItemStatus = "SKIPPED"
 )
 
 // All allowed values of TrackedItemStatus enum
@@ -110,4 +110,3 @@ func (v *NullableTrackedItemStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

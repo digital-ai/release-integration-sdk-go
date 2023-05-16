@@ -19,9 +19,11 @@ var _ MappedNullable = &RiskProfile{}
 
 // RiskProfile struct for RiskProfile
 type RiskProfile struct {
-	FolderId *string `json:"folderId,omitempty"`
-	Title *string `json:"title,omitempty"`
-	DefaultProfile *bool `json:"defaultProfile,omitempty"`
+	Id                   *string            `json:"id,omitempty"`
+	Type                 *string            `json:"type,omitempty"`
+	FolderId             *string            `json:"folderId,omitempty"`
+	Title                *string            `json:"title,omitempty"`
+	DefaultProfile       *bool              `json:"defaultProfile,omitempty"`
 	RiskProfileAssessors *map[string]string `json:"riskProfileAssessors,omitempty"`
 }
 
@@ -42,9 +44,73 @@ func NewRiskProfileWithDefaults() *RiskProfile {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *RiskProfile) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RiskProfile) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *RiskProfile) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *RiskProfile) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *RiskProfile) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RiskProfile) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *RiskProfile) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *RiskProfile) SetType(v string) {
+	o.Type = &v
+}
+
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *RiskProfile) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -54,7 +120,7 @@ func (o *RiskProfile) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskProfile) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -62,7 +128,7 @@ func (o *RiskProfile) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *RiskProfile) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -76,7 +142,7 @@ func (o *RiskProfile) SetFolderId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *RiskProfile) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -86,7 +152,7 @@ func (o *RiskProfile) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskProfile) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -94,7 +160,7 @@ func (o *RiskProfile) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *RiskProfile) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -108,7 +174,7 @@ func (o *RiskProfile) SetTitle(v string) {
 
 // GetDefaultProfile returns the DefaultProfile field value if set, zero value otherwise.
 func (o *RiskProfile) GetDefaultProfile() bool {
-	if o == nil || isNil(o.DefaultProfile) {
+	if o == nil || IsNil(o.DefaultProfile) {
 		var ret bool
 		return ret
 	}
@@ -118,7 +184,7 @@ func (o *RiskProfile) GetDefaultProfile() bool {
 // GetDefaultProfileOk returns a tuple with the DefaultProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskProfile) GetDefaultProfileOk() (*bool, bool) {
-	if o == nil || isNil(o.DefaultProfile) {
+	if o == nil || IsNil(o.DefaultProfile) {
 		return nil, false
 	}
 	return o.DefaultProfile, true
@@ -126,7 +192,7 @@ func (o *RiskProfile) GetDefaultProfileOk() (*bool, bool) {
 
 // HasDefaultProfile returns a boolean if a field has been set.
 func (o *RiskProfile) HasDefaultProfile() bool {
-	if o != nil && !isNil(o.DefaultProfile) {
+	if o != nil && !IsNil(o.DefaultProfile) {
 		return true
 	}
 
@@ -140,7 +206,7 @@ func (o *RiskProfile) SetDefaultProfile(v bool) {
 
 // GetRiskProfileAssessors returns the RiskProfileAssessors field value if set, zero value otherwise.
 func (o *RiskProfile) GetRiskProfileAssessors() map[string]string {
-	if o == nil || isNil(o.RiskProfileAssessors) {
+	if o == nil || IsNil(o.RiskProfileAssessors) {
 		var ret map[string]string
 		return ret
 	}
@@ -150,7 +216,7 @@ func (o *RiskProfile) GetRiskProfileAssessors() map[string]string {
 // GetRiskProfileAssessorsOk returns a tuple with the RiskProfileAssessors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskProfile) GetRiskProfileAssessorsOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.RiskProfileAssessors) {
+	if o == nil || IsNil(o.RiskProfileAssessors) {
 		return nil, false
 	}
 	return o.RiskProfileAssessors, true
@@ -158,7 +224,7 @@ func (o *RiskProfile) GetRiskProfileAssessorsOk() (*map[string]string, bool) {
 
 // HasRiskProfileAssessors returns a boolean if a field has been set.
 func (o *RiskProfile) HasRiskProfileAssessors() bool {
-	if o != nil && !isNil(o.RiskProfileAssessors) {
+	if o != nil && !IsNil(o.RiskProfileAssessors) {
 		return true
 	}
 
@@ -171,7 +237,7 @@ func (o *RiskProfile) SetRiskProfileAssessors(v map[string]string) {
 }
 
 func (o RiskProfile) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +246,22 @@ func (o RiskProfile) MarshalJSON() ([]byte, error) {
 
 func (o RiskProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.DefaultProfile) {
+	if !IsNil(o.DefaultProfile) {
 		toSerialize["defaultProfile"] = o.DefaultProfile
 	}
-	if !isNil(o.RiskProfileAssessors) {
+	if !IsNil(o.RiskProfileAssessors) {
 		toSerialize["riskProfileAssessors"] = o.RiskProfileAssessors
 	}
 	return toSerialize, nil
@@ -230,5 +302,3 @@ func (v *NullableRiskProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

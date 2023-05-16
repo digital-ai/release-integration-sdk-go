@@ -19,6 +19,8 @@ var _ MappedNullable = &ValueProviderConfiguration{}
 
 // ValueProviderConfiguration struct for ValueProviderConfiguration
 type ValueProviderConfiguration struct {
+	Id       *string   `json:"id,omitempty"`
+	Type     *string   `json:"type,omitempty"`
 	Variable *Variable `json:"variable,omitempty"`
 }
 
@@ -39,9 +41,73 @@ func NewValueProviderConfigurationWithDefaults() *ValueProviderConfiguration {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ValueProviderConfiguration) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValueProviderConfiguration) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ValueProviderConfiguration) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ValueProviderConfiguration) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ValueProviderConfiguration) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValueProviderConfiguration) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ValueProviderConfiguration) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *ValueProviderConfiguration) SetType(v string) {
+	o.Type = &v
+}
+
 // GetVariable returns the Variable field value if set, zero value otherwise.
 func (o *ValueProviderConfiguration) GetVariable() Variable {
-	if o == nil || isNil(o.Variable) {
+	if o == nil || IsNil(o.Variable) {
 		var ret Variable
 		return ret
 	}
@@ -51,7 +117,7 @@ func (o *ValueProviderConfiguration) GetVariable() Variable {
 // GetVariableOk returns a tuple with the Variable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValueProviderConfiguration) GetVariableOk() (*Variable, bool) {
-	if o == nil || isNil(o.Variable) {
+	if o == nil || IsNil(o.Variable) {
 		return nil, false
 	}
 	return o.Variable, true
@@ -59,7 +125,7 @@ func (o *ValueProviderConfiguration) GetVariableOk() (*Variable, bool) {
 
 // HasVariable returns a boolean if a field has been set.
 func (o *ValueProviderConfiguration) HasVariable() bool {
-	if o != nil && !isNil(o.Variable) {
+	if o != nil && !IsNil(o.Variable) {
 		return true
 	}
 
@@ -72,7 +138,7 @@ func (o *ValueProviderConfiguration) SetVariable(v Variable) {
 }
 
 func (o ValueProviderConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +147,13 @@ func (o ValueProviderConfiguration) MarshalJSON() ([]byte, error) {
 
 func (o ValueProviderConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Variable) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Variable) {
 		toSerialize["variable"] = o.Variable
 	}
 	return toSerialize, nil
@@ -122,5 +194,3 @@ func (v *NullableValueProviderConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

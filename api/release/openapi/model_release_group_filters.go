@@ -19,8 +19,8 @@ var _ MappedNullable = &ReleaseGroupFilters{}
 
 // ReleaseGroupFilters struct for ReleaseGroupFilters
 type ReleaseGroupFilters struct {
-	Title *string `json:"title,omitempty"`
-	FolderId *string `json:"folderId,omitempty"`
+	Title    *string              `json:"title,omitempty"`
+	FolderId *string              `json:"folderId,omitempty"`
 	Statuses []ReleaseGroupStatus `json:"statuses,omitempty"`
 }
 
@@ -43,7 +43,7 @@ func NewReleaseGroupFiltersWithDefaults() *ReleaseGroupFilters {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ReleaseGroupFilters) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *ReleaseGroupFilters) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroupFilters) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -61,7 +61,7 @@ func (o *ReleaseGroupFilters) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ReleaseGroupFilters) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *ReleaseGroupFilters) SetTitle(v string) {
 
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *ReleaseGroupFilters) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *ReleaseGroupFilters) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroupFilters) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -93,7 +93,7 @@ func (o *ReleaseGroupFilters) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *ReleaseGroupFilters) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *ReleaseGroupFilters) SetFolderId(v string) {
 
 // GetStatuses returns the Statuses field value if set, zero value otherwise.
 func (o *ReleaseGroupFilters) GetStatuses() []ReleaseGroupStatus {
-	if o == nil || isNil(o.Statuses) {
+	if o == nil || IsNil(o.Statuses) {
 		var ret []ReleaseGroupStatus
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *ReleaseGroupFilters) GetStatuses() []ReleaseGroupStatus {
 // GetStatusesOk returns a tuple with the Statuses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseGroupFilters) GetStatusesOk() ([]ReleaseGroupStatus, bool) {
-	if o == nil || isNil(o.Statuses) {
+	if o == nil || IsNil(o.Statuses) {
 		return nil, false
 	}
 	return o.Statuses, true
@@ -125,7 +125,7 @@ func (o *ReleaseGroupFilters) GetStatusesOk() ([]ReleaseGroupStatus, bool) {
 
 // HasStatuses returns a boolean if a field has been set.
 func (o *ReleaseGroupFilters) HasStatuses() bool {
-	if o != nil && !isNil(o.Statuses) {
+	if o != nil && !IsNil(o.Statuses) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *ReleaseGroupFilters) SetStatuses(v []ReleaseGroupStatus) {
 }
 
 func (o ReleaseGroupFilters) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o ReleaseGroupFilters) MarshalJSON() ([]byte, error) {
 
 func (o ReleaseGroupFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Statuses) {
+	if !IsNil(o.Statuses) {
 		toSerialize["statuses"] = o.Statuses
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableReleaseGroupFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Script** | Pointer to **string** |  | [optional] 
 **AbortScript** | Pointer to **string** |  | [optional] 
 **CiUid** | Pointer to **int32** |  | [optional] 
@@ -13,7 +15,7 @@ Name | Type | Description | Notes
 **TriggerState** | Pointer to **string** |  | [optional] 
 **FolderId** | Pointer to **string** |  | [optional] 
 **AllowParallelExecution** | Pointer to **bool** |  | [optional] 
-**LastRunDate** | Pointer to **string** |  | [optional] 
+**LastRunDate** | Pointer to **time.Time** |  | [optional] 
 **LastRunStatus** | Pointer to [**TriggerExecutionStatus**](TriggerExecutionStatus.md) |  | [optional] 
 **PollType** | Pointer to [**PollType**](PollType.md) |  | [optional] 
 **Periodicity** | Pointer to **string** |  | [optional] 
@@ -53,6 +55,56 @@ will change when the set of required properties is changed
 NewReleaseTriggerWithDefaults instantiates a new ReleaseTrigger object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *ReleaseTrigger) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ReleaseTrigger) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ReleaseTrigger) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ReleaseTrigger) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *ReleaseTrigger) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *ReleaseTrigger) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *ReleaseTrigger) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *ReleaseTrigger) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetScript
 
@@ -281,20 +333,20 @@ HasAllowParallelExecution returns a boolean if a field has been set.
 
 ### GetLastRunDate
 
-`func (o *ReleaseTrigger) GetLastRunDate() string`
+`func (o *ReleaseTrigger) GetLastRunDate() time.Time`
 
 GetLastRunDate returns the LastRunDate field if non-nil, zero value otherwise.
 
 ### GetLastRunDateOk
 
-`func (o *ReleaseTrigger) GetLastRunDateOk() (*string, bool)`
+`func (o *ReleaseTrigger) GetLastRunDateOk() (*time.Time, bool)`
 
 GetLastRunDateOk returns a tuple with the LastRunDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastRunDate
 
-`func (o *ReleaseTrigger) SetLastRunDate(v string)`
+`func (o *ReleaseTrigger) SetLastRunDate(v time.Time)`
 
 SetLastRunDate sets LastRunDate field to given value.
 

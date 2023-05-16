@@ -13,21 +13,20 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // EnvironmentReservationApiService EnvironmentReservationApi service
 type EnvironmentReservationApiService service
 
 type ApiAddApplicationRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentReservationApiService
+	ctx                      context.Context
+	ApiService               *EnvironmentReservationApiService
 	environmentReservationId string
-	applicationId *string
+	applicationId            *string
 }
 
 func (r ApiAddApplicationRequest) ApplicationId(applicationId string) ApiAddApplicationRequest {
@@ -42,14 +41,14 @@ func (r ApiAddApplicationRequest) Execute() (*http.Response, error) {
 /*
 AddApplication Method for AddApplication
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentReservationId
- @return ApiAddApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentReservationId
+	@return ApiAddApplicationRequest
 */
 func (a *EnvironmentReservationApiService) AddApplication(ctx context.Context, environmentReservationId string) ApiAddApplicationRequest {
 	return ApiAddApplicationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:               a,
+		ctx:                      ctx,
 		environmentReservationId: environmentReservationId,
 	}
 }
@@ -57,9 +56,9 @@ func (a *EnvironmentReservationApiService) AddApplication(ctx context.Context, e
 // Execute executes the request
 func (a *EnvironmentReservationApiService) AddApplicationExecute(r ApiAddApplicationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentReservationApiService.AddApplication")
@@ -75,7 +74,7 @@ func (a *EnvironmentReservationApiService) AddApplicationExecute(r ApiAddApplica
 	localVarFormParams := url.Values{}
 
 	if r.applicationId != nil {
-		parameterAddToQuery(localVarQueryParams, "applicationId", r.applicationId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationId", r.applicationId, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -94,6 +93,20 @@ func (a *EnvironmentReservationApiService) AddApplicationExecute(r ApiAddApplica
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -104,9 +117,9 @@ func (a *EnvironmentReservationApiService) AddApplicationExecute(r ApiAddApplica
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -123,8 +136,8 @@ func (a *EnvironmentReservationApiService) AddApplicationExecute(r ApiAddApplica
 }
 
 type ApiCreateReservationRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentReservationApiService
+	ctx                        context.Context
+	ApiService                 *EnvironmentReservationApiService
 	environmentReservationForm *EnvironmentReservationForm
 }
 
@@ -140,24 +153,25 @@ func (r ApiCreateReservationRequest) Execute() (*EnvironmentReservationView, *ht
 /*
 CreateReservation Method for CreateReservation
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateReservationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateReservationRequest
 */
 func (a *EnvironmentReservationApiService) CreateReservation(ctx context.Context) ApiCreateReservationRequest {
 	return ApiCreateReservationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentReservationView
+//
+//	@return EnvironmentReservationView
 func (a *EnvironmentReservationApiService) CreateReservationExecute(r ApiCreateReservationRequest) (*EnvironmentReservationView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentReservationView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentReservationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentReservationApiService.CreateReservation")
@@ -190,6 +204,20 @@ func (a *EnvironmentReservationApiService) CreateReservationExecute(r ApiCreateR
 	}
 	// body params
 	localVarPostBody = r.environmentReservationForm
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -200,9 +228,9 @@ func (a *EnvironmentReservationApiService) CreateReservationExecute(r ApiCreateR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -228,8 +256,8 @@ func (a *EnvironmentReservationApiService) CreateReservationExecute(r ApiCreateR
 }
 
 type ApiDeleteEnvironmentReservationRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentReservationApiService
+	ctx                      context.Context
+	ApiService               *EnvironmentReservationApiService
 	environmentReservationId string
 }
 
@@ -240,14 +268,14 @@ func (r ApiDeleteEnvironmentReservationRequest) Execute() (*http.Response, error
 /*
 DeleteEnvironmentReservation Method for DeleteEnvironmentReservation
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentReservationId
- @return ApiDeleteEnvironmentReservationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentReservationId
+	@return ApiDeleteEnvironmentReservationRequest
 */
 func (a *EnvironmentReservationApiService) DeleteEnvironmentReservation(ctx context.Context, environmentReservationId string) ApiDeleteEnvironmentReservationRequest {
 	return ApiDeleteEnvironmentReservationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:               a,
+		ctx:                      ctx,
 		environmentReservationId: environmentReservationId,
 	}
 }
@@ -255,9 +283,9 @@ func (a *EnvironmentReservationApiService) DeleteEnvironmentReservation(ctx cont
 // Execute executes the request
 func (a *EnvironmentReservationApiService) DeleteEnvironmentReservationExecute(r ApiDeleteEnvironmentReservationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentReservationApiService.DeleteEnvironmentReservation")
@@ -289,6 +317,20 @@ func (a *EnvironmentReservationApiService) DeleteEnvironmentReservationExecute(r
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -299,9 +341,9 @@ func (a *EnvironmentReservationApiService) DeleteEnvironmentReservationExecute(r
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -318,8 +360,8 @@ func (a *EnvironmentReservationApiService) DeleteEnvironmentReservationExecute(r
 }
 
 type ApiGetReservationRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentReservationApiService
+	ctx                      context.Context
+	ApiService               *EnvironmentReservationApiService
 	environmentReservationId string
 }
 
@@ -330,26 +372,27 @@ func (r ApiGetReservationRequest) Execute() (*EnvironmentReservationView, *http.
 /*
 GetReservation Method for GetReservation
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentReservationId
- @return ApiGetReservationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentReservationId
+	@return ApiGetReservationRequest
 */
 func (a *EnvironmentReservationApiService) GetReservation(ctx context.Context, environmentReservationId string) ApiGetReservationRequest {
 	return ApiGetReservationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:               a,
+		ctx:                      ctx,
 		environmentReservationId: environmentReservationId,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentReservationView
+//
+//	@return EnvironmentReservationView
 func (a *EnvironmentReservationApiService) GetReservationExecute(r ApiGetReservationRequest) (*EnvironmentReservationView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentReservationView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentReservationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentReservationApiService.GetReservation")
@@ -381,6 +424,20 @@ func (a *EnvironmentReservationApiService) GetReservationExecute(r ApiGetReserva
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -391,9 +448,9 @@ func (a *EnvironmentReservationApiService) GetReservationExecute(r ApiGetReserva
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -419,8 +476,8 @@ func (a *EnvironmentReservationApiService) GetReservationExecute(r ApiGetReserva
 }
 
 type ApiSearchReservationsRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentReservationApiService
+	ctx                context.Context
+	ApiService         *EnvironmentReservationApiService
 	reservationFilters *ReservationFilters
 }
 
@@ -436,24 +493,25 @@ func (r ApiSearchReservationsRequest) Execute() ([]EnvironmentReservationSearchV
 /*
 SearchReservations Method for SearchReservations
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchReservationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchReservationsRequest
 */
 func (a *EnvironmentReservationApiService) SearchReservations(ctx context.Context) ApiSearchReservationsRequest {
 	return ApiSearchReservationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []EnvironmentReservationSearchView
+//
+//	@return []EnvironmentReservationSearchView
 func (a *EnvironmentReservationApiService) SearchReservationsExecute(r ApiSearchReservationsRequest) ([]EnvironmentReservationSearchView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []EnvironmentReservationSearchView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []EnvironmentReservationSearchView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentReservationApiService.SearchReservations")
@@ -486,6 +544,20 @@ func (a *EnvironmentReservationApiService) SearchReservationsExecute(r ApiSearch
 	}
 	// body params
 	localVarPostBody = r.reservationFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -496,9 +568,9 @@ func (a *EnvironmentReservationApiService) SearchReservationsExecute(r ApiSearch
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -524,9 +596,9 @@ func (a *EnvironmentReservationApiService) SearchReservationsExecute(r ApiSearch
 }
 
 type ApiUpdateReservationRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentReservationApiService
-	environmentReservationId string
+	ctx                        context.Context
+	ApiService                 *EnvironmentReservationApiService
+	environmentReservationId   string
 	environmentReservationForm *EnvironmentReservationForm
 }
 
@@ -542,26 +614,27 @@ func (r ApiUpdateReservationRequest) Execute() (*EnvironmentReservationView, *ht
 /*
 UpdateReservation Method for UpdateReservation
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentReservationId
- @return ApiUpdateReservationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentReservationId
+	@return ApiUpdateReservationRequest
 */
 func (a *EnvironmentReservationApiService) UpdateReservation(ctx context.Context, environmentReservationId string) ApiUpdateReservationRequest {
 	return ApiUpdateReservationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:               a,
+		ctx:                      ctx,
 		environmentReservationId: environmentReservationId,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentReservationView
+//
+//	@return EnvironmentReservationView
 func (a *EnvironmentReservationApiService) UpdateReservationExecute(r ApiUpdateReservationRequest) (*EnvironmentReservationView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentReservationView
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentReservationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentReservationApiService.UpdateReservation")
@@ -595,6 +668,20 @@ func (a *EnvironmentReservationApiService) UpdateReservationExecute(r ApiUpdateR
 	}
 	// body params
 	localVarPostBody = r.environmentReservationForm
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -605,9 +692,9 @@ func (a *EnvironmentReservationApiService) UpdateReservationExecute(r ApiUpdateR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

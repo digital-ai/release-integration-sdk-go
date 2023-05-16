@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the CreateRelease type satisfies the MappedNullable interface at compile time
@@ -19,15 +20,15 @@ var _ MappedNullable = &CreateRelease{}
 
 // CreateRelease struct for CreateRelease
 type CreateRelease struct {
-	ReleaseTitle *string `json:"releaseTitle,omitempty"`
-	FolderId *string `json:"folderId,omitempty"`
-	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
-	ReleaseVariables *map[string]string `json:"releaseVariables,omitempty"`
-	ReleasePasswordVariables *map[string]string `json:"releasePasswordVariables,omitempty"`
-	ScheduledStartDate *string `json:"scheduledStartDate,omitempty"`
-	AutoStart *bool `json:"autoStart,omitempty"`
-	StartedFromTaskId *string `json:"startedFromTaskId,omitempty"`
-	ReleaseOwner *string `json:"releaseOwner,omitempty"`
+	ReleaseTitle             *string                           `json:"releaseTitle,omitempty"`
+	FolderId                 *string                           `json:"folderId,omitempty"`
+	Variables                map[string]map[string]interface{} `json:"variables,omitempty"`
+	ReleaseVariables         *map[string]string                `json:"releaseVariables,omitempty"`
+	ReleasePasswordVariables *map[string]string                `json:"releasePasswordVariables,omitempty"`
+	ScheduledStartDate       *time.Time                        `json:"scheduledStartDate,omitempty"`
+	AutoStart                *bool                             `json:"autoStart,omitempty"`
+	StartedFromTaskId        *string                           `json:"startedFromTaskId,omitempty"`
+	ReleaseOwner             *string                           `json:"releaseOwner,omitempty"`
 }
 
 // NewCreateRelease instantiates a new CreateRelease object
@@ -49,7 +50,7 @@ func NewCreateReleaseWithDefaults() *CreateRelease {
 
 // GetReleaseTitle returns the ReleaseTitle field value if set, zero value otherwise.
 func (o *CreateRelease) GetReleaseTitle() string {
-	if o == nil || isNil(o.ReleaseTitle) {
+	if o == nil || IsNil(o.ReleaseTitle) {
 		var ret string
 		return ret
 	}
@@ -59,7 +60,7 @@ func (o *CreateRelease) GetReleaseTitle() string {
 // GetReleaseTitleOk returns a tuple with the ReleaseTitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRelease) GetReleaseTitleOk() (*string, bool) {
-	if o == nil || isNil(o.ReleaseTitle) {
+	if o == nil || IsNil(o.ReleaseTitle) {
 		return nil, false
 	}
 	return o.ReleaseTitle, true
@@ -67,7 +68,7 @@ func (o *CreateRelease) GetReleaseTitleOk() (*string, bool) {
 
 // HasReleaseTitle returns a boolean if a field has been set.
 func (o *CreateRelease) HasReleaseTitle() bool {
-	if o != nil && !isNil(o.ReleaseTitle) {
+	if o != nil && !IsNil(o.ReleaseTitle) {
 		return true
 	}
 
@@ -81,7 +82,7 @@ func (o *CreateRelease) SetReleaseTitle(v string) {
 
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *CreateRelease) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -91,7 +92,7 @@ func (o *CreateRelease) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRelease) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -99,7 +100,7 @@ func (o *CreateRelease) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *CreateRelease) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -113,7 +114,7 @@ func (o *CreateRelease) SetFolderId(v string) {
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
 func (o *CreateRelease) GetVariables() map[string]map[string]interface{} {
-	if o == nil || isNil(o.Variables) {
+	if o == nil || IsNil(o.Variables) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -123,7 +124,7 @@ func (o *CreateRelease) GetVariables() map[string]map[string]interface{} {
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRelease) GetVariablesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || isNil(o.Variables) {
+	if o == nil || IsNil(o.Variables) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Variables, true
@@ -131,7 +132,7 @@ func (o *CreateRelease) GetVariablesOk() (map[string]map[string]interface{}, boo
 
 // HasVariables returns a boolean if a field has been set.
 func (o *CreateRelease) HasVariables() bool {
-	if o != nil && !isNil(o.Variables) {
+	if o != nil && !IsNil(o.Variables) {
 		return true
 	}
 
@@ -145,7 +146,7 @@ func (o *CreateRelease) SetVariables(v map[string]map[string]interface{}) {
 
 // GetReleaseVariables returns the ReleaseVariables field value if set, zero value otherwise.
 func (o *CreateRelease) GetReleaseVariables() map[string]string {
-	if o == nil || isNil(o.ReleaseVariables) {
+	if o == nil || IsNil(o.ReleaseVariables) {
 		var ret map[string]string
 		return ret
 	}
@@ -155,7 +156,7 @@ func (o *CreateRelease) GetReleaseVariables() map[string]string {
 // GetReleaseVariablesOk returns a tuple with the ReleaseVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRelease) GetReleaseVariablesOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.ReleaseVariables) {
+	if o == nil || IsNil(o.ReleaseVariables) {
 		return nil, false
 	}
 	return o.ReleaseVariables, true
@@ -163,7 +164,7 @@ func (o *CreateRelease) GetReleaseVariablesOk() (*map[string]string, bool) {
 
 // HasReleaseVariables returns a boolean if a field has been set.
 func (o *CreateRelease) HasReleaseVariables() bool {
-	if o != nil && !isNil(o.ReleaseVariables) {
+	if o != nil && !IsNil(o.ReleaseVariables) {
 		return true
 	}
 
@@ -177,7 +178,7 @@ func (o *CreateRelease) SetReleaseVariables(v map[string]string) {
 
 // GetReleasePasswordVariables returns the ReleasePasswordVariables field value if set, zero value otherwise.
 func (o *CreateRelease) GetReleasePasswordVariables() map[string]string {
-	if o == nil || isNil(o.ReleasePasswordVariables) {
+	if o == nil || IsNil(o.ReleasePasswordVariables) {
 		var ret map[string]string
 		return ret
 	}
@@ -187,7 +188,7 @@ func (o *CreateRelease) GetReleasePasswordVariables() map[string]string {
 // GetReleasePasswordVariablesOk returns a tuple with the ReleasePasswordVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRelease) GetReleasePasswordVariablesOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.ReleasePasswordVariables) {
+	if o == nil || IsNil(o.ReleasePasswordVariables) {
 		return nil, false
 	}
 	return o.ReleasePasswordVariables, true
@@ -195,7 +196,7 @@ func (o *CreateRelease) GetReleasePasswordVariablesOk() (*map[string]string, boo
 
 // HasReleasePasswordVariables returns a boolean if a field has been set.
 func (o *CreateRelease) HasReleasePasswordVariables() bool {
-	if o != nil && !isNil(o.ReleasePasswordVariables) {
+	if o != nil && !IsNil(o.ReleasePasswordVariables) {
 		return true
 	}
 
@@ -208,9 +209,9 @@ func (o *CreateRelease) SetReleasePasswordVariables(v map[string]string) {
 }
 
 // GetScheduledStartDate returns the ScheduledStartDate field value if set, zero value otherwise.
-func (o *CreateRelease) GetScheduledStartDate() string {
-	if o == nil || isNil(o.ScheduledStartDate) {
-		var ret string
+func (o *CreateRelease) GetScheduledStartDate() time.Time {
+	if o == nil || IsNil(o.ScheduledStartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.ScheduledStartDate
@@ -218,8 +219,8 @@ func (o *CreateRelease) GetScheduledStartDate() string {
 
 // GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateRelease) GetScheduledStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.ScheduledStartDate) {
+func (o *CreateRelease) GetScheduledStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ScheduledStartDate) {
 		return nil, false
 	}
 	return o.ScheduledStartDate, true
@@ -227,21 +228,21 @@ func (o *CreateRelease) GetScheduledStartDateOk() (*string, bool) {
 
 // HasScheduledStartDate returns a boolean if a field has been set.
 func (o *CreateRelease) HasScheduledStartDate() bool {
-	if o != nil && !isNil(o.ScheduledStartDate) {
+	if o != nil && !IsNil(o.ScheduledStartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetScheduledStartDate gets a reference to the given string and assigns it to the ScheduledStartDate field.
-func (o *CreateRelease) SetScheduledStartDate(v string) {
+// SetScheduledStartDate gets a reference to the given time.Time and assigns it to the ScheduledStartDate field.
+func (o *CreateRelease) SetScheduledStartDate(v time.Time) {
 	o.ScheduledStartDate = &v
 }
 
 // GetAutoStart returns the AutoStart field value if set, zero value otherwise.
 func (o *CreateRelease) GetAutoStart() bool {
-	if o == nil || isNil(o.AutoStart) {
+	if o == nil || IsNil(o.AutoStart) {
 		var ret bool
 		return ret
 	}
@@ -251,7 +252,7 @@ func (o *CreateRelease) GetAutoStart() bool {
 // GetAutoStartOk returns a tuple with the AutoStart field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRelease) GetAutoStartOk() (*bool, bool) {
-	if o == nil || isNil(o.AutoStart) {
+	if o == nil || IsNil(o.AutoStart) {
 		return nil, false
 	}
 	return o.AutoStart, true
@@ -259,7 +260,7 @@ func (o *CreateRelease) GetAutoStartOk() (*bool, bool) {
 
 // HasAutoStart returns a boolean if a field has been set.
 func (o *CreateRelease) HasAutoStart() bool {
-	if o != nil && !isNil(o.AutoStart) {
+	if o != nil && !IsNil(o.AutoStart) {
 		return true
 	}
 
@@ -273,7 +274,7 @@ func (o *CreateRelease) SetAutoStart(v bool) {
 
 // GetStartedFromTaskId returns the StartedFromTaskId field value if set, zero value otherwise.
 func (o *CreateRelease) GetStartedFromTaskId() string {
-	if o == nil || isNil(o.StartedFromTaskId) {
+	if o == nil || IsNil(o.StartedFromTaskId) {
 		var ret string
 		return ret
 	}
@@ -283,7 +284,7 @@ func (o *CreateRelease) GetStartedFromTaskId() string {
 // GetStartedFromTaskIdOk returns a tuple with the StartedFromTaskId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRelease) GetStartedFromTaskIdOk() (*string, bool) {
-	if o == nil || isNil(o.StartedFromTaskId) {
+	if o == nil || IsNil(o.StartedFromTaskId) {
 		return nil, false
 	}
 	return o.StartedFromTaskId, true
@@ -291,7 +292,7 @@ func (o *CreateRelease) GetStartedFromTaskIdOk() (*string, bool) {
 
 // HasStartedFromTaskId returns a boolean if a field has been set.
 func (o *CreateRelease) HasStartedFromTaskId() bool {
-	if o != nil && !isNil(o.StartedFromTaskId) {
+	if o != nil && !IsNil(o.StartedFromTaskId) {
 		return true
 	}
 
@@ -305,7 +306,7 @@ func (o *CreateRelease) SetStartedFromTaskId(v string) {
 
 // GetReleaseOwner returns the ReleaseOwner field value if set, zero value otherwise.
 func (o *CreateRelease) GetReleaseOwner() string {
-	if o == nil || isNil(o.ReleaseOwner) {
+	if o == nil || IsNil(o.ReleaseOwner) {
 		var ret string
 		return ret
 	}
@@ -315,7 +316,7 @@ func (o *CreateRelease) GetReleaseOwner() string {
 // GetReleaseOwnerOk returns a tuple with the ReleaseOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRelease) GetReleaseOwnerOk() (*string, bool) {
-	if o == nil || isNil(o.ReleaseOwner) {
+	if o == nil || IsNil(o.ReleaseOwner) {
 		return nil, false
 	}
 	return o.ReleaseOwner, true
@@ -323,7 +324,7 @@ func (o *CreateRelease) GetReleaseOwnerOk() (*string, bool) {
 
 // HasReleaseOwner returns a boolean if a field has been set.
 func (o *CreateRelease) HasReleaseOwner() bool {
-	if o != nil && !isNil(o.ReleaseOwner) {
+	if o != nil && !IsNil(o.ReleaseOwner) {
 		return true
 	}
 
@@ -336,7 +337,7 @@ func (o *CreateRelease) SetReleaseOwner(v string) {
 }
 
 func (o CreateRelease) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -345,31 +346,31 @@ func (o CreateRelease) MarshalJSON() ([]byte, error) {
 
 func (o CreateRelease) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.ReleaseTitle) {
+	if !IsNil(o.ReleaseTitle) {
 		toSerialize["releaseTitle"] = o.ReleaseTitle
 	}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Variables) {
+	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
-	if !isNil(o.ReleaseVariables) {
+	if !IsNil(o.ReleaseVariables) {
 		toSerialize["releaseVariables"] = o.ReleaseVariables
 	}
-	if !isNil(o.ReleasePasswordVariables) {
+	if !IsNil(o.ReleasePasswordVariables) {
 		toSerialize["releasePasswordVariables"] = o.ReleasePasswordVariables
 	}
-	if !isNil(o.ScheduledStartDate) {
+	if !IsNil(o.ScheduledStartDate) {
 		toSerialize["scheduledStartDate"] = o.ScheduledStartDate
 	}
-	if !isNil(o.AutoStart) {
+	if !IsNil(o.AutoStart) {
 		toSerialize["autoStart"] = o.AutoStart
 	}
-	if !isNil(o.StartedFromTaskId) {
+	if !IsNil(o.StartedFromTaskId) {
 		toSerialize["startedFromTaskId"] = o.StartedFromTaskId
 	}
-	if !isNil(o.ReleaseOwner) {
+	if !IsNil(o.ReleaseOwner) {
 		toSerialize["releaseOwner"] = o.ReleaseOwner
 	}
 	return toSerialize, nil
@@ -410,5 +411,3 @@ func (v *NullableCreateRelease) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

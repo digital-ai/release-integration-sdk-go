@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the PlanItem type satisfies the MappedNullable interface at compile time
@@ -19,33 +20,35 @@ var _ MappedNullable = &PlanItem{}
 
 // PlanItem struct for PlanItem
 type PlanItem struct {
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Owner *string `json:"owner,omitempty"`
-	ScheduledStartDate *string `json:"scheduledStartDate,omitempty"`
-	DueDate *string `json:"dueDate,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	PlannedDuration *int32 `json:"plannedDuration,omitempty"`
-	FlagStatus *FlagStatus `json:"flagStatus,omitempty"`
-	FlagComment *string `json:"flagComment,omitempty"`
-	OverdueNotified *bool `json:"overdueNotified,omitempty"`
-	Flagged *bool `json:"flagged,omitempty"`
-	StartOrScheduledDate *string `json:"startOrScheduledDate,omitempty"`
-	EndOrDueDate *string `json:"endOrDueDate,omitempty"`
-	Children []PlanItem `json:"children,omitempty"`
-	Overdue *bool `json:"overdue,omitempty"`
-	Done *bool `json:"done,omitempty"`
-	Release *Release `json:"release,omitempty"`
-	ReleaseUid *int32 `json:"releaseUid,omitempty"`
-	Updatable *bool `json:"updatable,omitempty"`
-	DisplayPath *string `json:"displayPath,omitempty"`
-	Aborted *bool `json:"aborted,omitempty"`
-	Active *bool `json:"active,omitempty"`
-	VariableUsages []UsagePoint `json:"variableUsages,omitempty"`
-	OrCalculateDueDate NullableString `json:"orCalculateDueDate,omitempty"`
+	Id                      *string                `json:"id,omitempty"`
+	Type                    *string                `json:"type,omitempty"`
+	Title                   *string                `json:"title,omitempty"`
+	Description             *string                `json:"description,omitempty"`
+	Owner                   *string                `json:"owner,omitempty"`
+	ScheduledStartDate      *time.Time             `json:"scheduledStartDate,omitempty"`
+	DueDate                 *time.Time             `json:"dueDate,omitempty"`
+	StartDate               *time.Time             `json:"startDate,omitempty"`
+	EndDate                 *time.Time             `json:"endDate,omitempty"`
+	PlannedDuration         *int32                 `json:"plannedDuration,omitempty"`
+	FlagStatus              *FlagStatus            `json:"flagStatus,omitempty"`
+	FlagComment             *string                `json:"flagComment,omitempty"`
+	OverdueNotified         *bool                  `json:"overdueNotified,omitempty"`
+	Flagged                 *bool                  `json:"flagged,omitempty"`
+	StartOrScheduledDate    *time.Time             `json:"startOrScheduledDate,omitempty"`
+	EndOrDueDate            *time.Time             `json:"endOrDueDate,omitempty"`
+	Children                []PlanItem             `json:"children,omitempty"`
+	Overdue                 *bool                  `json:"overdue,omitempty"`
+	Done                    *bool                  `json:"done,omitempty"`
+	Release                 *Release               `json:"release,omitempty"`
+	ReleaseUid              *int32                 `json:"releaseUid,omitempty"`
+	Updatable               *bool                  `json:"updatable,omitempty"`
+	DisplayPath             *string                `json:"displayPath,omitempty"`
+	Aborted                 *bool                  `json:"aborted,omitempty"`
+	Active                  *bool                  `json:"active,omitempty"`
+	VariableUsages          []UsagePoint           `json:"variableUsages,omitempty"`
+	OrCalculateDueDate      NullableTime           `json:"orCalculateDueDate,omitempty"`
 	ComputedPlannedDuration map[string]interface{} `json:"computedPlannedDuration,omitempty"`
-	ActualDuration map[string]interface{} `json:"actualDuration,omitempty"`
+	ActualDuration          map[string]interface{} `json:"actualDuration,omitempty"`
 }
 
 // NewPlanItem instantiates a new PlanItem object
@@ -65,9 +68,73 @@ func NewPlanItemWithDefaults() *PlanItem {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *PlanItem) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PlanItem) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *PlanItem) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *PlanItem) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *PlanItem) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PlanItem) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *PlanItem) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *PlanItem) SetType(v string) {
+	o.Type = &v
+}
+
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *PlanItem) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -77,7 +144,7 @@ func (o *PlanItem) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -85,7 +152,7 @@ func (o *PlanItem) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *PlanItem) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -99,7 +166,7 @@ func (o *PlanItem) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PlanItem) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -109,7 +176,7 @@ func (o *PlanItem) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -117,7 +184,7 @@ func (o *PlanItem) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PlanItem) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -131,7 +198,7 @@ func (o *PlanItem) SetDescription(v string) {
 
 // GetOwner returns the Owner field value if set, zero value otherwise.
 func (o *PlanItem) GetOwner() string {
-	if o == nil || isNil(o.Owner) {
+	if o == nil || IsNil(o.Owner) {
 		var ret string
 		return ret
 	}
@@ -141,7 +208,7 @@ func (o *PlanItem) GetOwner() string {
 // GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetOwnerOk() (*string, bool) {
-	if o == nil || isNil(o.Owner) {
+	if o == nil || IsNil(o.Owner) {
 		return nil, false
 	}
 	return o.Owner, true
@@ -149,7 +216,7 @@ func (o *PlanItem) GetOwnerOk() (*string, bool) {
 
 // HasOwner returns a boolean if a field has been set.
 func (o *PlanItem) HasOwner() bool {
-	if o != nil && !isNil(o.Owner) {
+	if o != nil && !IsNil(o.Owner) {
 		return true
 	}
 
@@ -162,9 +229,9 @@ func (o *PlanItem) SetOwner(v string) {
 }
 
 // GetScheduledStartDate returns the ScheduledStartDate field value if set, zero value otherwise.
-func (o *PlanItem) GetScheduledStartDate() string {
-	if o == nil || isNil(o.ScheduledStartDate) {
-		var ret string
+func (o *PlanItem) GetScheduledStartDate() time.Time {
+	if o == nil || IsNil(o.ScheduledStartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.ScheduledStartDate
@@ -172,8 +239,8 @@ func (o *PlanItem) GetScheduledStartDate() string {
 
 // GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanItem) GetScheduledStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.ScheduledStartDate) {
+func (o *PlanItem) GetScheduledStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ScheduledStartDate) {
 		return nil, false
 	}
 	return o.ScheduledStartDate, true
@@ -181,22 +248,22 @@ func (o *PlanItem) GetScheduledStartDateOk() (*string, bool) {
 
 // HasScheduledStartDate returns a boolean if a field has been set.
 func (o *PlanItem) HasScheduledStartDate() bool {
-	if o != nil && !isNil(o.ScheduledStartDate) {
+	if o != nil && !IsNil(o.ScheduledStartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetScheduledStartDate gets a reference to the given string and assigns it to the ScheduledStartDate field.
-func (o *PlanItem) SetScheduledStartDate(v string) {
+// SetScheduledStartDate gets a reference to the given time.Time and assigns it to the ScheduledStartDate field.
+func (o *PlanItem) SetScheduledStartDate(v time.Time) {
 	o.ScheduledStartDate = &v
 }
 
 // GetDueDate returns the DueDate field value if set, zero value otherwise.
-func (o *PlanItem) GetDueDate() string {
-	if o == nil || isNil(o.DueDate) {
-		var ret string
+func (o *PlanItem) GetDueDate() time.Time {
+	if o == nil || IsNil(o.DueDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.DueDate
@@ -204,8 +271,8 @@ func (o *PlanItem) GetDueDate() string {
 
 // GetDueDateOk returns a tuple with the DueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanItem) GetDueDateOk() (*string, bool) {
-	if o == nil || isNil(o.DueDate) {
+func (o *PlanItem) GetDueDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DueDate) {
 		return nil, false
 	}
 	return o.DueDate, true
@@ -213,22 +280,22 @@ func (o *PlanItem) GetDueDateOk() (*string, bool) {
 
 // HasDueDate returns a boolean if a field has been set.
 func (o *PlanItem) HasDueDate() bool {
-	if o != nil && !isNil(o.DueDate) {
+	if o != nil && !IsNil(o.DueDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetDueDate gets a reference to the given string and assigns it to the DueDate field.
-func (o *PlanItem) SetDueDate(v string) {
+// SetDueDate gets a reference to the given time.Time and assigns it to the DueDate field.
+func (o *PlanItem) SetDueDate(v time.Time) {
 	o.DueDate = &v
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *PlanItem) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *PlanItem) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -236,8 +303,8 @@ func (o *PlanItem) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanItem) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *PlanItem) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -245,22 +312,22 @@ func (o *PlanItem) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *PlanItem) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *PlanItem) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *PlanItem) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *PlanItem) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *PlanItem) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -268,8 +335,8 @@ func (o *PlanItem) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanItem) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *PlanItem) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -277,21 +344,21 @@ func (o *PlanItem) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *PlanItem) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *PlanItem) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *PlanItem) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetPlannedDuration returns the PlannedDuration field value if set, zero value otherwise.
 func (o *PlanItem) GetPlannedDuration() int32 {
-	if o == nil || isNil(o.PlannedDuration) {
+	if o == nil || IsNil(o.PlannedDuration) {
 		var ret int32
 		return ret
 	}
@@ -301,7 +368,7 @@ func (o *PlanItem) GetPlannedDuration() int32 {
 // GetPlannedDurationOk returns a tuple with the PlannedDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetPlannedDurationOk() (*int32, bool) {
-	if o == nil || isNil(o.PlannedDuration) {
+	if o == nil || IsNil(o.PlannedDuration) {
 		return nil, false
 	}
 	return o.PlannedDuration, true
@@ -309,7 +376,7 @@ func (o *PlanItem) GetPlannedDurationOk() (*int32, bool) {
 
 // HasPlannedDuration returns a boolean if a field has been set.
 func (o *PlanItem) HasPlannedDuration() bool {
-	if o != nil && !isNil(o.PlannedDuration) {
+	if o != nil && !IsNil(o.PlannedDuration) {
 		return true
 	}
 
@@ -323,7 +390,7 @@ func (o *PlanItem) SetPlannedDuration(v int32) {
 
 // GetFlagStatus returns the FlagStatus field value if set, zero value otherwise.
 func (o *PlanItem) GetFlagStatus() FlagStatus {
-	if o == nil || isNil(o.FlagStatus) {
+	if o == nil || IsNil(o.FlagStatus) {
 		var ret FlagStatus
 		return ret
 	}
@@ -333,7 +400,7 @@ func (o *PlanItem) GetFlagStatus() FlagStatus {
 // GetFlagStatusOk returns a tuple with the FlagStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetFlagStatusOk() (*FlagStatus, bool) {
-	if o == nil || isNil(o.FlagStatus) {
+	if o == nil || IsNil(o.FlagStatus) {
 		return nil, false
 	}
 	return o.FlagStatus, true
@@ -341,7 +408,7 @@ func (o *PlanItem) GetFlagStatusOk() (*FlagStatus, bool) {
 
 // HasFlagStatus returns a boolean if a field has been set.
 func (o *PlanItem) HasFlagStatus() bool {
-	if o != nil && !isNil(o.FlagStatus) {
+	if o != nil && !IsNil(o.FlagStatus) {
 		return true
 	}
 
@@ -355,7 +422,7 @@ func (o *PlanItem) SetFlagStatus(v FlagStatus) {
 
 // GetFlagComment returns the FlagComment field value if set, zero value otherwise.
 func (o *PlanItem) GetFlagComment() string {
-	if o == nil || isNil(o.FlagComment) {
+	if o == nil || IsNil(o.FlagComment) {
 		var ret string
 		return ret
 	}
@@ -365,7 +432,7 @@ func (o *PlanItem) GetFlagComment() string {
 // GetFlagCommentOk returns a tuple with the FlagComment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetFlagCommentOk() (*string, bool) {
-	if o == nil || isNil(o.FlagComment) {
+	if o == nil || IsNil(o.FlagComment) {
 		return nil, false
 	}
 	return o.FlagComment, true
@@ -373,7 +440,7 @@ func (o *PlanItem) GetFlagCommentOk() (*string, bool) {
 
 // HasFlagComment returns a boolean if a field has been set.
 func (o *PlanItem) HasFlagComment() bool {
-	if o != nil && !isNil(o.FlagComment) {
+	if o != nil && !IsNil(o.FlagComment) {
 		return true
 	}
 
@@ -387,7 +454,7 @@ func (o *PlanItem) SetFlagComment(v string) {
 
 // GetOverdueNotified returns the OverdueNotified field value if set, zero value otherwise.
 func (o *PlanItem) GetOverdueNotified() bool {
-	if o == nil || isNil(o.OverdueNotified) {
+	if o == nil || IsNil(o.OverdueNotified) {
 		var ret bool
 		return ret
 	}
@@ -397,7 +464,7 @@ func (o *PlanItem) GetOverdueNotified() bool {
 // GetOverdueNotifiedOk returns a tuple with the OverdueNotified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetOverdueNotifiedOk() (*bool, bool) {
-	if o == nil || isNil(o.OverdueNotified) {
+	if o == nil || IsNil(o.OverdueNotified) {
 		return nil, false
 	}
 	return o.OverdueNotified, true
@@ -405,7 +472,7 @@ func (o *PlanItem) GetOverdueNotifiedOk() (*bool, bool) {
 
 // HasOverdueNotified returns a boolean if a field has been set.
 func (o *PlanItem) HasOverdueNotified() bool {
-	if o != nil && !isNil(o.OverdueNotified) {
+	if o != nil && !IsNil(o.OverdueNotified) {
 		return true
 	}
 
@@ -419,7 +486,7 @@ func (o *PlanItem) SetOverdueNotified(v bool) {
 
 // GetFlagged returns the Flagged field value if set, zero value otherwise.
 func (o *PlanItem) GetFlagged() bool {
-	if o == nil || isNil(o.Flagged) {
+	if o == nil || IsNil(o.Flagged) {
 		var ret bool
 		return ret
 	}
@@ -429,7 +496,7 @@ func (o *PlanItem) GetFlagged() bool {
 // GetFlaggedOk returns a tuple with the Flagged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetFlaggedOk() (*bool, bool) {
-	if o == nil || isNil(o.Flagged) {
+	if o == nil || IsNil(o.Flagged) {
 		return nil, false
 	}
 	return o.Flagged, true
@@ -437,7 +504,7 @@ func (o *PlanItem) GetFlaggedOk() (*bool, bool) {
 
 // HasFlagged returns a boolean if a field has been set.
 func (o *PlanItem) HasFlagged() bool {
-	if o != nil && !isNil(o.Flagged) {
+	if o != nil && !IsNil(o.Flagged) {
 		return true
 	}
 
@@ -450,9 +517,9 @@ func (o *PlanItem) SetFlagged(v bool) {
 }
 
 // GetStartOrScheduledDate returns the StartOrScheduledDate field value if set, zero value otherwise.
-func (o *PlanItem) GetStartOrScheduledDate() string {
-	if o == nil || isNil(o.StartOrScheduledDate) {
-		var ret string
+func (o *PlanItem) GetStartOrScheduledDate() time.Time {
+	if o == nil || IsNil(o.StartOrScheduledDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartOrScheduledDate
@@ -460,8 +527,8 @@ func (o *PlanItem) GetStartOrScheduledDate() string {
 
 // GetStartOrScheduledDateOk returns a tuple with the StartOrScheduledDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanItem) GetStartOrScheduledDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartOrScheduledDate) {
+func (o *PlanItem) GetStartOrScheduledDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartOrScheduledDate) {
 		return nil, false
 	}
 	return o.StartOrScheduledDate, true
@@ -469,22 +536,22 @@ func (o *PlanItem) GetStartOrScheduledDateOk() (*string, bool) {
 
 // HasStartOrScheduledDate returns a boolean if a field has been set.
 func (o *PlanItem) HasStartOrScheduledDate() bool {
-	if o != nil && !isNil(o.StartOrScheduledDate) {
+	if o != nil && !IsNil(o.StartOrScheduledDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartOrScheduledDate gets a reference to the given string and assigns it to the StartOrScheduledDate field.
-func (o *PlanItem) SetStartOrScheduledDate(v string) {
+// SetStartOrScheduledDate gets a reference to the given time.Time and assigns it to the StartOrScheduledDate field.
+func (o *PlanItem) SetStartOrScheduledDate(v time.Time) {
 	o.StartOrScheduledDate = &v
 }
 
 // GetEndOrDueDate returns the EndOrDueDate field value if set, zero value otherwise.
-func (o *PlanItem) GetEndOrDueDate() string {
-	if o == nil || isNil(o.EndOrDueDate) {
-		var ret string
+func (o *PlanItem) GetEndOrDueDate() time.Time {
+	if o == nil || IsNil(o.EndOrDueDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndOrDueDate
@@ -492,8 +559,8 @@ func (o *PlanItem) GetEndOrDueDate() string {
 
 // GetEndOrDueDateOk returns a tuple with the EndOrDueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlanItem) GetEndOrDueDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndOrDueDate) {
+func (o *PlanItem) GetEndOrDueDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndOrDueDate) {
 		return nil, false
 	}
 	return o.EndOrDueDate, true
@@ -501,21 +568,21 @@ func (o *PlanItem) GetEndOrDueDateOk() (*string, bool) {
 
 // HasEndOrDueDate returns a boolean if a field has been set.
 func (o *PlanItem) HasEndOrDueDate() bool {
-	if o != nil && !isNil(o.EndOrDueDate) {
+	if o != nil && !IsNil(o.EndOrDueDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndOrDueDate gets a reference to the given string and assigns it to the EndOrDueDate field.
-func (o *PlanItem) SetEndOrDueDate(v string) {
+// SetEndOrDueDate gets a reference to the given time.Time and assigns it to the EndOrDueDate field.
+func (o *PlanItem) SetEndOrDueDate(v time.Time) {
 	o.EndOrDueDate = &v
 }
 
 // GetChildren returns the Children field value if set, zero value otherwise.
 func (o *PlanItem) GetChildren() []PlanItem {
-	if o == nil || isNil(o.Children) {
+	if o == nil || IsNil(o.Children) {
 		var ret []PlanItem
 		return ret
 	}
@@ -525,7 +592,7 @@ func (o *PlanItem) GetChildren() []PlanItem {
 // GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetChildrenOk() ([]PlanItem, bool) {
-	if o == nil || isNil(o.Children) {
+	if o == nil || IsNil(o.Children) {
 		return nil, false
 	}
 	return o.Children, true
@@ -533,7 +600,7 @@ func (o *PlanItem) GetChildrenOk() ([]PlanItem, bool) {
 
 // HasChildren returns a boolean if a field has been set.
 func (o *PlanItem) HasChildren() bool {
-	if o != nil && !isNil(o.Children) {
+	if o != nil && !IsNil(o.Children) {
 		return true
 	}
 
@@ -547,7 +614,7 @@ func (o *PlanItem) SetChildren(v []PlanItem) {
 
 // GetOverdue returns the Overdue field value if set, zero value otherwise.
 func (o *PlanItem) GetOverdue() bool {
-	if o == nil || isNil(o.Overdue) {
+	if o == nil || IsNil(o.Overdue) {
 		var ret bool
 		return ret
 	}
@@ -557,7 +624,7 @@ func (o *PlanItem) GetOverdue() bool {
 // GetOverdueOk returns a tuple with the Overdue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetOverdueOk() (*bool, bool) {
-	if o == nil || isNil(o.Overdue) {
+	if o == nil || IsNil(o.Overdue) {
 		return nil, false
 	}
 	return o.Overdue, true
@@ -565,7 +632,7 @@ func (o *PlanItem) GetOverdueOk() (*bool, bool) {
 
 // HasOverdue returns a boolean if a field has been set.
 func (o *PlanItem) HasOverdue() bool {
-	if o != nil && !isNil(o.Overdue) {
+	if o != nil && !IsNil(o.Overdue) {
 		return true
 	}
 
@@ -579,7 +646,7 @@ func (o *PlanItem) SetOverdue(v bool) {
 
 // GetDone returns the Done field value if set, zero value otherwise.
 func (o *PlanItem) GetDone() bool {
-	if o == nil || isNil(o.Done) {
+	if o == nil || IsNil(o.Done) {
 		var ret bool
 		return ret
 	}
@@ -589,7 +656,7 @@ func (o *PlanItem) GetDone() bool {
 // GetDoneOk returns a tuple with the Done field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetDoneOk() (*bool, bool) {
-	if o == nil || isNil(o.Done) {
+	if o == nil || IsNil(o.Done) {
 		return nil, false
 	}
 	return o.Done, true
@@ -597,7 +664,7 @@ func (o *PlanItem) GetDoneOk() (*bool, bool) {
 
 // HasDone returns a boolean if a field has been set.
 func (o *PlanItem) HasDone() bool {
-	if o != nil && !isNil(o.Done) {
+	if o != nil && !IsNil(o.Done) {
 		return true
 	}
 
@@ -611,7 +678,7 @@ func (o *PlanItem) SetDone(v bool) {
 
 // GetRelease returns the Release field value if set, zero value otherwise.
 func (o *PlanItem) GetRelease() Release {
-	if o == nil || isNil(o.Release) {
+	if o == nil || IsNil(o.Release) {
 		var ret Release
 		return ret
 	}
@@ -621,7 +688,7 @@ func (o *PlanItem) GetRelease() Release {
 // GetReleaseOk returns a tuple with the Release field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetReleaseOk() (*Release, bool) {
-	if o == nil || isNil(o.Release) {
+	if o == nil || IsNil(o.Release) {
 		return nil, false
 	}
 	return o.Release, true
@@ -629,7 +696,7 @@ func (o *PlanItem) GetReleaseOk() (*Release, bool) {
 
 // HasRelease returns a boolean if a field has been set.
 func (o *PlanItem) HasRelease() bool {
-	if o != nil && !isNil(o.Release) {
+	if o != nil && !IsNil(o.Release) {
 		return true
 	}
 
@@ -643,7 +710,7 @@ func (o *PlanItem) SetRelease(v Release) {
 
 // GetReleaseUid returns the ReleaseUid field value if set, zero value otherwise.
 func (o *PlanItem) GetReleaseUid() int32 {
-	if o == nil || isNil(o.ReleaseUid) {
+	if o == nil || IsNil(o.ReleaseUid) {
 		var ret int32
 		return ret
 	}
@@ -653,7 +720,7 @@ func (o *PlanItem) GetReleaseUid() int32 {
 // GetReleaseUidOk returns a tuple with the ReleaseUid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetReleaseUidOk() (*int32, bool) {
-	if o == nil || isNil(o.ReleaseUid) {
+	if o == nil || IsNil(o.ReleaseUid) {
 		return nil, false
 	}
 	return o.ReleaseUid, true
@@ -661,7 +728,7 @@ func (o *PlanItem) GetReleaseUidOk() (*int32, bool) {
 
 // HasReleaseUid returns a boolean if a field has been set.
 func (o *PlanItem) HasReleaseUid() bool {
-	if o != nil && !isNil(o.ReleaseUid) {
+	if o != nil && !IsNil(o.ReleaseUid) {
 		return true
 	}
 
@@ -675,7 +742,7 @@ func (o *PlanItem) SetReleaseUid(v int32) {
 
 // GetUpdatable returns the Updatable field value if set, zero value otherwise.
 func (o *PlanItem) GetUpdatable() bool {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		var ret bool
 		return ret
 	}
@@ -685,7 +752,7 @@ func (o *PlanItem) GetUpdatable() bool {
 // GetUpdatableOk returns a tuple with the Updatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetUpdatableOk() (*bool, bool) {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		return nil, false
 	}
 	return o.Updatable, true
@@ -693,7 +760,7 @@ func (o *PlanItem) GetUpdatableOk() (*bool, bool) {
 
 // HasUpdatable returns a boolean if a field has been set.
 func (o *PlanItem) HasUpdatable() bool {
-	if o != nil && !isNil(o.Updatable) {
+	if o != nil && !IsNil(o.Updatable) {
 		return true
 	}
 
@@ -707,7 +774,7 @@ func (o *PlanItem) SetUpdatable(v bool) {
 
 // GetDisplayPath returns the DisplayPath field value if set, zero value otherwise.
 func (o *PlanItem) GetDisplayPath() string {
-	if o == nil || isNil(o.DisplayPath) {
+	if o == nil || IsNil(o.DisplayPath) {
 		var ret string
 		return ret
 	}
@@ -717,7 +784,7 @@ func (o *PlanItem) GetDisplayPath() string {
 // GetDisplayPathOk returns a tuple with the DisplayPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetDisplayPathOk() (*string, bool) {
-	if o == nil || isNil(o.DisplayPath) {
+	if o == nil || IsNil(o.DisplayPath) {
 		return nil, false
 	}
 	return o.DisplayPath, true
@@ -725,7 +792,7 @@ func (o *PlanItem) GetDisplayPathOk() (*string, bool) {
 
 // HasDisplayPath returns a boolean if a field has been set.
 func (o *PlanItem) HasDisplayPath() bool {
-	if o != nil && !isNil(o.DisplayPath) {
+	if o != nil && !IsNil(o.DisplayPath) {
 		return true
 	}
 
@@ -739,7 +806,7 @@ func (o *PlanItem) SetDisplayPath(v string) {
 
 // GetAborted returns the Aborted field value if set, zero value otherwise.
 func (o *PlanItem) GetAborted() bool {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		var ret bool
 		return ret
 	}
@@ -749,7 +816,7 @@ func (o *PlanItem) GetAborted() bool {
 // GetAbortedOk returns a tuple with the Aborted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetAbortedOk() (*bool, bool) {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		return nil, false
 	}
 	return o.Aborted, true
@@ -757,7 +824,7 @@ func (o *PlanItem) GetAbortedOk() (*bool, bool) {
 
 // HasAborted returns a boolean if a field has been set.
 func (o *PlanItem) HasAborted() bool {
-	if o != nil && !isNil(o.Aborted) {
+	if o != nil && !IsNil(o.Aborted) {
 		return true
 	}
 
@@ -771,7 +838,7 @@ func (o *PlanItem) SetAborted(v bool) {
 
 // GetActive returns the Active field value if set, zero value otherwise.
 func (o *PlanItem) GetActive() bool {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		var ret bool
 		return ret
 	}
@@ -781,7 +848,7 @@ func (o *PlanItem) GetActive() bool {
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetActiveOk() (*bool, bool) {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
 	return o.Active, true
@@ -789,7 +856,7 @@ func (o *PlanItem) GetActiveOk() (*bool, bool) {
 
 // HasActive returns a boolean if a field has been set.
 func (o *PlanItem) HasActive() bool {
-	if o != nil && !isNil(o.Active) {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
@@ -803,7 +870,7 @@ func (o *PlanItem) SetActive(v bool) {
 
 // GetVariableUsages returns the VariableUsages field value if set, zero value otherwise.
 func (o *PlanItem) GetVariableUsages() []UsagePoint {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		var ret []UsagePoint
 		return ret
 	}
@@ -813,7 +880,7 @@ func (o *PlanItem) GetVariableUsages() []UsagePoint {
 // GetVariableUsagesOk returns a tuple with the VariableUsages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetVariableUsagesOk() ([]UsagePoint, bool) {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		return nil, false
 	}
 	return o.VariableUsages, true
@@ -821,7 +888,7 @@ func (o *PlanItem) GetVariableUsagesOk() ([]UsagePoint, bool) {
 
 // HasVariableUsages returns a boolean if a field has been set.
 func (o *PlanItem) HasVariableUsages() bool {
-	if o != nil && !isNil(o.VariableUsages) {
+	if o != nil && !IsNil(o.VariableUsages) {
 		return true
 	}
 
@@ -834,9 +901,9 @@ func (o *PlanItem) SetVariableUsages(v []UsagePoint) {
 }
 
 // GetOrCalculateDueDate returns the OrCalculateDueDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PlanItem) GetOrCalculateDueDate() string {
-	if o == nil || isNil(o.OrCalculateDueDate.Get()) {
-		var ret string
+func (o *PlanItem) GetOrCalculateDueDate() time.Time {
+	if o == nil || IsNil(o.OrCalculateDueDate.Get()) {
+		var ret time.Time
 		return ret
 	}
 	return *o.OrCalculateDueDate.Get()
@@ -845,7 +912,7 @@ func (o *PlanItem) GetOrCalculateDueDate() string {
 // GetOrCalculateDueDateOk returns a tuple with the OrCalculateDueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PlanItem) GetOrCalculateDueDateOk() (*string, bool) {
+func (o *PlanItem) GetOrCalculateDueDateOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -861,10 +928,11 @@ func (o *PlanItem) HasOrCalculateDueDate() bool {
 	return false
 }
 
-// SetOrCalculateDueDate gets a reference to the given NullableString and assigns it to the OrCalculateDueDate field.
-func (o *PlanItem) SetOrCalculateDueDate(v string) {
+// SetOrCalculateDueDate gets a reference to the given NullableTime and assigns it to the OrCalculateDueDate field.
+func (o *PlanItem) SetOrCalculateDueDate(v time.Time) {
 	o.OrCalculateDueDate.Set(&v)
 }
+
 // SetOrCalculateDueDateNil sets the value for OrCalculateDueDate to be an explicit nil
 func (o *PlanItem) SetOrCalculateDueDateNil() {
 	o.OrCalculateDueDate.Set(nil)
@@ -877,7 +945,7 @@ func (o *PlanItem) UnsetOrCalculateDueDate() {
 
 // GetComputedPlannedDuration returns the ComputedPlannedDuration field value if set, zero value otherwise.
 func (o *PlanItem) GetComputedPlannedDuration() map[string]interface{} {
-	if o == nil || isNil(o.ComputedPlannedDuration) {
+	if o == nil || IsNil(o.ComputedPlannedDuration) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -887,7 +955,7 @@ func (o *PlanItem) GetComputedPlannedDuration() map[string]interface{} {
 // GetComputedPlannedDurationOk returns a tuple with the ComputedPlannedDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetComputedPlannedDurationOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.ComputedPlannedDuration) {
+	if o == nil || IsNil(o.ComputedPlannedDuration) {
 		return map[string]interface{}{}, false
 	}
 	return o.ComputedPlannedDuration, true
@@ -895,7 +963,7 @@ func (o *PlanItem) GetComputedPlannedDurationOk() (map[string]interface{}, bool)
 
 // HasComputedPlannedDuration returns a boolean if a field has been set.
 func (o *PlanItem) HasComputedPlannedDuration() bool {
-	if o != nil && !isNil(o.ComputedPlannedDuration) {
+	if o != nil && !IsNil(o.ComputedPlannedDuration) {
 		return true
 	}
 
@@ -909,7 +977,7 @@ func (o *PlanItem) SetComputedPlannedDuration(v map[string]interface{}) {
 
 // GetActualDuration returns the ActualDuration field value if set, zero value otherwise.
 func (o *PlanItem) GetActualDuration() map[string]interface{} {
-	if o == nil || isNil(o.ActualDuration) {
+	if o == nil || IsNil(o.ActualDuration) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -919,7 +987,7 @@ func (o *PlanItem) GetActualDuration() map[string]interface{} {
 // GetActualDurationOk returns a tuple with the ActualDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlanItem) GetActualDurationOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.ActualDuration) {
+	if o == nil || IsNil(o.ActualDuration) {
 		return map[string]interface{}{}, false
 	}
 	return o.ActualDuration, true
@@ -927,7 +995,7 @@ func (o *PlanItem) GetActualDurationOk() (map[string]interface{}, bool) {
 
 // HasActualDuration returns a boolean if a field has been set.
 func (o *PlanItem) HasActualDuration() bool {
-	if o != nil && !isNil(o.ActualDuration) {
+	if o != nil && !IsNil(o.ActualDuration) {
 		return true
 	}
 
@@ -940,7 +1008,7 @@ func (o *PlanItem) SetActualDuration(v map[string]interface{}) {
 }
 
 func (o PlanItem) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -949,85 +1017,91 @@ func (o PlanItem) MarshalJSON() ([]byte, error) {
 
 func (o PlanItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Owner) {
+	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
-	if !isNil(o.ScheduledStartDate) {
+	if !IsNil(o.ScheduledStartDate) {
 		toSerialize["scheduledStartDate"] = o.ScheduledStartDate
 	}
-	if !isNil(o.DueDate) {
+	if !IsNil(o.DueDate) {
 		toSerialize["dueDate"] = o.DueDate
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.PlannedDuration) {
+	if !IsNil(o.PlannedDuration) {
 		toSerialize["plannedDuration"] = o.PlannedDuration
 	}
-	if !isNil(o.FlagStatus) {
+	if !IsNil(o.FlagStatus) {
 		toSerialize["flagStatus"] = o.FlagStatus
 	}
-	if !isNil(o.FlagComment) {
+	if !IsNil(o.FlagComment) {
 		toSerialize["flagComment"] = o.FlagComment
 	}
-	if !isNil(o.OverdueNotified) {
+	if !IsNil(o.OverdueNotified) {
 		toSerialize["overdueNotified"] = o.OverdueNotified
 	}
-	if !isNil(o.Flagged) {
+	if !IsNil(o.Flagged) {
 		toSerialize["flagged"] = o.Flagged
 	}
-	if !isNil(o.StartOrScheduledDate) {
+	if !IsNil(o.StartOrScheduledDate) {
 		toSerialize["startOrScheduledDate"] = o.StartOrScheduledDate
 	}
-	if !isNil(o.EndOrDueDate) {
+	if !IsNil(o.EndOrDueDate) {
 		toSerialize["endOrDueDate"] = o.EndOrDueDate
 	}
-	if !isNil(o.Children) {
+	if !IsNil(o.Children) {
 		toSerialize["children"] = o.Children
 	}
-	if !isNil(o.Overdue) {
+	if !IsNil(o.Overdue) {
 		toSerialize["overdue"] = o.Overdue
 	}
-	if !isNil(o.Done) {
+	if !IsNil(o.Done) {
 		toSerialize["done"] = o.Done
 	}
-	if !isNil(o.Release) {
+	if !IsNil(o.Release) {
 		toSerialize["release"] = o.Release
 	}
-	if !isNil(o.ReleaseUid) {
+	if !IsNil(o.ReleaseUid) {
 		toSerialize["releaseUid"] = o.ReleaseUid
 	}
-	if !isNil(o.Updatable) {
+	if !IsNil(o.Updatable) {
 		toSerialize["updatable"] = o.Updatable
 	}
-	if !isNil(o.DisplayPath) {
+	if !IsNil(o.DisplayPath) {
 		toSerialize["displayPath"] = o.DisplayPath
 	}
-	if !isNil(o.Aborted) {
+	if !IsNil(o.Aborted) {
 		toSerialize["aborted"] = o.Aborted
 	}
-	if !isNil(o.Active) {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	if !isNil(o.VariableUsages) {
+	if !IsNil(o.VariableUsages) {
 		toSerialize["variableUsages"] = o.VariableUsages
 	}
 	if o.OrCalculateDueDate.IsSet() {
 		toSerialize["orCalculateDueDate"] = o.OrCalculateDueDate.Get()
 	}
-	if !isNil(o.ComputedPlannedDuration) {
+	if !IsNil(o.ComputedPlannedDuration) {
 		toSerialize["computedPlannedDuration"] = o.ComputedPlannedDuration
 	}
-	if !isNil(o.ActualDuration) {
+	if !IsNil(o.ActualDuration) {
 		toSerialize["actualDuration"] = o.ActualDuration
 	}
 	return toSerialize, nil
@@ -1068,5 +1142,3 @@ func (v *NullablePlanItem) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

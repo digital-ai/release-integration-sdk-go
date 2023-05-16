@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **GateTask** | Pointer to [**GateTask**](GateTask.md) |  | [optional] 
 **Target** | Pointer to [**PlanItem**](PlanItem.md) |  | [optional] 
 **TargetId** | Pointer to **string** |  | [optional] 
@@ -36,6 +38,56 @@ will change when the set of required properties is changed
 NewDependencyWithDefaults instantiates a new Dependency object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *Dependency) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Dependency) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Dependency) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Dependency) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Dependency) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Dependency) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Dependency) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Dependency) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetGateTask
 

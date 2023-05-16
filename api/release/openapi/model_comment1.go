@@ -41,7 +41,7 @@ func NewComment1WithDefaults() *Comment1 {
 
 // GetComment returns the Comment field value if set, zero value otherwise.
 func (o *Comment1) GetComment() string {
-	if o == nil || isNil(o.Comment) {
+	if o == nil || IsNil(o.Comment) {
 		var ret string
 		return ret
 	}
@@ -51,7 +51,7 @@ func (o *Comment1) GetComment() string {
 // GetCommentOk returns a tuple with the Comment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Comment1) GetCommentOk() (*string, bool) {
-	if o == nil || isNil(o.Comment) {
+	if o == nil || IsNil(o.Comment) {
 		return nil, false
 	}
 	return o.Comment, true
@@ -59,7 +59,7 @@ func (o *Comment1) GetCommentOk() (*string, bool) {
 
 // HasComment returns a boolean if a field has been set.
 func (o *Comment1) HasComment() bool {
-	if o != nil && !isNil(o.Comment) {
+	if o != nil && !IsNil(o.Comment) {
 		return true
 	}
 
@@ -72,7 +72,7 @@ func (o *Comment1) SetComment(v string) {
 }
 
 func (o Comment1) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +81,7 @@ func (o Comment1) MarshalJSON() ([]byte, error) {
 
 func (o Comment1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Comment) {
+	if !IsNil(o.Comment) {
 		toSerialize["comment"] = o.Comment
 	}
 	return toSerialize, nil
@@ -122,5 +122,3 @@ func (v *NullableComment1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

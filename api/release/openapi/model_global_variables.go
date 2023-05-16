@@ -19,10 +19,12 @@ var _ MappedNullable = &GlobalVariables{}
 
 // GlobalVariables struct for GlobalVariables
 type GlobalVariables struct {
-	Variables []Variable `json:"variables,omitempty"`
-	VariablesByKeys *map[string]Variable `json:"variablesByKeys,omitempty"`
-	StringVariableValues *map[string]string `json:"stringVariableValues,omitempty"`
-	PasswordVariableValues *map[string]string `json:"passwordVariableValues,omitempty"`
+	Id                     *string              `json:"id,omitempty"`
+	Type                   *string              `json:"type,omitempty"`
+	Variables              []Variable           `json:"variables,omitempty"`
+	VariablesByKeys        *map[string]Variable `json:"variablesByKeys,omitempty"`
+	StringVariableValues   *map[string]string   `json:"stringVariableValues,omitempty"`
+	PasswordVariableValues *map[string]string   `json:"passwordVariableValues,omitempty"`
 }
 
 // NewGlobalVariables instantiates a new GlobalVariables object
@@ -42,9 +44,73 @@ func NewGlobalVariablesWithDefaults() *GlobalVariables {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *GlobalVariables) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GlobalVariables) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *GlobalVariables) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *GlobalVariables) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *GlobalVariables) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GlobalVariables) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *GlobalVariables) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *GlobalVariables) SetType(v string) {
+	o.Type = &v
+}
+
 // GetVariables returns the Variables field value if set, zero value otherwise.
 func (o *GlobalVariables) GetVariables() []Variable {
-	if o == nil || isNil(o.Variables) {
+	if o == nil || IsNil(o.Variables) {
 		var ret []Variable
 		return ret
 	}
@@ -54,7 +120,7 @@ func (o *GlobalVariables) GetVariables() []Variable {
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GlobalVariables) GetVariablesOk() ([]Variable, bool) {
-	if o == nil || isNil(o.Variables) {
+	if o == nil || IsNil(o.Variables) {
 		return nil, false
 	}
 	return o.Variables, true
@@ -62,7 +128,7 @@ func (o *GlobalVariables) GetVariablesOk() ([]Variable, bool) {
 
 // HasVariables returns a boolean if a field has been set.
 func (o *GlobalVariables) HasVariables() bool {
-	if o != nil && !isNil(o.Variables) {
+	if o != nil && !IsNil(o.Variables) {
 		return true
 	}
 
@@ -76,7 +142,7 @@ func (o *GlobalVariables) SetVariables(v []Variable) {
 
 // GetVariablesByKeys returns the VariablesByKeys field value if set, zero value otherwise.
 func (o *GlobalVariables) GetVariablesByKeys() map[string]Variable {
-	if o == nil || isNil(o.VariablesByKeys) {
+	if o == nil || IsNil(o.VariablesByKeys) {
 		var ret map[string]Variable
 		return ret
 	}
@@ -86,7 +152,7 @@ func (o *GlobalVariables) GetVariablesByKeys() map[string]Variable {
 // GetVariablesByKeysOk returns a tuple with the VariablesByKeys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GlobalVariables) GetVariablesByKeysOk() (*map[string]Variable, bool) {
-	if o == nil || isNil(o.VariablesByKeys) {
+	if o == nil || IsNil(o.VariablesByKeys) {
 		return nil, false
 	}
 	return o.VariablesByKeys, true
@@ -94,7 +160,7 @@ func (o *GlobalVariables) GetVariablesByKeysOk() (*map[string]Variable, bool) {
 
 // HasVariablesByKeys returns a boolean if a field has been set.
 func (o *GlobalVariables) HasVariablesByKeys() bool {
-	if o != nil && !isNil(o.VariablesByKeys) {
+	if o != nil && !IsNil(o.VariablesByKeys) {
 		return true
 	}
 
@@ -108,7 +174,7 @@ func (o *GlobalVariables) SetVariablesByKeys(v map[string]Variable) {
 
 // GetStringVariableValues returns the StringVariableValues field value if set, zero value otherwise.
 func (o *GlobalVariables) GetStringVariableValues() map[string]string {
-	if o == nil || isNil(o.StringVariableValues) {
+	if o == nil || IsNil(o.StringVariableValues) {
 		var ret map[string]string
 		return ret
 	}
@@ -118,7 +184,7 @@ func (o *GlobalVariables) GetStringVariableValues() map[string]string {
 // GetStringVariableValuesOk returns a tuple with the StringVariableValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GlobalVariables) GetStringVariableValuesOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.StringVariableValues) {
+	if o == nil || IsNil(o.StringVariableValues) {
 		return nil, false
 	}
 	return o.StringVariableValues, true
@@ -126,7 +192,7 @@ func (o *GlobalVariables) GetStringVariableValuesOk() (*map[string]string, bool)
 
 // HasStringVariableValues returns a boolean if a field has been set.
 func (o *GlobalVariables) HasStringVariableValues() bool {
-	if o != nil && !isNil(o.StringVariableValues) {
+	if o != nil && !IsNil(o.StringVariableValues) {
 		return true
 	}
 
@@ -140,7 +206,7 @@ func (o *GlobalVariables) SetStringVariableValues(v map[string]string) {
 
 // GetPasswordVariableValues returns the PasswordVariableValues field value if set, zero value otherwise.
 func (o *GlobalVariables) GetPasswordVariableValues() map[string]string {
-	if o == nil || isNil(o.PasswordVariableValues) {
+	if o == nil || IsNil(o.PasswordVariableValues) {
 		var ret map[string]string
 		return ret
 	}
@@ -150,7 +216,7 @@ func (o *GlobalVariables) GetPasswordVariableValues() map[string]string {
 // GetPasswordVariableValuesOk returns a tuple with the PasswordVariableValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GlobalVariables) GetPasswordVariableValuesOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.PasswordVariableValues) {
+	if o == nil || IsNil(o.PasswordVariableValues) {
 		return nil, false
 	}
 	return o.PasswordVariableValues, true
@@ -158,7 +224,7 @@ func (o *GlobalVariables) GetPasswordVariableValuesOk() (*map[string]string, boo
 
 // HasPasswordVariableValues returns a boolean if a field has been set.
 func (o *GlobalVariables) HasPasswordVariableValues() bool {
-	if o != nil && !isNil(o.PasswordVariableValues) {
+	if o != nil && !IsNil(o.PasswordVariableValues) {
 		return true
 	}
 
@@ -171,7 +237,7 @@ func (o *GlobalVariables) SetPasswordVariableValues(v map[string]string) {
 }
 
 func (o GlobalVariables) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +246,22 @@ func (o GlobalVariables) MarshalJSON() ([]byte, error) {
 
 func (o GlobalVariables) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Variables) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
-	if !isNil(o.VariablesByKeys) {
+	if !IsNil(o.VariablesByKeys) {
 		toSerialize["variablesByKeys"] = o.VariablesByKeys
 	}
-	if !isNil(o.StringVariableValues) {
+	if !IsNil(o.StringVariableValues) {
 		toSerialize["stringVariableValues"] = o.StringVariableValues
 	}
-	if !isNil(o.PasswordVariableValues) {
+	if !IsNil(o.PasswordVariableValues) {
 		toSerialize["passwordVariableValues"] = o.PasswordVariableValues
 	}
 	return toSerialize, nil
@@ -230,5 +302,3 @@ func (v *NullableGlobalVariables) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

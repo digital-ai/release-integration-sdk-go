@@ -19,14 +19,16 @@ var _ MappedNullable = &Stage{}
 
 // Stage struct for Stage
 type Stage struct {
-	Title *string `json:"title,omitempty"`
-	Status *StageStatus `json:"status,omitempty"`
-	Items []StageTrackedItem `json:"items,omitempty"`
-	Transition *Transition `json:"transition,omitempty"`
-	Owner *string `json:"owner,omitempty"`
-	Team *string `json:"team,omitempty"`
-	Open *bool `json:"open,omitempty"`
-	Closed *bool `json:"closed,omitempty"`
+	Id         *string            `json:"id,omitempty"`
+	Type       *string            `json:"type,omitempty"`
+	Title      *string            `json:"title,omitempty"`
+	Status     *StageStatus       `json:"status,omitempty"`
+	Items      []StageTrackedItem `json:"items,omitempty"`
+	Transition *Transition        `json:"transition,omitempty"`
+	Owner      *string            `json:"owner,omitempty"`
+	Team       *string            `json:"team,omitempty"`
+	Open       *bool              `json:"open,omitempty"`
+	Closed     *bool              `json:"closed,omitempty"`
 }
 
 // NewStage instantiates a new Stage object
@@ -46,9 +48,73 @@ func NewStageWithDefaults() *Stage {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Stage) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Stage) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Stage) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Stage) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Stage) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Stage) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Stage) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Stage) SetType(v string) {
+	o.Type = &v
+}
+
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *Stage) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -58,7 +124,7 @@ func (o *Stage) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stage) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -66,7 +132,7 @@ func (o *Stage) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *Stage) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -80,7 +146,7 @@ func (o *Stage) SetTitle(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Stage) GetStatus() StageStatus {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		var ret StageStatus
 		return ret
 	}
@@ -90,7 +156,7 @@ func (o *Stage) GetStatus() StageStatus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stage) GetStatusOk() (*StageStatus, bool) {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -98,7 +164,7 @@ func (o *Stage) GetStatusOk() (*StageStatus, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Stage) HasStatus() bool {
-	if o != nil && !isNil(o.Status) {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -112,7 +178,7 @@ func (o *Stage) SetStatus(v StageStatus) {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *Stage) GetItems() []StageTrackedItem {
-	if o == nil || isNil(o.Items) {
+	if o == nil || IsNil(o.Items) {
 		var ret []StageTrackedItem
 		return ret
 	}
@@ -122,7 +188,7 @@ func (o *Stage) GetItems() []StageTrackedItem {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stage) GetItemsOk() ([]StageTrackedItem, bool) {
-	if o == nil || isNil(o.Items) {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -130,7 +196,7 @@ func (o *Stage) GetItemsOk() ([]StageTrackedItem, bool) {
 
 // HasItems returns a boolean if a field has been set.
 func (o *Stage) HasItems() bool {
-	if o != nil && !isNil(o.Items) {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -144,7 +210,7 @@ func (o *Stage) SetItems(v []StageTrackedItem) {
 
 // GetTransition returns the Transition field value if set, zero value otherwise.
 func (o *Stage) GetTransition() Transition {
-	if o == nil || isNil(o.Transition) {
+	if o == nil || IsNil(o.Transition) {
 		var ret Transition
 		return ret
 	}
@@ -154,7 +220,7 @@ func (o *Stage) GetTransition() Transition {
 // GetTransitionOk returns a tuple with the Transition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stage) GetTransitionOk() (*Transition, bool) {
-	if o == nil || isNil(o.Transition) {
+	if o == nil || IsNil(o.Transition) {
 		return nil, false
 	}
 	return o.Transition, true
@@ -162,7 +228,7 @@ func (o *Stage) GetTransitionOk() (*Transition, bool) {
 
 // HasTransition returns a boolean if a field has been set.
 func (o *Stage) HasTransition() bool {
-	if o != nil && !isNil(o.Transition) {
+	if o != nil && !IsNil(o.Transition) {
 		return true
 	}
 
@@ -176,7 +242,7 @@ func (o *Stage) SetTransition(v Transition) {
 
 // GetOwner returns the Owner field value if set, zero value otherwise.
 func (o *Stage) GetOwner() string {
-	if o == nil || isNil(o.Owner) {
+	if o == nil || IsNil(o.Owner) {
 		var ret string
 		return ret
 	}
@@ -186,7 +252,7 @@ func (o *Stage) GetOwner() string {
 // GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stage) GetOwnerOk() (*string, bool) {
-	if o == nil || isNil(o.Owner) {
+	if o == nil || IsNil(o.Owner) {
 		return nil, false
 	}
 	return o.Owner, true
@@ -194,7 +260,7 @@ func (o *Stage) GetOwnerOk() (*string, bool) {
 
 // HasOwner returns a boolean if a field has been set.
 func (o *Stage) HasOwner() bool {
-	if o != nil && !isNil(o.Owner) {
+	if o != nil && !IsNil(o.Owner) {
 		return true
 	}
 
@@ -208,7 +274,7 @@ func (o *Stage) SetOwner(v string) {
 
 // GetTeam returns the Team field value if set, zero value otherwise.
 func (o *Stage) GetTeam() string {
-	if o == nil || isNil(o.Team) {
+	if o == nil || IsNil(o.Team) {
 		var ret string
 		return ret
 	}
@@ -218,7 +284,7 @@ func (o *Stage) GetTeam() string {
 // GetTeamOk returns a tuple with the Team field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stage) GetTeamOk() (*string, bool) {
-	if o == nil || isNil(o.Team) {
+	if o == nil || IsNil(o.Team) {
 		return nil, false
 	}
 	return o.Team, true
@@ -226,7 +292,7 @@ func (o *Stage) GetTeamOk() (*string, bool) {
 
 // HasTeam returns a boolean if a field has been set.
 func (o *Stage) HasTeam() bool {
-	if o != nil && !isNil(o.Team) {
+	if o != nil && !IsNil(o.Team) {
 		return true
 	}
 
@@ -240,7 +306,7 @@ func (o *Stage) SetTeam(v string) {
 
 // GetOpen returns the Open field value if set, zero value otherwise.
 func (o *Stage) GetOpen() bool {
-	if o == nil || isNil(o.Open) {
+	if o == nil || IsNil(o.Open) {
 		var ret bool
 		return ret
 	}
@@ -250,7 +316,7 @@ func (o *Stage) GetOpen() bool {
 // GetOpenOk returns a tuple with the Open field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stage) GetOpenOk() (*bool, bool) {
-	if o == nil || isNil(o.Open) {
+	if o == nil || IsNil(o.Open) {
 		return nil, false
 	}
 	return o.Open, true
@@ -258,7 +324,7 @@ func (o *Stage) GetOpenOk() (*bool, bool) {
 
 // HasOpen returns a boolean if a field has been set.
 func (o *Stage) HasOpen() bool {
-	if o != nil && !isNil(o.Open) {
+	if o != nil && !IsNil(o.Open) {
 		return true
 	}
 
@@ -272,7 +338,7 @@ func (o *Stage) SetOpen(v bool) {
 
 // GetClosed returns the Closed field value if set, zero value otherwise.
 func (o *Stage) GetClosed() bool {
-	if o == nil || isNil(o.Closed) {
+	if o == nil || IsNil(o.Closed) {
 		var ret bool
 		return ret
 	}
@@ -282,7 +348,7 @@ func (o *Stage) GetClosed() bool {
 // GetClosedOk returns a tuple with the Closed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stage) GetClosedOk() (*bool, bool) {
-	if o == nil || isNil(o.Closed) {
+	if o == nil || IsNil(o.Closed) {
 		return nil, false
 	}
 	return o.Closed, true
@@ -290,7 +356,7 @@ func (o *Stage) GetClosedOk() (*bool, bool) {
 
 // HasClosed returns a boolean if a field has been set.
 func (o *Stage) HasClosed() bool {
-	if o != nil && !isNil(o.Closed) {
+	if o != nil && !IsNil(o.Closed) {
 		return true
 	}
 
@@ -303,7 +369,7 @@ func (o *Stage) SetClosed(v bool) {
 }
 
 func (o Stage) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -312,28 +378,34 @@ func (o Stage) MarshalJSON() ([]byte, error) {
 
 func (o Stage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Status) {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !isNil(o.Items) {
+	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
-	if !isNil(o.Transition) {
+	if !IsNil(o.Transition) {
 		toSerialize["transition"] = o.Transition
 	}
-	if !isNil(o.Owner) {
+	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
-	if !isNil(o.Team) {
+	if !IsNil(o.Team) {
 		toSerialize["team"] = o.Team
 	}
-	if !isNil(o.Open) {
+	if !IsNil(o.Open) {
 		toSerialize["open"] = o.Open
 	}
-	if !isNil(o.Closed) {
+	if !IsNil(o.Closed) {
 		toSerialize["closed"] = o.Closed
 	}
 	return toSerialize, nil
@@ -374,5 +446,3 @@ func (v *NullableStage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -4,12 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **FolderId** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Duration** | Pointer to **int32** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **AutoComplete** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -30,6 +32,56 @@ will change when the set of required properties is changed
 NewCreateDeliveryWithDefaults instantiates a new CreateDelivery object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *CreateDelivery) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *CreateDelivery) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *CreateDelivery) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *CreateDelivery) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *CreateDelivery) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *CreateDelivery) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *CreateDelivery) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *CreateDelivery) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetFolderId
 
@@ -133,20 +185,20 @@ HasDuration returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *CreateDelivery) GetStartDate() string`
+`func (o *CreateDelivery) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *CreateDelivery) GetStartDateOk() (*string, bool)`
+`func (o *CreateDelivery) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *CreateDelivery) SetStartDate(v string)`
+`func (o *CreateDelivery) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -158,20 +210,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *CreateDelivery) GetEndDate() string`
+`func (o *CreateDelivery) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *CreateDelivery) GetEndDateOk() (*string, bool)`
+`func (o *CreateDelivery) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *CreateDelivery) SetEndDate(v string)`
+`func (o *CreateDelivery) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 

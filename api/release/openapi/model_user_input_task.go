@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the UserInputTask type satisfies the MappedNullable interface at compile time
@@ -19,100 +20,102 @@ var _ MappedNullable = &UserInputTask{}
 
 // UserInputTask struct for UserInputTask
 type UserInputTask struct {
-	ScheduledStartDate *string `json:"scheduledStartDate,omitempty"`
-	FlagStatus *FlagStatus `json:"flagStatus,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Owner *string `json:"owner,omitempty"`
-	DueDate *string `json:"dueDate,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	PlannedDuration *int32 `json:"plannedDuration,omitempty"`
-	FlagComment *string `json:"flagComment,omitempty"`
-	OverdueNotified *bool `json:"overdueNotified,omitempty"`
-	Flagged *bool `json:"flagged,omitempty"`
-	StartOrScheduledDate *string `json:"startOrScheduledDate,omitempty"`
-	EndOrDueDate *string `json:"endOrDueDate,omitempty"`
-	Overdue *bool `json:"overdue,omitempty"`
-	OrCalculateDueDate NullableString `json:"orCalculateDueDate,omitempty"`
-	ComputedPlannedDuration map[string]interface{} `json:"computedPlannedDuration,omitempty"`
-	ActualDuration map[string]interface{} `json:"actualDuration,omitempty"`
-	ReleaseUid *int32 `json:"releaseUid,omitempty"`
-	CiUid *int32 `json:"ciUid,omitempty"`
-	Comments []Comment `json:"comments,omitempty"`
-	Container *TaskContainer `json:"container,omitempty"`
-	Facets []Facet `json:"facets,omitempty"`
-	Attachments []Attachment `json:"attachments,omitempty"`
-	Status *TaskStatus `json:"status,omitempty"`
-	Team *string `json:"team,omitempty"`
-	Watchers []string `json:"watchers,omitempty"`
-	WaitForScheduledStartDate *bool `json:"waitForScheduledStartDate,omitempty"`
-	DelayDuringBlackout *bool `json:"delayDuringBlackout,omitempty"`
-	PostponedDueToBlackout *bool `json:"postponedDueToBlackout,omitempty"`
-	PostponedUntilEnvironmentsAreReserved *bool `json:"postponedUntilEnvironmentsAreReserved,omitempty"`
-	OriginalScheduledStartDate *string `json:"originalScheduledStartDate,omitempty"`
-	HasBeenFlagged *bool `json:"hasBeenFlagged,omitempty"`
-	HasBeenDelayed *bool `json:"hasBeenDelayed,omitempty"`
-	Precondition *string `json:"precondition,omitempty"`
-	FailureHandler *string `json:"failureHandler,omitempty"`
-	TaskFailureHandlerEnabled *bool `json:"taskFailureHandlerEnabled,omitempty"`
-	TaskRecoverOp *TaskRecoverOp `json:"taskRecoverOp,omitempty"`
-	FailuresCount *int32 `json:"failuresCount,omitempty"`
-	ExecutionId *string `json:"executionId,omitempty"`
-	VariableMapping *map[string]string `json:"variableMapping,omitempty"`
-	ExternalVariableMapping *map[string]string `json:"externalVariableMapping,omitempty"`
-	MaxCommentSize *int32 `json:"maxCommentSize,omitempty"`
-	Tags []string `json:"tags,omitempty"`
-	ConfigurationUri *string `json:"configurationUri,omitempty"`
-	DueSoonNotified *bool `json:"dueSoonNotified,omitempty"`
-	Locked *bool `json:"locked,omitempty"`
-	CheckAttributes *bool `json:"checkAttributes,omitempty"`
-	AbortScript *string `json:"abortScript,omitempty"`
-	Phase *Phase `json:"phase,omitempty"`
-	BlackoutMetadata *BlackoutMetadata `json:"blackoutMetadata,omitempty"`
-	FlaggedCount *int32 `json:"flaggedCount,omitempty"`
-	DelayedCount *int32 `json:"delayedCount,omitempty"`
-	Done *bool `json:"done,omitempty"`
-	DoneInAdvance *bool `json:"doneInAdvance,omitempty"`
-	Defunct *bool `json:"defunct,omitempty"`
-	Updatable *bool `json:"updatable,omitempty"`
-	Aborted *bool `json:"aborted,omitempty"`
-	NotYetReached *bool `json:"notYetReached,omitempty"`
-	Planned *bool `json:"planned,omitempty"`
-	Active *bool `json:"active,omitempty"`
-	InProgress *bool `json:"inProgress,omitempty"`
-	Pending *bool `json:"pending,omitempty"`
-	WaitingForInput *bool `json:"waitingForInput,omitempty"`
-	Failed *bool `json:"failed,omitempty"`
-	Failing *bool `json:"failing,omitempty"`
-	CompletedInAdvance *bool `json:"completedInAdvance,omitempty"`
-	Skipped *bool `json:"skipped,omitempty"`
-	SkippedInAdvance *bool `json:"skippedInAdvance,omitempty"`
-	PreconditionInProgress *bool `json:"preconditionInProgress,omitempty"`
-	FailureHandlerInProgress *bool `json:"failureHandlerInProgress,omitempty"`
-	AbortScriptInProgress *bool `json:"abortScriptInProgress,omitempty"`
-	FacetInProgress *bool `json:"facetInProgress,omitempty"`
-	Movable *bool `json:"movable,omitempty"`
-	Gate *bool `json:"gate,omitempty"`
-	TaskGroup *bool `json:"taskGroup,omitempty"`
-	ParallelGroup *bool `json:"parallelGroup,omitempty"`
-	PreconditionEnabled *bool `json:"preconditionEnabled,omitempty"`
-	FailureHandlerEnabled *bool `json:"failureHandlerEnabled,omitempty"`
-	Release *Release `json:"release,omitempty"`
-	DisplayPath *string `json:"displayPath,omitempty"`
-	ReleaseOwner *string `json:"releaseOwner,omitempty"`
-	AllTasks []Task `json:"allTasks,omitempty"`
-	Children []PlanItem `json:"children,omitempty"`
-	InputVariables []Variable `json:"inputVariables,omitempty"`
-	UnboundRequiredVariables []string `json:"unboundRequiredVariables,omitempty"`
-	Automated *bool `json:"automated,omitempty"`
-	TaskType map[string]interface{} `json:"taskType,omitempty"`
-	DueSoon *bool `json:"dueSoon,omitempty"`
-	ElapsedDurationFraction *float64 `json:"elapsedDurationFraction,omitempty"`
-	Url *string `json:"url,omitempty"`
-	Variables []Variable `json:"variables,omitempty"`
-	ReferencedVariables []Variable `json:"referencedVariables,omitempty"`
-	VariableUsages []UsagePoint `json:"variableUsages,omitempty"`
+	Id                                    *string                `json:"id,omitempty"`
+	Type                                  *string                `json:"type,omitempty"`
+	ScheduledStartDate                    *time.Time             `json:"scheduledStartDate,omitempty"`
+	FlagStatus                            *FlagStatus            `json:"flagStatus,omitempty"`
+	Title                                 *string                `json:"title,omitempty"`
+	Description                           *string                `json:"description,omitempty"`
+	Owner                                 *string                `json:"owner,omitempty"`
+	DueDate                               *time.Time             `json:"dueDate,omitempty"`
+	StartDate                             *time.Time             `json:"startDate,omitempty"`
+	EndDate                               *time.Time             `json:"endDate,omitempty"`
+	PlannedDuration                       *int32                 `json:"plannedDuration,omitempty"`
+	FlagComment                           *string                `json:"flagComment,omitempty"`
+	OverdueNotified                       *bool                  `json:"overdueNotified,omitempty"`
+	Flagged                               *bool                  `json:"flagged,omitempty"`
+	StartOrScheduledDate                  *time.Time             `json:"startOrScheduledDate,omitempty"`
+	EndOrDueDate                          *time.Time             `json:"endOrDueDate,omitempty"`
+	Overdue                               *bool                  `json:"overdue,omitempty"`
+	OrCalculateDueDate                    NullableTime           `json:"orCalculateDueDate,omitempty"`
+	ComputedPlannedDuration               map[string]interface{} `json:"computedPlannedDuration,omitempty"`
+	ActualDuration                        map[string]interface{} `json:"actualDuration,omitempty"`
+	ReleaseUid                            *int32                 `json:"releaseUid,omitempty"`
+	CiUid                                 *int32                 `json:"ciUid,omitempty"`
+	Comments                              []Comment              `json:"comments,omitempty"`
+	Container                             *TaskContainer         `json:"container,omitempty"`
+	Facets                                []Facet                `json:"facets,omitempty"`
+	Attachments                           []Attachment           `json:"attachments,omitempty"`
+	Status                                *TaskStatus            `json:"status,omitempty"`
+	Team                                  *string                `json:"team,omitempty"`
+	Watchers                              []string               `json:"watchers,omitempty"`
+	WaitForScheduledStartDate             *bool                  `json:"waitForScheduledStartDate,omitempty"`
+	DelayDuringBlackout                   *bool                  `json:"delayDuringBlackout,omitempty"`
+	PostponedDueToBlackout                *bool                  `json:"postponedDueToBlackout,omitempty"`
+	PostponedUntilEnvironmentsAreReserved *bool                  `json:"postponedUntilEnvironmentsAreReserved,omitempty"`
+	OriginalScheduledStartDate            *time.Time             `json:"originalScheduledStartDate,omitempty"`
+	HasBeenFlagged                        *bool                  `json:"hasBeenFlagged,omitempty"`
+	HasBeenDelayed                        *bool                  `json:"hasBeenDelayed,omitempty"`
+	Precondition                          *string                `json:"precondition,omitempty"`
+	FailureHandler                        *string                `json:"failureHandler,omitempty"`
+	TaskFailureHandlerEnabled             *bool                  `json:"taskFailureHandlerEnabled,omitempty"`
+	TaskRecoverOp                         *TaskRecoverOp         `json:"taskRecoverOp,omitempty"`
+	FailuresCount                         *int32                 `json:"failuresCount,omitempty"`
+	ExecutionId                           *string                `json:"executionId,omitempty"`
+	VariableMapping                       *map[string]string     `json:"variableMapping,omitempty"`
+	ExternalVariableMapping               *map[string]string     `json:"externalVariableMapping,omitempty"`
+	MaxCommentSize                        *int32                 `json:"maxCommentSize,omitempty"`
+	Tags                                  []string               `json:"tags,omitempty"`
+	ConfigurationUri                      *string                `json:"configurationUri,omitempty"`
+	DueSoonNotified                       *bool                  `json:"dueSoonNotified,omitempty"`
+	Locked                                *bool                  `json:"locked,omitempty"`
+	CheckAttributes                       *bool                  `json:"checkAttributes,omitempty"`
+	AbortScript                           *string                `json:"abortScript,omitempty"`
+	Phase                                 *Phase                 `json:"phase,omitempty"`
+	BlackoutMetadata                      *BlackoutMetadata      `json:"blackoutMetadata,omitempty"`
+	FlaggedCount                          *int32                 `json:"flaggedCount,omitempty"`
+	DelayedCount                          *int32                 `json:"delayedCount,omitempty"`
+	Done                                  *bool                  `json:"done,omitempty"`
+	DoneInAdvance                         *bool                  `json:"doneInAdvance,omitempty"`
+	Defunct                               *bool                  `json:"defunct,omitempty"`
+	Updatable                             *bool                  `json:"updatable,omitempty"`
+	Aborted                               *bool                  `json:"aborted,omitempty"`
+	NotYetReached                         *bool                  `json:"notYetReached,omitempty"`
+	Planned                               *bool                  `json:"planned,omitempty"`
+	Active                                *bool                  `json:"active,omitempty"`
+	InProgress                            *bool                  `json:"inProgress,omitempty"`
+	Pending                               *bool                  `json:"pending,omitempty"`
+	WaitingForInput                       *bool                  `json:"waitingForInput,omitempty"`
+	Failed                                *bool                  `json:"failed,omitempty"`
+	Failing                               *bool                  `json:"failing,omitempty"`
+	CompletedInAdvance                    *bool                  `json:"completedInAdvance,omitempty"`
+	Skipped                               *bool                  `json:"skipped,omitempty"`
+	SkippedInAdvance                      *bool                  `json:"skippedInAdvance,omitempty"`
+	PreconditionInProgress                *bool                  `json:"preconditionInProgress,omitempty"`
+	FailureHandlerInProgress              *bool                  `json:"failureHandlerInProgress,omitempty"`
+	AbortScriptInProgress                 *bool                  `json:"abortScriptInProgress,omitempty"`
+	FacetInProgress                       *bool                  `json:"facetInProgress,omitempty"`
+	Movable                               *bool                  `json:"movable,omitempty"`
+	Gate                                  *bool                  `json:"gate,omitempty"`
+	TaskGroup                             *bool                  `json:"taskGroup,omitempty"`
+	ParallelGroup                         *bool                  `json:"parallelGroup,omitempty"`
+	PreconditionEnabled                   *bool                  `json:"preconditionEnabled,omitempty"`
+	FailureHandlerEnabled                 *bool                  `json:"failureHandlerEnabled,omitempty"`
+	Release                               *Release               `json:"release,omitempty"`
+	DisplayPath                           *string                `json:"displayPath,omitempty"`
+	ReleaseOwner                          *string                `json:"releaseOwner,omitempty"`
+	AllTasks                              []Task                 `json:"allTasks,omitempty"`
+	Children                              []PlanItem             `json:"children,omitempty"`
+	InputVariables                        []Variable             `json:"inputVariables,omitempty"`
+	UnboundRequiredVariables              []string               `json:"unboundRequiredVariables,omitempty"`
+	Automated                             *bool                  `json:"automated,omitempty"`
+	TaskType                              map[string]interface{} `json:"taskType,omitempty"`
+	DueSoon                               *bool                  `json:"dueSoon,omitempty"`
+	ElapsedDurationFraction               *float64               `json:"elapsedDurationFraction,omitempty"`
+	Url                                   *string                `json:"url,omitempty"`
+	Variables                             []Variable             `json:"variables,omitempty"`
+	ReferencedVariables                   []Variable             `json:"referencedVariables,omitempty"`
+	VariableUsages                        []UsagePoint           `json:"variableUsages,omitempty"`
 }
 
 // NewUserInputTask instantiates a new UserInputTask object
@@ -132,10 +135,74 @@ func NewUserInputTaskWithDefaults() *UserInputTask {
 	return &this
 }
 
-// GetScheduledStartDate returns the ScheduledStartDate field value if set, zero value otherwise.
-func (o *UserInputTask) GetScheduledStartDate() string {
-	if o == nil || isNil(o.ScheduledStartDate) {
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *UserInputTask) GetId() string {
+	if o == nil || IsNil(o.Id) {
 		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserInputTask) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *UserInputTask) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *UserInputTask) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *UserInputTask) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserInputTask) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *UserInputTask) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *UserInputTask) SetType(v string) {
+	o.Type = &v
+}
+
+// GetScheduledStartDate returns the ScheduledStartDate field value if set, zero value otherwise.
+func (o *UserInputTask) GetScheduledStartDate() time.Time {
+	if o == nil || IsNil(o.ScheduledStartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.ScheduledStartDate
@@ -143,8 +210,8 @@ func (o *UserInputTask) GetScheduledStartDate() string {
 
 // GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserInputTask) GetScheduledStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.ScheduledStartDate) {
+func (o *UserInputTask) GetScheduledStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ScheduledStartDate) {
 		return nil, false
 	}
 	return o.ScheduledStartDate, true
@@ -152,21 +219,21 @@ func (o *UserInputTask) GetScheduledStartDateOk() (*string, bool) {
 
 // HasScheduledStartDate returns a boolean if a field has been set.
 func (o *UserInputTask) HasScheduledStartDate() bool {
-	if o != nil && !isNil(o.ScheduledStartDate) {
+	if o != nil && !IsNil(o.ScheduledStartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetScheduledStartDate gets a reference to the given string and assigns it to the ScheduledStartDate field.
-func (o *UserInputTask) SetScheduledStartDate(v string) {
+// SetScheduledStartDate gets a reference to the given time.Time and assigns it to the ScheduledStartDate field.
+func (o *UserInputTask) SetScheduledStartDate(v time.Time) {
 	o.ScheduledStartDate = &v
 }
 
 // GetFlagStatus returns the FlagStatus field value if set, zero value otherwise.
 func (o *UserInputTask) GetFlagStatus() FlagStatus {
-	if o == nil || isNil(o.FlagStatus) {
+	if o == nil || IsNil(o.FlagStatus) {
 		var ret FlagStatus
 		return ret
 	}
@@ -176,7 +243,7 @@ func (o *UserInputTask) GetFlagStatus() FlagStatus {
 // GetFlagStatusOk returns a tuple with the FlagStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFlagStatusOk() (*FlagStatus, bool) {
-	if o == nil || isNil(o.FlagStatus) {
+	if o == nil || IsNil(o.FlagStatus) {
 		return nil, false
 	}
 	return o.FlagStatus, true
@@ -184,7 +251,7 @@ func (o *UserInputTask) GetFlagStatusOk() (*FlagStatus, bool) {
 
 // HasFlagStatus returns a boolean if a field has been set.
 func (o *UserInputTask) HasFlagStatus() bool {
-	if o != nil && !isNil(o.FlagStatus) {
+	if o != nil && !IsNil(o.FlagStatus) {
 		return true
 	}
 
@@ -198,7 +265,7 @@ func (o *UserInputTask) SetFlagStatus(v FlagStatus) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *UserInputTask) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -208,7 +275,7 @@ func (o *UserInputTask) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -216,7 +283,7 @@ func (o *UserInputTask) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *UserInputTask) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -230,7 +297,7 @@ func (o *UserInputTask) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UserInputTask) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -240,7 +307,7 @@ func (o *UserInputTask) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -248,7 +315,7 @@ func (o *UserInputTask) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UserInputTask) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -262,7 +329,7 @@ func (o *UserInputTask) SetDescription(v string) {
 
 // GetOwner returns the Owner field value if set, zero value otherwise.
 func (o *UserInputTask) GetOwner() string {
-	if o == nil || isNil(o.Owner) {
+	if o == nil || IsNil(o.Owner) {
 		var ret string
 		return ret
 	}
@@ -272,7 +339,7 @@ func (o *UserInputTask) GetOwner() string {
 // GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetOwnerOk() (*string, bool) {
-	if o == nil || isNil(o.Owner) {
+	if o == nil || IsNil(o.Owner) {
 		return nil, false
 	}
 	return o.Owner, true
@@ -280,7 +347,7 @@ func (o *UserInputTask) GetOwnerOk() (*string, bool) {
 
 // HasOwner returns a boolean if a field has been set.
 func (o *UserInputTask) HasOwner() bool {
-	if o != nil && !isNil(o.Owner) {
+	if o != nil && !IsNil(o.Owner) {
 		return true
 	}
 
@@ -293,9 +360,9 @@ func (o *UserInputTask) SetOwner(v string) {
 }
 
 // GetDueDate returns the DueDate field value if set, zero value otherwise.
-func (o *UserInputTask) GetDueDate() string {
-	if o == nil || isNil(o.DueDate) {
-		var ret string
+func (o *UserInputTask) GetDueDate() time.Time {
+	if o == nil || IsNil(o.DueDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.DueDate
@@ -303,8 +370,8 @@ func (o *UserInputTask) GetDueDate() string {
 
 // GetDueDateOk returns a tuple with the DueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserInputTask) GetDueDateOk() (*string, bool) {
-	if o == nil || isNil(o.DueDate) {
+func (o *UserInputTask) GetDueDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DueDate) {
 		return nil, false
 	}
 	return o.DueDate, true
@@ -312,22 +379,22 @@ func (o *UserInputTask) GetDueDateOk() (*string, bool) {
 
 // HasDueDate returns a boolean if a field has been set.
 func (o *UserInputTask) HasDueDate() bool {
-	if o != nil && !isNil(o.DueDate) {
+	if o != nil && !IsNil(o.DueDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetDueDate gets a reference to the given string and assigns it to the DueDate field.
-func (o *UserInputTask) SetDueDate(v string) {
+// SetDueDate gets a reference to the given time.Time and assigns it to the DueDate field.
+func (o *UserInputTask) SetDueDate(v time.Time) {
 	o.DueDate = &v
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *UserInputTask) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *UserInputTask) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -335,8 +402,8 @@ func (o *UserInputTask) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserInputTask) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *UserInputTask) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -344,22 +411,22 @@ func (o *UserInputTask) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *UserInputTask) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *UserInputTask) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *UserInputTask) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *UserInputTask) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *UserInputTask) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -367,8 +434,8 @@ func (o *UserInputTask) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserInputTask) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *UserInputTask) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -376,21 +443,21 @@ func (o *UserInputTask) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *UserInputTask) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *UserInputTask) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *UserInputTask) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetPlannedDuration returns the PlannedDuration field value if set, zero value otherwise.
 func (o *UserInputTask) GetPlannedDuration() int32 {
-	if o == nil || isNil(o.PlannedDuration) {
+	if o == nil || IsNil(o.PlannedDuration) {
 		var ret int32
 		return ret
 	}
@@ -400,7 +467,7 @@ func (o *UserInputTask) GetPlannedDuration() int32 {
 // GetPlannedDurationOk returns a tuple with the PlannedDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPlannedDurationOk() (*int32, bool) {
-	if o == nil || isNil(o.PlannedDuration) {
+	if o == nil || IsNil(o.PlannedDuration) {
 		return nil, false
 	}
 	return o.PlannedDuration, true
@@ -408,7 +475,7 @@ func (o *UserInputTask) GetPlannedDurationOk() (*int32, bool) {
 
 // HasPlannedDuration returns a boolean if a field has been set.
 func (o *UserInputTask) HasPlannedDuration() bool {
-	if o != nil && !isNil(o.PlannedDuration) {
+	if o != nil && !IsNil(o.PlannedDuration) {
 		return true
 	}
 
@@ -422,7 +489,7 @@ func (o *UserInputTask) SetPlannedDuration(v int32) {
 
 // GetFlagComment returns the FlagComment field value if set, zero value otherwise.
 func (o *UserInputTask) GetFlagComment() string {
-	if o == nil || isNil(o.FlagComment) {
+	if o == nil || IsNil(o.FlagComment) {
 		var ret string
 		return ret
 	}
@@ -432,7 +499,7 @@ func (o *UserInputTask) GetFlagComment() string {
 // GetFlagCommentOk returns a tuple with the FlagComment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFlagCommentOk() (*string, bool) {
-	if o == nil || isNil(o.FlagComment) {
+	if o == nil || IsNil(o.FlagComment) {
 		return nil, false
 	}
 	return o.FlagComment, true
@@ -440,7 +507,7 @@ func (o *UserInputTask) GetFlagCommentOk() (*string, bool) {
 
 // HasFlagComment returns a boolean if a field has been set.
 func (o *UserInputTask) HasFlagComment() bool {
-	if o != nil && !isNil(o.FlagComment) {
+	if o != nil && !IsNil(o.FlagComment) {
 		return true
 	}
 
@@ -454,7 +521,7 @@ func (o *UserInputTask) SetFlagComment(v string) {
 
 // GetOverdueNotified returns the OverdueNotified field value if set, zero value otherwise.
 func (o *UserInputTask) GetOverdueNotified() bool {
-	if o == nil || isNil(o.OverdueNotified) {
+	if o == nil || IsNil(o.OverdueNotified) {
 		var ret bool
 		return ret
 	}
@@ -464,7 +531,7 @@ func (o *UserInputTask) GetOverdueNotified() bool {
 // GetOverdueNotifiedOk returns a tuple with the OverdueNotified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetOverdueNotifiedOk() (*bool, bool) {
-	if o == nil || isNil(o.OverdueNotified) {
+	if o == nil || IsNil(o.OverdueNotified) {
 		return nil, false
 	}
 	return o.OverdueNotified, true
@@ -472,7 +539,7 @@ func (o *UserInputTask) GetOverdueNotifiedOk() (*bool, bool) {
 
 // HasOverdueNotified returns a boolean if a field has been set.
 func (o *UserInputTask) HasOverdueNotified() bool {
-	if o != nil && !isNil(o.OverdueNotified) {
+	if o != nil && !IsNil(o.OverdueNotified) {
 		return true
 	}
 
@@ -486,7 +553,7 @@ func (o *UserInputTask) SetOverdueNotified(v bool) {
 
 // GetFlagged returns the Flagged field value if set, zero value otherwise.
 func (o *UserInputTask) GetFlagged() bool {
-	if o == nil || isNil(o.Flagged) {
+	if o == nil || IsNil(o.Flagged) {
 		var ret bool
 		return ret
 	}
@@ -496,7 +563,7 @@ func (o *UserInputTask) GetFlagged() bool {
 // GetFlaggedOk returns a tuple with the Flagged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFlaggedOk() (*bool, bool) {
-	if o == nil || isNil(o.Flagged) {
+	if o == nil || IsNil(o.Flagged) {
 		return nil, false
 	}
 	return o.Flagged, true
@@ -504,7 +571,7 @@ func (o *UserInputTask) GetFlaggedOk() (*bool, bool) {
 
 // HasFlagged returns a boolean if a field has been set.
 func (o *UserInputTask) HasFlagged() bool {
-	if o != nil && !isNil(o.Flagged) {
+	if o != nil && !IsNil(o.Flagged) {
 		return true
 	}
 
@@ -517,9 +584,9 @@ func (o *UserInputTask) SetFlagged(v bool) {
 }
 
 // GetStartOrScheduledDate returns the StartOrScheduledDate field value if set, zero value otherwise.
-func (o *UserInputTask) GetStartOrScheduledDate() string {
-	if o == nil || isNil(o.StartOrScheduledDate) {
-		var ret string
+func (o *UserInputTask) GetStartOrScheduledDate() time.Time {
+	if o == nil || IsNil(o.StartOrScheduledDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartOrScheduledDate
@@ -527,8 +594,8 @@ func (o *UserInputTask) GetStartOrScheduledDate() string {
 
 // GetStartOrScheduledDateOk returns a tuple with the StartOrScheduledDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserInputTask) GetStartOrScheduledDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartOrScheduledDate) {
+func (o *UserInputTask) GetStartOrScheduledDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartOrScheduledDate) {
 		return nil, false
 	}
 	return o.StartOrScheduledDate, true
@@ -536,22 +603,22 @@ func (o *UserInputTask) GetStartOrScheduledDateOk() (*string, bool) {
 
 // HasStartOrScheduledDate returns a boolean if a field has been set.
 func (o *UserInputTask) HasStartOrScheduledDate() bool {
-	if o != nil && !isNil(o.StartOrScheduledDate) {
+	if o != nil && !IsNil(o.StartOrScheduledDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartOrScheduledDate gets a reference to the given string and assigns it to the StartOrScheduledDate field.
-func (o *UserInputTask) SetStartOrScheduledDate(v string) {
+// SetStartOrScheduledDate gets a reference to the given time.Time and assigns it to the StartOrScheduledDate field.
+func (o *UserInputTask) SetStartOrScheduledDate(v time.Time) {
 	o.StartOrScheduledDate = &v
 }
 
 // GetEndOrDueDate returns the EndOrDueDate field value if set, zero value otherwise.
-func (o *UserInputTask) GetEndOrDueDate() string {
-	if o == nil || isNil(o.EndOrDueDate) {
-		var ret string
+func (o *UserInputTask) GetEndOrDueDate() time.Time {
+	if o == nil || IsNil(o.EndOrDueDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndOrDueDate
@@ -559,8 +626,8 @@ func (o *UserInputTask) GetEndOrDueDate() string {
 
 // GetEndOrDueDateOk returns a tuple with the EndOrDueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserInputTask) GetEndOrDueDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndOrDueDate) {
+func (o *UserInputTask) GetEndOrDueDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndOrDueDate) {
 		return nil, false
 	}
 	return o.EndOrDueDate, true
@@ -568,21 +635,21 @@ func (o *UserInputTask) GetEndOrDueDateOk() (*string, bool) {
 
 // HasEndOrDueDate returns a boolean if a field has been set.
 func (o *UserInputTask) HasEndOrDueDate() bool {
-	if o != nil && !isNil(o.EndOrDueDate) {
+	if o != nil && !IsNil(o.EndOrDueDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndOrDueDate gets a reference to the given string and assigns it to the EndOrDueDate field.
-func (o *UserInputTask) SetEndOrDueDate(v string) {
+// SetEndOrDueDate gets a reference to the given time.Time and assigns it to the EndOrDueDate field.
+func (o *UserInputTask) SetEndOrDueDate(v time.Time) {
 	o.EndOrDueDate = &v
 }
 
 // GetOverdue returns the Overdue field value if set, zero value otherwise.
 func (o *UserInputTask) GetOverdue() bool {
-	if o == nil || isNil(o.Overdue) {
+	if o == nil || IsNil(o.Overdue) {
 		var ret bool
 		return ret
 	}
@@ -592,7 +659,7 @@ func (o *UserInputTask) GetOverdue() bool {
 // GetOverdueOk returns a tuple with the Overdue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetOverdueOk() (*bool, bool) {
-	if o == nil || isNil(o.Overdue) {
+	if o == nil || IsNil(o.Overdue) {
 		return nil, false
 	}
 	return o.Overdue, true
@@ -600,7 +667,7 @@ func (o *UserInputTask) GetOverdueOk() (*bool, bool) {
 
 // HasOverdue returns a boolean if a field has been set.
 func (o *UserInputTask) HasOverdue() bool {
-	if o != nil && !isNil(o.Overdue) {
+	if o != nil && !IsNil(o.Overdue) {
 		return true
 	}
 
@@ -613,9 +680,9 @@ func (o *UserInputTask) SetOverdue(v bool) {
 }
 
 // GetOrCalculateDueDate returns the OrCalculateDueDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UserInputTask) GetOrCalculateDueDate() string {
-	if o == nil || isNil(o.OrCalculateDueDate.Get()) {
-		var ret string
+func (o *UserInputTask) GetOrCalculateDueDate() time.Time {
+	if o == nil || IsNil(o.OrCalculateDueDate.Get()) {
+		var ret time.Time
 		return ret
 	}
 	return *o.OrCalculateDueDate.Get()
@@ -624,7 +691,7 @@ func (o *UserInputTask) GetOrCalculateDueDate() string {
 // GetOrCalculateDueDateOk returns a tuple with the OrCalculateDueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UserInputTask) GetOrCalculateDueDateOk() (*string, bool) {
+func (o *UserInputTask) GetOrCalculateDueDateOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -640,10 +707,11 @@ func (o *UserInputTask) HasOrCalculateDueDate() bool {
 	return false
 }
 
-// SetOrCalculateDueDate gets a reference to the given NullableString and assigns it to the OrCalculateDueDate field.
-func (o *UserInputTask) SetOrCalculateDueDate(v string) {
+// SetOrCalculateDueDate gets a reference to the given NullableTime and assigns it to the OrCalculateDueDate field.
+func (o *UserInputTask) SetOrCalculateDueDate(v time.Time) {
 	o.OrCalculateDueDate.Set(&v)
 }
+
 // SetOrCalculateDueDateNil sets the value for OrCalculateDueDate to be an explicit nil
 func (o *UserInputTask) SetOrCalculateDueDateNil() {
 	o.OrCalculateDueDate.Set(nil)
@@ -656,7 +724,7 @@ func (o *UserInputTask) UnsetOrCalculateDueDate() {
 
 // GetComputedPlannedDuration returns the ComputedPlannedDuration field value if set, zero value otherwise.
 func (o *UserInputTask) GetComputedPlannedDuration() map[string]interface{} {
-	if o == nil || isNil(o.ComputedPlannedDuration) {
+	if o == nil || IsNil(o.ComputedPlannedDuration) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -666,7 +734,7 @@ func (o *UserInputTask) GetComputedPlannedDuration() map[string]interface{} {
 // GetComputedPlannedDurationOk returns a tuple with the ComputedPlannedDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetComputedPlannedDurationOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.ComputedPlannedDuration) {
+	if o == nil || IsNil(o.ComputedPlannedDuration) {
 		return map[string]interface{}{}, false
 	}
 	return o.ComputedPlannedDuration, true
@@ -674,7 +742,7 @@ func (o *UserInputTask) GetComputedPlannedDurationOk() (map[string]interface{}, 
 
 // HasComputedPlannedDuration returns a boolean if a field has been set.
 func (o *UserInputTask) HasComputedPlannedDuration() bool {
-	if o != nil && !isNil(o.ComputedPlannedDuration) {
+	if o != nil && !IsNil(o.ComputedPlannedDuration) {
 		return true
 	}
 
@@ -688,7 +756,7 @@ func (o *UserInputTask) SetComputedPlannedDuration(v map[string]interface{}) {
 
 // GetActualDuration returns the ActualDuration field value if set, zero value otherwise.
 func (o *UserInputTask) GetActualDuration() map[string]interface{} {
-	if o == nil || isNil(o.ActualDuration) {
+	if o == nil || IsNil(o.ActualDuration) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -698,7 +766,7 @@ func (o *UserInputTask) GetActualDuration() map[string]interface{} {
 // GetActualDurationOk returns a tuple with the ActualDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetActualDurationOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.ActualDuration) {
+	if o == nil || IsNil(o.ActualDuration) {
 		return map[string]interface{}{}, false
 	}
 	return o.ActualDuration, true
@@ -706,7 +774,7 @@ func (o *UserInputTask) GetActualDurationOk() (map[string]interface{}, bool) {
 
 // HasActualDuration returns a boolean if a field has been set.
 func (o *UserInputTask) HasActualDuration() bool {
-	if o != nil && !isNil(o.ActualDuration) {
+	if o != nil && !IsNil(o.ActualDuration) {
 		return true
 	}
 
@@ -720,7 +788,7 @@ func (o *UserInputTask) SetActualDuration(v map[string]interface{}) {
 
 // GetReleaseUid returns the ReleaseUid field value if set, zero value otherwise.
 func (o *UserInputTask) GetReleaseUid() int32 {
-	if o == nil || isNil(o.ReleaseUid) {
+	if o == nil || IsNil(o.ReleaseUid) {
 		var ret int32
 		return ret
 	}
@@ -730,7 +798,7 @@ func (o *UserInputTask) GetReleaseUid() int32 {
 // GetReleaseUidOk returns a tuple with the ReleaseUid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetReleaseUidOk() (*int32, bool) {
-	if o == nil || isNil(o.ReleaseUid) {
+	if o == nil || IsNil(o.ReleaseUid) {
 		return nil, false
 	}
 	return o.ReleaseUid, true
@@ -738,7 +806,7 @@ func (o *UserInputTask) GetReleaseUidOk() (*int32, bool) {
 
 // HasReleaseUid returns a boolean if a field has been set.
 func (o *UserInputTask) HasReleaseUid() bool {
-	if o != nil && !isNil(o.ReleaseUid) {
+	if o != nil && !IsNil(o.ReleaseUid) {
 		return true
 	}
 
@@ -752,7 +820,7 @@ func (o *UserInputTask) SetReleaseUid(v int32) {
 
 // GetCiUid returns the CiUid field value if set, zero value otherwise.
 func (o *UserInputTask) GetCiUid() int32 {
-	if o == nil || isNil(o.CiUid) {
+	if o == nil || IsNil(o.CiUid) {
 		var ret int32
 		return ret
 	}
@@ -762,7 +830,7 @@ func (o *UserInputTask) GetCiUid() int32 {
 // GetCiUidOk returns a tuple with the CiUid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetCiUidOk() (*int32, bool) {
-	if o == nil || isNil(o.CiUid) {
+	if o == nil || IsNil(o.CiUid) {
 		return nil, false
 	}
 	return o.CiUid, true
@@ -770,7 +838,7 @@ func (o *UserInputTask) GetCiUidOk() (*int32, bool) {
 
 // HasCiUid returns a boolean if a field has been set.
 func (o *UserInputTask) HasCiUid() bool {
-	if o != nil && !isNil(o.CiUid) {
+	if o != nil && !IsNil(o.CiUid) {
 		return true
 	}
 
@@ -784,7 +852,7 @@ func (o *UserInputTask) SetCiUid(v int32) {
 
 // GetComments returns the Comments field value if set, zero value otherwise.
 func (o *UserInputTask) GetComments() []Comment {
-	if o == nil || isNil(o.Comments) {
+	if o == nil || IsNil(o.Comments) {
 		var ret []Comment
 		return ret
 	}
@@ -794,7 +862,7 @@ func (o *UserInputTask) GetComments() []Comment {
 // GetCommentsOk returns a tuple with the Comments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetCommentsOk() ([]Comment, bool) {
-	if o == nil || isNil(o.Comments) {
+	if o == nil || IsNil(o.Comments) {
 		return nil, false
 	}
 	return o.Comments, true
@@ -802,7 +870,7 @@ func (o *UserInputTask) GetCommentsOk() ([]Comment, bool) {
 
 // HasComments returns a boolean if a field has been set.
 func (o *UserInputTask) HasComments() bool {
-	if o != nil && !isNil(o.Comments) {
+	if o != nil && !IsNil(o.Comments) {
 		return true
 	}
 
@@ -816,7 +884,7 @@ func (o *UserInputTask) SetComments(v []Comment) {
 
 // GetContainer returns the Container field value if set, zero value otherwise.
 func (o *UserInputTask) GetContainer() TaskContainer {
-	if o == nil || isNil(o.Container) {
+	if o == nil || IsNil(o.Container) {
 		var ret TaskContainer
 		return ret
 	}
@@ -826,7 +894,7 @@ func (o *UserInputTask) GetContainer() TaskContainer {
 // GetContainerOk returns a tuple with the Container field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetContainerOk() (*TaskContainer, bool) {
-	if o == nil || isNil(o.Container) {
+	if o == nil || IsNil(o.Container) {
 		return nil, false
 	}
 	return o.Container, true
@@ -834,7 +902,7 @@ func (o *UserInputTask) GetContainerOk() (*TaskContainer, bool) {
 
 // HasContainer returns a boolean if a field has been set.
 func (o *UserInputTask) HasContainer() bool {
-	if o != nil && !isNil(o.Container) {
+	if o != nil && !IsNil(o.Container) {
 		return true
 	}
 
@@ -848,7 +916,7 @@ func (o *UserInputTask) SetContainer(v TaskContainer) {
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
 func (o *UserInputTask) GetFacets() []Facet {
-	if o == nil || isNil(o.Facets) {
+	if o == nil || IsNil(o.Facets) {
 		var ret []Facet
 		return ret
 	}
@@ -858,7 +926,7 @@ func (o *UserInputTask) GetFacets() []Facet {
 // GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFacetsOk() ([]Facet, bool) {
-	if o == nil || isNil(o.Facets) {
+	if o == nil || IsNil(o.Facets) {
 		return nil, false
 	}
 	return o.Facets, true
@@ -866,7 +934,7 @@ func (o *UserInputTask) GetFacetsOk() ([]Facet, bool) {
 
 // HasFacets returns a boolean if a field has been set.
 func (o *UserInputTask) HasFacets() bool {
-	if o != nil && !isNil(o.Facets) {
+	if o != nil && !IsNil(o.Facets) {
 		return true
 	}
 
@@ -880,7 +948,7 @@ func (o *UserInputTask) SetFacets(v []Facet) {
 
 // GetAttachments returns the Attachments field value if set, zero value otherwise.
 func (o *UserInputTask) GetAttachments() []Attachment {
-	if o == nil || isNil(o.Attachments) {
+	if o == nil || IsNil(o.Attachments) {
 		var ret []Attachment
 		return ret
 	}
@@ -890,7 +958,7 @@ func (o *UserInputTask) GetAttachments() []Attachment {
 // GetAttachmentsOk returns a tuple with the Attachments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetAttachmentsOk() ([]Attachment, bool) {
-	if o == nil || isNil(o.Attachments) {
+	if o == nil || IsNil(o.Attachments) {
 		return nil, false
 	}
 	return o.Attachments, true
@@ -898,7 +966,7 @@ func (o *UserInputTask) GetAttachmentsOk() ([]Attachment, bool) {
 
 // HasAttachments returns a boolean if a field has been set.
 func (o *UserInputTask) HasAttachments() bool {
-	if o != nil && !isNil(o.Attachments) {
+	if o != nil && !IsNil(o.Attachments) {
 		return true
 	}
 
@@ -912,7 +980,7 @@ func (o *UserInputTask) SetAttachments(v []Attachment) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *UserInputTask) GetStatus() TaskStatus {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		var ret TaskStatus
 		return ret
 	}
@@ -922,7 +990,7 @@ func (o *UserInputTask) GetStatus() TaskStatus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetStatusOk() (*TaskStatus, bool) {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -930,7 +998,7 @@ func (o *UserInputTask) GetStatusOk() (*TaskStatus, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *UserInputTask) HasStatus() bool {
-	if o != nil && !isNil(o.Status) {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -944,7 +1012,7 @@ func (o *UserInputTask) SetStatus(v TaskStatus) {
 
 // GetTeam returns the Team field value if set, zero value otherwise.
 func (o *UserInputTask) GetTeam() string {
-	if o == nil || isNil(o.Team) {
+	if o == nil || IsNil(o.Team) {
 		var ret string
 		return ret
 	}
@@ -954,7 +1022,7 @@ func (o *UserInputTask) GetTeam() string {
 // GetTeamOk returns a tuple with the Team field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetTeamOk() (*string, bool) {
-	if o == nil || isNil(o.Team) {
+	if o == nil || IsNil(o.Team) {
 		return nil, false
 	}
 	return o.Team, true
@@ -962,7 +1030,7 @@ func (o *UserInputTask) GetTeamOk() (*string, bool) {
 
 // HasTeam returns a boolean if a field has been set.
 func (o *UserInputTask) HasTeam() bool {
-	if o != nil && !isNil(o.Team) {
+	if o != nil && !IsNil(o.Team) {
 		return true
 	}
 
@@ -976,7 +1044,7 @@ func (o *UserInputTask) SetTeam(v string) {
 
 // GetWatchers returns the Watchers field value if set, zero value otherwise.
 func (o *UserInputTask) GetWatchers() []string {
-	if o == nil || isNil(o.Watchers) {
+	if o == nil || IsNil(o.Watchers) {
 		var ret []string
 		return ret
 	}
@@ -986,7 +1054,7 @@ func (o *UserInputTask) GetWatchers() []string {
 // GetWatchersOk returns a tuple with the Watchers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetWatchersOk() ([]string, bool) {
-	if o == nil || isNil(o.Watchers) {
+	if o == nil || IsNil(o.Watchers) {
 		return nil, false
 	}
 	return o.Watchers, true
@@ -994,7 +1062,7 @@ func (o *UserInputTask) GetWatchersOk() ([]string, bool) {
 
 // HasWatchers returns a boolean if a field has been set.
 func (o *UserInputTask) HasWatchers() bool {
-	if o != nil && !isNil(o.Watchers) {
+	if o != nil && !IsNil(o.Watchers) {
 		return true
 	}
 
@@ -1008,7 +1076,7 @@ func (o *UserInputTask) SetWatchers(v []string) {
 
 // GetWaitForScheduledStartDate returns the WaitForScheduledStartDate field value if set, zero value otherwise.
 func (o *UserInputTask) GetWaitForScheduledStartDate() bool {
-	if o == nil || isNil(o.WaitForScheduledStartDate) {
+	if o == nil || IsNil(o.WaitForScheduledStartDate) {
 		var ret bool
 		return ret
 	}
@@ -1018,7 +1086,7 @@ func (o *UserInputTask) GetWaitForScheduledStartDate() bool {
 // GetWaitForScheduledStartDateOk returns a tuple with the WaitForScheduledStartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetWaitForScheduledStartDateOk() (*bool, bool) {
-	if o == nil || isNil(o.WaitForScheduledStartDate) {
+	if o == nil || IsNil(o.WaitForScheduledStartDate) {
 		return nil, false
 	}
 	return o.WaitForScheduledStartDate, true
@@ -1026,7 +1094,7 @@ func (o *UserInputTask) GetWaitForScheduledStartDateOk() (*bool, bool) {
 
 // HasWaitForScheduledStartDate returns a boolean if a field has been set.
 func (o *UserInputTask) HasWaitForScheduledStartDate() bool {
-	if o != nil && !isNil(o.WaitForScheduledStartDate) {
+	if o != nil && !IsNil(o.WaitForScheduledStartDate) {
 		return true
 	}
 
@@ -1040,7 +1108,7 @@ func (o *UserInputTask) SetWaitForScheduledStartDate(v bool) {
 
 // GetDelayDuringBlackout returns the DelayDuringBlackout field value if set, zero value otherwise.
 func (o *UserInputTask) GetDelayDuringBlackout() bool {
-	if o == nil || isNil(o.DelayDuringBlackout) {
+	if o == nil || IsNil(o.DelayDuringBlackout) {
 		var ret bool
 		return ret
 	}
@@ -1050,7 +1118,7 @@ func (o *UserInputTask) GetDelayDuringBlackout() bool {
 // GetDelayDuringBlackoutOk returns a tuple with the DelayDuringBlackout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDelayDuringBlackoutOk() (*bool, bool) {
-	if o == nil || isNil(o.DelayDuringBlackout) {
+	if o == nil || IsNil(o.DelayDuringBlackout) {
 		return nil, false
 	}
 	return o.DelayDuringBlackout, true
@@ -1058,7 +1126,7 @@ func (o *UserInputTask) GetDelayDuringBlackoutOk() (*bool, bool) {
 
 // HasDelayDuringBlackout returns a boolean if a field has been set.
 func (o *UserInputTask) HasDelayDuringBlackout() bool {
-	if o != nil && !isNil(o.DelayDuringBlackout) {
+	if o != nil && !IsNil(o.DelayDuringBlackout) {
 		return true
 	}
 
@@ -1072,7 +1140,7 @@ func (o *UserInputTask) SetDelayDuringBlackout(v bool) {
 
 // GetPostponedDueToBlackout returns the PostponedDueToBlackout field value if set, zero value otherwise.
 func (o *UserInputTask) GetPostponedDueToBlackout() bool {
-	if o == nil || isNil(o.PostponedDueToBlackout) {
+	if o == nil || IsNil(o.PostponedDueToBlackout) {
 		var ret bool
 		return ret
 	}
@@ -1082,7 +1150,7 @@ func (o *UserInputTask) GetPostponedDueToBlackout() bool {
 // GetPostponedDueToBlackoutOk returns a tuple with the PostponedDueToBlackout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPostponedDueToBlackoutOk() (*bool, bool) {
-	if o == nil || isNil(o.PostponedDueToBlackout) {
+	if o == nil || IsNil(o.PostponedDueToBlackout) {
 		return nil, false
 	}
 	return o.PostponedDueToBlackout, true
@@ -1090,7 +1158,7 @@ func (o *UserInputTask) GetPostponedDueToBlackoutOk() (*bool, bool) {
 
 // HasPostponedDueToBlackout returns a boolean if a field has been set.
 func (o *UserInputTask) HasPostponedDueToBlackout() bool {
-	if o != nil && !isNil(o.PostponedDueToBlackout) {
+	if o != nil && !IsNil(o.PostponedDueToBlackout) {
 		return true
 	}
 
@@ -1104,7 +1172,7 @@ func (o *UserInputTask) SetPostponedDueToBlackout(v bool) {
 
 // GetPostponedUntilEnvironmentsAreReserved returns the PostponedUntilEnvironmentsAreReserved field value if set, zero value otherwise.
 func (o *UserInputTask) GetPostponedUntilEnvironmentsAreReserved() bool {
-	if o == nil || isNil(o.PostponedUntilEnvironmentsAreReserved) {
+	if o == nil || IsNil(o.PostponedUntilEnvironmentsAreReserved) {
 		var ret bool
 		return ret
 	}
@@ -1114,7 +1182,7 @@ func (o *UserInputTask) GetPostponedUntilEnvironmentsAreReserved() bool {
 // GetPostponedUntilEnvironmentsAreReservedOk returns a tuple with the PostponedUntilEnvironmentsAreReserved field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPostponedUntilEnvironmentsAreReservedOk() (*bool, bool) {
-	if o == nil || isNil(o.PostponedUntilEnvironmentsAreReserved) {
+	if o == nil || IsNil(o.PostponedUntilEnvironmentsAreReserved) {
 		return nil, false
 	}
 	return o.PostponedUntilEnvironmentsAreReserved, true
@@ -1122,7 +1190,7 @@ func (o *UserInputTask) GetPostponedUntilEnvironmentsAreReservedOk() (*bool, boo
 
 // HasPostponedUntilEnvironmentsAreReserved returns a boolean if a field has been set.
 func (o *UserInputTask) HasPostponedUntilEnvironmentsAreReserved() bool {
-	if o != nil && !isNil(o.PostponedUntilEnvironmentsAreReserved) {
+	if o != nil && !IsNil(o.PostponedUntilEnvironmentsAreReserved) {
 		return true
 	}
 
@@ -1135,9 +1203,9 @@ func (o *UserInputTask) SetPostponedUntilEnvironmentsAreReserved(v bool) {
 }
 
 // GetOriginalScheduledStartDate returns the OriginalScheduledStartDate field value if set, zero value otherwise.
-func (o *UserInputTask) GetOriginalScheduledStartDate() string {
-	if o == nil || isNil(o.OriginalScheduledStartDate) {
-		var ret string
+func (o *UserInputTask) GetOriginalScheduledStartDate() time.Time {
+	if o == nil || IsNil(o.OriginalScheduledStartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.OriginalScheduledStartDate
@@ -1145,8 +1213,8 @@ func (o *UserInputTask) GetOriginalScheduledStartDate() string {
 
 // GetOriginalScheduledStartDateOk returns a tuple with the OriginalScheduledStartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserInputTask) GetOriginalScheduledStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.OriginalScheduledStartDate) {
+func (o *UserInputTask) GetOriginalScheduledStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.OriginalScheduledStartDate) {
 		return nil, false
 	}
 	return o.OriginalScheduledStartDate, true
@@ -1154,21 +1222,21 @@ func (o *UserInputTask) GetOriginalScheduledStartDateOk() (*string, bool) {
 
 // HasOriginalScheduledStartDate returns a boolean if a field has been set.
 func (o *UserInputTask) HasOriginalScheduledStartDate() bool {
-	if o != nil && !isNil(o.OriginalScheduledStartDate) {
+	if o != nil && !IsNil(o.OriginalScheduledStartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetOriginalScheduledStartDate gets a reference to the given string and assigns it to the OriginalScheduledStartDate field.
-func (o *UserInputTask) SetOriginalScheduledStartDate(v string) {
+// SetOriginalScheduledStartDate gets a reference to the given time.Time and assigns it to the OriginalScheduledStartDate field.
+func (o *UserInputTask) SetOriginalScheduledStartDate(v time.Time) {
 	o.OriginalScheduledStartDate = &v
 }
 
 // GetHasBeenFlagged returns the HasBeenFlagged field value if set, zero value otherwise.
 func (o *UserInputTask) GetHasBeenFlagged() bool {
-	if o == nil || isNil(o.HasBeenFlagged) {
+	if o == nil || IsNil(o.HasBeenFlagged) {
 		var ret bool
 		return ret
 	}
@@ -1178,7 +1246,7 @@ func (o *UserInputTask) GetHasBeenFlagged() bool {
 // GetHasBeenFlaggedOk returns a tuple with the HasBeenFlagged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetHasBeenFlaggedOk() (*bool, bool) {
-	if o == nil || isNil(o.HasBeenFlagged) {
+	if o == nil || IsNil(o.HasBeenFlagged) {
 		return nil, false
 	}
 	return o.HasBeenFlagged, true
@@ -1186,7 +1254,7 @@ func (o *UserInputTask) GetHasBeenFlaggedOk() (*bool, bool) {
 
 // HasHasBeenFlagged returns a boolean if a field has been set.
 func (o *UserInputTask) HasHasBeenFlagged() bool {
-	if o != nil && !isNil(o.HasBeenFlagged) {
+	if o != nil && !IsNil(o.HasBeenFlagged) {
 		return true
 	}
 
@@ -1200,7 +1268,7 @@ func (o *UserInputTask) SetHasBeenFlagged(v bool) {
 
 // GetHasBeenDelayed returns the HasBeenDelayed field value if set, zero value otherwise.
 func (o *UserInputTask) GetHasBeenDelayed() bool {
-	if o == nil || isNil(o.HasBeenDelayed) {
+	if o == nil || IsNil(o.HasBeenDelayed) {
 		var ret bool
 		return ret
 	}
@@ -1210,7 +1278,7 @@ func (o *UserInputTask) GetHasBeenDelayed() bool {
 // GetHasBeenDelayedOk returns a tuple with the HasBeenDelayed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetHasBeenDelayedOk() (*bool, bool) {
-	if o == nil || isNil(o.HasBeenDelayed) {
+	if o == nil || IsNil(o.HasBeenDelayed) {
 		return nil, false
 	}
 	return o.HasBeenDelayed, true
@@ -1218,7 +1286,7 @@ func (o *UserInputTask) GetHasBeenDelayedOk() (*bool, bool) {
 
 // HasHasBeenDelayed returns a boolean if a field has been set.
 func (o *UserInputTask) HasHasBeenDelayed() bool {
-	if o != nil && !isNil(o.HasBeenDelayed) {
+	if o != nil && !IsNil(o.HasBeenDelayed) {
 		return true
 	}
 
@@ -1232,7 +1300,7 @@ func (o *UserInputTask) SetHasBeenDelayed(v bool) {
 
 // GetPrecondition returns the Precondition field value if set, zero value otherwise.
 func (o *UserInputTask) GetPrecondition() string {
-	if o == nil || isNil(o.Precondition) {
+	if o == nil || IsNil(o.Precondition) {
 		var ret string
 		return ret
 	}
@@ -1242,7 +1310,7 @@ func (o *UserInputTask) GetPrecondition() string {
 // GetPreconditionOk returns a tuple with the Precondition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPreconditionOk() (*string, bool) {
-	if o == nil || isNil(o.Precondition) {
+	if o == nil || IsNil(o.Precondition) {
 		return nil, false
 	}
 	return o.Precondition, true
@@ -1250,7 +1318,7 @@ func (o *UserInputTask) GetPreconditionOk() (*string, bool) {
 
 // HasPrecondition returns a boolean if a field has been set.
 func (o *UserInputTask) HasPrecondition() bool {
-	if o != nil && !isNil(o.Precondition) {
+	if o != nil && !IsNil(o.Precondition) {
 		return true
 	}
 
@@ -1264,7 +1332,7 @@ func (o *UserInputTask) SetPrecondition(v string) {
 
 // GetFailureHandler returns the FailureHandler field value if set, zero value otherwise.
 func (o *UserInputTask) GetFailureHandler() string {
-	if o == nil || isNil(o.FailureHandler) {
+	if o == nil || IsNil(o.FailureHandler) {
 		var ret string
 		return ret
 	}
@@ -1274,7 +1342,7 @@ func (o *UserInputTask) GetFailureHandler() string {
 // GetFailureHandlerOk returns a tuple with the FailureHandler field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFailureHandlerOk() (*string, bool) {
-	if o == nil || isNil(o.FailureHandler) {
+	if o == nil || IsNil(o.FailureHandler) {
 		return nil, false
 	}
 	return o.FailureHandler, true
@@ -1282,7 +1350,7 @@ func (o *UserInputTask) GetFailureHandlerOk() (*string, bool) {
 
 // HasFailureHandler returns a boolean if a field has been set.
 func (o *UserInputTask) HasFailureHandler() bool {
-	if o != nil && !isNil(o.FailureHandler) {
+	if o != nil && !IsNil(o.FailureHandler) {
 		return true
 	}
 
@@ -1296,7 +1364,7 @@ func (o *UserInputTask) SetFailureHandler(v string) {
 
 // GetTaskFailureHandlerEnabled returns the TaskFailureHandlerEnabled field value if set, zero value otherwise.
 func (o *UserInputTask) GetTaskFailureHandlerEnabled() bool {
-	if o == nil || isNil(o.TaskFailureHandlerEnabled) {
+	if o == nil || IsNil(o.TaskFailureHandlerEnabled) {
 		var ret bool
 		return ret
 	}
@@ -1306,7 +1374,7 @@ func (o *UserInputTask) GetTaskFailureHandlerEnabled() bool {
 // GetTaskFailureHandlerEnabledOk returns a tuple with the TaskFailureHandlerEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetTaskFailureHandlerEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.TaskFailureHandlerEnabled) {
+	if o == nil || IsNil(o.TaskFailureHandlerEnabled) {
 		return nil, false
 	}
 	return o.TaskFailureHandlerEnabled, true
@@ -1314,7 +1382,7 @@ func (o *UserInputTask) GetTaskFailureHandlerEnabledOk() (*bool, bool) {
 
 // HasTaskFailureHandlerEnabled returns a boolean if a field has been set.
 func (o *UserInputTask) HasTaskFailureHandlerEnabled() bool {
-	if o != nil && !isNil(o.TaskFailureHandlerEnabled) {
+	if o != nil && !IsNil(o.TaskFailureHandlerEnabled) {
 		return true
 	}
 
@@ -1328,7 +1396,7 @@ func (o *UserInputTask) SetTaskFailureHandlerEnabled(v bool) {
 
 // GetTaskRecoverOp returns the TaskRecoverOp field value if set, zero value otherwise.
 func (o *UserInputTask) GetTaskRecoverOp() TaskRecoverOp {
-	if o == nil || isNil(o.TaskRecoverOp) {
+	if o == nil || IsNil(o.TaskRecoverOp) {
 		var ret TaskRecoverOp
 		return ret
 	}
@@ -1338,7 +1406,7 @@ func (o *UserInputTask) GetTaskRecoverOp() TaskRecoverOp {
 // GetTaskRecoverOpOk returns a tuple with the TaskRecoverOp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetTaskRecoverOpOk() (*TaskRecoverOp, bool) {
-	if o == nil || isNil(o.TaskRecoverOp) {
+	if o == nil || IsNil(o.TaskRecoverOp) {
 		return nil, false
 	}
 	return o.TaskRecoverOp, true
@@ -1346,7 +1414,7 @@ func (o *UserInputTask) GetTaskRecoverOpOk() (*TaskRecoverOp, bool) {
 
 // HasTaskRecoverOp returns a boolean if a field has been set.
 func (o *UserInputTask) HasTaskRecoverOp() bool {
-	if o != nil && !isNil(o.TaskRecoverOp) {
+	if o != nil && !IsNil(o.TaskRecoverOp) {
 		return true
 	}
 
@@ -1360,7 +1428,7 @@ func (o *UserInputTask) SetTaskRecoverOp(v TaskRecoverOp) {
 
 // GetFailuresCount returns the FailuresCount field value if set, zero value otherwise.
 func (o *UserInputTask) GetFailuresCount() int32 {
-	if o == nil || isNil(o.FailuresCount) {
+	if o == nil || IsNil(o.FailuresCount) {
 		var ret int32
 		return ret
 	}
@@ -1370,7 +1438,7 @@ func (o *UserInputTask) GetFailuresCount() int32 {
 // GetFailuresCountOk returns a tuple with the FailuresCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFailuresCountOk() (*int32, bool) {
-	if o == nil || isNil(o.FailuresCount) {
+	if o == nil || IsNil(o.FailuresCount) {
 		return nil, false
 	}
 	return o.FailuresCount, true
@@ -1378,7 +1446,7 @@ func (o *UserInputTask) GetFailuresCountOk() (*int32, bool) {
 
 // HasFailuresCount returns a boolean if a field has been set.
 func (o *UserInputTask) HasFailuresCount() bool {
-	if o != nil && !isNil(o.FailuresCount) {
+	if o != nil && !IsNil(o.FailuresCount) {
 		return true
 	}
 
@@ -1392,7 +1460,7 @@ func (o *UserInputTask) SetFailuresCount(v int32) {
 
 // GetExecutionId returns the ExecutionId field value if set, zero value otherwise.
 func (o *UserInputTask) GetExecutionId() string {
-	if o == nil || isNil(o.ExecutionId) {
+	if o == nil || IsNil(o.ExecutionId) {
 		var ret string
 		return ret
 	}
@@ -1402,7 +1470,7 @@ func (o *UserInputTask) GetExecutionId() string {
 // GetExecutionIdOk returns a tuple with the ExecutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetExecutionIdOk() (*string, bool) {
-	if o == nil || isNil(o.ExecutionId) {
+	if o == nil || IsNil(o.ExecutionId) {
 		return nil, false
 	}
 	return o.ExecutionId, true
@@ -1410,7 +1478,7 @@ func (o *UserInputTask) GetExecutionIdOk() (*string, bool) {
 
 // HasExecutionId returns a boolean if a field has been set.
 func (o *UserInputTask) HasExecutionId() bool {
-	if o != nil && !isNil(o.ExecutionId) {
+	if o != nil && !IsNil(o.ExecutionId) {
 		return true
 	}
 
@@ -1424,7 +1492,7 @@ func (o *UserInputTask) SetExecutionId(v string) {
 
 // GetVariableMapping returns the VariableMapping field value if set, zero value otherwise.
 func (o *UserInputTask) GetVariableMapping() map[string]string {
-	if o == nil || isNil(o.VariableMapping) {
+	if o == nil || IsNil(o.VariableMapping) {
 		var ret map[string]string
 		return ret
 	}
@@ -1434,7 +1502,7 @@ func (o *UserInputTask) GetVariableMapping() map[string]string {
 // GetVariableMappingOk returns a tuple with the VariableMapping field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetVariableMappingOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.VariableMapping) {
+	if o == nil || IsNil(o.VariableMapping) {
 		return nil, false
 	}
 	return o.VariableMapping, true
@@ -1442,7 +1510,7 @@ func (o *UserInputTask) GetVariableMappingOk() (*map[string]string, bool) {
 
 // HasVariableMapping returns a boolean if a field has been set.
 func (o *UserInputTask) HasVariableMapping() bool {
-	if o != nil && !isNil(o.VariableMapping) {
+	if o != nil && !IsNil(o.VariableMapping) {
 		return true
 	}
 
@@ -1456,7 +1524,7 @@ func (o *UserInputTask) SetVariableMapping(v map[string]string) {
 
 // GetExternalVariableMapping returns the ExternalVariableMapping field value if set, zero value otherwise.
 func (o *UserInputTask) GetExternalVariableMapping() map[string]string {
-	if o == nil || isNil(o.ExternalVariableMapping) {
+	if o == nil || IsNil(o.ExternalVariableMapping) {
 		var ret map[string]string
 		return ret
 	}
@@ -1466,7 +1534,7 @@ func (o *UserInputTask) GetExternalVariableMapping() map[string]string {
 // GetExternalVariableMappingOk returns a tuple with the ExternalVariableMapping field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetExternalVariableMappingOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.ExternalVariableMapping) {
+	if o == nil || IsNil(o.ExternalVariableMapping) {
 		return nil, false
 	}
 	return o.ExternalVariableMapping, true
@@ -1474,7 +1542,7 @@ func (o *UserInputTask) GetExternalVariableMappingOk() (*map[string]string, bool
 
 // HasExternalVariableMapping returns a boolean if a field has been set.
 func (o *UserInputTask) HasExternalVariableMapping() bool {
-	if o != nil && !isNil(o.ExternalVariableMapping) {
+	if o != nil && !IsNil(o.ExternalVariableMapping) {
 		return true
 	}
 
@@ -1488,7 +1556,7 @@ func (o *UserInputTask) SetExternalVariableMapping(v map[string]string) {
 
 // GetMaxCommentSize returns the MaxCommentSize field value if set, zero value otherwise.
 func (o *UserInputTask) GetMaxCommentSize() int32 {
-	if o == nil || isNil(o.MaxCommentSize) {
+	if o == nil || IsNil(o.MaxCommentSize) {
 		var ret int32
 		return ret
 	}
@@ -1498,7 +1566,7 @@ func (o *UserInputTask) GetMaxCommentSize() int32 {
 // GetMaxCommentSizeOk returns a tuple with the MaxCommentSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetMaxCommentSizeOk() (*int32, bool) {
-	if o == nil || isNil(o.MaxCommentSize) {
+	if o == nil || IsNil(o.MaxCommentSize) {
 		return nil, false
 	}
 	return o.MaxCommentSize, true
@@ -1506,7 +1574,7 @@ func (o *UserInputTask) GetMaxCommentSizeOk() (*int32, bool) {
 
 // HasMaxCommentSize returns a boolean if a field has been set.
 func (o *UserInputTask) HasMaxCommentSize() bool {
-	if o != nil && !isNil(o.MaxCommentSize) {
+	if o != nil && !IsNil(o.MaxCommentSize) {
 		return true
 	}
 
@@ -1520,7 +1588,7 @@ func (o *UserInputTask) SetMaxCommentSize(v int32) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *UserInputTask) GetTags() []string {
-	if o == nil || isNil(o.Tags) {
+	if o == nil || IsNil(o.Tags) {
 		var ret []string
 		return ret
 	}
@@ -1530,7 +1598,7 @@ func (o *UserInputTask) GetTags() []string {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetTagsOk() ([]string, bool) {
-	if o == nil || isNil(o.Tags) {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -1538,7 +1606,7 @@ func (o *UserInputTask) GetTagsOk() ([]string, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *UserInputTask) HasTags() bool {
-	if o != nil && !isNil(o.Tags) {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -1552,7 +1620,7 @@ func (o *UserInputTask) SetTags(v []string) {
 
 // GetConfigurationUri returns the ConfigurationUri field value if set, zero value otherwise.
 func (o *UserInputTask) GetConfigurationUri() string {
-	if o == nil || isNil(o.ConfigurationUri) {
+	if o == nil || IsNil(o.ConfigurationUri) {
 		var ret string
 		return ret
 	}
@@ -1562,7 +1630,7 @@ func (o *UserInputTask) GetConfigurationUri() string {
 // GetConfigurationUriOk returns a tuple with the ConfigurationUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetConfigurationUriOk() (*string, bool) {
-	if o == nil || isNil(o.ConfigurationUri) {
+	if o == nil || IsNil(o.ConfigurationUri) {
 		return nil, false
 	}
 	return o.ConfigurationUri, true
@@ -1570,7 +1638,7 @@ func (o *UserInputTask) GetConfigurationUriOk() (*string, bool) {
 
 // HasConfigurationUri returns a boolean if a field has been set.
 func (o *UserInputTask) HasConfigurationUri() bool {
-	if o != nil && !isNil(o.ConfigurationUri) {
+	if o != nil && !IsNil(o.ConfigurationUri) {
 		return true
 	}
 
@@ -1584,7 +1652,7 @@ func (o *UserInputTask) SetConfigurationUri(v string) {
 
 // GetDueSoonNotified returns the DueSoonNotified field value if set, zero value otherwise.
 func (o *UserInputTask) GetDueSoonNotified() bool {
-	if o == nil || isNil(o.DueSoonNotified) {
+	if o == nil || IsNil(o.DueSoonNotified) {
 		var ret bool
 		return ret
 	}
@@ -1594,7 +1662,7 @@ func (o *UserInputTask) GetDueSoonNotified() bool {
 // GetDueSoonNotifiedOk returns a tuple with the DueSoonNotified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDueSoonNotifiedOk() (*bool, bool) {
-	if o == nil || isNil(o.DueSoonNotified) {
+	if o == nil || IsNil(o.DueSoonNotified) {
 		return nil, false
 	}
 	return o.DueSoonNotified, true
@@ -1602,7 +1670,7 @@ func (o *UserInputTask) GetDueSoonNotifiedOk() (*bool, bool) {
 
 // HasDueSoonNotified returns a boolean if a field has been set.
 func (o *UserInputTask) HasDueSoonNotified() bool {
-	if o != nil && !isNil(o.DueSoonNotified) {
+	if o != nil && !IsNil(o.DueSoonNotified) {
 		return true
 	}
 
@@ -1616,7 +1684,7 @@ func (o *UserInputTask) SetDueSoonNotified(v bool) {
 
 // GetLocked returns the Locked field value if set, zero value otherwise.
 func (o *UserInputTask) GetLocked() bool {
-	if o == nil || isNil(o.Locked) {
+	if o == nil || IsNil(o.Locked) {
 		var ret bool
 		return ret
 	}
@@ -1626,7 +1694,7 @@ func (o *UserInputTask) GetLocked() bool {
 // GetLockedOk returns a tuple with the Locked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetLockedOk() (*bool, bool) {
-	if o == nil || isNil(o.Locked) {
+	if o == nil || IsNil(o.Locked) {
 		return nil, false
 	}
 	return o.Locked, true
@@ -1634,7 +1702,7 @@ func (o *UserInputTask) GetLockedOk() (*bool, bool) {
 
 // HasLocked returns a boolean if a field has been set.
 func (o *UserInputTask) HasLocked() bool {
-	if o != nil && !isNil(o.Locked) {
+	if o != nil && !IsNil(o.Locked) {
 		return true
 	}
 
@@ -1648,7 +1716,7 @@ func (o *UserInputTask) SetLocked(v bool) {
 
 // GetCheckAttributes returns the CheckAttributes field value if set, zero value otherwise.
 func (o *UserInputTask) GetCheckAttributes() bool {
-	if o == nil || isNil(o.CheckAttributes) {
+	if o == nil || IsNil(o.CheckAttributes) {
 		var ret bool
 		return ret
 	}
@@ -1658,7 +1726,7 @@ func (o *UserInputTask) GetCheckAttributes() bool {
 // GetCheckAttributesOk returns a tuple with the CheckAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetCheckAttributesOk() (*bool, bool) {
-	if o == nil || isNil(o.CheckAttributes) {
+	if o == nil || IsNil(o.CheckAttributes) {
 		return nil, false
 	}
 	return o.CheckAttributes, true
@@ -1666,7 +1734,7 @@ func (o *UserInputTask) GetCheckAttributesOk() (*bool, bool) {
 
 // HasCheckAttributes returns a boolean if a field has been set.
 func (o *UserInputTask) HasCheckAttributes() bool {
-	if o != nil && !isNil(o.CheckAttributes) {
+	if o != nil && !IsNil(o.CheckAttributes) {
 		return true
 	}
 
@@ -1680,7 +1748,7 @@ func (o *UserInputTask) SetCheckAttributes(v bool) {
 
 // GetAbortScript returns the AbortScript field value if set, zero value otherwise.
 func (o *UserInputTask) GetAbortScript() string {
-	if o == nil || isNil(o.AbortScript) {
+	if o == nil || IsNil(o.AbortScript) {
 		var ret string
 		return ret
 	}
@@ -1690,7 +1758,7 @@ func (o *UserInputTask) GetAbortScript() string {
 // GetAbortScriptOk returns a tuple with the AbortScript field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetAbortScriptOk() (*string, bool) {
-	if o == nil || isNil(o.AbortScript) {
+	if o == nil || IsNil(o.AbortScript) {
 		return nil, false
 	}
 	return o.AbortScript, true
@@ -1698,7 +1766,7 @@ func (o *UserInputTask) GetAbortScriptOk() (*string, bool) {
 
 // HasAbortScript returns a boolean if a field has been set.
 func (o *UserInputTask) HasAbortScript() bool {
-	if o != nil && !isNil(o.AbortScript) {
+	if o != nil && !IsNil(o.AbortScript) {
 		return true
 	}
 
@@ -1712,7 +1780,7 @@ func (o *UserInputTask) SetAbortScript(v string) {
 
 // GetPhase returns the Phase field value if set, zero value otherwise.
 func (o *UserInputTask) GetPhase() Phase {
-	if o == nil || isNil(o.Phase) {
+	if o == nil || IsNil(o.Phase) {
 		var ret Phase
 		return ret
 	}
@@ -1722,7 +1790,7 @@ func (o *UserInputTask) GetPhase() Phase {
 // GetPhaseOk returns a tuple with the Phase field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPhaseOk() (*Phase, bool) {
-	if o == nil || isNil(o.Phase) {
+	if o == nil || IsNil(o.Phase) {
 		return nil, false
 	}
 	return o.Phase, true
@@ -1730,7 +1798,7 @@ func (o *UserInputTask) GetPhaseOk() (*Phase, bool) {
 
 // HasPhase returns a boolean if a field has been set.
 func (o *UserInputTask) HasPhase() bool {
-	if o != nil && !isNil(o.Phase) {
+	if o != nil && !IsNil(o.Phase) {
 		return true
 	}
 
@@ -1744,7 +1812,7 @@ func (o *UserInputTask) SetPhase(v Phase) {
 
 // GetBlackoutMetadata returns the BlackoutMetadata field value if set, zero value otherwise.
 func (o *UserInputTask) GetBlackoutMetadata() BlackoutMetadata {
-	if o == nil || isNil(o.BlackoutMetadata) {
+	if o == nil || IsNil(o.BlackoutMetadata) {
 		var ret BlackoutMetadata
 		return ret
 	}
@@ -1754,7 +1822,7 @@ func (o *UserInputTask) GetBlackoutMetadata() BlackoutMetadata {
 // GetBlackoutMetadataOk returns a tuple with the BlackoutMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetBlackoutMetadataOk() (*BlackoutMetadata, bool) {
-	if o == nil || isNil(o.BlackoutMetadata) {
+	if o == nil || IsNil(o.BlackoutMetadata) {
 		return nil, false
 	}
 	return o.BlackoutMetadata, true
@@ -1762,7 +1830,7 @@ func (o *UserInputTask) GetBlackoutMetadataOk() (*BlackoutMetadata, bool) {
 
 // HasBlackoutMetadata returns a boolean if a field has been set.
 func (o *UserInputTask) HasBlackoutMetadata() bool {
-	if o != nil && !isNil(o.BlackoutMetadata) {
+	if o != nil && !IsNil(o.BlackoutMetadata) {
 		return true
 	}
 
@@ -1776,7 +1844,7 @@ func (o *UserInputTask) SetBlackoutMetadata(v BlackoutMetadata) {
 
 // GetFlaggedCount returns the FlaggedCount field value if set, zero value otherwise.
 func (o *UserInputTask) GetFlaggedCount() int32 {
-	if o == nil || isNil(o.FlaggedCount) {
+	if o == nil || IsNil(o.FlaggedCount) {
 		var ret int32
 		return ret
 	}
@@ -1786,7 +1854,7 @@ func (o *UserInputTask) GetFlaggedCount() int32 {
 // GetFlaggedCountOk returns a tuple with the FlaggedCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFlaggedCountOk() (*int32, bool) {
-	if o == nil || isNil(o.FlaggedCount) {
+	if o == nil || IsNil(o.FlaggedCount) {
 		return nil, false
 	}
 	return o.FlaggedCount, true
@@ -1794,7 +1862,7 @@ func (o *UserInputTask) GetFlaggedCountOk() (*int32, bool) {
 
 // HasFlaggedCount returns a boolean if a field has been set.
 func (o *UserInputTask) HasFlaggedCount() bool {
-	if o != nil && !isNil(o.FlaggedCount) {
+	if o != nil && !IsNil(o.FlaggedCount) {
 		return true
 	}
 
@@ -1808,7 +1876,7 @@ func (o *UserInputTask) SetFlaggedCount(v int32) {
 
 // GetDelayedCount returns the DelayedCount field value if set, zero value otherwise.
 func (o *UserInputTask) GetDelayedCount() int32 {
-	if o == nil || isNil(o.DelayedCount) {
+	if o == nil || IsNil(o.DelayedCount) {
 		var ret int32
 		return ret
 	}
@@ -1818,7 +1886,7 @@ func (o *UserInputTask) GetDelayedCount() int32 {
 // GetDelayedCountOk returns a tuple with the DelayedCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDelayedCountOk() (*int32, bool) {
-	if o == nil || isNil(o.DelayedCount) {
+	if o == nil || IsNil(o.DelayedCount) {
 		return nil, false
 	}
 	return o.DelayedCount, true
@@ -1826,7 +1894,7 @@ func (o *UserInputTask) GetDelayedCountOk() (*int32, bool) {
 
 // HasDelayedCount returns a boolean if a field has been set.
 func (o *UserInputTask) HasDelayedCount() bool {
-	if o != nil && !isNil(o.DelayedCount) {
+	if o != nil && !IsNil(o.DelayedCount) {
 		return true
 	}
 
@@ -1840,7 +1908,7 @@ func (o *UserInputTask) SetDelayedCount(v int32) {
 
 // GetDone returns the Done field value if set, zero value otherwise.
 func (o *UserInputTask) GetDone() bool {
-	if o == nil || isNil(o.Done) {
+	if o == nil || IsNil(o.Done) {
 		var ret bool
 		return ret
 	}
@@ -1850,7 +1918,7 @@ func (o *UserInputTask) GetDone() bool {
 // GetDoneOk returns a tuple with the Done field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDoneOk() (*bool, bool) {
-	if o == nil || isNil(o.Done) {
+	if o == nil || IsNil(o.Done) {
 		return nil, false
 	}
 	return o.Done, true
@@ -1858,7 +1926,7 @@ func (o *UserInputTask) GetDoneOk() (*bool, bool) {
 
 // HasDone returns a boolean if a field has been set.
 func (o *UserInputTask) HasDone() bool {
-	if o != nil && !isNil(o.Done) {
+	if o != nil && !IsNil(o.Done) {
 		return true
 	}
 
@@ -1872,7 +1940,7 @@ func (o *UserInputTask) SetDone(v bool) {
 
 // GetDoneInAdvance returns the DoneInAdvance field value if set, zero value otherwise.
 func (o *UserInputTask) GetDoneInAdvance() bool {
-	if o == nil || isNil(o.DoneInAdvance) {
+	if o == nil || IsNil(o.DoneInAdvance) {
 		var ret bool
 		return ret
 	}
@@ -1882,7 +1950,7 @@ func (o *UserInputTask) GetDoneInAdvance() bool {
 // GetDoneInAdvanceOk returns a tuple with the DoneInAdvance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDoneInAdvanceOk() (*bool, bool) {
-	if o == nil || isNil(o.DoneInAdvance) {
+	if o == nil || IsNil(o.DoneInAdvance) {
 		return nil, false
 	}
 	return o.DoneInAdvance, true
@@ -1890,7 +1958,7 @@ func (o *UserInputTask) GetDoneInAdvanceOk() (*bool, bool) {
 
 // HasDoneInAdvance returns a boolean if a field has been set.
 func (o *UserInputTask) HasDoneInAdvance() bool {
-	if o != nil && !isNil(o.DoneInAdvance) {
+	if o != nil && !IsNil(o.DoneInAdvance) {
 		return true
 	}
 
@@ -1904,7 +1972,7 @@ func (o *UserInputTask) SetDoneInAdvance(v bool) {
 
 // GetDefunct returns the Defunct field value if set, zero value otherwise.
 func (o *UserInputTask) GetDefunct() bool {
-	if o == nil || isNil(o.Defunct) {
+	if o == nil || IsNil(o.Defunct) {
 		var ret bool
 		return ret
 	}
@@ -1914,7 +1982,7 @@ func (o *UserInputTask) GetDefunct() bool {
 // GetDefunctOk returns a tuple with the Defunct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDefunctOk() (*bool, bool) {
-	if o == nil || isNil(o.Defunct) {
+	if o == nil || IsNil(o.Defunct) {
 		return nil, false
 	}
 	return o.Defunct, true
@@ -1922,7 +1990,7 @@ func (o *UserInputTask) GetDefunctOk() (*bool, bool) {
 
 // HasDefunct returns a boolean if a field has been set.
 func (o *UserInputTask) HasDefunct() bool {
-	if o != nil && !isNil(o.Defunct) {
+	if o != nil && !IsNil(o.Defunct) {
 		return true
 	}
 
@@ -1936,7 +2004,7 @@ func (o *UserInputTask) SetDefunct(v bool) {
 
 // GetUpdatable returns the Updatable field value if set, zero value otherwise.
 func (o *UserInputTask) GetUpdatable() bool {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		var ret bool
 		return ret
 	}
@@ -1946,7 +2014,7 @@ func (o *UserInputTask) GetUpdatable() bool {
 // GetUpdatableOk returns a tuple with the Updatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetUpdatableOk() (*bool, bool) {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		return nil, false
 	}
 	return o.Updatable, true
@@ -1954,7 +2022,7 @@ func (o *UserInputTask) GetUpdatableOk() (*bool, bool) {
 
 // HasUpdatable returns a boolean if a field has been set.
 func (o *UserInputTask) HasUpdatable() bool {
-	if o != nil && !isNil(o.Updatable) {
+	if o != nil && !IsNil(o.Updatable) {
 		return true
 	}
 
@@ -1968,7 +2036,7 @@ func (o *UserInputTask) SetUpdatable(v bool) {
 
 // GetAborted returns the Aborted field value if set, zero value otherwise.
 func (o *UserInputTask) GetAborted() bool {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		var ret bool
 		return ret
 	}
@@ -1978,7 +2046,7 @@ func (o *UserInputTask) GetAborted() bool {
 // GetAbortedOk returns a tuple with the Aborted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetAbortedOk() (*bool, bool) {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		return nil, false
 	}
 	return o.Aborted, true
@@ -1986,7 +2054,7 @@ func (o *UserInputTask) GetAbortedOk() (*bool, bool) {
 
 // HasAborted returns a boolean if a field has been set.
 func (o *UserInputTask) HasAborted() bool {
-	if o != nil && !isNil(o.Aborted) {
+	if o != nil && !IsNil(o.Aborted) {
 		return true
 	}
 
@@ -2000,7 +2068,7 @@ func (o *UserInputTask) SetAborted(v bool) {
 
 // GetNotYetReached returns the NotYetReached field value if set, zero value otherwise.
 func (o *UserInputTask) GetNotYetReached() bool {
-	if o == nil || isNil(o.NotYetReached) {
+	if o == nil || IsNil(o.NotYetReached) {
 		var ret bool
 		return ret
 	}
@@ -2010,7 +2078,7 @@ func (o *UserInputTask) GetNotYetReached() bool {
 // GetNotYetReachedOk returns a tuple with the NotYetReached field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetNotYetReachedOk() (*bool, bool) {
-	if o == nil || isNil(o.NotYetReached) {
+	if o == nil || IsNil(o.NotYetReached) {
 		return nil, false
 	}
 	return o.NotYetReached, true
@@ -2018,7 +2086,7 @@ func (o *UserInputTask) GetNotYetReachedOk() (*bool, bool) {
 
 // HasNotYetReached returns a boolean if a field has been set.
 func (o *UserInputTask) HasNotYetReached() bool {
-	if o != nil && !isNil(o.NotYetReached) {
+	if o != nil && !IsNil(o.NotYetReached) {
 		return true
 	}
 
@@ -2032,7 +2100,7 @@ func (o *UserInputTask) SetNotYetReached(v bool) {
 
 // GetPlanned returns the Planned field value if set, zero value otherwise.
 func (o *UserInputTask) GetPlanned() bool {
-	if o == nil || isNil(o.Planned) {
+	if o == nil || IsNil(o.Planned) {
 		var ret bool
 		return ret
 	}
@@ -2042,7 +2110,7 @@ func (o *UserInputTask) GetPlanned() bool {
 // GetPlannedOk returns a tuple with the Planned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPlannedOk() (*bool, bool) {
-	if o == nil || isNil(o.Planned) {
+	if o == nil || IsNil(o.Planned) {
 		return nil, false
 	}
 	return o.Planned, true
@@ -2050,7 +2118,7 @@ func (o *UserInputTask) GetPlannedOk() (*bool, bool) {
 
 // HasPlanned returns a boolean if a field has been set.
 func (o *UserInputTask) HasPlanned() bool {
-	if o != nil && !isNil(o.Planned) {
+	if o != nil && !IsNil(o.Planned) {
 		return true
 	}
 
@@ -2064,7 +2132,7 @@ func (o *UserInputTask) SetPlanned(v bool) {
 
 // GetActive returns the Active field value if set, zero value otherwise.
 func (o *UserInputTask) GetActive() bool {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		var ret bool
 		return ret
 	}
@@ -2074,7 +2142,7 @@ func (o *UserInputTask) GetActive() bool {
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetActiveOk() (*bool, bool) {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
 	return o.Active, true
@@ -2082,7 +2150,7 @@ func (o *UserInputTask) GetActiveOk() (*bool, bool) {
 
 // HasActive returns a boolean if a field has been set.
 func (o *UserInputTask) HasActive() bool {
-	if o != nil && !isNil(o.Active) {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
@@ -2096,7 +2164,7 @@ func (o *UserInputTask) SetActive(v bool) {
 
 // GetInProgress returns the InProgress field value if set, zero value otherwise.
 func (o *UserInputTask) GetInProgress() bool {
-	if o == nil || isNil(o.InProgress) {
+	if o == nil || IsNil(o.InProgress) {
 		var ret bool
 		return ret
 	}
@@ -2106,7 +2174,7 @@ func (o *UserInputTask) GetInProgress() bool {
 // GetInProgressOk returns a tuple with the InProgress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetInProgressOk() (*bool, bool) {
-	if o == nil || isNil(o.InProgress) {
+	if o == nil || IsNil(o.InProgress) {
 		return nil, false
 	}
 	return o.InProgress, true
@@ -2114,7 +2182,7 @@ func (o *UserInputTask) GetInProgressOk() (*bool, bool) {
 
 // HasInProgress returns a boolean if a field has been set.
 func (o *UserInputTask) HasInProgress() bool {
-	if o != nil && !isNil(o.InProgress) {
+	if o != nil && !IsNil(o.InProgress) {
 		return true
 	}
 
@@ -2128,7 +2196,7 @@ func (o *UserInputTask) SetInProgress(v bool) {
 
 // GetPending returns the Pending field value if set, zero value otherwise.
 func (o *UserInputTask) GetPending() bool {
-	if o == nil || isNil(o.Pending) {
+	if o == nil || IsNil(o.Pending) {
 		var ret bool
 		return ret
 	}
@@ -2138,7 +2206,7 @@ func (o *UserInputTask) GetPending() bool {
 // GetPendingOk returns a tuple with the Pending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPendingOk() (*bool, bool) {
-	if o == nil || isNil(o.Pending) {
+	if o == nil || IsNil(o.Pending) {
 		return nil, false
 	}
 	return o.Pending, true
@@ -2146,7 +2214,7 @@ func (o *UserInputTask) GetPendingOk() (*bool, bool) {
 
 // HasPending returns a boolean if a field has been set.
 func (o *UserInputTask) HasPending() bool {
-	if o != nil && !isNil(o.Pending) {
+	if o != nil && !IsNil(o.Pending) {
 		return true
 	}
 
@@ -2160,7 +2228,7 @@ func (o *UserInputTask) SetPending(v bool) {
 
 // GetWaitingForInput returns the WaitingForInput field value if set, zero value otherwise.
 func (o *UserInputTask) GetWaitingForInput() bool {
-	if o == nil || isNil(o.WaitingForInput) {
+	if o == nil || IsNil(o.WaitingForInput) {
 		var ret bool
 		return ret
 	}
@@ -2170,7 +2238,7 @@ func (o *UserInputTask) GetWaitingForInput() bool {
 // GetWaitingForInputOk returns a tuple with the WaitingForInput field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetWaitingForInputOk() (*bool, bool) {
-	if o == nil || isNil(o.WaitingForInput) {
+	if o == nil || IsNil(o.WaitingForInput) {
 		return nil, false
 	}
 	return o.WaitingForInput, true
@@ -2178,7 +2246,7 @@ func (o *UserInputTask) GetWaitingForInputOk() (*bool, bool) {
 
 // HasWaitingForInput returns a boolean if a field has been set.
 func (o *UserInputTask) HasWaitingForInput() bool {
-	if o != nil && !isNil(o.WaitingForInput) {
+	if o != nil && !IsNil(o.WaitingForInput) {
 		return true
 	}
 
@@ -2192,7 +2260,7 @@ func (o *UserInputTask) SetWaitingForInput(v bool) {
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
 func (o *UserInputTask) GetFailed() bool {
-	if o == nil || isNil(o.Failed) {
+	if o == nil || IsNil(o.Failed) {
 		var ret bool
 		return ret
 	}
@@ -2202,7 +2270,7 @@ func (o *UserInputTask) GetFailed() bool {
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFailedOk() (*bool, bool) {
-	if o == nil || isNil(o.Failed) {
+	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
 	return o.Failed, true
@@ -2210,7 +2278,7 @@ func (o *UserInputTask) GetFailedOk() (*bool, bool) {
 
 // HasFailed returns a boolean if a field has been set.
 func (o *UserInputTask) HasFailed() bool {
-	if o != nil && !isNil(o.Failed) {
+	if o != nil && !IsNil(o.Failed) {
 		return true
 	}
 
@@ -2224,7 +2292,7 @@ func (o *UserInputTask) SetFailed(v bool) {
 
 // GetFailing returns the Failing field value if set, zero value otherwise.
 func (o *UserInputTask) GetFailing() bool {
-	if o == nil || isNil(o.Failing) {
+	if o == nil || IsNil(o.Failing) {
 		var ret bool
 		return ret
 	}
@@ -2234,7 +2302,7 @@ func (o *UserInputTask) GetFailing() bool {
 // GetFailingOk returns a tuple with the Failing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFailingOk() (*bool, bool) {
-	if o == nil || isNil(o.Failing) {
+	if o == nil || IsNil(o.Failing) {
 		return nil, false
 	}
 	return o.Failing, true
@@ -2242,7 +2310,7 @@ func (o *UserInputTask) GetFailingOk() (*bool, bool) {
 
 // HasFailing returns a boolean if a field has been set.
 func (o *UserInputTask) HasFailing() bool {
-	if o != nil && !isNil(o.Failing) {
+	if o != nil && !IsNil(o.Failing) {
 		return true
 	}
 
@@ -2256,7 +2324,7 @@ func (o *UserInputTask) SetFailing(v bool) {
 
 // GetCompletedInAdvance returns the CompletedInAdvance field value if set, zero value otherwise.
 func (o *UserInputTask) GetCompletedInAdvance() bool {
-	if o == nil || isNil(o.CompletedInAdvance) {
+	if o == nil || IsNil(o.CompletedInAdvance) {
 		var ret bool
 		return ret
 	}
@@ -2266,7 +2334,7 @@ func (o *UserInputTask) GetCompletedInAdvance() bool {
 // GetCompletedInAdvanceOk returns a tuple with the CompletedInAdvance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetCompletedInAdvanceOk() (*bool, bool) {
-	if o == nil || isNil(o.CompletedInAdvance) {
+	if o == nil || IsNil(o.CompletedInAdvance) {
 		return nil, false
 	}
 	return o.CompletedInAdvance, true
@@ -2274,7 +2342,7 @@ func (o *UserInputTask) GetCompletedInAdvanceOk() (*bool, bool) {
 
 // HasCompletedInAdvance returns a boolean if a field has been set.
 func (o *UserInputTask) HasCompletedInAdvance() bool {
-	if o != nil && !isNil(o.CompletedInAdvance) {
+	if o != nil && !IsNil(o.CompletedInAdvance) {
 		return true
 	}
 
@@ -2288,7 +2356,7 @@ func (o *UserInputTask) SetCompletedInAdvance(v bool) {
 
 // GetSkipped returns the Skipped field value if set, zero value otherwise.
 func (o *UserInputTask) GetSkipped() bool {
-	if o == nil || isNil(o.Skipped) {
+	if o == nil || IsNil(o.Skipped) {
 		var ret bool
 		return ret
 	}
@@ -2298,7 +2366,7 @@ func (o *UserInputTask) GetSkipped() bool {
 // GetSkippedOk returns a tuple with the Skipped field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetSkippedOk() (*bool, bool) {
-	if o == nil || isNil(o.Skipped) {
+	if o == nil || IsNil(o.Skipped) {
 		return nil, false
 	}
 	return o.Skipped, true
@@ -2306,7 +2374,7 @@ func (o *UserInputTask) GetSkippedOk() (*bool, bool) {
 
 // HasSkipped returns a boolean if a field has been set.
 func (o *UserInputTask) HasSkipped() bool {
-	if o != nil && !isNil(o.Skipped) {
+	if o != nil && !IsNil(o.Skipped) {
 		return true
 	}
 
@@ -2320,7 +2388,7 @@ func (o *UserInputTask) SetSkipped(v bool) {
 
 // GetSkippedInAdvance returns the SkippedInAdvance field value if set, zero value otherwise.
 func (o *UserInputTask) GetSkippedInAdvance() bool {
-	if o == nil || isNil(o.SkippedInAdvance) {
+	if o == nil || IsNil(o.SkippedInAdvance) {
 		var ret bool
 		return ret
 	}
@@ -2330,7 +2398,7 @@ func (o *UserInputTask) GetSkippedInAdvance() bool {
 // GetSkippedInAdvanceOk returns a tuple with the SkippedInAdvance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetSkippedInAdvanceOk() (*bool, bool) {
-	if o == nil || isNil(o.SkippedInAdvance) {
+	if o == nil || IsNil(o.SkippedInAdvance) {
 		return nil, false
 	}
 	return o.SkippedInAdvance, true
@@ -2338,7 +2406,7 @@ func (o *UserInputTask) GetSkippedInAdvanceOk() (*bool, bool) {
 
 // HasSkippedInAdvance returns a boolean if a field has been set.
 func (o *UserInputTask) HasSkippedInAdvance() bool {
-	if o != nil && !isNil(o.SkippedInAdvance) {
+	if o != nil && !IsNil(o.SkippedInAdvance) {
 		return true
 	}
 
@@ -2352,7 +2420,7 @@ func (o *UserInputTask) SetSkippedInAdvance(v bool) {
 
 // GetPreconditionInProgress returns the PreconditionInProgress field value if set, zero value otherwise.
 func (o *UserInputTask) GetPreconditionInProgress() bool {
-	if o == nil || isNil(o.PreconditionInProgress) {
+	if o == nil || IsNil(o.PreconditionInProgress) {
 		var ret bool
 		return ret
 	}
@@ -2362,7 +2430,7 @@ func (o *UserInputTask) GetPreconditionInProgress() bool {
 // GetPreconditionInProgressOk returns a tuple with the PreconditionInProgress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPreconditionInProgressOk() (*bool, bool) {
-	if o == nil || isNil(o.PreconditionInProgress) {
+	if o == nil || IsNil(o.PreconditionInProgress) {
 		return nil, false
 	}
 	return o.PreconditionInProgress, true
@@ -2370,7 +2438,7 @@ func (o *UserInputTask) GetPreconditionInProgressOk() (*bool, bool) {
 
 // HasPreconditionInProgress returns a boolean if a field has been set.
 func (o *UserInputTask) HasPreconditionInProgress() bool {
-	if o != nil && !isNil(o.PreconditionInProgress) {
+	if o != nil && !IsNil(o.PreconditionInProgress) {
 		return true
 	}
 
@@ -2384,7 +2452,7 @@ func (o *UserInputTask) SetPreconditionInProgress(v bool) {
 
 // GetFailureHandlerInProgress returns the FailureHandlerInProgress field value if set, zero value otherwise.
 func (o *UserInputTask) GetFailureHandlerInProgress() bool {
-	if o == nil || isNil(o.FailureHandlerInProgress) {
+	if o == nil || IsNil(o.FailureHandlerInProgress) {
 		var ret bool
 		return ret
 	}
@@ -2394,7 +2462,7 @@ func (o *UserInputTask) GetFailureHandlerInProgress() bool {
 // GetFailureHandlerInProgressOk returns a tuple with the FailureHandlerInProgress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFailureHandlerInProgressOk() (*bool, bool) {
-	if o == nil || isNil(o.FailureHandlerInProgress) {
+	if o == nil || IsNil(o.FailureHandlerInProgress) {
 		return nil, false
 	}
 	return o.FailureHandlerInProgress, true
@@ -2402,7 +2470,7 @@ func (o *UserInputTask) GetFailureHandlerInProgressOk() (*bool, bool) {
 
 // HasFailureHandlerInProgress returns a boolean if a field has been set.
 func (o *UserInputTask) HasFailureHandlerInProgress() bool {
-	if o != nil && !isNil(o.FailureHandlerInProgress) {
+	if o != nil && !IsNil(o.FailureHandlerInProgress) {
 		return true
 	}
 
@@ -2416,7 +2484,7 @@ func (o *UserInputTask) SetFailureHandlerInProgress(v bool) {
 
 // GetAbortScriptInProgress returns the AbortScriptInProgress field value if set, zero value otherwise.
 func (o *UserInputTask) GetAbortScriptInProgress() bool {
-	if o == nil || isNil(o.AbortScriptInProgress) {
+	if o == nil || IsNil(o.AbortScriptInProgress) {
 		var ret bool
 		return ret
 	}
@@ -2426,7 +2494,7 @@ func (o *UserInputTask) GetAbortScriptInProgress() bool {
 // GetAbortScriptInProgressOk returns a tuple with the AbortScriptInProgress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetAbortScriptInProgressOk() (*bool, bool) {
-	if o == nil || isNil(o.AbortScriptInProgress) {
+	if o == nil || IsNil(o.AbortScriptInProgress) {
 		return nil, false
 	}
 	return o.AbortScriptInProgress, true
@@ -2434,7 +2502,7 @@ func (o *UserInputTask) GetAbortScriptInProgressOk() (*bool, bool) {
 
 // HasAbortScriptInProgress returns a boolean if a field has been set.
 func (o *UserInputTask) HasAbortScriptInProgress() bool {
-	if o != nil && !isNil(o.AbortScriptInProgress) {
+	if o != nil && !IsNil(o.AbortScriptInProgress) {
 		return true
 	}
 
@@ -2448,7 +2516,7 @@ func (o *UserInputTask) SetAbortScriptInProgress(v bool) {
 
 // GetFacetInProgress returns the FacetInProgress field value if set, zero value otherwise.
 func (o *UserInputTask) GetFacetInProgress() bool {
-	if o == nil || isNil(o.FacetInProgress) {
+	if o == nil || IsNil(o.FacetInProgress) {
 		var ret bool
 		return ret
 	}
@@ -2458,7 +2526,7 @@ func (o *UserInputTask) GetFacetInProgress() bool {
 // GetFacetInProgressOk returns a tuple with the FacetInProgress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFacetInProgressOk() (*bool, bool) {
-	if o == nil || isNil(o.FacetInProgress) {
+	if o == nil || IsNil(o.FacetInProgress) {
 		return nil, false
 	}
 	return o.FacetInProgress, true
@@ -2466,7 +2534,7 @@ func (o *UserInputTask) GetFacetInProgressOk() (*bool, bool) {
 
 // HasFacetInProgress returns a boolean if a field has been set.
 func (o *UserInputTask) HasFacetInProgress() bool {
-	if o != nil && !isNil(o.FacetInProgress) {
+	if o != nil && !IsNil(o.FacetInProgress) {
 		return true
 	}
 
@@ -2480,7 +2548,7 @@ func (o *UserInputTask) SetFacetInProgress(v bool) {
 
 // GetMovable returns the Movable field value if set, zero value otherwise.
 func (o *UserInputTask) GetMovable() bool {
-	if o == nil || isNil(o.Movable) {
+	if o == nil || IsNil(o.Movable) {
 		var ret bool
 		return ret
 	}
@@ -2490,7 +2558,7 @@ func (o *UserInputTask) GetMovable() bool {
 // GetMovableOk returns a tuple with the Movable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetMovableOk() (*bool, bool) {
-	if o == nil || isNil(o.Movable) {
+	if o == nil || IsNil(o.Movable) {
 		return nil, false
 	}
 	return o.Movable, true
@@ -2498,7 +2566,7 @@ func (o *UserInputTask) GetMovableOk() (*bool, bool) {
 
 // HasMovable returns a boolean if a field has been set.
 func (o *UserInputTask) HasMovable() bool {
-	if o != nil && !isNil(o.Movable) {
+	if o != nil && !IsNil(o.Movable) {
 		return true
 	}
 
@@ -2512,7 +2580,7 @@ func (o *UserInputTask) SetMovable(v bool) {
 
 // GetGate returns the Gate field value if set, zero value otherwise.
 func (o *UserInputTask) GetGate() bool {
-	if o == nil || isNil(o.Gate) {
+	if o == nil || IsNil(o.Gate) {
 		var ret bool
 		return ret
 	}
@@ -2522,7 +2590,7 @@ func (o *UserInputTask) GetGate() bool {
 // GetGateOk returns a tuple with the Gate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetGateOk() (*bool, bool) {
-	if o == nil || isNil(o.Gate) {
+	if o == nil || IsNil(o.Gate) {
 		return nil, false
 	}
 	return o.Gate, true
@@ -2530,7 +2598,7 @@ func (o *UserInputTask) GetGateOk() (*bool, bool) {
 
 // HasGate returns a boolean if a field has been set.
 func (o *UserInputTask) HasGate() bool {
-	if o != nil && !isNil(o.Gate) {
+	if o != nil && !IsNil(o.Gate) {
 		return true
 	}
 
@@ -2544,7 +2612,7 @@ func (o *UserInputTask) SetGate(v bool) {
 
 // GetTaskGroup returns the TaskGroup field value if set, zero value otherwise.
 func (o *UserInputTask) GetTaskGroup() bool {
-	if o == nil || isNil(o.TaskGroup) {
+	if o == nil || IsNil(o.TaskGroup) {
 		var ret bool
 		return ret
 	}
@@ -2554,7 +2622,7 @@ func (o *UserInputTask) GetTaskGroup() bool {
 // GetTaskGroupOk returns a tuple with the TaskGroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetTaskGroupOk() (*bool, bool) {
-	if o == nil || isNil(o.TaskGroup) {
+	if o == nil || IsNil(o.TaskGroup) {
 		return nil, false
 	}
 	return o.TaskGroup, true
@@ -2562,7 +2630,7 @@ func (o *UserInputTask) GetTaskGroupOk() (*bool, bool) {
 
 // HasTaskGroup returns a boolean if a field has been set.
 func (o *UserInputTask) HasTaskGroup() bool {
-	if o != nil && !isNil(o.TaskGroup) {
+	if o != nil && !IsNil(o.TaskGroup) {
 		return true
 	}
 
@@ -2576,7 +2644,7 @@ func (o *UserInputTask) SetTaskGroup(v bool) {
 
 // GetParallelGroup returns the ParallelGroup field value if set, zero value otherwise.
 func (o *UserInputTask) GetParallelGroup() bool {
-	if o == nil || isNil(o.ParallelGroup) {
+	if o == nil || IsNil(o.ParallelGroup) {
 		var ret bool
 		return ret
 	}
@@ -2586,7 +2654,7 @@ func (o *UserInputTask) GetParallelGroup() bool {
 // GetParallelGroupOk returns a tuple with the ParallelGroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetParallelGroupOk() (*bool, bool) {
-	if o == nil || isNil(o.ParallelGroup) {
+	if o == nil || IsNil(o.ParallelGroup) {
 		return nil, false
 	}
 	return o.ParallelGroup, true
@@ -2594,7 +2662,7 @@ func (o *UserInputTask) GetParallelGroupOk() (*bool, bool) {
 
 // HasParallelGroup returns a boolean if a field has been set.
 func (o *UserInputTask) HasParallelGroup() bool {
-	if o != nil && !isNil(o.ParallelGroup) {
+	if o != nil && !IsNil(o.ParallelGroup) {
 		return true
 	}
 
@@ -2608,7 +2676,7 @@ func (o *UserInputTask) SetParallelGroup(v bool) {
 
 // GetPreconditionEnabled returns the PreconditionEnabled field value if set, zero value otherwise.
 func (o *UserInputTask) GetPreconditionEnabled() bool {
-	if o == nil || isNil(o.PreconditionEnabled) {
+	if o == nil || IsNil(o.PreconditionEnabled) {
 		var ret bool
 		return ret
 	}
@@ -2618,7 +2686,7 @@ func (o *UserInputTask) GetPreconditionEnabled() bool {
 // GetPreconditionEnabledOk returns a tuple with the PreconditionEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetPreconditionEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.PreconditionEnabled) {
+	if o == nil || IsNil(o.PreconditionEnabled) {
 		return nil, false
 	}
 	return o.PreconditionEnabled, true
@@ -2626,7 +2694,7 @@ func (o *UserInputTask) GetPreconditionEnabledOk() (*bool, bool) {
 
 // HasPreconditionEnabled returns a boolean if a field has been set.
 func (o *UserInputTask) HasPreconditionEnabled() bool {
-	if o != nil && !isNil(o.PreconditionEnabled) {
+	if o != nil && !IsNil(o.PreconditionEnabled) {
 		return true
 	}
 
@@ -2640,7 +2708,7 @@ func (o *UserInputTask) SetPreconditionEnabled(v bool) {
 
 // GetFailureHandlerEnabled returns the FailureHandlerEnabled field value if set, zero value otherwise.
 func (o *UserInputTask) GetFailureHandlerEnabled() bool {
-	if o == nil || isNil(o.FailureHandlerEnabled) {
+	if o == nil || IsNil(o.FailureHandlerEnabled) {
 		var ret bool
 		return ret
 	}
@@ -2650,7 +2718,7 @@ func (o *UserInputTask) GetFailureHandlerEnabled() bool {
 // GetFailureHandlerEnabledOk returns a tuple with the FailureHandlerEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetFailureHandlerEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.FailureHandlerEnabled) {
+	if o == nil || IsNil(o.FailureHandlerEnabled) {
 		return nil, false
 	}
 	return o.FailureHandlerEnabled, true
@@ -2658,7 +2726,7 @@ func (o *UserInputTask) GetFailureHandlerEnabledOk() (*bool, bool) {
 
 // HasFailureHandlerEnabled returns a boolean if a field has been set.
 func (o *UserInputTask) HasFailureHandlerEnabled() bool {
-	if o != nil && !isNil(o.FailureHandlerEnabled) {
+	if o != nil && !IsNil(o.FailureHandlerEnabled) {
 		return true
 	}
 
@@ -2672,7 +2740,7 @@ func (o *UserInputTask) SetFailureHandlerEnabled(v bool) {
 
 // GetRelease returns the Release field value if set, zero value otherwise.
 func (o *UserInputTask) GetRelease() Release {
-	if o == nil || isNil(o.Release) {
+	if o == nil || IsNil(o.Release) {
 		var ret Release
 		return ret
 	}
@@ -2682,7 +2750,7 @@ func (o *UserInputTask) GetRelease() Release {
 // GetReleaseOk returns a tuple with the Release field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetReleaseOk() (*Release, bool) {
-	if o == nil || isNil(o.Release) {
+	if o == nil || IsNil(o.Release) {
 		return nil, false
 	}
 	return o.Release, true
@@ -2690,7 +2758,7 @@ func (o *UserInputTask) GetReleaseOk() (*Release, bool) {
 
 // HasRelease returns a boolean if a field has been set.
 func (o *UserInputTask) HasRelease() bool {
-	if o != nil && !isNil(o.Release) {
+	if o != nil && !IsNil(o.Release) {
 		return true
 	}
 
@@ -2704,7 +2772,7 @@ func (o *UserInputTask) SetRelease(v Release) {
 
 // GetDisplayPath returns the DisplayPath field value if set, zero value otherwise.
 func (o *UserInputTask) GetDisplayPath() string {
-	if o == nil || isNil(o.DisplayPath) {
+	if o == nil || IsNil(o.DisplayPath) {
 		var ret string
 		return ret
 	}
@@ -2714,7 +2782,7 @@ func (o *UserInputTask) GetDisplayPath() string {
 // GetDisplayPathOk returns a tuple with the DisplayPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDisplayPathOk() (*string, bool) {
-	if o == nil || isNil(o.DisplayPath) {
+	if o == nil || IsNil(o.DisplayPath) {
 		return nil, false
 	}
 	return o.DisplayPath, true
@@ -2722,7 +2790,7 @@ func (o *UserInputTask) GetDisplayPathOk() (*string, bool) {
 
 // HasDisplayPath returns a boolean if a field has been set.
 func (o *UserInputTask) HasDisplayPath() bool {
-	if o != nil && !isNil(o.DisplayPath) {
+	if o != nil && !IsNil(o.DisplayPath) {
 		return true
 	}
 
@@ -2736,7 +2804,7 @@ func (o *UserInputTask) SetDisplayPath(v string) {
 
 // GetReleaseOwner returns the ReleaseOwner field value if set, zero value otherwise.
 func (o *UserInputTask) GetReleaseOwner() string {
-	if o == nil || isNil(o.ReleaseOwner) {
+	if o == nil || IsNil(o.ReleaseOwner) {
 		var ret string
 		return ret
 	}
@@ -2746,7 +2814,7 @@ func (o *UserInputTask) GetReleaseOwner() string {
 // GetReleaseOwnerOk returns a tuple with the ReleaseOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetReleaseOwnerOk() (*string, bool) {
-	if o == nil || isNil(o.ReleaseOwner) {
+	if o == nil || IsNil(o.ReleaseOwner) {
 		return nil, false
 	}
 	return o.ReleaseOwner, true
@@ -2754,7 +2822,7 @@ func (o *UserInputTask) GetReleaseOwnerOk() (*string, bool) {
 
 // HasReleaseOwner returns a boolean if a field has been set.
 func (o *UserInputTask) HasReleaseOwner() bool {
-	if o != nil && !isNil(o.ReleaseOwner) {
+	if o != nil && !IsNil(o.ReleaseOwner) {
 		return true
 	}
 
@@ -2768,7 +2836,7 @@ func (o *UserInputTask) SetReleaseOwner(v string) {
 
 // GetAllTasks returns the AllTasks field value if set, zero value otherwise.
 func (o *UserInputTask) GetAllTasks() []Task {
-	if o == nil || isNil(o.AllTasks) {
+	if o == nil || IsNil(o.AllTasks) {
 		var ret []Task
 		return ret
 	}
@@ -2778,7 +2846,7 @@ func (o *UserInputTask) GetAllTasks() []Task {
 // GetAllTasksOk returns a tuple with the AllTasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetAllTasksOk() ([]Task, bool) {
-	if o == nil || isNil(o.AllTasks) {
+	if o == nil || IsNil(o.AllTasks) {
 		return nil, false
 	}
 	return o.AllTasks, true
@@ -2786,7 +2854,7 @@ func (o *UserInputTask) GetAllTasksOk() ([]Task, bool) {
 
 // HasAllTasks returns a boolean if a field has been set.
 func (o *UserInputTask) HasAllTasks() bool {
-	if o != nil && !isNil(o.AllTasks) {
+	if o != nil && !IsNil(o.AllTasks) {
 		return true
 	}
 
@@ -2800,7 +2868,7 @@ func (o *UserInputTask) SetAllTasks(v []Task) {
 
 // GetChildren returns the Children field value if set, zero value otherwise.
 func (o *UserInputTask) GetChildren() []PlanItem {
-	if o == nil || isNil(o.Children) {
+	if o == nil || IsNil(o.Children) {
 		var ret []PlanItem
 		return ret
 	}
@@ -2810,7 +2878,7 @@ func (o *UserInputTask) GetChildren() []PlanItem {
 // GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetChildrenOk() ([]PlanItem, bool) {
-	if o == nil || isNil(o.Children) {
+	if o == nil || IsNil(o.Children) {
 		return nil, false
 	}
 	return o.Children, true
@@ -2818,7 +2886,7 @@ func (o *UserInputTask) GetChildrenOk() ([]PlanItem, bool) {
 
 // HasChildren returns a boolean if a field has been set.
 func (o *UserInputTask) HasChildren() bool {
-	if o != nil && !isNil(o.Children) {
+	if o != nil && !IsNil(o.Children) {
 		return true
 	}
 
@@ -2832,7 +2900,7 @@ func (o *UserInputTask) SetChildren(v []PlanItem) {
 
 // GetInputVariables returns the InputVariables field value if set, zero value otherwise.
 func (o *UserInputTask) GetInputVariables() []Variable {
-	if o == nil || isNil(o.InputVariables) {
+	if o == nil || IsNil(o.InputVariables) {
 		var ret []Variable
 		return ret
 	}
@@ -2842,7 +2910,7 @@ func (o *UserInputTask) GetInputVariables() []Variable {
 // GetInputVariablesOk returns a tuple with the InputVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetInputVariablesOk() ([]Variable, bool) {
-	if o == nil || isNil(o.InputVariables) {
+	if o == nil || IsNil(o.InputVariables) {
 		return nil, false
 	}
 	return o.InputVariables, true
@@ -2850,7 +2918,7 @@ func (o *UserInputTask) GetInputVariablesOk() ([]Variable, bool) {
 
 // HasInputVariables returns a boolean if a field has been set.
 func (o *UserInputTask) HasInputVariables() bool {
-	if o != nil && !isNil(o.InputVariables) {
+	if o != nil && !IsNil(o.InputVariables) {
 		return true
 	}
 
@@ -2864,7 +2932,7 @@ func (o *UserInputTask) SetInputVariables(v []Variable) {
 
 // GetUnboundRequiredVariables returns the UnboundRequiredVariables field value if set, zero value otherwise.
 func (o *UserInputTask) GetUnboundRequiredVariables() []string {
-	if o == nil || isNil(o.UnboundRequiredVariables) {
+	if o == nil || IsNil(o.UnboundRequiredVariables) {
 		var ret []string
 		return ret
 	}
@@ -2874,7 +2942,7 @@ func (o *UserInputTask) GetUnboundRequiredVariables() []string {
 // GetUnboundRequiredVariablesOk returns a tuple with the UnboundRequiredVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetUnboundRequiredVariablesOk() ([]string, bool) {
-	if o == nil || isNil(o.UnboundRequiredVariables) {
+	if o == nil || IsNil(o.UnboundRequiredVariables) {
 		return nil, false
 	}
 	return o.UnboundRequiredVariables, true
@@ -2882,7 +2950,7 @@ func (o *UserInputTask) GetUnboundRequiredVariablesOk() ([]string, bool) {
 
 // HasUnboundRequiredVariables returns a boolean if a field has been set.
 func (o *UserInputTask) HasUnboundRequiredVariables() bool {
-	if o != nil && !isNil(o.UnboundRequiredVariables) {
+	if o != nil && !IsNil(o.UnboundRequiredVariables) {
 		return true
 	}
 
@@ -2896,7 +2964,7 @@ func (o *UserInputTask) SetUnboundRequiredVariables(v []string) {
 
 // GetAutomated returns the Automated field value if set, zero value otherwise.
 func (o *UserInputTask) GetAutomated() bool {
-	if o == nil || isNil(o.Automated) {
+	if o == nil || IsNil(o.Automated) {
 		var ret bool
 		return ret
 	}
@@ -2906,7 +2974,7 @@ func (o *UserInputTask) GetAutomated() bool {
 // GetAutomatedOk returns a tuple with the Automated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetAutomatedOk() (*bool, bool) {
-	if o == nil || isNil(o.Automated) {
+	if o == nil || IsNil(o.Automated) {
 		return nil, false
 	}
 	return o.Automated, true
@@ -2914,7 +2982,7 @@ func (o *UserInputTask) GetAutomatedOk() (*bool, bool) {
 
 // HasAutomated returns a boolean if a field has been set.
 func (o *UserInputTask) HasAutomated() bool {
-	if o != nil && !isNil(o.Automated) {
+	if o != nil && !IsNil(o.Automated) {
 		return true
 	}
 
@@ -2928,7 +2996,7 @@ func (o *UserInputTask) SetAutomated(v bool) {
 
 // GetTaskType returns the TaskType field value if set, zero value otherwise.
 func (o *UserInputTask) GetTaskType() map[string]interface{} {
-	if o == nil || isNil(o.TaskType) {
+	if o == nil || IsNil(o.TaskType) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -2938,7 +3006,7 @@ func (o *UserInputTask) GetTaskType() map[string]interface{} {
 // GetTaskTypeOk returns a tuple with the TaskType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetTaskTypeOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.TaskType) {
+	if o == nil || IsNil(o.TaskType) {
 		return map[string]interface{}{}, false
 	}
 	return o.TaskType, true
@@ -2946,7 +3014,7 @@ func (o *UserInputTask) GetTaskTypeOk() (map[string]interface{}, bool) {
 
 // HasTaskType returns a boolean if a field has been set.
 func (o *UserInputTask) HasTaskType() bool {
-	if o != nil && !isNil(o.TaskType) {
+	if o != nil && !IsNil(o.TaskType) {
 		return true
 	}
 
@@ -2960,7 +3028,7 @@ func (o *UserInputTask) SetTaskType(v map[string]interface{}) {
 
 // GetDueSoon returns the DueSoon field value if set, zero value otherwise.
 func (o *UserInputTask) GetDueSoon() bool {
-	if o == nil || isNil(o.DueSoon) {
+	if o == nil || IsNil(o.DueSoon) {
 		var ret bool
 		return ret
 	}
@@ -2970,7 +3038,7 @@ func (o *UserInputTask) GetDueSoon() bool {
 // GetDueSoonOk returns a tuple with the DueSoon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetDueSoonOk() (*bool, bool) {
-	if o == nil || isNil(o.DueSoon) {
+	if o == nil || IsNil(o.DueSoon) {
 		return nil, false
 	}
 	return o.DueSoon, true
@@ -2978,7 +3046,7 @@ func (o *UserInputTask) GetDueSoonOk() (*bool, bool) {
 
 // HasDueSoon returns a boolean if a field has been set.
 func (o *UserInputTask) HasDueSoon() bool {
-	if o != nil && !isNil(o.DueSoon) {
+	if o != nil && !IsNil(o.DueSoon) {
 		return true
 	}
 
@@ -2992,7 +3060,7 @@ func (o *UserInputTask) SetDueSoon(v bool) {
 
 // GetElapsedDurationFraction returns the ElapsedDurationFraction field value if set, zero value otherwise.
 func (o *UserInputTask) GetElapsedDurationFraction() float64 {
-	if o == nil || isNil(o.ElapsedDurationFraction) {
+	if o == nil || IsNil(o.ElapsedDurationFraction) {
 		var ret float64
 		return ret
 	}
@@ -3002,7 +3070,7 @@ func (o *UserInputTask) GetElapsedDurationFraction() float64 {
 // GetElapsedDurationFractionOk returns a tuple with the ElapsedDurationFraction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetElapsedDurationFractionOk() (*float64, bool) {
-	if o == nil || isNil(o.ElapsedDurationFraction) {
+	if o == nil || IsNil(o.ElapsedDurationFraction) {
 		return nil, false
 	}
 	return o.ElapsedDurationFraction, true
@@ -3010,7 +3078,7 @@ func (o *UserInputTask) GetElapsedDurationFractionOk() (*float64, bool) {
 
 // HasElapsedDurationFraction returns a boolean if a field has been set.
 func (o *UserInputTask) HasElapsedDurationFraction() bool {
-	if o != nil && !isNil(o.ElapsedDurationFraction) {
+	if o != nil && !IsNil(o.ElapsedDurationFraction) {
 		return true
 	}
 
@@ -3024,7 +3092,7 @@ func (o *UserInputTask) SetElapsedDurationFraction(v float64) {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *UserInputTask) GetUrl() string {
-	if o == nil || isNil(o.Url) {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -3034,7 +3102,7 @@ func (o *UserInputTask) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetUrlOk() (*string, bool) {
-	if o == nil || isNil(o.Url) {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -3042,7 +3110,7 @@ func (o *UserInputTask) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *UserInputTask) HasUrl() bool {
-	if o != nil && !isNil(o.Url) {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -3056,7 +3124,7 @@ func (o *UserInputTask) SetUrl(v string) {
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
 func (o *UserInputTask) GetVariables() []Variable {
-	if o == nil || isNil(o.Variables) {
+	if o == nil || IsNil(o.Variables) {
 		var ret []Variable
 		return ret
 	}
@@ -3066,7 +3134,7 @@ func (o *UserInputTask) GetVariables() []Variable {
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetVariablesOk() ([]Variable, bool) {
-	if o == nil || isNil(o.Variables) {
+	if o == nil || IsNil(o.Variables) {
 		return nil, false
 	}
 	return o.Variables, true
@@ -3074,7 +3142,7 @@ func (o *UserInputTask) GetVariablesOk() ([]Variable, bool) {
 
 // HasVariables returns a boolean if a field has been set.
 func (o *UserInputTask) HasVariables() bool {
-	if o != nil && !isNil(o.Variables) {
+	if o != nil && !IsNil(o.Variables) {
 		return true
 	}
 
@@ -3088,7 +3156,7 @@ func (o *UserInputTask) SetVariables(v []Variable) {
 
 // GetReferencedVariables returns the ReferencedVariables field value if set, zero value otherwise.
 func (o *UserInputTask) GetReferencedVariables() []Variable {
-	if o == nil || isNil(o.ReferencedVariables) {
+	if o == nil || IsNil(o.ReferencedVariables) {
 		var ret []Variable
 		return ret
 	}
@@ -3098,7 +3166,7 @@ func (o *UserInputTask) GetReferencedVariables() []Variable {
 // GetReferencedVariablesOk returns a tuple with the ReferencedVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetReferencedVariablesOk() ([]Variable, bool) {
-	if o == nil || isNil(o.ReferencedVariables) {
+	if o == nil || IsNil(o.ReferencedVariables) {
 		return nil, false
 	}
 	return o.ReferencedVariables, true
@@ -3106,7 +3174,7 @@ func (o *UserInputTask) GetReferencedVariablesOk() ([]Variable, bool) {
 
 // HasReferencedVariables returns a boolean if a field has been set.
 func (o *UserInputTask) HasReferencedVariables() bool {
-	if o != nil && !isNil(o.ReferencedVariables) {
+	if o != nil && !IsNil(o.ReferencedVariables) {
 		return true
 	}
 
@@ -3120,7 +3188,7 @@ func (o *UserInputTask) SetReferencedVariables(v []Variable) {
 
 // GetVariableUsages returns the VariableUsages field value if set, zero value otherwise.
 func (o *UserInputTask) GetVariableUsages() []UsagePoint {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		var ret []UsagePoint
 		return ret
 	}
@@ -3130,7 +3198,7 @@ func (o *UserInputTask) GetVariableUsages() []UsagePoint {
 // GetVariableUsagesOk returns a tuple with the VariableUsages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserInputTask) GetVariableUsagesOk() ([]UsagePoint, bool) {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		return nil, false
 	}
 	return o.VariableUsages, true
@@ -3138,7 +3206,7 @@ func (o *UserInputTask) GetVariableUsagesOk() ([]UsagePoint, bool) {
 
 // HasVariableUsages returns a boolean if a field has been set.
 func (o *UserInputTask) HasVariableUsages() bool {
-	if o != nil && !isNil(o.VariableUsages) {
+	if o != nil && !IsNil(o.VariableUsages) {
 		return true
 	}
 
@@ -3151,7 +3219,7 @@ func (o *UserInputTask) SetVariableUsages(v []UsagePoint) {
 }
 
 func (o UserInputTask) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -3160,286 +3228,292 @@ func (o UserInputTask) MarshalJSON() ([]byte, error) {
 
 func (o UserInputTask) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.ScheduledStartDate) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.ScheduledStartDate) {
 		toSerialize["scheduledStartDate"] = o.ScheduledStartDate
 	}
-	if !isNil(o.FlagStatus) {
+	if !IsNil(o.FlagStatus) {
 		toSerialize["flagStatus"] = o.FlagStatus
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Owner) {
+	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
-	if !isNil(o.DueDate) {
+	if !IsNil(o.DueDate) {
 		toSerialize["dueDate"] = o.DueDate
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.PlannedDuration) {
+	if !IsNil(o.PlannedDuration) {
 		toSerialize["plannedDuration"] = o.PlannedDuration
 	}
-	if !isNil(o.FlagComment) {
+	if !IsNil(o.FlagComment) {
 		toSerialize["flagComment"] = o.FlagComment
 	}
-	if !isNil(o.OverdueNotified) {
+	if !IsNil(o.OverdueNotified) {
 		toSerialize["overdueNotified"] = o.OverdueNotified
 	}
-	if !isNil(o.Flagged) {
+	if !IsNil(o.Flagged) {
 		toSerialize["flagged"] = o.Flagged
 	}
-	if !isNil(o.StartOrScheduledDate) {
+	if !IsNil(o.StartOrScheduledDate) {
 		toSerialize["startOrScheduledDate"] = o.StartOrScheduledDate
 	}
-	if !isNil(o.EndOrDueDate) {
+	if !IsNil(o.EndOrDueDate) {
 		toSerialize["endOrDueDate"] = o.EndOrDueDate
 	}
-	if !isNil(o.Overdue) {
+	if !IsNil(o.Overdue) {
 		toSerialize["overdue"] = o.Overdue
 	}
 	if o.OrCalculateDueDate.IsSet() {
 		toSerialize["orCalculateDueDate"] = o.OrCalculateDueDate.Get()
 	}
-	if !isNil(o.ComputedPlannedDuration) {
+	if !IsNil(o.ComputedPlannedDuration) {
 		toSerialize["computedPlannedDuration"] = o.ComputedPlannedDuration
 	}
-	if !isNil(o.ActualDuration) {
+	if !IsNil(o.ActualDuration) {
 		toSerialize["actualDuration"] = o.ActualDuration
 	}
-	if !isNil(o.ReleaseUid) {
+	if !IsNil(o.ReleaseUid) {
 		toSerialize["releaseUid"] = o.ReleaseUid
 	}
-	if !isNil(o.CiUid) {
+	if !IsNil(o.CiUid) {
 		toSerialize["ciUid"] = o.CiUid
 	}
-	if !isNil(o.Comments) {
+	if !IsNil(o.Comments) {
 		toSerialize["comments"] = o.Comments
 	}
-	if !isNil(o.Container) {
+	if !IsNil(o.Container) {
 		toSerialize["container"] = o.Container
 	}
-	if !isNil(o.Facets) {
+	if !IsNil(o.Facets) {
 		toSerialize["facets"] = o.Facets
 	}
-	if !isNil(o.Attachments) {
+	if !IsNil(o.Attachments) {
 		toSerialize["attachments"] = o.Attachments
 	}
-	if !isNil(o.Status) {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !isNil(o.Team) {
+	if !IsNil(o.Team) {
 		toSerialize["team"] = o.Team
 	}
-	if !isNil(o.Watchers) {
+	if !IsNil(o.Watchers) {
 		toSerialize["watchers"] = o.Watchers
 	}
-	if !isNil(o.WaitForScheduledStartDate) {
+	if !IsNil(o.WaitForScheduledStartDate) {
 		toSerialize["waitForScheduledStartDate"] = o.WaitForScheduledStartDate
 	}
-	if !isNil(o.DelayDuringBlackout) {
+	if !IsNil(o.DelayDuringBlackout) {
 		toSerialize["delayDuringBlackout"] = o.DelayDuringBlackout
 	}
-	if !isNil(o.PostponedDueToBlackout) {
+	if !IsNil(o.PostponedDueToBlackout) {
 		toSerialize["postponedDueToBlackout"] = o.PostponedDueToBlackout
 	}
-	if !isNil(o.PostponedUntilEnvironmentsAreReserved) {
+	if !IsNil(o.PostponedUntilEnvironmentsAreReserved) {
 		toSerialize["postponedUntilEnvironmentsAreReserved"] = o.PostponedUntilEnvironmentsAreReserved
 	}
-	if !isNil(o.OriginalScheduledStartDate) {
+	if !IsNil(o.OriginalScheduledStartDate) {
 		toSerialize["originalScheduledStartDate"] = o.OriginalScheduledStartDate
 	}
-	if !isNil(o.HasBeenFlagged) {
+	if !IsNil(o.HasBeenFlagged) {
 		toSerialize["hasBeenFlagged"] = o.HasBeenFlagged
 	}
-	if !isNil(o.HasBeenDelayed) {
+	if !IsNil(o.HasBeenDelayed) {
 		toSerialize["hasBeenDelayed"] = o.HasBeenDelayed
 	}
-	if !isNil(o.Precondition) {
+	if !IsNil(o.Precondition) {
 		toSerialize["precondition"] = o.Precondition
 	}
-	if !isNil(o.FailureHandler) {
+	if !IsNil(o.FailureHandler) {
 		toSerialize["failureHandler"] = o.FailureHandler
 	}
-	if !isNil(o.TaskFailureHandlerEnabled) {
+	if !IsNil(o.TaskFailureHandlerEnabled) {
 		toSerialize["taskFailureHandlerEnabled"] = o.TaskFailureHandlerEnabled
 	}
-	if !isNil(o.TaskRecoverOp) {
+	if !IsNil(o.TaskRecoverOp) {
 		toSerialize["taskRecoverOp"] = o.TaskRecoverOp
 	}
-	if !isNil(o.FailuresCount) {
+	if !IsNil(o.FailuresCount) {
 		toSerialize["failuresCount"] = o.FailuresCount
 	}
-	if !isNil(o.ExecutionId) {
+	if !IsNil(o.ExecutionId) {
 		toSerialize["executionId"] = o.ExecutionId
 	}
-	if !isNil(o.VariableMapping) {
+	if !IsNil(o.VariableMapping) {
 		toSerialize["variableMapping"] = o.VariableMapping
 	}
-	if !isNil(o.ExternalVariableMapping) {
+	if !IsNil(o.ExternalVariableMapping) {
 		toSerialize["externalVariableMapping"] = o.ExternalVariableMapping
 	}
-	if !isNil(o.MaxCommentSize) {
+	if !IsNil(o.MaxCommentSize) {
 		toSerialize["maxCommentSize"] = o.MaxCommentSize
 	}
-	if !isNil(o.Tags) {
+	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
-	if !isNil(o.ConfigurationUri) {
+	if !IsNil(o.ConfigurationUri) {
 		toSerialize["configurationUri"] = o.ConfigurationUri
 	}
-	if !isNil(o.DueSoonNotified) {
+	if !IsNil(o.DueSoonNotified) {
 		toSerialize["dueSoonNotified"] = o.DueSoonNotified
 	}
-	if !isNil(o.Locked) {
+	if !IsNil(o.Locked) {
 		toSerialize["locked"] = o.Locked
 	}
-	if !isNil(o.CheckAttributes) {
+	if !IsNil(o.CheckAttributes) {
 		toSerialize["checkAttributes"] = o.CheckAttributes
 	}
-	if !isNil(o.AbortScript) {
+	if !IsNil(o.AbortScript) {
 		toSerialize["abortScript"] = o.AbortScript
 	}
-	if !isNil(o.Phase) {
+	if !IsNil(o.Phase) {
 		toSerialize["phase"] = o.Phase
 	}
-	if !isNil(o.BlackoutMetadata) {
+	if !IsNil(o.BlackoutMetadata) {
 		toSerialize["blackoutMetadata"] = o.BlackoutMetadata
 	}
-	if !isNil(o.FlaggedCount) {
+	if !IsNil(o.FlaggedCount) {
 		toSerialize["flaggedCount"] = o.FlaggedCount
 	}
-	if !isNil(o.DelayedCount) {
+	if !IsNil(o.DelayedCount) {
 		toSerialize["delayedCount"] = o.DelayedCount
 	}
-	if !isNil(o.Done) {
+	if !IsNil(o.Done) {
 		toSerialize["done"] = o.Done
 	}
-	if !isNil(o.DoneInAdvance) {
+	if !IsNil(o.DoneInAdvance) {
 		toSerialize["doneInAdvance"] = o.DoneInAdvance
 	}
-	if !isNil(o.Defunct) {
+	if !IsNil(o.Defunct) {
 		toSerialize["defunct"] = o.Defunct
 	}
-	if !isNil(o.Updatable) {
+	if !IsNil(o.Updatable) {
 		toSerialize["updatable"] = o.Updatable
 	}
-	if !isNil(o.Aborted) {
+	if !IsNil(o.Aborted) {
 		toSerialize["aborted"] = o.Aborted
 	}
-	if !isNil(o.NotYetReached) {
+	if !IsNil(o.NotYetReached) {
 		toSerialize["notYetReached"] = o.NotYetReached
 	}
-	if !isNil(o.Planned) {
+	if !IsNil(o.Planned) {
 		toSerialize["planned"] = o.Planned
 	}
-	if !isNil(o.Active) {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	if !isNil(o.InProgress) {
+	if !IsNil(o.InProgress) {
 		toSerialize["inProgress"] = o.InProgress
 	}
-	if !isNil(o.Pending) {
+	if !IsNil(o.Pending) {
 		toSerialize["pending"] = o.Pending
 	}
-	if !isNil(o.WaitingForInput) {
+	if !IsNil(o.WaitingForInput) {
 		toSerialize["waitingForInput"] = o.WaitingForInput
 	}
-	if !isNil(o.Failed) {
+	if !IsNil(o.Failed) {
 		toSerialize["failed"] = o.Failed
 	}
-	if !isNil(o.Failing) {
+	if !IsNil(o.Failing) {
 		toSerialize["failing"] = o.Failing
 	}
-	if !isNil(o.CompletedInAdvance) {
+	if !IsNil(o.CompletedInAdvance) {
 		toSerialize["completedInAdvance"] = o.CompletedInAdvance
 	}
-	if !isNil(o.Skipped) {
+	if !IsNil(o.Skipped) {
 		toSerialize["skipped"] = o.Skipped
 	}
-	if !isNil(o.SkippedInAdvance) {
+	if !IsNil(o.SkippedInAdvance) {
 		toSerialize["skippedInAdvance"] = o.SkippedInAdvance
 	}
-	if !isNil(o.PreconditionInProgress) {
+	if !IsNil(o.PreconditionInProgress) {
 		toSerialize["preconditionInProgress"] = o.PreconditionInProgress
 	}
-	if !isNil(o.FailureHandlerInProgress) {
+	if !IsNil(o.FailureHandlerInProgress) {
 		toSerialize["failureHandlerInProgress"] = o.FailureHandlerInProgress
 	}
-	if !isNil(o.AbortScriptInProgress) {
+	if !IsNil(o.AbortScriptInProgress) {
 		toSerialize["abortScriptInProgress"] = o.AbortScriptInProgress
 	}
-	if !isNil(o.FacetInProgress) {
+	if !IsNil(o.FacetInProgress) {
 		toSerialize["facetInProgress"] = o.FacetInProgress
 	}
-	if !isNil(o.Movable) {
+	if !IsNil(o.Movable) {
 		toSerialize["movable"] = o.Movable
 	}
-	if !isNil(o.Gate) {
+	if !IsNil(o.Gate) {
 		toSerialize["gate"] = o.Gate
 	}
-	if !isNil(o.TaskGroup) {
+	if !IsNil(o.TaskGroup) {
 		toSerialize["taskGroup"] = o.TaskGroup
 	}
-	if !isNil(o.ParallelGroup) {
+	if !IsNil(o.ParallelGroup) {
 		toSerialize["parallelGroup"] = o.ParallelGroup
 	}
-	if !isNil(o.PreconditionEnabled) {
+	if !IsNil(o.PreconditionEnabled) {
 		toSerialize["preconditionEnabled"] = o.PreconditionEnabled
 	}
-	if !isNil(o.FailureHandlerEnabled) {
+	if !IsNil(o.FailureHandlerEnabled) {
 		toSerialize["failureHandlerEnabled"] = o.FailureHandlerEnabled
 	}
-	if !isNil(o.Release) {
+	if !IsNil(o.Release) {
 		toSerialize["release"] = o.Release
 	}
-	if !isNil(o.DisplayPath) {
+	if !IsNil(o.DisplayPath) {
 		toSerialize["displayPath"] = o.DisplayPath
 	}
-	if !isNil(o.ReleaseOwner) {
+	if !IsNil(o.ReleaseOwner) {
 		toSerialize["releaseOwner"] = o.ReleaseOwner
 	}
-	if !isNil(o.AllTasks) {
+	if !IsNil(o.AllTasks) {
 		toSerialize["allTasks"] = o.AllTasks
 	}
-	if !isNil(o.Children) {
+	if !IsNil(o.Children) {
 		toSerialize["children"] = o.Children
 	}
-	if !isNil(o.InputVariables) {
+	if !IsNil(o.InputVariables) {
 		toSerialize["inputVariables"] = o.InputVariables
 	}
-	if !isNil(o.UnboundRequiredVariables) {
+	if !IsNil(o.UnboundRequiredVariables) {
 		toSerialize["unboundRequiredVariables"] = o.UnboundRequiredVariables
 	}
-	if !isNil(o.Automated) {
+	if !IsNil(o.Automated) {
 		toSerialize["automated"] = o.Automated
 	}
-	if !isNil(o.TaskType) {
+	if !IsNil(o.TaskType) {
 		toSerialize["taskType"] = o.TaskType
 	}
-	if !isNil(o.DueSoon) {
+	if !IsNil(o.DueSoon) {
 		toSerialize["dueSoon"] = o.DueSoon
 	}
-	if !isNil(o.ElapsedDurationFraction) {
+	if !IsNil(o.ElapsedDurationFraction) {
 		toSerialize["elapsedDurationFraction"] = o.ElapsedDurationFraction
 	}
-	if !isNil(o.Url) {
+	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
-	if !isNil(o.Variables) {
+	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
-	if !isNil(o.ReferencedVariables) {
+	if !IsNil(o.ReferencedVariables) {
 		toSerialize["referencedVariables"] = o.ReferencedVariables
 	}
-	if !isNil(o.VariableUsages) {
+	if !IsNil(o.VariableUsages) {
 		toSerialize["variableUsages"] = o.VariableUsages
 	}
 	return toSerialize, nil
@@ -3480,5 +3554,3 @@ func (v *NullableUserInputTask) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

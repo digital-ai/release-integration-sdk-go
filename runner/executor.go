@@ -9,7 +9,7 @@ import (
 )
 
 type RunFunction func(task.InputContext) *task.Result
-type FactoryBuilder func(task task.TaskContext) (command.CommandFactory, error)
+type FactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
 
 type Runner interface {
 	Run(task.InputContext) *task.Result
@@ -41,7 +41,7 @@ func NewCommandRunner(factoryBuilder FactoryBuilder) *CommandRunner {
 
 func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	returnResult := task.NewResult()
-	factory, err := runner.factoryBuilder(ctx.Task)
+	factory, err := runner.factoryBuilder(ctx)
 	if err != nil {
 		return returnResult.Error(fmt.Errorf("cannot crete factory from task: %v", err))
 	}
@@ -66,15 +66,15 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	klog.Infof("PluginVersion:\t%s", pluginVersion)
 	klog.Infof("BuildDate:\t%s", buildDate)
 
-	var taskContext task.InputContext
-	if err := task.Deserialize(&taskContext); err != nil {
+	var inputContext task.InputContext
+	if err := task.Deserialize(&inputContext); err != nil {
 		klog.Errorf("Failed to deserialize input %v", err)
 		task.HandleError(fmt.Errorf("failed to deserialize input: %v", err), nil)
 		return
 	}
 
-	logger.AddSecrets(taskContext)
-	executionResult := runner.Run(taskContext)
+	logger.AddSecrets(inputContext)
+	executionResult := runner.Run(inputContext)
 
 	resultMap, err := executionResult.Get()
 	if err != nil {

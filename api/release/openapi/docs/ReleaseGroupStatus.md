@@ -3,19 +3,19 @@
 ## Enum
 
 
-* `PLANNED_GROUP` (value: `"PLANNED_GROUP"`)
+* `PLANNED` (value: `"PLANNED"`)
 
 * `IN_PROGRESS` (value: `"IN_PROGRESS"`)
 
-* `PAUSED_GROUP` (value: `"PAUSED_GROUP"`)
+* `PAUSED` (value: `"PAUSED"`)
 
-* `FAILING_GROUP` (value: `"FAILING_GROUP"`)
+* `FAILING` (value: `"FAILING"`)
 
-* `FAILED_GROUP` (value: `"FAILED_GROUP"`)
+* `FAILED` (value: `"FAILED"`)
 
-* `COMPLETED_GROUP` (value: `"COMPLETED_GROUP"`)
+* `COMPLETED` (value: `"COMPLETED"`)
 
-* `ABORTED_GROUP` (value: `"ABORTED_GROUP"`)
+* `ABORTED` (value: `"ABORTED"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

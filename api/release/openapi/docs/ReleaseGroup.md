@@ -4,11 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Metadata** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to [**ReleaseGroupStatus**](ReleaseGroupStatus.md) |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **RiskScore** | Pointer to **int32** |  | [optional] 
 **ReleaseIds** | Pointer to **[]string** |  | [optional] 
 **Progress** | Pointer to **int32** |  | [optional] 
@@ -33,6 +35,56 @@ will change when the set of required properties is changed
 NewReleaseGroupWithDefaults instantiates a new ReleaseGroup object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *ReleaseGroup) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ReleaseGroup) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ReleaseGroup) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ReleaseGroup) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *ReleaseGroup) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *ReleaseGroup) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *ReleaseGroup) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *ReleaseGroup) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetMetadata
 
@@ -111,20 +163,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *ReleaseGroup) GetStartDate() string`
+`func (o *ReleaseGroup) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *ReleaseGroup) GetStartDateOk() (*string, bool)`
+`func (o *ReleaseGroup) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *ReleaseGroup) SetStartDate(v string)`
+`func (o *ReleaseGroup) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -136,20 +188,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *ReleaseGroup) GetEndDate() string`
+`func (o *ReleaseGroup) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *ReleaseGroup) GetEndDateOk() (*string, bool)`
+`func (o *ReleaseGroup) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *ReleaseGroup) SetEndDate(v string)`
+`func (o *ReleaseGroup) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 

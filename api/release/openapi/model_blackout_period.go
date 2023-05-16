@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the BlackoutPeriod type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &BlackoutPeriod{}
 
 // BlackoutPeriod struct for BlackoutPeriod
 type BlackoutPeriod struct {
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
+	StartDate *time.Time `json:"startDate,omitempty"`
+	EndDate   *time.Time `json:"endDate,omitempty"`
 }
 
 // NewBlackoutPeriod instantiates a new BlackoutPeriod object
@@ -41,9 +42,9 @@ func NewBlackoutPeriodWithDefaults() *BlackoutPeriod {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *BlackoutPeriod) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *BlackoutPeriod) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -51,8 +52,8 @@ func (o *BlackoutPeriod) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlackoutPeriod) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *BlackoutPeriod) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -60,22 +61,22 @@ func (o *BlackoutPeriod) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *BlackoutPeriod) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *BlackoutPeriod) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *BlackoutPeriod) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *BlackoutPeriod) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *BlackoutPeriod) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -83,8 +84,8 @@ func (o *BlackoutPeriod) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlackoutPeriod) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *BlackoutPeriod) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -92,20 +93,20 @@ func (o *BlackoutPeriod) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *BlackoutPeriod) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *BlackoutPeriod) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *BlackoutPeriod) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 func (o BlackoutPeriod) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +115,10 @@ func (o BlackoutPeriod) MarshalJSON() ([]byte, error) {
 
 func (o BlackoutPeriod) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
 	return toSerialize, nil
@@ -158,5 +159,3 @@ func (v *NullableBlackoutPeriod) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

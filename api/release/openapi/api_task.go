@@ -13,21 +13,20 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // TaskApiService TaskApi service
 type TaskApiService service
 
 type ApiAbortTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	comment1 *Comment1
+	taskId     string
+	comment1   *Comment1
 }
 
 func (r ApiAbortTaskRequest) Comment1(comment1 Comment1) ApiAbortTaskRequest {
@@ -42,26 +41,27 @@ func (r ApiAbortTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 AbortTask Method for AbortTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiAbortTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiAbortTaskRequest
 */
 func (a *TaskApiService) AbortTask(ctx context.Context, taskId string) ApiAbortTaskRequest {
 	return ApiAbortTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) AbortTaskExecute(r ApiAbortTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.AbortTask")
@@ -95,6 +95,20 @@ func (a *TaskApiService) AbortTaskExecute(r ApiAbortTaskRequest) (*Task, *http.R
 	}
 	// body params
 	localVarPostBody = r.comment1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -105,9 +119,9 @@ func (a *TaskApiService) AbortTaskExecute(r ApiAbortTaskRequest) (*Task, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -133,9 +147,9 @@ func (a *TaskApiService) AbortTaskExecute(r ApiAbortTaskRequest) (*Task, *http.R
 }
 
 type ApiAddAttachmentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
+	taskId     string
 }
 
 func (r ApiAddAttachmentsRequest) Execute() ([]Attachment, *http.Response, error) {
@@ -145,26 +159,27 @@ func (r ApiAddAttachmentsRequest) Execute() ([]Attachment, *http.Response, error
 /*
 AddAttachments Method for AddAttachments
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiAddAttachmentsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiAddAttachmentsRequest
 */
 func (a *TaskApiService) AddAttachments(ctx context.Context, taskId string) ApiAddAttachmentsRequest {
 	return ApiAddAttachmentsRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return []Attachment
+//
+//	@return []Attachment
 func (a *TaskApiService) AddAttachmentsExecute(r ApiAddAttachmentsRequest) ([]Attachment, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Attachment
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Attachment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.AddAttachments")
@@ -196,6 +211,20 @@ func (a *TaskApiService) AddAttachmentsExecute(r ApiAddAttachmentsRequest) ([]At
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -206,9 +235,9 @@ func (a *TaskApiService) AddAttachmentsExecute(r ApiAddAttachmentsRequest) ([]At
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -234,9 +263,9 @@ func (a *TaskApiService) AddAttachmentsExecute(r ApiAddAttachmentsRequest) ([]At
 }
 
 type ApiAddConditionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
+	taskId     string
 	condition1 *Condition1
 }
 
@@ -252,26 +281,27 @@ func (r ApiAddConditionRequest) Execute() (*GateCondition, *http.Response, error
 /*
 AddCondition Method for AddCondition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiAddConditionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiAddConditionRequest
 */
 func (a *TaskApiService) AddCondition(ctx context.Context, taskId string) ApiAddConditionRequest {
 	return ApiAddConditionRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return GateCondition
+//
+//	@return GateCondition
 func (a *TaskApiService) AddConditionExecute(r ApiAddConditionRequest) (*GateCondition, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GateCondition
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GateCondition
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.AddCondition")
@@ -305,6 +335,20 @@ func (a *TaskApiService) AddConditionExecute(r ApiAddConditionRequest) (*GateCon
 	}
 	// body params
 	localVarPostBody = r.condition1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -315,9 +359,9 @@ func (a *TaskApiService) AddConditionExecute(r ApiAddConditionRequest) (*GateCon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -343,10 +387,10 @@ func (a *TaskApiService) AddConditionExecute(r ApiAddConditionRequest) (*GateCon
 }
 
 type ApiAddDependencyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	targetId string
-	taskId string
+	targetId   string
+	taskId     string
 }
 
 func (r ApiAddDependencyRequest) Execute() (*Dependency, *http.Response, error) {
@@ -356,28 +400,29 @@ func (r ApiAddDependencyRequest) Execute() (*Dependency, *http.Response, error) 
 /*
 AddDependency Method for AddDependency
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param targetId
- @param taskId
- @return ApiAddDependencyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param targetId
+	@param taskId
+	@return ApiAddDependencyRequest
 */
 func (a *TaskApiService) AddDependency(ctx context.Context, targetId string, taskId string) ApiAddDependencyRequest {
 	return ApiAddDependencyRequest{
 		ApiService: a,
-		ctx: ctx,
-		targetId: targetId,
-		taskId: taskId,
+		ctx:        ctx,
+		targetId:   targetId,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Dependency
+//
+//	@return Dependency
 func (a *TaskApiService) AddDependencyExecute(r ApiAddDependencyRequest) (*Dependency, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Dependency
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Dependency
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.AddDependency")
@@ -410,6 +455,20 @@ func (a *TaskApiService) AddDependencyExecute(r ApiAddDependencyRequest) (*Depen
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -420,9 +479,9 @@ func (a *TaskApiService) AddDependencyExecute(r ApiAddDependencyRequest) (*Depen
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -448,10 +507,10 @@ func (a *TaskApiService) AddDependencyExecute(r ApiAddDependencyRequest) (*Depen
 }
 
 type ApiAddTaskTaskRequest struct {
-	ctx context.Context
-	ApiService *TaskApiService
+	ctx         context.Context
+	ApiService  *TaskApiService
 	containerId string
-	task *Task
+	task        *Task
 }
 
 func (r ApiAddTaskTaskRequest) Task(task Task) ApiAddTaskTaskRequest {
@@ -466,26 +525,27 @@ func (r ApiAddTaskTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 AddTaskTask Method for AddTaskTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param containerId
- @return ApiAddTaskTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param containerId
+	@return ApiAddTaskTaskRequest
 */
 func (a *TaskApiService) AddTaskTask(ctx context.Context, containerId string) ApiAddTaskTaskRequest {
 	return ApiAddTaskTaskRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		containerId: containerId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) AddTaskTaskExecute(r ApiAddTaskTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.AddTaskTask")
@@ -519,6 +579,20 @@ func (a *TaskApiService) AddTaskTaskExecute(r ApiAddTaskTaskRequest) (*Task, *ht
 	}
 	// body params
 	localVarPostBody = r.task
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -529,9 +603,9 @@ func (a *TaskApiService) AddTaskTaskExecute(r ApiAddTaskTaskRequest) (*Task, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -557,10 +631,10 @@ func (a *TaskApiService) AddTaskTaskExecute(r ApiAddTaskTaskRequest) (*Task, *ht
 }
 
 type ApiAssignTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	username string
+	taskId     string
+	username   string
 }
 
 func (r ApiAssignTaskRequest) Execute() (*Task, *http.Response, error) {
@@ -570,28 +644,29 @@ func (r ApiAssignTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 AssignTask Method for AssignTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @param username
- @return ApiAssignTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@param username
+	@return ApiAssignTaskRequest
 */
 func (a *TaskApiService) AssignTask(ctx context.Context, taskId string, username string) ApiAssignTaskRequest {
 	return ApiAssignTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
-		username: username,
+		ctx:        ctx,
+		taskId:     taskId,
+		username:   username,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) AssignTaskExecute(r ApiAssignTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.AssignTask")
@@ -624,6 +699,20 @@ func (a *TaskApiService) AssignTaskExecute(r ApiAssignTaskRequest) (*Task, *http
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -634,9 +723,9 @@ func (a *TaskApiService) AssignTaskExecute(r ApiAssignTaskRequest) (*Task, *http
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -662,9 +751,9 @@ func (a *TaskApiService) AssignTaskExecute(r ApiAssignTaskRequest) (*Task, *http
 }
 
 type ApiChangeTaskTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
+	taskId     string
 	targetType *string
 }
 
@@ -680,26 +769,27 @@ func (r ApiChangeTaskTypeRequest) Execute() (*Task, *http.Response, error) {
 /*
 ChangeTaskType Method for ChangeTaskType
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiChangeTaskTypeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiChangeTaskTypeRequest
 */
 func (a *TaskApiService) ChangeTaskType(ctx context.Context, taskId string) ApiChangeTaskTypeRequest {
 	return ApiChangeTaskTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) ChangeTaskTypeExecute(r ApiChangeTaskTypeRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.ChangeTaskType")
@@ -715,7 +805,7 @@ func (a *TaskApiService) ChangeTaskTypeExecute(r ApiChangeTaskTypeRequest) (*Tas
 	localVarFormParams := url.Values{}
 
 	if r.targetType != nil {
-		parameterAddToQuery(localVarQueryParams, "targetType", r.targetType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "targetType", r.targetType, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -734,6 +824,20 @@ func (a *TaskApiService) ChangeTaskTypeExecute(r ApiChangeTaskTypeRequest) (*Tas
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -744,9 +848,9 @@ func (a *TaskApiService) ChangeTaskTypeExecute(r ApiChangeTaskTypeRequest) (*Tas
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -772,10 +876,10 @@ func (a *TaskApiService) ChangeTaskTypeExecute(r ApiChangeTaskTypeRequest) (*Tas
 }
 
 type ApiCommentTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	comment1 *Comment1
+	taskId     string
+	comment1   *Comment1
 }
 
 func (r ApiCommentTaskRequest) Comment1(comment1 Comment1) ApiCommentTaskRequest {
@@ -790,26 +894,27 @@ func (r ApiCommentTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 CommentTask Method for CommentTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiCommentTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiCommentTaskRequest
 */
 func (a *TaskApiService) CommentTask(ctx context.Context, taskId string) ApiCommentTaskRequest {
 	return ApiCommentTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) CommentTaskExecute(r ApiCommentTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.CommentTask")
@@ -843,6 +948,20 @@ func (a *TaskApiService) CommentTaskExecute(r ApiCommentTaskRequest) (*Task, *ht
 	}
 	// body params
 	localVarPostBody = r.comment1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -853,9 +972,9 @@ func (a *TaskApiService) CommentTaskExecute(r ApiCommentTaskRequest) (*Task, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -881,10 +1000,10 @@ func (a *TaskApiService) CommentTaskExecute(r ApiCommentTaskRequest) (*Task, *ht
 }
 
 type ApiCompleteTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	comment1 *Comment1
+	taskId     string
+	comment1   *Comment1
 }
 
 func (r ApiCompleteTaskRequest) Comment1(comment1 Comment1) ApiCompleteTaskRequest {
@@ -899,26 +1018,27 @@ func (r ApiCompleteTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 CompleteTask Method for CompleteTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiCompleteTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiCompleteTaskRequest
 */
 func (a *TaskApiService) CompleteTask(ctx context.Context, taskId string) ApiCompleteTaskRequest {
 	return ApiCompleteTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) CompleteTaskExecute(r ApiCompleteTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.CompleteTask")
@@ -952,6 +1072,20 @@ func (a *TaskApiService) CompleteTaskExecute(r ApiCompleteTaskRequest) (*Task, *
 	}
 	// body params
 	localVarPostBody = r.comment1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -962,9 +1096,9 @@ func (a *TaskApiService) CompleteTaskExecute(r ApiCompleteTaskRequest) (*Task, *
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -990,11 +1124,11 @@ func (a *TaskApiService) CompleteTaskExecute(r ApiCompleteTaskRequest) (*Task, *
 }
 
 type ApiCopyTaskRequest struct {
-	ctx context.Context
-	ApiService *TaskApiService
-	taskId string
+	ctx               context.Context
+	ApiService        *TaskApiService
+	taskId            string
 	targetContainerId *string
-	targetPosition *int32
+	targetPosition    *int32
 }
 
 func (r ApiCopyTaskRequest) TargetContainerId(targetContainerId string) ApiCopyTaskRequest {
@@ -1014,26 +1148,27 @@ func (r ApiCopyTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 CopyTask Method for CopyTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiCopyTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiCopyTaskRequest
 */
 func (a *TaskApiService) CopyTask(ctx context.Context, taskId string) ApiCopyTaskRequest {
 	return ApiCopyTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) CopyTaskExecute(r ApiCopyTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.CopyTask")
@@ -1049,10 +1184,10 @@ func (a *TaskApiService) CopyTaskExecute(r ApiCopyTaskRequest) (*Task, *http.Res
 	localVarFormParams := url.Values{}
 
 	if r.targetContainerId != nil {
-		parameterAddToQuery(localVarQueryParams, "targetContainerId", r.targetContainerId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "targetContainerId", r.targetContainerId, "")
 	}
 	if r.targetPosition != nil {
-		parameterAddToQuery(localVarQueryParams, "targetPosition", r.targetPosition, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "targetPosition", r.targetPosition, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1071,6 +1206,20 @@ func (a *TaskApiService) CopyTaskExecute(r ApiCopyTaskRequest) (*Task, *http.Res
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1081,9 +1230,9 @@ func (a *TaskApiService) CopyTaskExecute(r ApiCopyTaskRequest) (*Task, *http.Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1109,10 +1258,10 @@ func (a *TaskApiService) CopyTaskExecute(r ApiCopyTaskRequest) (*Task, *http.Res
 }
 
 type ApiDeleteAttachmentRequest struct {
-	ctx context.Context
-	ApiService *TaskApiService
+	ctx          context.Context
+	ApiService   *TaskApiService
 	attachmentId string
-	taskId string
+	taskId       string
 }
 
 func (r ApiDeleteAttachmentRequest) Execute() (*http.Response, error) {
@@ -1122,26 +1271,26 @@ func (r ApiDeleteAttachmentRequest) Execute() (*http.Response, error) {
 /*
 DeleteAttachment Method for DeleteAttachment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param attachmentId
- @param taskId
- @return ApiDeleteAttachmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param attachmentId
+	@param taskId
+	@return ApiDeleteAttachmentRequest
 */
 func (a *TaskApiService) DeleteAttachment(ctx context.Context, attachmentId string, taskId string) ApiDeleteAttachmentRequest {
 	return ApiDeleteAttachmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		attachmentId: attachmentId,
-		taskId: taskId,
+		taskId:       taskId,
 	}
 }
 
 // Execute executes the request
 func (a *TaskApiService) DeleteAttachmentExecute(r ApiDeleteAttachmentRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.DeleteAttachment")
@@ -1174,6 +1323,20 @@ func (a *TaskApiService) DeleteAttachmentExecute(r ApiDeleteAttachmentRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1184,9 +1347,9 @@ func (a *TaskApiService) DeleteAttachmentExecute(r ApiDeleteAttachmentRequest) (
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1203,8 +1366,8 @@ func (a *TaskApiService) DeleteAttachmentExecute(r ApiDeleteAttachmentRequest) (
 }
 
 type ApiDeleteConditionRequest struct {
-	ctx context.Context
-	ApiService *TaskApiService
+	ctx         context.Context
+	ApiService  *TaskApiService
 	conditionId string
 }
 
@@ -1215,14 +1378,14 @@ func (r ApiDeleteConditionRequest) Execute() (*http.Response, error) {
 /*
 DeleteCondition Method for DeleteCondition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param conditionId
- @return ApiDeleteConditionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param conditionId
+	@return ApiDeleteConditionRequest
 */
 func (a *TaskApiService) DeleteCondition(ctx context.Context, conditionId string) ApiDeleteConditionRequest {
 	return ApiDeleteConditionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		conditionId: conditionId,
 	}
 }
@@ -1230,9 +1393,9 @@ func (a *TaskApiService) DeleteCondition(ctx context.Context, conditionId string
 // Execute executes the request
 func (a *TaskApiService) DeleteConditionExecute(r ApiDeleteConditionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.DeleteCondition")
@@ -1264,6 +1427,20 @@ func (a *TaskApiService) DeleteConditionExecute(r ApiDeleteConditionRequest) (*h
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1274,9 +1451,9 @@ func (a *TaskApiService) DeleteConditionExecute(r ApiDeleteConditionRequest) (*h
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1293,8 +1470,8 @@ func (a *TaskApiService) DeleteConditionExecute(r ApiDeleteConditionRequest) (*h
 }
 
 type ApiDeleteDependencyRequest struct {
-	ctx context.Context
-	ApiService *TaskApiService
+	ctx          context.Context
+	ApiService   *TaskApiService
 	dependencyId string
 }
 
@@ -1305,14 +1482,14 @@ func (r ApiDeleteDependencyRequest) Execute() (*http.Response, error) {
 /*
 DeleteDependency Method for DeleteDependency
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param dependencyId
- @return ApiDeleteDependencyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param dependencyId
+	@return ApiDeleteDependencyRequest
 */
 func (a *TaskApiService) DeleteDependency(ctx context.Context, dependencyId string) ApiDeleteDependencyRequest {
 	return ApiDeleteDependencyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		dependencyId: dependencyId,
 	}
 }
@@ -1320,9 +1497,9 @@ func (a *TaskApiService) DeleteDependency(ctx context.Context, dependencyId stri
 // Execute executes the request
 func (a *TaskApiService) DeleteDependencyExecute(r ApiDeleteDependencyRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.DeleteDependency")
@@ -1354,6 +1531,20 @@ func (a *TaskApiService) DeleteDependencyExecute(r ApiDeleteDependencyRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1364,9 +1555,9 @@ func (a *TaskApiService) DeleteDependencyExecute(r ApiDeleteDependencyRequest) (
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1383,9 +1574,9 @@ func (a *TaskApiService) DeleteDependencyExecute(r ApiDeleteDependencyRequest) (
 }
 
 type ApiDeleteTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
+	taskId     string
 }
 
 func (r ApiDeleteTaskRequest) Execute() (*http.Response, error) {
@@ -1395,24 +1586,24 @@ func (r ApiDeleteTaskRequest) Execute() (*http.Response, error) {
 /*
 DeleteTask Method for DeleteTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiDeleteTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiDeleteTaskRequest
 */
 func (a *TaskApiService) DeleteTask(ctx context.Context, taskId string) ApiDeleteTaskRequest {
 	return ApiDeleteTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
 func (a *TaskApiService) DeleteTaskExecute(r ApiDeleteTaskRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.DeleteTask")
@@ -1444,6 +1635,20 @@ func (a *TaskApiService) DeleteTaskExecute(r ApiDeleteTaskRequest) (*http.Respon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1454,9 +1659,9 @@ func (a *TaskApiService) DeleteTaskExecute(r ApiDeleteTaskRequest) (*http.Respon
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1473,10 +1678,10 @@ func (a *TaskApiService) DeleteTaskExecute(r ApiDeleteTaskRequest) (*http.Respon
 }
 
 type ApiFailTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	comment1 *Comment1
+	taskId     string
+	comment1   *Comment1
 }
 
 func (r ApiFailTaskRequest) Comment1(comment1 Comment1) ApiFailTaskRequest {
@@ -1491,26 +1696,27 @@ func (r ApiFailTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 FailTask Method for FailTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiFailTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiFailTaskRequest
 */
 func (a *TaskApiService) FailTask(ctx context.Context, taskId string) ApiFailTaskRequest {
 	return ApiFailTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) FailTaskExecute(r ApiFailTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.FailTask")
@@ -1544,6 +1750,20 @@ func (a *TaskApiService) FailTaskExecute(r ApiFailTaskRequest) (*Task, *http.Res
 	}
 	// body params
 	localVarPostBody = r.comment1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1554,9 +1774,9 @@ func (a *TaskApiService) FailTaskExecute(r ApiFailTaskRequest) (*Task, *http.Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1582,9 +1802,9 @@ func (a *TaskApiService) FailTaskExecute(r ApiFailTaskRequest) (*Task, *http.Res
 }
 
 type ApiGetTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
+	taskId     string
 }
 
 func (r ApiGetTaskRequest) Execute() (*Task, *http.Response, error) {
@@ -1594,26 +1814,27 @@ func (r ApiGetTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 GetTask Method for GetTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiGetTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiGetTaskRequest
 */
 func (a *TaskApiService) GetTask(ctx context.Context, taskId string) ApiGetTaskRequest {
 	return ApiGetTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) GetTaskExecute(r ApiGetTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.GetTask")
@@ -1645,6 +1866,20 @@ func (a *TaskApiService) GetTaskExecute(r ApiGetTaskRequest) (*Task, *http.Respo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1655,9 +1890,9 @@ func (a *TaskApiService) GetTaskExecute(r ApiGetTaskRequest) (*Task, *http.Respo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1683,9 +1918,9 @@ func (a *TaskApiService) GetTaskExecute(r ApiGetTaskRequest) (*Task, *http.Respo
 }
 
 type ApiGetTaskVariablesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
+	taskId     string
 }
 
 func (r ApiGetTaskVariablesRequest) Execute() ([]Variable, *http.Response, error) {
@@ -1695,26 +1930,27 @@ func (r ApiGetTaskVariablesRequest) Execute() ([]Variable, *http.Response, error
 /*
 GetTaskVariables Method for GetTaskVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiGetTaskVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiGetTaskVariablesRequest
 */
 func (a *TaskApiService) GetTaskVariables(ctx context.Context, taskId string) ApiGetTaskVariablesRequest {
 	return ApiGetTaskVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return []Variable
+//
+//	@return []Variable
 func (a *TaskApiService) GetTaskVariablesExecute(r ApiGetTaskVariablesRequest) ([]Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.GetTaskVariables")
@@ -1746,6 +1982,20 @@ func (a *TaskApiService) GetTaskVariablesExecute(r ApiGetTaskVariablesRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1756,9 +2006,9 @@ func (a *TaskApiService) GetTaskVariablesExecute(r ApiGetTaskVariablesRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1784,9 +2034,9 @@ func (a *TaskApiService) GetTaskVariablesExecute(r ApiGetTaskVariablesRequest) (
 }
 
 type ApiLockTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
+	taskId     string
 }
 
 func (r ApiLockTaskRequest) Execute() (*http.Response, error) {
@@ -1796,24 +2046,24 @@ func (r ApiLockTaskRequest) Execute() (*http.Response, error) {
 /*
 LockTask Method for LockTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiLockTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiLockTaskRequest
 */
 func (a *TaskApiService) LockTask(ctx context.Context, taskId string) ApiLockTaskRequest {
 	return ApiLockTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
 func (a *TaskApiService) LockTaskExecute(r ApiLockTaskRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.LockTask")
@@ -1845,6 +2095,20 @@ func (a *TaskApiService) LockTaskExecute(r ApiLockTaskRequest) (*http.Response, 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1855,9 +2119,9 @@ func (a *TaskApiService) LockTaskExecute(r ApiLockTaskRequest) (*http.Response, 
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1874,10 +2138,10 @@ func (a *TaskApiService) LockTaskExecute(r ApiLockTaskRequest) (*http.Response, 
 }
 
 type ApiReopenTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	comment1 *Comment1
+	taskId     string
+	comment1   *Comment1
 }
 
 func (r ApiReopenTaskRequest) Comment1(comment1 Comment1) ApiReopenTaskRequest {
@@ -1892,26 +2156,27 @@ func (r ApiReopenTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 ReopenTask Method for ReopenTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiReopenTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiReopenTaskRequest
 */
 func (a *TaskApiService) ReopenTask(ctx context.Context, taskId string) ApiReopenTaskRequest {
 	return ApiReopenTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) ReopenTaskExecute(r ApiReopenTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.ReopenTask")
@@ -1945,6 +2210,20 @@ func (a *TaskApiService) ReopenTaskExecute(r ApiReopenTaskRequest) (*Task, *http
 	}
 	// body params
 	localVarPostBody = r.comment1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1955,9 +2234,9 @@ func (a *TaskApiService) ReopenTaskExecute(r ApiReopenTaskRequest) (*Task, *http
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1983,10 +2262,10 @@ func (a *TaskApiService) ReopenTaskExecute(r ApiReopenTaskRequest) (*Task, *http
 }
 
 type ApiRetryTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	comment1 *Comment1
+	taskId     string
+	comment1   *Comment1
 }
 
 func (r ApiRetryTaskRequest) Comment1(comment1 Comment1) ApiRetryTaskRequest {
@@ -2001,26 +2280,27 @@ func (r ApiRetryTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 RetryTask Method for RetryTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiRetryTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiRetryTaskRequest
 */
 func (a *TaskApiService) RetryTask(ctx context.Context, taskId string) ApiRetryTaskRequest {
 	return ApiRetryTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) RetryTaskExecute(r ApiRetryTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.RetryTask")
@@ -2054,6 +2334,20 @@ func (a *TaskApiService) RetryTaskExecute(r ApiRetryTaskRequest) (*Task, *http.R
 	}
 	// body params
 	localVarPostBody = r.comment1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2064,9 +2358,9 @@ func (a *TaskApiService) RetryTaskExecute(r ApiRetryTaskRequest) (*Task, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2092,11 +2386,11 @@ func (a *TaskApiService) RetryTaskExecute(r ApiRetryTaskRequest) (*Task, *http.R
 }
 
 type ApiSearchTasksByTitleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
 	phaseTitle *string
-	releaseId *string
-	taskTitle *string
+	releaseId  *string
+	taskTitle  *string
 }
 
 func (r ApiSearchTasksByTitleRequest) PhaseTitle(phaseTitle string) ApiSearchTasksByTitleRequest {
@@ -2121,24 +2415,25 @@ func (r ApiSearchTasksByTitleRequest) Execute() ([]Task, *http.Response, error) 
 /*
 SearchTasksByTitle Method for SearchTasksByTitle
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchTasksByTitleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchTasksByTitleRequest
 */
 func (a *TaskApiService) SearchTasksByTitle(ctx context.Context) ApiSearchTasksByTitleRequest {
 	return ApiSearchTasksByTitleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Task
+//
+//	@return []Task
 func (a *TaskApiService) SearchTasksByTitleExecute(r ApiSearchTasksByTitleRequest) ([]Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Task
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.SearchTasksByTitle")
@@ -2153,13 +2448,13 @@ func (a *TaskApiService) SearchTasksByTitleExecute(r ApiSearchTasksByTitleReques
 	localVarFormParams := url.Values{}
 
 	if r.phaseTitle != nil {
-		parameterAddToQuery(localVarQueryParams, "phaseTitle", r.phaseTitle, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "phaseTitle", r.phaseTitle, "")
 	}
 	if r.releaseId != nil {
-		parameterAddToQuery(localVarQueryParams, "releaseId", r.releaseId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "releaseId", r.releaseId, "")
 	}
 	if r.taskTitle != nil {
-		parameterAddToQuery(localVarQueryParams, "taskTitle", r.taskTitle, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "taskTitle", r.taskTitle, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2178,6 +2473,20 @@ func (a *TaskApiService) SearchTasksByTitleExecute(r ApiSearchTasksByTitleReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2188,9 +2497,9 @@ func (a *TaskApiService) SearchTasksByTitleExecute(r ApiSearchTasksByTitleReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2216,10 +2525,10 @@ func (a *TaskApiService) SearchTasksByTitleExecute(r ApiSearchTasksByTitleReques
 }
 
 type ApiSkipTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	comment1 *Comment1
+	taskId     string
+	comment1   *Comment1
 }
 
 func (r ApiSkipTaskRequest) Comment1(comment1 Comment1) ApiSkipTaskRequest {
@@ -2234,26 +2543,27 @@ func (r ApiSkipTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 SkipTask Method for SkipTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiSkipTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiSkipTaskRequest
 */
 func (a *TaskApiService) SkipTask(ctx context.Context, taskId string) ApiSkipTaskRequest {
 	return ApiSkipTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) SkipTaskExecute(r ApiSkipTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.SkipTask")
@@ -2287,6 +2597,20 @@ func (a *TaskApiService) SkipTaskExecute(r ApiSkipTaskRequest) (*Task, *http.Res
 	}
 	// body params
 	localVarPostBody = r.comment1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2297,9 +2621,9 @@ func (a *TaskApiService) SkipTaskExecute(r ApiSkipTaskRequest) (*Task, *http.Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2325,10 +2649,10 @@ func (a *TaskApiService) SkipTaskExecute(r ApiSkipTaskRequest) (*Task, *http.Res
 }
 
 type ApiStartTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	startTask *StartTask
+	taskId     string
+	startTask  *StartTask
 }
 
 func (r ApiStartTaskRequest) StartTask(startTask StartTask) ApiStartTaskRequest {
@@ -2343,26 +2667,27 @@ func (r ApiStartTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 StartTask Method for StartTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiStartTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiStartTaskRequest
 */
 func (a *TaskApiService) StartTask(ctx context.Context, taskId string) ApiStartTaskRequest {
 	return ApiStartTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) StartTaskExecute(r ApiStartTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.StartTask")
@@ -2396,6 +2721,20 @@ func (a *TaskApiService) StartTaskExecute(r ApiStartTaskRequest) (*Task, *http.R
 	}
 	// body params
 	localVarPostBody = r.startTask
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2406,9 +2745,9 @@ func (a *TaskApiService) StartTaskExecute(r ApiStartTaskRequest) (*Task, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2434,10 +2773,10 @@ func (a *TaskApiService) StartTaskExecute(r ApiStartTaskRequest) (*Task, *http.R
 }
 
 type ApiStartTask1Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	comment1 *Comment1
+	taskId     string
+	comment1   *Comment1
 }
 
 func (r ApiStartTask1Request) Comment1(comment1 Comment1) ApiStartTask1Request {
@@ -2452,26 +2791,27 @@ func (r ApiStartTask1Request) Execute() (*Task, *http.Response, error) {
 /*
 StartTask1 Method for StartTask1
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiStartTask1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiStartTask1Request
 */
 func (a *TaskApiService) StartTask1(ctx context.Context, taskId string) ApiStartTask1Request {
 	return ApiStartTask1Request{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) StartTask1Execute(r ApiStartTask1Request) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.StartTask1")
@@ -2505,6 +2845,20 @@ func (a *TaskApiService) StartTask1Execute(r ApiStartTask1Request) (*Task, *http
 	}
 	// body params
 	localVarPostBody = r.comment1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2515,9 +2869,9 @@ func (a *TaskApiService) StartTask1Execute(r ApiStartTask1Request) (*Task, *http
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2543,9 +2897,9 @@ func (a *TaskApiService) StartTask1Execute(r ApiStartTask1Request) (*Task, *http
 }
 
 type ApiUnlockTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
+	taskId     string
 }
 
 func (r ApiUnlockTaskRequest) Execute() (*http.Response, error) {
@@ -2555,24 +2909,24 @@ func (r ApiUnlockTaskRequest) Execute() (*http.Response, error) {
 /*
 UnlockTask Method for UnlockTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiUnlockTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiUnlockTaskRequest
 */
 func (a *TaskApiService) UnlockTask(ctx context.Context, taskId string) ApiUnlockTaskRequest {
 	return ApiUnlockTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
 func (a *TaskApiService) UnlockTaskExecute(r ApiUnlockTaskRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.UnlockTask")
@@ -2604,6 +2958,20 @@ func (a *TaskApiService) UnlockTaskExecute(r ApiUnlockTaskRequest) (*http.Respon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -2614,9 +2982,9 @@ func (a *TaskApiService) UnlockTaskExecute(r ApiUnlockTaskRequest) (*http.Respon
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2633,10 +3001,10 @@ func (a *TaskApiService) UnlockTaskExecute(r ApiUnlockTaskRequest) (*http.Respon
 }
 
 type ApiUpdateConditionRequest struct {
-	ctx context.Context
-	ApiService *TaskApiService
+	ctx         context.Context
+	ApiService  *TaskApiService
 	conditionId string
-	condition1 *Condition1
+	condition1  *Condition1
 }
 
 func (r ApiUpdateConditionRequest) Condition1(condition1 Condition1) ApiUpdateConditionRequest {
@@ -2651,26 +3019,27 @@ func (r ApiUpdateConditionRequest) Execute() (*GateCondition, *http.Response, er
 /*
 UpdateCondition Method for UpdateCondition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param conditionId
- @return ApiUpdateConditionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param conditionId
+	@return ApiUpdateConditionRequest
 */
 func (a *TaskApiService) UpdateCondition(ctx context.Context, conditionId string) ApiUpdateConditionRequest {
 	return ApiUpdateConditionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		conditionId: conditionId,
 	}
 }
 
 // Execute executes the request
-//  @return GateCondition
+//
+//	@return GateCondition
 func (a *TaskApiService) UpdateConditionExecute(r ApiUpdateConditionRequest) (*GateCondition, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GateCondition
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GateCondition
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.UpdateCondition")
@@ -2704,6 +3073,20 @@ func (a *TaskApiService) UpdateConditionExecute(r ApiUpdateConditionRequest) (*G
 	}
 	// body params
 	localVarPostBody = r.condition1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2714,9 +3097,9 @@ func (a *TaskApiService) UpdateConditionExecute(r ApiUpdateConditionRequest) (*G
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2742,10 +3125,10 @@ func (a *TaskApiService) UpdateConditionExecute(r ApiUpdateConditionRequest) (*G
 }
 
 type ApiUpdateInputVariablesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	variable *[]Variable
+	taskId     string
+	variable   *[]Variable
 }
 
 func (r ApiUpdateInputVariablesRequest) Variable(variable []Variable) ApiUpdateInputVariablesRequest {
@@ -2760,26 +3143,27 @@ func (r ApiUpdateInputVariablesRequest) Execute() ([]Variable, *http.Response, e
 /*
 UpdateInputVariables Method for UpdateInputVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiUpdateInputVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiUpdateInputVariablesRequest
 */
 func (a *TaskApiService) UpdateInputVariables(ctx context.Context, taskId string) ApiUpdateInputVariablesRequest {
 	return ApiUpdateInputVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return []Variable
+//
+//	@return []Variable
 func (a *TaskApiService) UpdateInputVariablesExecute(r ApiUpdateInputVariablesRequest) ([]Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Variable
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.UpdateInputVariables")
@@ -2813,6 +3197,20 @@ func (a *TaskApiService) UpdateInputVariablesExecute(r ApiUpdateInputVariablesRe
 	}
 	// body params
 	localVarPostBody = r.variable
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2823,9 +3221,9 @@ func (a *TaskApiService) UpdateInputVariablesExecute(r ApiUpdateInputVariablesRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2851,10 +3249,10 @@ func (a *TaskApiService) UpdateInputVariablesExecute(r ApiUpdateInputVariablesRe
 }
 
 type ApiUpdateTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskApiService
-	taskId string
-	task *Task
+	taskId     string
+	task       *Task
 }
 
 func (r ApiUpdateTaskRequest) Task(task Task) ApiUpdateTaskRequest {
@@ -2869,26 +3267,27 @@ func (r ApiUpdateTaskRequest) Execute() (*Task, *http.Response, error) {
 /*
 UpdateTask Method for UpdateTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiUpdateTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param taskId
+	@return ApiUpdateTaskRequest
 */
 func (a *TaskApiService) UpdateTask(ctx context.Context, taskId string) ApiUpdateTaskRequest {
 	return ApiUpdateTaskRequest{
 		ApiService: a,
-		ctx: ctx,
-		taskId: taskId,
+		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *TaskApiService) UpdateTaskExecute(r ApiUpdateTaskRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskApiService.UpdateTask")
@@ -2922,6 +3321,20 @@ func (a *TaskApiService) UpdateTaskExecute(r ApiUpdateTaskRequest) (*Task, *http
 	}
 	// body params
 	localVarPostBody = r.task
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2932,9 +3345,9 @@ func (a *TaskApiService) UpdateTaskExecute(r ApiUpdateTaskRequest) (*Task, *http
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

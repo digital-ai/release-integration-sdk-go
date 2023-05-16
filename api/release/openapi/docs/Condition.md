@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Satisfied** | Pointer to **bool** |  | [optional] 
-**SatisfiedDate** | Pointer to **string** |  | [optional] 
+**SatisfiedDate** | Pointer to **time.Time** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Active** | Pointer to **bool** |  | [optional] 
 **InputProperties** | Pointer to **[]interface{}** |  | [optional] 
@@ -31,6 +33,56 @@ will change when the set of required properties is changed
 NewConditionWithDefaults instantiates a new Condition object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *Condition) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Condition) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Condition) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Condition) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Condition) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Condition) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Condition) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Condition) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetSatisfied
 
@@ -59,20 +111,20 @@ HasSatisfied returns a boolean if a field has been set.
 
 ### GetSatisfiedDate
 
-`func (o *Condition) GetSatisfiedDate() string`
+`func (o *Condition) GetSatisfiedDate() time.Time`
 
 GetSatisfiedDate returns the SatisfiedDate field if non-nil, zero value otherwise.
 
 ### GetSatisfiedDateOk
 
-`func (o *Condition) GetSatisfiedDateOk() (*string, bool)`
+`func (o *Condition) GetSatisfiedDateOk() (*time.Time, bool)`
 
 GetSatisfiedDateOk returns a tuple with the SatisfiedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSatisfiedDate
 
-`func (o *Condition) SetSatisfiedDate(v string)`
+`func (o *Condition) SetSatisfiedDate(v time.Time)`
 
 SetSatisfiedDate sets SatisfiedDate field to given value.
 

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **ReleaseVariables** | Pointer to **map[string]string** |  | [optional] 
 **ReleasePasswordVariables** | Pointer to **map[string]string** |  | [optional] 
-**ScheduledStartDate** | Pointer to **string** |  | [optional] 
+**ScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
 **AutoStart** | Pointer to **bool** |  | [optional] 
 **StartedFromTaskId** | Pointer to **string** |  | [optional] 
 **ReleaseOwner** | Pointer to **string** |  | [optional] 
@@ -160,20 +160,20 @@ HasReleasePasswordVariables returns a boolean if a field has been set.
 
 ### GetScheduledStartDate
 
-`func (o *CreateRelease) GetScheduledStartDate() string`
+`func (o *CreateRelease) GetScheduledStartDate() time.Time`
 
 GetScheduledStartDate returns the ScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetScheduledStartDateOk
 
-`func (o *CreateRelease) GetScheduledStartDateOk() (*string, bool)`
+`func (o *CreateRelease) GetScheduledStartDateOk() (*time.Time, bool)`
 
 GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledStartDate
 
-`func (o *CreateRelease) SetScheduledStartDate(v string)`
+`func (o *CreateRelease) SetScheduledStartDate(v time.Time)`
 
 SetScheduledStartDate sets ScheduledStartDate field to given value.
 

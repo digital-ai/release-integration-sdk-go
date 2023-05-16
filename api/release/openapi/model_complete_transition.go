@@ -20,7 +20,7 @@ var _ MappedNullable = &CompleteTransition{}
 // CompleteTransition struct for CompleteTransition
 type CompleteTransition struct {
 	TransitionItems []string `json:"transitionItems,omitempty"`
-	CloseStages *bool `json:"closeStages,omitempty"`
+	CloseStages     *bool    `json:"closeStages,omitempty"`
 }
 
 // NewCompleteTransition instantiates a new CompleteTransition object
@@ -42,7 +42,7 @@ func NewCompleteTransitionWithDefaults() *CompleteTransition {
 
 // GetTransitionItems returns the TransitionItems field value if set, zero value otherwise.
 func (o *CompleteTransition) GetTransitionItems() []string {
-	if o == nil || isNil(o.TransitionItems) {
+	if o == nil || IsNil(o.TransitionItems) {
 		var ret []string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *CompleteTransition) GetTransitionItems() []string {
 // GetTransitionItemsOk returns a tuple with the TransitionItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompleteTransition) GetTransitionItemsOk() ([]string, bool) {
-	if o == nil || isNil(o.TransitionItems) {
+	if o == nil || IsNil(o.TransitionItems) {
 		return nil, false
 	}
 	return o.TransitionItems, true
@@ -60,7 +60,7 @@ func (o *CompleteTransition) GetTransitionItemsOk() ([]string, bool) {
 
 // HasTransitionItems returns a boolean if a field has been set.
 func (o *CompleteTransition) HasTransitionItems() bool {
-	if o != nil && !isNil(o.TransitionItems) {
+	if o != nil && !IsNil(o.TransitionItems) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *CompleteTransition) SetTransitionItems(v []string) {
 
 // GetCloseStages returns the CloseStages field value if set, zero value otherwise.
 func (o *CompleteTransition) GetCloseStages() bool {
-	if o == nil || isNil(o.CloseStages) {
+	if o == nil || IsNil(o.CloseStages) {
 		var ret bool
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *CompleteTransition) GetCloseStages() bool {
 // GetCloseStagesOk returns a tuple with the CloseStages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompleteTransition) GetCloseStagesOk() (*bool, bool) {
-	if o == nil || isNil(o.CloseStages) {
+	if o == nil || IsNil(o.CloseStages) {
 		return nil, false
 	}
 	return o.CloseStages, true
@@ -92,7 +92,7 @@ func (o *CompleteTransition) GetCloseStagesOk() (*bool, bool) {
 
 // HasCloseStages returns a boolean if a field has been set.
 func (o *CompleteTransition) HasCloseStages() bool {
-	if o != nil && !isNil(o.CloseStages) {
+	if o != nil && !IsNil(o.CloseStages) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *CompleteTransition) SetCloseStages(v bool) {
 }
 
 func (o CompleteTransition) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o CompleteTransition) MarshalJSON() ([]byte, error) {
 
 func (o CompleteTransition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.TransitionItems) {
+	if !IsNil(o.TransitionItems) {
 		toSerialize["transitionItems"] = o.TransitionItems
 	}
-	if !isNil(o.CloseStages) {
+	if !IsNil(o.CloseStages) {
 		toSerialize["closeStages"] = o.CloseStages
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableCompleteTransition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

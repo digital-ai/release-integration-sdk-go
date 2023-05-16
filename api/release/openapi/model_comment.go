@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the Comment type satisfies the MappedNullable interface at compile time
@@ -19,10 +20,12 @@ var _ MappedNullable = &Comment{}
 
 // Comment struct for Comment
 type Comment struct {
-	Text *string `json:"text,omitempty"`
-	Author *string `json:"author,omitempty"`
-	Date *string `json:"date,omitempty"`
-	CreationDate *string `json:"creationDate,omitempty"`
+	Id           *string    `json:"id,omitempty"`
+	Type         *string    `json:"type,omitempty"`
+	Text         *string    `json:"text,omitempty"`
+	Author       *string    `json:"author,omitempty"`
+	Date         *time.Time `json:"date,omitempty"`
+	CreationDate *time.Time `json:"creationDate,omitempty"`
 }
 
 // NewComment instantiates a new Comment object
@@ -42,9 +45,73 @@ func NewCommentWithDefaults() *Comment {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Comment) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Comment) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Comment) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Comment) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Comment) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Comment) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Comment) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Comment) SetType(v string) {
+	o.Type = &v
+}
+
 // GetText returns the Text field value if set, zero value otherwise.
 func (o *Comment) GetText() string {
-	if o == nil || isNil(o.Text) {
+	if o == nil || IsNil(o.Text) {
 		var ret string
 		return ret
 	}
@@ -54,7 +121,7 @@ func (o *Comment) GetText() string {
 // GetTextOk returns a tuple with the Text field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Comment) GetTextOk() (*string, bool) {
-	if o == nil || isNil(o.Text) {
+	if o == nil || IsNil(o.Text) {
 		return nil, false
 	}
 	return o.Text, true
@@ -62,7 +129,7 @@ func (o *Comment) GetTextOk() (*string, bool) {
 
 // HasText returns a boolean if a field has been set.
 func (o *Comment) HasText() bool {
-	if o != nil && !isNil(o.Text) {
+	if o != nil && !IsNil(o.Text) {
 		return true
 	}
 
@@ -76,7 +143,7 @@ func (o *Comment) SetText(v string) {
 
 // GetAuthor returns the Author field value if set, zero value otherwise.
 func (o *Comment) GetAuthor() string {
-	if o == nil || isNil(o.Author) {
+	if o == nil || IsNil(o.Author) {
 		var ret string
 		return ret
 	}
@@ -86,7 +153,7 @@ func (o *Comment) GetAuthor() string {
 // GetAuthorOk returns a tuple with the Author field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Comment) GetAuthorOk() (*string, bool) {
-	if o == nil || isNil(o.Author) {
+	if o == nil || IsNil(o.Author) {
 		return nil, false
 	}
 	return o.Author, true
@@ -94,7 +161,7 @@ func (o *Comment) GetAuthorOk() (*string, bool) {
 
 // HasAuthor returns a boolean if a field has been set.
 func (o *Comment) HasAuthor() bool {
-	if o != nil && !isNil(o.Author) {
+	if o != nil && !IsNil(o.Author) {
 		return true
 	}
 
@@ -107,9 +174,9 @@ func (o *Comment) SetAuthor(v string) {
 }
 
 // GetDate returns the Date field value if set, zero value otherwise.
-func (o *Comment) GetDate() string {
-	if o == nil || isNil(o.Date) {
-		var ret string
+func (o *Comment) GetDate() time.Time {
+	if o == nil || IsNil(o.Date) {
+		var ret time.Time
 		return ret
 	}
 	return *o.Date
@@ -117,8 +184,8 @@ func (o *Comment) GetDate() string {
 
 // GetDateOk returns a tuple with the Date field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Comment) GetDateOk() (*string, bool) {
-	if o == nil || isNil(o.Date) {
+func (o *Comment) GetDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Date) {
 		return nil, false
 	}
 	return o.Date, true
@@ -126,22 +193,22 @@ func (o *Comment) GetDateOk() (*string, bool) {
 
 // HasDate returns a boolean if a field has been set.
 func (o *Comment) HasDate() bool {
-	if o != nil && !isNil(o.Date) {
+	if o != nil && !IsNil(o.Date) {
 		return true
 	}
 
 	return false
 }
 
-// SetDate gets a reference to the given string and assigns it to the Date field.
-func (o *Comment) SetDate(v string) {
+// SetDate gets a reference to the given time.Time and assigns it to the Date field.
+func (o *Comment) SetDate(v time.Time) {
 	o.Date = &v
 }
 
 // GetCreationDate returns the CreationDate field value if set, zero value otherwise.
-func (o *Comment) GetCreationDate() string {
-	if o == nil || isNil(o.CreationDate) {
-		var ret string
+func (o *Comment) GetCreationDate() time.Time {
+	if o == nil || IsNil(o.CreationDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.CreationDate
@@ -149,8 +216,8 @@ func (o *Comment) GetCreationDate() string {
 
 // GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Comment) GetCreationDateOk() (*string, bool) {
-	if o == nil || isNil(o.CreationDate) {
+func (o *Comment) GetCreationDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreationDate) {
 		return nil, false
 	}
 	return o.CreationDate, true
@@ -158,20 +225,20 @@ func (o *Comment) GetCreationDateOk() (*string, bool) {
 
 // HasCreationDate returns a boolean if a field has been set.
 func (o *Comment) HasCreationDate() bool {
-	if o != nil && !isNil(o.CreationDate) {
+	if o != nil && !IsNil(o.CreationDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetCreationDate gets a reference to the given string and assigns it to the CreationDate field.
-func (o *Comment) SetCreationDate(v string) {
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
+func (o *Comment) SetCreationDate(v time.Time) {
 	o.CreationDate = &v
 }
 
 func (o Comment) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +247,22 @@ func (o Comment) MarshalJSON() ([]byte, error) {
 
 func (o Comment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Text) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
 	}
-	if !isNil(o.Author) {
+	if !IsNil(o.Author) {
 		toSerialize["author"] = o.Author
 	}
-	if !isNil(o.Date) {
+	if !IsNil(o.Date) {
 		toSerialize["date"] = o.Date
 	}
-	if !isNil(o.CreationDate) {
+	if !IsNil(o.CreationDate) {
 		toSerialize["creationDate"] = o.CreationDate
 	}
 	return toSerialize, nil
@@ -230,5 +303,3 @@ func (v *NullableComment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

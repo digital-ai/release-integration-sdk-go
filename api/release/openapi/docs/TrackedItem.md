@@ -4,11 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **ReleaseIds** | Pointer to **[]string** |  | [optional] 
 **Descoped** | Pointer to **bool** |  | [optional] 
-**CreatedDate** | Pointer to **string** |  | [optional] 
-**ModifiedDate** | Pointer to **string** |  | [optional] 
+**CreatedDate** | Pointer to **time.Time** |  | [optional] 
+**ModifiedDate** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -28,6 +30,56 @@ will change when the set of required properties is changed
 NewTrackedItemWithDefaults instantiates a new TrackedItem object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *TrackedItem) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *TrackedItem) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *TrackedItem) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *TrackedItem) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *TrackedItem) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *TrackedItem) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *TrackedItem) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *TrackedItem) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetTitle
 
@@ -106,20 +158,20 @@ HasDescoped returns a boolean if a field has been set.
 
 ### GetCreatedDate
 
-`func (o *TrackedItem) GetCreatedDate() string`
+`func (o *TrackedItem) GetCreatedDate() time.Time`
 
 GetCreatedDate returns the CreatedDate field if non-nil, zero value otherwise.
 
 ### GetCreatedDateOk
 
-`func (o *TrackedItem) GetCreatedDateOk() (*string, bool)`
+`func (o *TrackedItem) GetCreatedDateOk() (*time.Time, bool)`
 
 GetCreatedDateOk returns a tuple with the CreatedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedDate
 
-`func (o *TrackedItem) SetCreatedDate(v string)`
+`func (o *TrackedItem) SetCreatedDate(v time.Time)`
 
 SetCreatedDate sets CreatedDate field to given value.
 
@@ -131,20 +183,20 @@ HasCreatedDate returns a boolean if a field has been set.
 
 ### GetModifiedDate
 
-`func (o *TrackedItem) GetModifiedDate() string`
+`func (o *TrackedItem) GetModifiedDate() time.Time`
 
 GetModifiedDate returns the ModifiedDate field if non-nil, zero value otherwise.
 
 ### GetModifiedDateOk
 
-`func (o *TrackedItem) GetModifiedDateOk() (*string, bool)`
+`func (o *TrackedItem) GetModifiedDateOk() (*time.Time, bool)`
 
 GetModifiedDateOk returns a tuple with the ModifiedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedDate
 
-`func (o *TrackedItem) SetModifiedDate(v string)`
+`func (o *TrackedItem) SetModifiedDate(v time.Time)`
 
 SetModifiedDate sets ModifiedDate field to given value.
 

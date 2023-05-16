@@ -19,12 +19,12 @@ var _ MappedNullable = &DeliveryPatternFilters{}
 
 // DeliveryPatternFilters struct for DeliveryPatternFilters
 type DeliveryPatternFilters struct {
-	Title *string `json:"title,omitempty"`
-	StrictTitleMatch *bool `json:"strictTitleMatch,omitempty"`
-	TrackedItemTitle *string `json:"trackedItemTitle,omitempty"`
-	StrictTrackedItemTitleMatch *bool `json:"strictTrackedItemTitleMatch,omitempty"`
-	FolderId *string `json:"folderId,omitempty"`
-	Statuses []DeliveryStatus `json:"statuses,omitempty"`
+	Title                       *string          `json:"title,omitempty"`
+	StrictTitleMatch            *bool            `json:"strictTitleMatch,omitempty"`
+	TrackedItemTitle            *string          `json:"trackedItemTitle,omitempty"`
+	StrictTrackedItemTitleMatch *bool            `json:"strictTrackedItemTitleMatch,omitempty"`
+	FolderId                    *string          `json:"folderId,omitempty"`
+	Statuses                    []DeliveryStatus `json:"statuses,omitempty"`
 }
 
 // NewDeliveryPatternFilters instantiates a new DeliveryPatternFilters object
@@ -46,7 +46,7 @@ func NewDeliveryPatternFiltersWithDefaults() *DeliveryPatternFilters {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *DeliveryPatternFilters) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -56,7 +56,7 @@ func (o *DeliveryPatternFilters) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryPatternFilters) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -64,7 +64,7 @@ func (o *DeliveryPatternFilters) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *DeliveryPatternFilters) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -78,7 +78,7 @@ func (o *DeliveryPatternFilters) SetTitle(v string) {
 
 // GetStrictTitleMatch returns the StrictTitleMatch field value if set, zero value otherwise.
 func (o *DeliveryPatternFilters) GetStrictTitleMatch() bool {
-	if o == nil || isNil(o.StrictTitleMatch) {
+	if o == nil || IsNil(o.StrictTitleMatch) {
 		var ret bool
 		return ret
 	}
@@ -88,7 +88,7 @@ func (o *DeliveryPatternFilters) GetStrictTitleMatch() bool {
 // GetStrictTitleMatchOk returns a tuple with the StrictTitleMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryPatternFilters) GetStrictTitleMatchOk() (*bool, bool) {
-	if o == nil || isNil(o.StrictTitleMatch) {
+	if o == nil || IsNil(o.StrictTitleMatch) {
 		return nil, false
 	}
 	return o.StrictTitleMatch, true
@@ -96,7 +96,7 @@ func (o *DeliveryPatternFilters) GetStrictTitleMatchOk() (*bool, bool) {
 
 // HasStrictTitleMatch returns a boolean if a field has been set.
 func (o *DeliveryPatternFilters) HasStrictTitleMatch() bool {
-	if o != nil && !isNil(o.StrictTitleMatch) {
+	if o != nil && !IsNil(o.StrictTitleMatch) {
 		return true
 	}
 
@@ -110,7 +110,7 @@ func (o *DeliveryPatternFilters) SetStrictTitleMatch(v bool) {
 
 // GetTrackedItemTitle returns the TrackedItemTitle field value if set, zero value otherwise.
 func (o *DeliveryPatternFilters) GetTrackedItemTitle() string {
-	if o == nil || isNil(o.TrackedItemTitle) {
+	if o == nil || IsNil(o.TrackedItemTitle) {
 		var ret string
 		return ret
 	}
@@ -120,7 +120,7 @@ func (o *DeliveryPatternFilters) GetTrackedItemTitle() string {
 // GetTrackedItemTitleOk returns a tuple with the TrackedItemTitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryPatternFilters) GetTrackedItemTitleOk() (*string, bool) {
-	if o == nil || isNil(o.TrackedItemTitle) {
+	if o == nil || IsNil(o.TrackedItemTitle) {
 		return nil, false
 	}
 	return o.TrackedItemTitle, true
@@ -128,7 +128,7 @@ func (o *DeliveryPatternFilters) GetTrackedItemTitleOk() (*string, bool) {
 
 // HasTrackedItemTitle returns a boolean if a field has been set.
 func (o *DeliveryPatternFilters) HasTrackedItemTitle() bool {
-	if o != nil && !isNil(o.TrackedItemTitle) {
+	if o != nil && !IsNil(o.TrackedItemTitle) {
 		return true
 	}
 
@@ -142,7 +142,7 @@ func (o *DeliveryPatternFilters) SetTrackedItemTitle(v string) {
 
 // GetStrictTrackedItemTitleMatch returns the StrictTrackedItemTitleMatch field value if set, zero value otherwise.
 func (o *DeliveryPatternFilters) GetStrictTrackedItemTitleMatch() bool {
-	if o == nil || isNil(o.StrictTrackedItemTitleMatch) {
+	if o == nil || IsNil(o.StrictTrackedItemTitleMatch) {
 		var ret bool
 		return ret
 	}
@@ -152,7 +152,7 @@ func (o *DeliveryPatternFilters) GetStrictTrackedItemTitleMatch() bool {
 // GetStrictTrackedItemTitleMatchOk returns a tuple with the StrictTrackedItemTitleMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryPatternFilters) GetStrictTrackedItemTitleMatchOk() (*bool, bool) {
-	if o == nil || isNil(o.StrictTrackedItemTitleMatch) {
+	if o == nil || IsNil(o.StrictTrackedItemTitleMatch) {
 		return nil, false
 	}
 	return o.StrictTrackedItemTitleMatch, true
@@ -160,7 +160,7 @@ func (o *DeliveryPatternFilters) GetStrictTrackedItemTitleMatchOk() (*bool, bool
 
 // HasStrictTrackedItemTitleMatch returns a boolean if a field has been set.
 func (o *DeliveryPatternFilters) HasStrictTrackedItemTitleMatch() bool {
-	if o != nil && !isNil(o.StrictTrackedItemTitleMatch) {
+	if o != nil && !IsNil(o.StrictTrackedItemTitleMatch) {
 		return true
 	}
 
@@ -174,7 +174,7 @@ func (o *DeliveryPatternFilters) SetStrictTrackedItemTitleMatch(v bool) {
 
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *DeliveryPatternFilters) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -184,7 +184,7 @@ func (o *DeliveryPatternFilters) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryPatternFilters) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -192,7 +192,7 @@ func (o *DeliveryPatternFilters) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *DeliveryPatternFilters) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -206,7 +206,7 @@ func (o *DeliveryPatternFilters) SetFolderId(v string) {
 
 // GetStatuses returns the Statuses field value if set, zero value otherwise.
 func (o *DeliveryPatternFilters) GetStatuses() []DeliveryStatus {
-	if o == nil || isNil(o.Statuses) {
+	if o == nil || IsNil(o.Statuses) {
 		var ret []DeliveryStatus
 		return ret
 	}
@@ -216,7 +216,7 @@ func (o *DeliveryPatternFilters) GetStatuses() []DeliveryStatus {
 // GetStatusesOk returns a tuple with the Statuses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryPatternFilters) GetStatusesOk() ([]DeliveryStatus, bool) {
-	if o == nil || isNil(o.Statuses) {
+	if o == nil || IsNil(o.Statuses) {
 		return nil, false
 	}
 	return o.Statuses, true
@@ -224,7 +224,7 @@ func (o *DeliveryPatternFilters) GetStatusesOk() ([]DeliveryStatus, bool) {
 
 // HasStatuses returns a boolean if a field has been set.
 func (o *DeliveryPatternFilters) HasStatuses() bool {
-	if o != nil && !isNil(o.Statuses) {
+	if o != nil && !IsNil(o.Statuses) {
 		return true
 	}
 
@@ -237,7 +237,7 @@ func (o *DeliveryPatternFilters) SetStatuses(v []DeliveryStatus) {
 }
 
 func (o DeliveryPatternFilters) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -246,22 +246,22 @@ func (o DeliveryPatternFilters) MarshalJSON() ([]byte, error) {
 
 func (o DeliveryPatternFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.StrictTitleMatch) {
+	if !IsNil(o.StrictTitleMatch) {
 		toSerialize["strictTitleMatch"] = o.StrictTitleMatch
 	}
-	if !isNil(o.TrackedItemTitle) {
+	if !IsNil(o.TrackedItemTitle) {
 		toSerialize["trackedItemTitle"] = o.TrackedItemTitle
 	}
-	if !isNil(o.StrictTrackedItemTitleMatch) {
+	if !IsNil(o.StrictTrackedItemTitleMatch) {
 		toSerialize["strictTrackedItemTitleMatch"] = o.StrictTrackedItemTitleMatch
 	}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.Statuses) {
+	if !IsNil(o.Statuses) {
 		toSerialize["statuses"] = o.Statuses
 	}
 	return toSerialize, nil
@@ -302,5 +302,3 @@ func (v *NullableDeliveryPatternFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

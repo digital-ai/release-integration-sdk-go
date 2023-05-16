@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **FolderId** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
@@ -13,7 +15,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **ValueProvider** | Pointer to [**ValueProviderConfiguration**](ValueProviderConfiguration.md) |  | [optional] 
 **Inherited** | Pointer to **bool** |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
+**Value** | Pointer to **interface{}** |  | [optional] 
 **EmptyValue** | Pointer to **map[string]interface{}** |  | [optional] 
 **ValueEmpty** | Pointer to **bool** |  | [optional] 
 **UntypedValue** | Pointer to **map[string]interface{}** |  | [optional] 
@@ -39,6 +41,56 @@ will change when the set of required properties is changed
 NewVariableWithDefaults instantiates a new Variable object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *Variable) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Variable) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Variable) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Variable) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Variable) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Variable) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Variable) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Variable) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetFolderId
 
@@ -267,20 +319,20 @@ HasInherited returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *Variable) GetValue() map[string]interface{}`
+`func (o *Variable) GetValue() interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *Variable) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *Variable) GetValueOk() (*interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *Variable) SetValue(v map[string]interface{})`
+`func (o *Variable) SetValue(v interface{})`
 
 SetValue sets Value field to given value.
 
@@ -290,6 +342,16 @@ SetValue sets Value field to given value.
 
 HasValue returns a boolean if a field has been set.
 
+### SetValueNil
+
+`func (o *Variable) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *Variable) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 ### GetEmptyValue
 
 `func (o *Variable) GetEmptyValue() map[string]interface{}`

@@ -13,19 +13,18 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // EnvironmentLabelApiService EnvironmentLabelApi service
 type EnvironmentLabelApiService service
 
 type ApiCreateLabelRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentLabelApiService
+	ctx                  context.Context
+	ApiService           *EnvironmentLabelApiService
 	environmentLabelForm *EnvironmentLabelForm
 }
 
@@ -41,24 +40,25 @@ func (r ApiCreateLabelRequest) Execute() (*EnvironmentLabelView, *http.Response,
 /*
 CreateLabel Method for CreateLabel
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateLabelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateLabelRequest
 */
 func (a *EnvironmentLabelApiService) CreateLabel(ctx context.Context) ApiCreateLabelRequest {
 	return ApiCreateLabelRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentLabelView
+//
+//	@return EnvironmentLabelView
 func (a *EnvironmentLabelApiService) CreateLabelExecute(r ApiCreateLabelRequest) (*EnvironmentLabelView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentLabelView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentLabelView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentLabelApiService.CreateLabel")
@@ -91,6 +91,20 @@ func (a *EnvironmentLabelApiService) CreateLabelExecute(r ApiCreateLabelRequest)
 	}
 	// body params
 	localVarPostBody = r.environmentLabelForm
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -101,9 +115,9 @@ func (a *EnvironmentLabelApiService) CreateLabelExecute(r ApiCreateLabelRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -129,8 +143,8 @@ func (a *EnvironmentLabelApiService) CreateLabelExecute(r ApiCreateLabelRequest)
 }
 
 type ApiDeleteEnvironmentLabelRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentLabelApiService
+	ctx                context.Context
+	ApiService         *EnvironmentLabelApiService
 	environmentLabelId string
 }
 
@@ -141,14 +155,14 @@ func (r ApiDeleteEnvironmentLabelRequest) Execute() (*http.Response, error) {
 /*
 DeleteEnvironmentLabel Method for DeleteEnvironmentLabel
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentLabelId
- @return ApiDeleteEnvironmentLabelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentLabelId
+	@return ApiDeleteEnvironmentLabelRequest
 */
 func (a *EnvironmentLabelApiService) DeleteEnvironmentLabel(ctx context.Context, environmentLabelId string) ApiDeleteEnvironmentLabelRequest {
 	return ApiDeleteEnvironmentLabelRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		environmentLabelId: environmentLabelId,
 	}
 }
@@ -156,9 +170,9 @@ func (a *EnvironmentLabelApiService) DeleteEnvironmentLabel(ctx context.Context,
 // Execute executes the request
 func (a *EnvironmentLabelApiService) DeleteEnvironmentLabelExecute(r ApiDeleteEnvironmentLabelRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentLabelApiService.DeleteEnvironmentLabel")
@@ -190,6 +204,20 @@ func (a *EnvironmentLabelApiService) DeleteEnvironmentLabelExecute(r ApiDeleteEn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -200,9 +228,9 @@ func (a *EnvironmentLabelApiService) DeleteEnvironmentLabelExecute(r ApiDeleteEn
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -219,8 +247,8 @@ func (a *EnvironmentLabelApiService) DeleteEnvironmentLabelExecute(r ApiDeleteEn
 }
 
 type ApiGetLabelByIdRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentLabelApiService
+	ctx                context.Context
+	ApiService         *EnvironmentLabelApiService
 	environmentLabelId string
 }
 
@@ -231,26 +259,27 @@ func (r ApiGetLabelByIdRequest) Execute() (*EnvironmentLabelView, *http.Response
 /*
 GetLabelById Method for GetLabelById
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentLabelId
- @return ApiGetLabelByIdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentLabelId
+	@return ApiGetLabelByIdRequest
 */
 func (a *EnvironmentLabelApiService) GetLabelById(ctx context.Context, environmentLabelId string) ApiGetLabelByIdRequest {
 	return ApiGetLabelByIdRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		environmentLabelId: environmentLabelId,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentLabelView
+//
+//	@return EnvironmentLabelView
 func (a *EnvironmentLabelApiService) GetLabelByIdExecute(r ApiGetLabelByIdRequest) (*EnvironmentLabelView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentLabelView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentLabelView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentLabelApiService.GetLabelById")
@@ -282,6 +311,20 @@ func (a *EnvironmentLabelApiService) GetLabelByIdExecute(r ApiGetLabelByIdReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -292,9 +335,9 @@ func (a *EnvironmentLabelApiService) GetLabelByIdExecute(r ApiGetLabelByIdReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -320,8 +363,8 @@ func (a *EnvironmentLabelApiService) GetLabelByIdExecute(r ApiGetLabelByIdReques
 }
 
 type ApiSearchLabelsRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentLabelApiService
+	ctx                     context.Context
+	ApiService              *EnvironmentLabelApiService
 	environmentLabelFilters *EnvironmentLabelFilters
 }
 
@@ -337,24 +380,25 @@ func (r ApiSearchLabelsRequest) Execute() ([]EnvironmentLabelView, *http.Respons
 /*
 SearchLabels Method for SearchLabels
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchLabelsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchLabelsRequest
 */
 func (a *EnvironmentLabelApiService) SearchLabels(ctx context.Context) ApiSearchLabelsRequest {
 	return ApiSearchLabelsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []EnvironmentLabelView
+//
+//	@return []EnvironmentLabelView
 func (a *EnvironmentLabelApiService) SearchLabelsExecute(r ApiSearchLabelsRequest) ([]EnvironmentLabelView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []EnvironmentLabelView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []EnvironmentLabelView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentLabelApiService.SearchLabels")
@@ -387,6 +431,20 @@ func (a *EnvironmentLabelApiService) SearchLabelsExecute(r ApiSearchLabelsReques
 	}
 	// body params
 	localVarPostBody = r.environmentLabelFilters
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -397,9 +455,9 @@ func (a *EnvironmentLabelApiService) SearchLabelsExecute(r ApiSearchLabelsReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -425,9 +483,9 @@ func (a *EnvironmentLabelApiService) SearchLabelsExecute(r ApiSearchLabelsReques
 }
 
 type ApiUpdateLabelRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentLabelApiService
-	environmentLabelId string
+	ctx                  context.Context
+	ApiService           *EnvironmentLabelApiService
+	environmentLabelId   string
 	environmentLabelForm *EnvironmentLabelForm
 }
 
@@ -443,26 +501,27 @@ func (r ApiUpdateLabelRequest) Execute() (*EnvironmentLabelView, *http.Response,
 /*
 UpdateLabel Method for UpdateLabel
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environmentLabelId
- @return ApiUpdateLabelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentLabelId
+	@return ApiUpdateLabelRequest
 */
 func (a *EnvironmentLabelApiService) UpdateLabel(ctx context.Context, environmentLabelId string) ApiUpdateLabelRequest {
 	return ApiUpdateLabelRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		environmentLabelId: environmentLabelId,
 	}
 }
 
 // Execute executes the request
-//  @return EnvironmentLabelView
+//
+//	@return EnvironmentLabelView
 func (a *EnvironmentLabelApiService) UpdateLabelExecute(r ApiUpdateLabelRequest) (*EnvironmentLabelView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *EnvironmentLabelView
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentLabelView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentLabelApiService.UpdateLabel")
@@ -496,6 +555,20 @@ func (a *EnvironmentLabelApiService) UpdateLabelExecute(r ApiUpdateLabelRequest)
 	}
 	// body params
 	localVarPostBody = r.environmentLabelForm
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -506,9 +579,9 @@ func (a *EnvironmentLabelApiService) UpdateLabelExecute(r ApiUpdateLabelRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

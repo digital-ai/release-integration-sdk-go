@@ -19,9 +19,9 @@ var _ MappedNullable = &FacetFilters{}
 
 // FacetFilters struct for FacetFilters
 type FacetFilters struct {
-	ParentId *string `json:"parentId,omitempty"`
-	TargetId *string `json:"targetId,omitempty"`
-	Types []interface{} `json:"types,omitempty"`
+	ParentId *string       `json:"parentId,omitempty"`
+	TargetId *string       `json:"targetId,omitempty"`
+	Types    []interface{} `json:"types,omitempty"`
 }
 
 // NewFacetFilters instantiates a new FacetFilters object
@@ -43,7 +43,7 @@ func NewFacetFiltersWithDefaults() *FacetFilters {
 
 // GetParentId returns the ParentId field value if set, zero value otherwise.
 func (o *FacetFilters) GetParentId() string {
-	if o == nil || isNil(o.ParentId) {
+	if o == nil || IsNil(o.ParentId) {
 		var ret string
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *FacetFilters) GetParentId() string {
 // GetParentIdOk returns a tuple with the ParentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FacetFilters) GetParentIdOk() (*string, bool) {
-	if o == nil || isNil(o.ParentId) {
+	if o == nil || IsNil(o.ParentId) {
 		return nil, false
 	}
 	return o.ParentId, true
@@ -61,7 +61,7 @@ func (o *FacetFilters) GetParentIdOk() (*string, bool) {
 
 // HasParentId returns a boolean if a field has been set.
 func (o *FacetFilters) HasParentId() bool {
-	if o != nil && !isNil(o.ParentId) {
+	if o != nil && !IsNil(o.ParentId) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *FacetFilters) SetParentId(v string) {
 
 // GetTargetId returns the TargetId field value if set, zero value otherwise.
 func (o *FacetFilters) GetTargetId() string {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		var ret string
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *FacetFilters) GetTargetId() string {
 // GetTargetIdOk returns a tuple with the TargetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FacetFilters) GetTargetIdOk() (*string, bool) {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		return nil, false
 	}
 	return o.TargetId, true
@@ -93,7 +93,7 @@ func (o *FacetFilters) GetTargetIdOk() (*string, bool) {
 
 // HasTargetId returns a boolean if a field has been set.
 func (o *FacetFilters) HasTargetId() bool {
-	if o != nil && !isNil(o.TargetId) {
+	if o != nil && !IsNil(o.TargetId) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *FacetFilters) SetTargetId(v string) {
 
 // GetTypes returns the Types field value if set, zero value otherwise.
 func (o *FacetFilters) GetTypes() []interface{} {
-	if o == nil || isNil(o.Types) {
+	if o == nil || IsNil(o.Types) {
 		var ret []interface{}
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *FacetFilters) GetTypes() []interface{} {
 // GetTypesOk returns a tuple with the Types field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FacetFilters) GetTypesOk() ([]interface{}, bool) {
-	if o == nil || isNil(o.Types) {
+	if o == nil || IsNil(o.Types) {
 		return nil, false
 	}
 	return o.Types, true
@@ -125,7 +125,7 @@ func (o *FacetFilters) GetTypesOk() ([]interface{}, bool) {
 
 // HasTypes returns a boolean if a field has been set.
 func (o *FacetFilters) HasTypes() bool {
-	if o != nil && !isNil(o.Types) {
+	if o != nil && !IsNil(o.Types) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *FacetFilters) SetTypes(v []interface{}) {
 }
 
 func (o FacetFilters) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o FacetFilters) MarshalJSON() ([]byte, error) {
 
 func (o FacetFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.ParentId) {
+	if !IsNil(o.ParentId) {
 		toSerialize["parentId"] = o.ParentId
 	}
-	if !isNil(o.TargetId) {
+	if !IsNil(o.TargetId) {
 		toSerialize["targetId"] = o.TargetId
 	}
-	if !isNil(o.Types) {
+	if !IsNil(o.Types) {
 		toSerialize["types"] = o.Types
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableFacetFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **Archived** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -107,20 +107,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *DeliveryFlowReleaseInfo) GetStartDate() string`
+`func (o *DeliveryFlowReleaseInfo) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *DeliveryFlowReleaseInfo) GetStartDateOk() (*string, bool)`
+`func (o *DeliveryFlowReleaseInfo) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *DeliveryFlowReleaseInfo) SetStartDate(v string)`
+`func (o *DeliveryFlowReleaseInfo) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -132,20 +132,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *DeliveryFlowReleaseInfo) GetEndDate() string`
+`func (o *DeliveryFlowReleaseInfo) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *DeliveryFlowReleaseInfo) GetEndDateOk() (*string, bool)`
+`func (o *DeliveryFlowReleaseInfo) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *DeliveryFlowReleaseInfo) SetEndDate(v string)`
+`func (o *DeliveryFlowReleaseInfo) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 

@@ -19,11 +19,11 @@ var _ MappedNullable = &EnvironmentView{}
 
 // EnvironmentView struct for EnvironmentView
 type EnvironmentView struct {
-	Id *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Stage *EnvironmentStageView `json:"stage,omitempty"`
-	Labels []EnvironmentLabelView `json:"labels,omitempty"`
+	Id          *string                `json:"id,omitempty"`
+	Title       *string                `json:"title,omitempty"`
+	Description *string                `json:"description,omitempty"`
+	Stage       *EnvironmentStageView  `json:"stage,omitempty"`
+	Labels      []EnvironmentLabelView `json:"labels,omitempty"`
 }
 
 // NewEnvironmentView instantiates a new EnvironmentView object
@@ -45,7 +45,7 @@ func NewEnvironmentViewWithDefaults() *EnvironmentView {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EnvironmentView) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -55,7 +55,7 @@ func (o *EnvironmentView) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentView) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -63,7 +63,7 @@ func (o *EnvironmentView) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EnvironmentView) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -77,7 +77,7 @@ func (o *EnvironmentView) SetId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *EnvironmentView) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -87,7 +87,7 @@ func (o *EnvironmentView) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentView) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -95,7 +95,7 @@ func (o *EnvironmentView) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *EnvironmentView) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -109,7 +109,7 @@ func (o *EnvironmentView) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EnvironmentView) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -119,7 +119,7 @@ func (o *EnvironmentView) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentView) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -127,7 +127,7 @@ func (o *EnvironmentView) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EnvironmentView) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -141,7 +141,7 @@ func (o *EnvironmentView) SetDescription(v string) {
 
 // GetStage returns the Stage field value if set, zero value otherwise.
 func (o *EnvironmentView) GetStage() EnvironmentStageView {
-	if o == nil || isNil(o.Stage) {
+	if o == nil || IsNil(o.Stage) {
 		var ret EnvironmentStageView
 		return ret
 	}
@@ -151,7 +151,7 @@ func (o *EnvironmentView) GetStage() EnvironmentStageView {
 // GetStageOk returns a tuple with the Stage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentView) GetStageOk() (*EnvironmentStageView, bool) {
-	if o == nil || isNil(o.Stage) {
+	if o == nil || IsNil(o.Stage) {
 		return nil, false
 	}
 	return o.Stage, true
@@ -159,7 +159,7 @@ func (o *EnvironmentView) GetStageOk() (*EnvironmentStageView, bool) {
 
 // HasStage returns a boolean if a field has been set.
 func (o *EnvironmentView) HasStage() bool {
-	if o != nil && !isNil(o.Stage) {
+	if o != nil && !IsNil(o.Stage) {
 		return true
 	}
 
@@ -173,7 +173,7 @@ func (o *EnvironmentView) SetStage(v EnvironmentStageView) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *EnvironmentView) GetLabels() []EnvironmentLabelView {
-	if o == nil || isNil(o.Labels) {
+	if o == nil || IsNil(o.Labels) {
 		var ret []EnvironmentLabelView
 		return ret
 	}
@@ -183,7 +183,7 @@ func (o *EnvironmentView) GetLabels() []EnvironmentLabelView {
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentView) GetLabelsOk() ([]EnvironmentLabelView, bool) {
-	if o == nil || isNil(o.Labels) {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -191,7 +191,7 @@ func (o *EnvironmentView) GetLabelsOk() ([]EnvironmentLabelView, bool) {
 
 // HasLabels returns a boolean if a field has been set.
 func (o *EnvironmentView) HasLabels() bool {
-	if o != nil && !isNil(o.Labels) {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -204,7 +204,7 @@ func (o *EnvironmentView) SetLabels(v []EnvironmentLabelView) {
 }
 
 func (o EnvironmentView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -213,19 +213,19 @@ func (o EnvironmentView) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Stage) {
+	if !IsNil(o.Stage) {
 		toSerialize["stage"] = o.Stage
 	}
-	if !isNil(o.Labels) {
+	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
 	return toSerialize, nil
@@ -266,5 +266,3 @@ func (v *NullableEnvironmentView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

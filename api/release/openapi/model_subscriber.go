@@ -19,6 +19,8 @@ var _ MappedNullable = &Subscriber{}
 
 // Subscriber struct for Subscriber
 type Subscriber struct {
+	Id       *string `json:"id,omitempty"`
+	Type     *string `json:"type,omitempty"`
 	SourceId *string `json:"sourceId,omitempty"`
 }
 
@@ -39,9 +41,73 @@ func NewSubscriberWithDefaults() *Subscriber {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Subscriber) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Subscriber) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Subscriber) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Subscriber) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Subscriber) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Subscriber) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Subscriber) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Subscriber) SetType(v string) {
+	o.Type = &v
+}
+
 // GetSourceId returns the SourceId field value if set, zero value otherwise.
 func (o *Subscriber) GetSourceId() string {
-	if o == nil || isNil(o.SourceId) {
+	if o == nil || IsNil(o.SourceId) {
 		var ret string
 		return ret
 	}
@@ -51,7 +117,7 @@ func (o *Subscriber) GetSourceId() string {
 // GetSourceIdOk returns a tuple with the SourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscriber) GetSourceIdOk() (*string, bool) {
-	if o == nil || isNil(o.SourceId) {
+	if o == nil || IsNil(o.SourceId) {
 		return nil, false
 	}
 	return o.SourceId, true
@@ -59,7 +125,7 @@ func (o *Subscriber) GetSourceIdOk() (*string, bool) {
 
 // HasSourceId returns a boolean if a field has been set.
 func (o *Subscriber) HasSourceId() bool {
-	if o != nil && !isNil(o.SourceId) {
+	if o != nil && !IsNil(o.SourceId) {
 		return true
 	}
 
@@ -72,7 +138,7 @@ func (o *Subscriber) SetSourceId(v string) {
 }
 
 func (o Subscriber) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -81,7 +147,13 @@ func (o Subscriber) MarshalJSON() ([]byte, error) {
 
 func (o Subscriber) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.SourceId) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.SourceId) {
 		toSerialize["sourceId"] = o.SourceId
 	}
 	return toSerialize, nil
@@ -122,5 +194,3 @@ func (v *NullableSubscriber) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

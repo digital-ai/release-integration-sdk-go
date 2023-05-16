@@ -42,7 +42,7 @@ func NewPrincipalViewWithDefaults() *PrincipalView {
 
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *PrincipalView) GetUsername() string {
-	if o == nil || isNil(o.Username) {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *PrincipalView) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalView) GetUsernameOk() (*string, bool) {
-	if o == nil || isNil(o.Username) {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -60,7 +60,7 @@ func (o *PrincipalView) GetUsernameOk() (*string, bool) {
 
 // HasUsername returns a boolean if a field has been set.
 func (o *PrincipalView) HasUsername() bool {
-	if o != nil && !isNil(o.Username) {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *PrincipalView) SetUsername(v string) {
 
 // GetFullname returns the Fullname field value if set, zero value otherwise.
 func (o *PrincipalView) GetFullname() string {
-	if o == nil || isNil(o.Fullname) {
+	if o == nil || IsNil(o.Fullname) {
 		var ret string
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *PrincipalView) GetFullname() string {
 // GetFullnameOk returns a tuple with the Fullname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalView) GetFullnameOk() (*string, bool) {
-	if o == nil || isNil(o.Fullname) {
+	if o == nil || IsNil(o.Fullname) {
 		return nil, false
 	}
 	return o.Fullname, true
@@ -92,7 +92,7 @@ func (o *PrincipalView) GetFullnameOk() (*string, bool) {
 
 // HasFullname returns a boolean if a field has been set.
 func (o *PrincipalView) HasFullname() bool {
-	if o != nil && !isNil(o.Fullname) {
+	if o != nil && !IsNil(o.Fullname) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *PrincipalView) SetFullname(v string) {
 }
 
 func (o PrincipalView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o PrincipalView) MarshalJSON() ([]byte, error) {
 
 func (o PrincipalView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Username) {
+	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
-	if !isNil(o.Fullname) {
+	if !IsNil(o.Fullname) {
 		toSerialize["fullname"] = o.Fullname
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullablePrincipalView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

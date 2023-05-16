@@ -20,9 +20,9 @@ var _ MappedNullable = &Property{}
 // Property struct for Property
 type Property struct {
 	INDEXED_PROPERTY_PATTERN *string `json:"INDEXED_PROPERTY_PATTERN,omitempty"`
-	PropertyName *string `json:"propertyName,omitempty"`
-	Index *int32 `json:"index,omitempty"`
-	Indexed *bool `json:"indexed,omitempty"`
+	PropertyName             *string `json:"propertyName,omitempty"`
+	Index                    *int32  `json:"index,omitempty"`
+	Indexed                  *bool   `json:"indexed,omitempty"`
 }
 
 // NewProperty instantiates a new Property object
@@ -44,7 +44,7 @@ func NewPropertyWithDefaults() *Property {
 
 // GetINDEXED_PROPERTY_PATTERN returns the INDEXED_PROPERTY_PATTERN field value if set, zero value otherwise.
 func (o *Property) GetINDEXED_PROPERTY_PATTERN() string {
-	if o == nil || isNil(o.INDEXED_PROPERTY_PATTERN) {
+	if o == nil || IsNil(o.INDEXED_PROPERTY_PATTERN) {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *Property) GetINDEXED_PROPERTY_PATTERN() string {
 // GetINDEXED_PROPERTY_PATTERNOk returns a tuple with the INDEXED_PROPERTY_PATTERN field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Property) GetINDEXED_PROPERTY_PATTERNOk() (*string, bool) {
-	if o == nil || isNil(o.INDEXED_PROPERTY_PATTERN) {
+	if o == nil || IsNil(o.INDEXED_PROPERTY_PATTERN) {
 		return nil, false
 	}
 	return o.INDEXED_PROPERTY_PATTERN, true
@@ -62,7 +62,7 @@ func (o *Property) GetINDEXED_PROPERTY_PATTERNOk() (*string, bool) {
 
 // HasINDEXED_PROPERTY_PATTERN returns a boolean if a field has been set.
 func (o *Property) HasINDEXED_PROPERTY_PATTERN() bool {
-	if o != nil && !isNil(o.INDEXED_PROPERTY_PATTERN) {
+	if o != nil && !IsNil(o.INDEXED_PROPERTY_PATTERN) {
 		return true
 	}
 
@@ -76,7 +76,7 @@ func (o *Property) SetINDEXED_PROPERTY_PATTERN(v string) {
 
 // GetPropertyName returns the PropertyName field value if set, zero value otherwise.
 func (o *Property) GetPropertyName() string {
-	if o == nil || isNil(o.PropertyName) {
+	if o == nil || IsNil(o.PropertyName) {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *Property) GetPropertyName() string {
 // GetPropertyNameOk returns a tuple with the PropertyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Property) GetPropertyNameOk() (*string, bool) {
-	if o == nil || isNil(o.PropertyName) {
+	if o == nil || IsNil(o.PropertyName) {
 		return nil, false
 	}
 	return o.PropertyName, true
@@ -94,7 +94,7 @@ func (o *Property) GetPropertyNameOk() (*string, bool) {
 
 // HasPropertyName returns a boolean if a field has been set.
 func (o *Property) HasPropertyName() bool {
-	if o != nil && !isNil(o.PropertyName) {
+	if o != nil && !IsNil(o.PropertyName) {
 		return true
 	}
 
@@ -108,7 +108,7 @@ func (o *Property) SetPropertyName(v string) {
 
 // GetIndex returns the Index field value if set, zero value otherwise.
 func (o *Property) GetIndex() int32 {
-	if o == nil || isNil(o.Index) {
+	if o == nil || IsNil(o.Index) {
 		var ret int32
 		return ret
 	}
@@ -118,7 +118,7 @@ func (o *Property) GetIndex() int32 {
 // GetIndexOk returns a tuple with the Index field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Property) GetIndexOk() (*int32, bool) {
-	if o == nil || isNil(o.Index) {
+	if o == nil || IsNil(o.Index) {
 		return nil, false
 	}
 	return o.Index, true
@@ -126,7 +126,7 @@ func (o *Property) GetIndexOk() (*int32, bool) {
 
 // HasIndex returns a boolean if a field has been set.
 func (o *Property) HasIndex() bool {
-	if o != nil && !isNil(o.Index) {
+	if o != nil && !IsNil(o.Index) {
 		return true
 	}
 
@@ -140,7 +140,7 @@ func (o *Property) SetIndex(v int32) {
 
 // GetIndexed returns the Indexed field value if set, zero value otherwise.
 func (o *Property) GetIndexed() bool {
-	if o == nil || isNil(o.Indexed) {
+	if o == nil || IsNil(o.Indexed) {
 		var ret bool
 		return ret
 	}
@@ -150,7 +150,7 @@ func (o *Property) GetIndexed() bool {
 // GetIndexedOk returns a tuple with the Indexed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Property) GetIndexedOk() (*bool, bool) {
-	if o == nil || isNil(o.Indexed) {
+	if o == nil || IsNil(o.Indexed) {
 		return nil, false
 	}
 	return o.Indexed, true
@@ -158,7 +158,7 @@ func (o *Property) GetIndexedOk() (*bool, bool) {
 
 // HasIndexed returns a boolean if a field has been set.
 func (o *Property) HasIndexed() bool {
-	if o != nil && !isNil(o.Indexed) {
+	if o != nil && !IsNil(o.Indexed) {
 		return true
 	}
 
@@ -171,7 +171,7 @@ func (o *Property) SetIndexed(v bool) {
 }
 
 func (o Property) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +180,16 @@ func (o Property) MarshalJSON() ([]byte, error) {
 
 func (o Property) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.INDEXED_PROPERTY_PATTERN) {
+	if !IsNil(o.INDEXED_PROPERTY_PATTERN) {
 		toSerialize["INDEXED_PROPERTY_PATTERN"] = o.INDEXED_PROPERTY_PATTERN
 	}
-	if !isNil(o.PropertyName) {
+	if !IsNil(o.PropertyName) {
 		toSerialize["propertyName"] = o.PropertyName
 	}
-	if !isNil(o.Index) {
+	if !IsNil(o.Index) {
 		toSerialize["index"] = o.Index
 	}
-	if !isNil(o.Indexed) {
+	if !IsNil(o.Indexed) {
 		toSerialize["indexed"] = o.Indexed
 	}
 	return toSerialize, nil
@@ -230,5 +230,3 @@ func (v *NullableProperty) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

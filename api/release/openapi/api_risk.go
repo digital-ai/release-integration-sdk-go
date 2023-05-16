@@ -13,19 +13,18 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // RiskApiService RiskApi service
 type RiskApiService service
 
 type ApiCopyRiskProfileRequest struct {
-	ctx context.Context
-	ApiService *RiskApiService
+	ctx           context.Context
+	ApiService    *RiskApiService
 	riskProfileId string
 }
 
@@ -36,26 +35,27 @@ func (r ApiCopyRiskProfileRequest) Execute() (*RiskProfile, *http.Response, erro
 /*
 CopyRiskProfile Method for CopyRiskProfile
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param riskProfileId
- @return ApiCopyRiskProfileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param riskProfileId
+	@return ApiCopyRiskProfileRequest
 */
 func (a *RiskApiService) CopyRiskProfile(ctx context.Context, riskProfileId string) ApiCopyRiskProfileRequest {
 	return ApiCopyRiskProfileRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		riskProfileId: riskProfileId,
 	}
 }
 
 // Execute executes the request
-//  @return RiskProfile
+//
+//	@return RiskProfile
 func (a *RiskApiService) CopyRiskProfileExecute(r ApiCopyRiskProfileRequest) (*RiskProfile, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RiskProfile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RiskProfile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.CopyRiskProfile")
@@ -87,6 +87,20 @@ func (a *RiskApiService) CopyRiskProfileExecute(r ApiCopyRiskProfileRequest) (*R
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -97,9 +111,9 @@ func (a *RiskApiService) CopyRiskProfileExecute(r ApiCopyRiskProfileRequest) (*R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -125,8 +139,8 @@ func (a *RiskApiService) CopyRiskProfileExecute(r ApiCopyRiskProfileRequest) (*R
 }
 
 type ApiCreateRiskProfileRequest struct {
-	ctx context.Context
-	ApiService *RiskApiService
+	ctx         context.Context
+	ApiService  *RiskApiService
 	riskProfile *RiskProfile
 }
 
@@ -142,24 +156,25 @@ func (r ApiCreateRiskProfileRequest) Execute() (*RiskProfile, *http.Response, er
 /*
 CreateRiskProfile Method for CreateRiskProfile
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRiskProfileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRiskProfileRequest
 */
 func (a *RiskApiService) CreateRiskProfile(ctx context.Context) ApiCreateRiskProfileRequest {
 	return ApiCreateRiskProfileRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RiskProfile
+//
+//	@return RiskProfile
 func (a *RiskApiService) CreateRiskProfileExecute(r ApiCreateRiskProfileRequest) (*RiskProfile, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RiskProfile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RiskProfile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.CreateRiskProfile")
@@ -192,6 +207,20 @@ func (a *RiskApiService) CreateRiskProfileExecute(r ApiCreateRiskProfileRequest)
 	}
 	// body params
 	localVarPostBody = r.riskProfile
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -202,9 +231,9 @@ func (a *RiskApiService) CreateRiskProfileExecute(r ApiCreateRiskProfileRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -230,8 +259,8 @@ func (a *RiskApiService) CreateRiskProfileExecute(r ApiCreateRiskProfileRequest)
 }
 
 type ApiDeleteRiskProfileRequest struct {
-	ctx context.Context
-	ApiService *RiskApiService
+	ctx           context.Context
+	ApiService    *RiskApiService
 	riskProfileId string
 }
 
@@ -242,14 +271,14 @@ func (r ApiDeleteRiskProfileRequest) Execute() (*http.Response, error) {
 /*
 DeleteRiskProfile Method for DeleteRiskProfile
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param riskProfileId
- @return ApiDeleteRiskProfileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param riskProfileId
+	@return ApiDeleteRiskProfileRequest
 */
 func (a *RiskApiService) DeleteRiskProfile(ctx context.Context, riskProfileId string) ApiDeleteRiskProfileRequest {
 	return ApiDeleteRiskProfileRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		riskProfileId: riskProfileId,
 	}
 }
@@ -257,9 +286,9 @@ func (a *RiskApiService) DeleteRiskProfile(ctx context.Context, riskProfileId st
 // Execute executes the request
 func (a *RiskApiService) DeleteRiskProfileExecute(r ApiDeleteRiskProfileRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.DeleteRiskProfile")
@@ -291,6 +320,20 @@ func (a *RiskApiService) DeleteRiskProfileExecute(r ApiDeleteRiskProfileRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -301,9 +344,9 @@ func (a *RiskApiService) DeleteRiskProfileExecute(r ApiDeleteRiskProfileRequest)
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -320,7 +363,7 @@ func (a *RiskApiService) DeleteRiskProfileExecute(r ApiDeleteRiskProfileRequest)
 }
 
 type ApiGetAllRiskAssessorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RiskApiService
 }
 
@@ -331,24 +374,25 @@ func (r ApiGetAllRiskAssessorsRequest) Execute() ([]RiskAssessor, *http.Response
 /*
 GetAllRiskAssessors Method for GetAllRiskAssessors
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAllRiskAssessorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAllRiskAssessorsRequest
 */
 func (a *RiskApiService) GetAllRiskAssessors(ctx context.Context) ApiGetAllRiskAssessorsRequest {
 	return ApiGetAllRiskAssessorsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []RiskAssessor
+//
+//	@return []RiskAssessor
 func (a *RiskApiService) GetAllRiskAssessorsExecute(r ApiGetAllRiskAssessorsRequest) ([]RiskAssessor, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []RiskAssessor
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []RiskAssessor
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.GetAllRiskAssessors")
@@ -379,6 +423,20 @@ func (a *RiskApiService) GetAllRiskAssessorsExecute(r ApiGetAllRiskAssessorsRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -389,9 +447,9 @@ func (a *RiskApiService) GetAllRiskAssessorsExecute(r ApiGetAllRiskAssessorsRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -417,9 +475,9 @@ func (a *RiskApiService) GetAllRiskAssessorsExecute(r ApiGetAllRiskAssessorsRequ
 }
 
 type ApiGetRiskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RiskApiService
-	riskId string
+	riskId     string
 }
 
 func (r ApiGetRiskRequest) Execute() (*Risk, *http.Response, error) {
@@ -429,26 +487,27 @@ func (r ApiGetRiskRequest) Execute() (*Risk, *http.Response, error) {
 /*
 GetRisk Method for GetRisk
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param riskId
- @return ApiGetRiskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param riskId
+	@return ApiGetRiskRequest
 */
 func (a *RiskApiService) GetRisk(ctx context.Context, riskId string) ApiGetRiskRequest {
 	return ApiGetRiskRequest{
 		ApiService: a,
-		ctx: ctx,
-		riskId: riskId,
+		ctx:        ctx,
+		riskId:     riskId,
 	}
 }
 
 // Execute executes the request
-//  @return Risk
+//
+//	@return Risk
 func (a *RiskApiService) GetRiskExecute(r ApiGetRiskRequest) (*Risk, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Risk
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Risk
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.GetRisk")
@@ -480,6 +539,20 @@ func (a *RiskApiService) GetRiskExecute(r ApiGetRiskRequest) (*Risk, *http.Respo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -490,9 +563,9 @@ func (a *RiskApiService) GetRiskExecute(r ApiGetRiskRequest) (*Risk, *http.Respo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -518,7 +591,7 @@ func (a *RiskApiService) GetRiskExecute(r ApiGetRiskRequest) (*Risk, *http.Respo
 }
 
 type ApiGetRiskGlobalThresholdsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RiskApiService
 }
 
@@ -529,24 +602,25 @@ func (r ApiGetRiskGlobalThresholdsRequest) Execute() (*RiskGlobalThresholds, *ht
 /*
 GetRiskGlobalThresholds Method for GetRiskGlobalThresholds
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRiskGlobalThresholdsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRiskGlobalThresholdsRequest
 */
 func (a *RiskApiService) GetRiskGlobalThresholds(ctx context.Context) ApiGetRiskGlobalThresholdsRequest {
 	return ApiGetRiskGlobalThresholdsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RiskGlobalThresholds
+//
+//	@return RiskGlobalThresholds
 func (a *RiskApiService) GetRiskGlobalThresholdsExecute(r ApiGetRiskGlobalThresholdsRequest) (*RiskGlobalThresholds, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RiskGlobalThresholds
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RiskGlobalThresholds
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.GetRiskGlobalThresholds")
@@ -577,6 +651,20 @@ func (a *RiskApiService) GetRiskGlobalThresholdsExecute(r ApiGetRiskGlobalThresh
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -587,9 +675,9 @@ func (a *RiskApiService) GetRiskGlobalThresholdsExecute(r ApiGetRiskGlobalThresh
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -615,8 +703,8 @@ func (a *RiskApiService) GetRiskGlobalThresholdsExecute(r ApiGetRiskGlobalThresh
 }
 
 type ApiGetRiskProfileRequest struct {
-	ctx context.Context
-	ApiService *RiskApiService
+	ctx           context.Context
+	ApiService    *RiskApiService
 	riskProfileId string
 }
 
@@ -627,26 +715,27 @@ func (r ApiGetRiskProfileRequest) Execute() (*RiskProfile, *http.Response, error
 /*
 GetRiskProfile Method for GetRiskProfile
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param riskProfileId
- @return ApiGetRiskProfileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param riskProfileId
+	@return ApiGetRiskProfileRequest
 */
 func (a *RiskApiService) GetRiskProfile(ctx context.Context, riskProfileId string) ApiGetRiskProfileRequest {
 	return ApiGetRiskProfileRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		riskProfileId: riskProfileId,
 	}
 }
 
 // Execute executes the request
-//  @return RiskProfile
+//
+//	@return RiskProfile
 func (a *RiskApiService) GetRiskProfileExecute(r ApiGetRiskProfileRequest) (*RiskProfile, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RiskProfile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RiskProfile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.GetRiskProfile")
@@ -678,6 +767,20 @@ func (a *RiskApiService) GetRiskProfileExecute(r ApiGetRiskProfileRequest) (*Ris
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -688,9 +791,9 @@ func (a *RiskApiService) GetRiskProfileExecute(r ApiGetRiskProfileRequest) (*Ris
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -716,7 +819,7 @@ func (a *RiskApiService) GetRiskProfileExecute(r ApiGetRiskProfileRequest) (*Ris
 }
 
 type ApiGetRiskProfilesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RiskApiService
 }
 
@@ -727,24 +830,25 @@ func (r ApiGetRiskProfilesRequest) Execute() ([]RiskProfile, *http.Response, err
 /*
 GetRiskProfiles Method for GetRiskProfiles
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRiskProfilesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRiskProfilesRequest
 */
 func (a *RiskApiService) GetRiskProfiles(ctx context.Context) ApiGetRiskProfilesRequest {
 	return ApiGetRiskProfilesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []RiskProfile
+//
+//	@return []RiskProfile
 func (a *RiskApiService) GetRiskProfilesExecute(r ApiGetRiskProfilesRequest) ([]RiskProfile, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []RiskProfile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []RiskProfile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.GetRiskProfiles")
@@ -775,6 +879,20 @@ func (a *RiskApiService) GetRiskProfilesExecute(r ApiGetRiskProfilesRequest) ([]
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -785,9 +903,9 @@ func (a *RiskApiService) GetRiskProfilesExecute(r ApiGetRiskProfilesRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -813,8 +931,8 @@ func (a *RiskApiService) GetRiskProfilesExecute(r ApiGetRiskProfilesRequest) ([]
 }
 
 type ApiUpdateRiskGlobalThresholdsRequest struct {
-	ctx context.Context
-	ApiService *RiskApiService
+	ctx                  context.Context
+	ApiService           *RiskApiService
 	riskGlobalThresholds *RiskGlobalThresholds
 }
 
@@ -830,24 +948,25 @@ func (r ApiUpdateRiskGlobalThresholdsRequest) Execute() (*RiskGlobalThresholds, 
 /*
 UpdateRiskGlobalThresholds Method for UpdateRiskGlobalThresholds
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateRiskGlobalThresholdsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateRiskGlobalThresholdsRequest
 */
 func (a *RiskApiService) UpdateRiskGlobalThresholds(ctx context.Context) ApiUpdateRiskGlobalThresholdsRequest {
 	return ApiUpdateRiskGlobalThresholdsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RiskGlobalThresholds
+//
+//	@return RiskGlobalThresholds
 func (a *RiskApiService) UpdateRiskGlobalThresholdsExecute(r ApiUpdateRiskGlobalThresholdsRequest) (*RiskGlobalThresholds, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RiskGlobalThresholds
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RiskGlobalThresholds
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.UpdateRiskGlobalThresholds")
@@ -880,6 +999,20 @@ func (a *RiskApiService) UpdateRiskGlobalThresholdsExecute(r ApiUpdateRiskGlobal
 	}
 	// body params
 	localVarPostBody = r.riskGlobalThresholds
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -890,9 +1023,9 @@ func (a *RiskApiService) UpdateRiskGlobalThresholdsExecute(r ApiUpdateRiskGlobal
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -918,10 +1051,10 @@ func (a *RiskApiService) UpdateRiskGlobalThresholdsExecute(r ApiUpdateRiskGlobal
 }
 
 type ApiUpdateRiskProfileRequest struct {
-	ctx context.Context
-	ApiService *RiskApiService
+	ctx           context.Context
+	ApiService    *RiskApiService
 	riskProfileId string
-	riskProfile *RiskProfile
+	riskProfile   *RiskProfile
 }
 
 func (r ApiUpdateRiskProfileRequest) RiskProfile(riskProfile RiskProfile) ApiUpdateRiskProfileRequest {
@@ -936,26 +1069,27 @@ func (r ApiUpdateRiskProfileRequest) Execute() (*RiskProfile, *http.Response, er
 /*
 UpdateRiskProfile Method for UpdateRiskProfile
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param riskProfileId
- @return ApiUpdateRiskProfileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param riskProfileId
+	@return ApiUpdateRiskProfileRequest
 */
 func (a *RiskApiService) UpdateRiskProfile(ctx context.Context, riskProfileId string) ApiUpdateRiskProfileRequest {
 	return ApiUpdateRiskProfileRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		riskProfileId: riskProfileId,
 	}
 }
 
 // Execute executes the request
-//  @return RiskProfile
+//
+//	@return RiskProfile
 func (a *RiskApiService) UpdateRiskProfileExecute(r ApiUpdateRiskProfileRequest) (*RiskProfile, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RiskProfile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RiskProfile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskApiService.UpdateRiskProfile")
@@ -989,6 +1123,20 @@ func (a *RiskApiService) UpdateRiskProfileExecute(r ApiUpdateRiskProfileRequest)
 	}
 	// body params
 	localVarPostBody = r.riskProfile
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -999,9 +1147,9 @@ func (a *RiskApiService) UpdateRiskProfileExecute(r ApiUpdateRiskProfileRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

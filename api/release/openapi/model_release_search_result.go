@@ -19,8 +19,8 @@ var _ MappedNullable = &ReleaseSearchResult{}
 
 // ReleaseSearchResult struct for ReleaseSearchResult
 type ReleaseSearchResult struct {
-	Page *int64 `json:"page,omitempty"`
-	Size *int64 `json:"size,omitempty"`
+	Page     *int64    `json:"page,omitempty"`
+	Size     *int64    `json:"size,omitempty"`
 	Releases []Release `json:"releases,omitempty"`
 }
 
@@ -43,7 +43,7 @@ func NewReleaseSearchResultWithDefaults() *ReleaseSearchResult {
 
 // GetPage returns the Page field value if set, zero value otherwise.
 func (o *ReleaseSearchResult) GetPage() int64 {
-	if o == nil || isNil(o.Page) {
+	if o == nil || IsNil(o.Page) {
 		var ret int64
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *ReleaseSearchResult) GetPage() int64 {
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseSearchResult) GetPageOk() (*int64, bool) {
-	if o == nil || isNil(o.Page) {
+	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
 	return o.Page, true
@@ -61,7 +61,7 @@ func (o *ReleaseSearchResult) GetPageOk() (*int64, bool) {
 
 // HasPage returns a boolean if a field has been set.
 func (o *ReleaseSearchResult) HasPage() bool {
-	if o != nil && !isNil(o.Page) {
+	if o != nil && !IsNil(o.Page) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *ReleaseSearchResult) SetPage(v int64) {
 
 // GetSize returns the Size field value if set, zero value otherwise.
 func (o *ReleaseSearchResult) GetSize() int64 {
-	if o == nil || isNil(o.Size) {
+	if o == nil || IsNil(o.Size) {
 		var ret int64
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *ReleaseSearchResult) GetSize() int64 {
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseSearchResult) GetSizeOk() (*int64, bool) {
-	if o == nil || isNil(o.Size) {
+	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
 	return o.Size, true
@@ -93,7 +93,7 @@ func (o *ReleaseSearchResult) GetSizeOk() (*int64, bool) {
 
 // HasSize returns a boolean if a field has been set.
 func (o *ReleaseSearchResult) HasSize() bool {
-	if o != nil && !isNil(o.Size) {
+	if o != nil && !IsNil(o.Size) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *ReleaseSearchResult) SetSize(v int64) {
 
 // GetReleases returns the Releases field value if set, zero value otherwise.
 func (o *ReleaseSearchResult) GetReleases() []Release {
-	if o == nil || isNil(o.Releases) {
+	if o == nil || IsNil(o.Releases) {
 		var ret []Release
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *ReleaseSearchResult) GetReleases() []Release {
 // GetReleasesOk returns a tuple with the Releases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseSearchResult) GetReleasesOk() ([]Release, bool) {
-	if o == nil || isNil(o.Releases) {
+	if o == nil || IsNil(o.Releases) {
 		return nil, false
 	}
 	return o.Releases, true
@@ -125,7 +125,7 @@ func (o *ReleaseSearchResult) GetReleasesOk() ([]Release, bool) {
 
 // HasReleases returns a boolean if a field has been set.
 func (o *ReleaseSearchResult) HasReleases() bool {
-	if o != nil && !isNil(o.Releases) {
+	if o != nil && !IsNil(o.Releases) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *ReleaseSearchResult) SetReleases(v []Release) {
 }
 
 func (o ReleaseSearchResult) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o ReleaseSearchResult) MarshalJSON() ([]byte, error) {
 
 func (o ReleaseSearchResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Page) {
+	if !IsNil(o.Page) {
 		toSerialize["page"] = o.Page
 	}
-	if !isNil(o.Size) {
+	if !IsNil(o.Size) {
 		toSerialize["size"] = o.Size
 	}
-	if !isNil(o.Releases) {
+	if !IsNil(o.Releases) {
 		toSerialize["releases"] = o.Releases
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableReleaseSearchResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

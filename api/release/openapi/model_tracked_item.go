@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the TrackedItem type satisfies the MappedNullable interface at compile time
@@ -19,11 +20,13 @@ var _ MappedNullable = &TrackedItem{}
 
 // TrackedItem struct for TrackedItem
 type TrackedItem struct {
-	Title *string `json:"title,omitempty"`
-	ReleaseIds []string `json:"releaseIds,omitempty"`
-	Descoped *bool `json:"descoped,omitempty"`
-	CreatedDate *string `json:"createdDate,omitempty"`
-	ModifiedDate *string `json:"modifiedDate,omitempty"`
+	Id           *string    `json:"id,omitempty"`
+	Type         *string    `json:"type,omitempty"`
+	Title        *string    `json:"title,omitempty"`
+	ReleaseIds   []string   `json:"releaseIds,omitempty"`
+	Descoped     *bool      `json:"descoped,omitempty"`
+	CreatedDate  *time.Time `json:"createdDate,omitempty"`
+	ModifiedDate *time.Time `json:"modifiedDate,omitempty"`
 }
 
 // NewTrackedItem instantiates a new TrackedItem object
@@ -43,9 +46,73 @@ func NewTrackedItemWithDefaults() *TrackedItem {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *TrackedItem) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TrackedItem) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *TrackedItem) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *TrackedItem) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *TrackedItem) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TrackedItem) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *TrackedItem) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *TrackedItem) SetType(v string) {
+	o.Type = &v
+}
+
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *TrackedItem) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -55,7 +122,7 @@ func (o *TrackedItem) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrackedItem) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -63,7 +130,7 @@ func (o *TrackedItem) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *TrackedItem) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -77,7 +144,7 @@ func (o *TrackedItem) SetTitle(v string) {
 
 // GetReleaseIds returns the ReleaseIds field value if set, zero value otherwise.
 func (o *TrackedItem) GetReleaseIds() []string {
-	if o == nil || isNil(o.ReleaseIds) {
+	if o == nil || IsNil(o.ReleaseIds) {
 		var ret []string
 		return ret
 	}
@@ -87,7 +154,7 @@ func (o *TrackedItem) GetReleaseIds() []string {
 // GetReleaseIdsOk returns a tuple with the ReleaseIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrackedItem) GetReleaseIdsOk() ([]string, bool) {
-	if o == nil || isNil(o.ReleaseIds) {
+	if o == nil || IsNil(o.ReleaseIds) {
 		return nil, false
 	}
 	return o.ReleaseIds, true
@@ -95,7 +162,7 @@ func (o *TrackedItem) GetReleaseIdsOk() ([]string, bool) {
 
 // HasReleaseIds returns a boolean if a field has been set.
 func (o *TrackedItem) HasReleaseIds() bool {
-	if o != nil && !isNil(o.ReleaseIds) {
+	if o != nil && !IsNil(o.ReleaseIds) {
 		return true
 	}
 
@@ -109,7 +176,7 @@ func (o *TrackedItem) SetReleaseIds(v []string) {
 
 // GetDescoped returns the Descoped field value if set, zero value otherwise.
 func (o *TrackedItem) GetDescoped() bool {
-	if o == nil || isNil(o.Descoped) {
+	if o == nil || IsNil(o.Descoped) {
 		var ret bool
 		return ret
 	}
@@ -119,7 +186,7 @@ func (o *TrackedItem) GetDescoped() bool {
 // GetDescopedOk returns a tuple with the Descoped field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrackedItem) GetDescopedOk() (*bool, bool) {
-	if o == nil || isNil(o.Descoped) {
+	if o == nil || IsNil(o.Descoped) {
 		return nil, false
 	}
 	return o.Descoped, true
@@ -127,7 +194,7 @@ func (o *TrackedItem) GetDescopedOk() (*bool, bool) {
 
 // HasDescoped returns a boolean if a field has been set.
 func (o *TrackedItem) HasDescoped() bool {
-	if o != nil && !isNil(o.Descoped) {
+	if o != nil && !IsNil(o.Descoped) {
 		return true
 	}
 
@@ -140,9 +207,9 @@ func (o *TrackedItem) SetDescoped(v bool) {
 }
 
 // GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
-func (o *TrackedItem) GetCreatedDate() string {
-	if o == nil || isNil(o.CreatedDate) {
-		var ret string
+func (o *TrackedItem) GetCreatedDate() time.Time {
+	if o == nil || IsNil(o.CreatedDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.CreatedDate
@@ -150,8 +217,8 @@ func (o *TrackedItem) GetCreatedDate() string {
 
 // GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrackedItem) GetCreatedDateOk() (*string, bool) {
-	if o == nil || isNil(o.CreatedDate) {
+func (o *TrackedItem) GetCreatedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return o.CreatedDate, true
@@ -159,22 +226,22 @@ func (o *TrackedItem) GetCreatedDateOk() (*string, bool) {
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *TrackedItem) HasCreatedDate() bool {
-	if o != nil && !isNil(o.CreatedDate) {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetCreatedDate gets a reference to the given string and assigns it to the CreatedDate field.
-func (o *TrackedItem) SetCreatedDate(v string) {
+// SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
+func (o *TrackedItem) SetCreatedDate(v time.Time) {
 	o.CreatedDate = &v
 }
 
 // GetModifiedDate returns the ModifiedDate field value if set, zero value otherwise.
-func (o *TrackedItem) GetModifiedDate() string {
-	if o == nil || isNil(o.ModifiedDate) {
-		var ret string
+func (o *TrackedItem) GetModifiedDate() time.Time {
+	if o == nil || IsNil(o.ModifiedDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.ModifiedDate
@@ -182,8 +249,8 @@ func (o *TrackedItem) GetModifiedDate() string {
 
 // GetModifiedDateOk returns a tuple with the ModifiedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrackedItem) GetModifiedDateOk() (*string, bool) {
-	if o == nil || isNil(o.ModifiedDate) {
+func (o *TrackedItem) GetModifiedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ModifiedDate) {
 		return nil, false
 	}
 	return o.ModifiedDate, true
@@ -191,20 +258,20 @@ func (o *TrackedItem) GetModifiedDateOk() (*string, bool) {
 
 // HasModifiedDate returns a boolean if a field has been set.
 func (o *TrackedItem) HasModifiedDate() bool {
-	if o != nil && !isNil(o.ModifiedDate) {
+	if o != nil && !IsNil(o.ModifiedDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetModifiedDate gets a reference to the given string and assigns it to the ModifiedDate field.
-func (o *TrackedItem) SetModifiedDate(v string) {
+// SetModifiedDate gets a reference to the given time.Time and assigns it to the ModifiedDate field.
+func (o *TrackedItem) SetModifiedDate(v time.Time) {
 	o.ModifiedDate = &v
 }
 
 func (o TrackedItem) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -213,19 +280,25 @@ func (o TrackedItem) MarshalJSON() ([]byte, error) {
 
 func (o TrackedItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.ReleaseIds) {
+	if !IsNil(o.ReleaseIds) {
 		toSerialize["releaseIds"] = o.ReleaseIds
 	}
-	if !isNil(o.Descoped) {
+	if !IsNil(o.Descoped) {
 		toSerialize["descoped"] = o.Descoped
 	}
-	if !isNil(o.CreatedDate) {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-	if !isNil(o.ModifiedDate) {
+	if !IsNil(o.ModifiedDate) {
 		toSerialize["modifiedDate"] = o.ModifiedDate
 	}
 	return toSerialize, nil
@@ -266,5 +339,3 @@ func (v *NullableTrackedItem) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

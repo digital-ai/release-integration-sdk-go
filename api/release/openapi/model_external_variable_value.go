@@ -19,9 +19,9 @@ var _ MappedNullable = &ExternalVariableValue{}
 
 // ExternalVariableValue struct for ExternalVariableValue
 type ExternalVariableValue struct {
-	Server *string `json:"server,omitempty"`
-	ServerType *string `json:"serverType,omitempty"`
-	Path *string `json:"path,omitempty"`
+	Server      *string `json:"server,omitempty"`
+	ServerType  *string `json:"serverType,omitempty"`
+	Path        *string `json:"path,omitempty"`
 	ExternalKey *string `json:"externalKey,omitempty"`
 }
 
@@ -44,7 +44,7 @@ func NewExternalVariableValueWithDefaults() *ExternalVariableValue {
 
 // GetServer returns the Server field value if set, zero value otherwise.
 func (o *ExternalVariableValue) GetServer() string {
-	if o == nil || isNil(o.Server) {
+	if o == nil || IsNil(o.Server) {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *ExternalVariableValue) GetServer() string {
 // GetServerOk returns a tuple with the Server field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalVariableValue) GetServerOk() (*string, bool) {
-	if o == nil || isNil(o.Server) {
+	if o == nil || IsNil(o.Server) {
 		return nil, false
 	}
 	return o.Server, true
@@ -62,7 +62,7 @@ func (o *ExternalVariableValue) GetServerOk() (*string, bool) {
 
 // HasServer returns a boolean if a field has been set.
 func (o *ExternalVariableValue) HasServer() bool {
-	if o != nil && !isNil(o.Server) {
+	if o != nil && !IsNil(o.Server) {
 		return true
 	}
 
@@ -76,7 +76,7 @@ func (o *ExternalVariableValue) SetServer(v string) {
 
 // GetServerType returns the ServerType field value if set, zero value otherwise.
 func (o *ExternalVariableValue) GetServerType() string {
-	if o == nil || isNil(o.ServerType) {
+	if o == nil || IsNil(o.ServerType) {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *ExternalVariableValue) GetServerType() string {
 // GetServerTypeOk returns a tuple with the ServerType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalVariableValue) GetServerTypeOk() (*string, bool) {
-	if o == nil || isNil(o.ServerType) {
+	if o == nil || IsNil(o.ServerType) {
 		return nil, false
 	}
 	return o.ServerType, true
@@ -94,7 +94,7 @@ func (o *ExternalVariableValue) GetServerTypeOk() (*string, bool) {
 
 // HasServerType returns a boolean if a field has been set.
 func (o *ExternalVariableValue) HasServerType() bool {
-	if o != nil && !isNil(o.ServerType) {
+	if o != nil && !IsNil(o.ServerType) {
 		return true
 	}
 
@@ -108,7 +108,7 @@ func (o *ExternalVariableValue) SetServerType(v string) {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *ExternalVariableValue) GetPath() string {
-	if o == nil || isNil(o.Path) {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -118,7 +118,7 @@ func (o *ExternalVariableValue) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalVariableValue) GetPathOk() (*string, bool) {
-	if o == nil || isNil(o.Path) {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -126,7 +126,7 @@ func (o *ExternalVariableValue) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *ExternalVariableValue) HasPath() bool {
-	if o != nil && !isNil(o.Path) {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -140,7 +140,7 @@ func (o *ExternalVariableValue) SetPath(v string) {
 
 // GetExternalKey returns the ExternalKey field value if set, zero value otherwise.
 func (o *ExternalVariableValue) GetExternalKey() string {
-	if o == nil || isNil(o.ExternalKey) {
+	if o == nil || IsNil(o.ExternalKey) {
 		var ret string
 		return ret
 	}
@@ -150,7 +150,7 @@ func (o *ExternalVariableValue) GetExternalKey() string {
 // GetExternalKeyOk returns a tuple with the ExternalKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalVariableValue) GetExternalKeyOk() (*string, bool) {
-	if o == nil || isNil(o.ExternalKey) {
+	if o == nil || IsNil(o.ExternalKey) {
 		return nil, false
 	}
 	return o.ExternalKey, true
@@ -158,7 +158,7 @@ func (o *ExternalVariableValue) GetExternalKeyOk() (*string, bool) {
 
 // HasExternalKey returns a boolean if a field has been set.
 func (o *ExternalVariableValue) HasExternalKey() bool {
-	if o != nil && !isNil(o.ExternalKey) {
+	if o != nil && !IsNil(o.ExternalKey) {
 		return true
 	}
 
@@ -171,7 +171,7 @@ func (o *ExternalVariableValue) SetExternalKey(v string) {
 }
 
 func (o ExternalVariableValue) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +180,16 @@ func (o ExternalVariableValue) MarshalJSON() ([]byte, error) {
 
 func (o ExternalVariableValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Server) {
+	if !IsNil(o.Server) {
 		toSerialize["server"] = o.Server
 	}
-	if !isNil(o.ServerType) {
+	if !IsNil(o.ServerType) {
 		toSerialize["serverType"] = o.ServerType
 	}
-	if !isNil(o.Path) {
+	if !IsNil(o.Path) {
 		toSerialize["path"] = o.Path
 	}
-	if !isNil(o.ExternalKey) {
+	if !IsNil(o.ExternalKey) {
 		toSerialize["externalKey"] = o.ExternalKey
 	}
 	return toSerialize, nil
@@ -230,5 +230,3 @@ func (v *NullableExternalVariableValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

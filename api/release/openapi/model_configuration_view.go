@@ -19,10 +19,10 @@ var _ MappedNullable = &ConfigurationView{}
 
 // ConfigurationView struct for ConfigurationView
 type ConfigurationView struct {
-	Type *string `json:"type,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Type       *string                           `json:"type,omitempty"`
+	Title      *string                           `json:"title,omitempty"`
 	Properties map[string]map[string]interface{} `json:"properties,omitempty"`
-	Id *string `json:"id,omitempty"`
+	Id         *string                           `json:"id,omitempty"`
 }
 
 // NewConfigurationView instantiates a new ConfigurationView object
@@ -44,7 +44,7 @@ func NewConfigurationViewWithDefaults() *ConfigurationView {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ConfigurationView) GetType() string {
-	if o == nil || isNil(o.Type) {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *ConfigurationView) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationView) GetTypeOk() (*string, bool) {
-	if o == nil || isNil(o.Type) {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -62,7 +62,7 @@ func (o *ConfigurationView) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ConfigurationView) HasType() bool {
-	if o != nil && !isNil(o.Type) {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -76,7 +76,7 @@ func (o *ConfigurationView) SetType(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ConfigurationView) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *ConfigurationView) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationView) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -94,7 +94,7 @@ func (o *ConfigurationView) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ConfigurationView) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -108,7 +108,7 @@ func (o *ConfigurationView) SetTitle(v string) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *ConfigurationView) GetProperties() map[string]map[string]interface{} {
-	if o == nil || isNil(o.Properties) {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -118,7 +118,7 @@ func (o *ConfigurationView) GetProperties() map[string]map[string]interface{} {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationView) GetPropertiesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || isNil(o.Properties) {
+	if o == nil || IsNil(o.Properties) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Properties, true
@@ -126,7 +126,7 @@ func (o *ConfigurationView) GetPropertiesOk() (map[string]map[string]interface{}
 
 // HasProperties returns a boolean if a field has been set.
 func (o *ConfigurationView) HasProperties() bool {
-	if o != nil && !isNil(o.Properties) {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -140,7 +140,7 @@ func (o *ConfigurationView) SetProperties(v map[string]map[string]interface{}) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ConfigurationView) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -150,7 +150,7 @@ func (o *ConfigurationView) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigurationView) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -158,7 +158,7 @@ func (o *ConfigurationView) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ConfigurationView) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -171,7 +171,7 @@ func (o *ConfigurationView) SetId(v string) {
 }
 
 func (o ConfigurationView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +180,16 @@ func (o ConfigurationView) MarshalJSON() ([]byte, error) {
 
 func (o ConfigurationView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Type) {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Properties) {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
 	return toSerialize, nil
@@ -230,5 +230,3 @@ func (v *NullableConfigurationView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

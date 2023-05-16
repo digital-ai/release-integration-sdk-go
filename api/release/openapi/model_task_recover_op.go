@@ -20,9 +20,9 @@ type TaskRecoverOp string
 
 // List of TaskRecoverOp
 const (
-	SKIP_TASK TaskRecoverOp = "SKIP_TASK"
-	RESTART_PHASE TaskRecoverOp = "RESTART_PHASE"
-	RUN_SCRIPT TaskRecoverOp = "RUN_SCRIPT"
+	TASKRECOVEROP_SKIP_TASK     TaskRecoverOp = "SKIP_TASK"
+	TASKRECOVEROP_RESTART_PHASE TaskRecoverOp = "RESTART_PHASE"
+	TASKRECOVEROP_RUN_SCRIPT    TaskRecoverOp = "RUN_SCRIPT"
 )
 
 // All allowed values of TaskRecoverOp enum
@@ -110,4 +110,3 @@ func (v *NullableTaskRecoverOp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

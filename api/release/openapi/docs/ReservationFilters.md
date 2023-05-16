@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Stages** | Pointer to **[]string** |  | [optional] 
 **Labels** | Pointer to **[]string** |  | [optional] 
 **Applications** | Pointer to **[]string** |  | [optional] 
-**From** | Pointer to **string** |  | [optional] 
-**To** | Pointer to **string** |  | [optional] 
+**From** | Pointer to **time.Time** |  | [optional] 
+**To** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -132,20 +132,20 @@ HasApplications returns a boolean if a field has been set.
 
 ### GetFrom
 
-`func (o *ReservationFilters) GetFrom() string`
+`func (o *ReservationFilters) GetFrom() time.Time`
 
 GetFrom returns the From field if non-nil, zero value otherwise.
 
 ### GetFromOk
 
-`func (o *ReservationFilters) GetFromOk() (*string, bool)`
+`func (o *ReservationFilters) GetFromOk() (*time.Time, bool)`
 
 GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFrom
 
-`func (o *ReservationFilters) SetFrom(v string)`
+`func (o *ReservationFilters) SetFrom(v time.Time)`
 
 SetFrom sets From field to given value.
 
@@ -157,20 +157,20 @@ HasFrom returns a boolean if a field has been set.
 
 ### GetTo
 
-`func (o *ReservationFilters) GetTo() string`
+`func (o *ReservationFilters) GetTo() time.Time`
 
 GetTo returns the To field if non-nil, zero value otherwise.
 
 ### GetToOk
 
-`func (o *ReservationFilters) GetToOk() (*string, bool)`
+`func (o *ReservationFilters) GetToOk() (*time.Time, bool)`
 
 GetToOk returns a tuple with the To field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTo
 
-`func (o *ReservationFilters) SetTo(v string)`
+`func (o *ReservationFilters) SetTo(v time.Time)`
 
 SetTo sets To field to given value.
 

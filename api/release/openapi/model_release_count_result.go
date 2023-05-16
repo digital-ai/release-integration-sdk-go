@@ -19,7 +19,7 @@ var _ MappedNullable = &ReleaseCountResult{}
 
 // ReleaseCountResult struct for ReleaseCountResult
 type ReleaseCountResult struct {
-	Total *int32 `json:"total,omitempty"`
+	Total    *int32            `json:"total,omitempty"`
 	ByStatus *map[string]int32 `json:"byStatus,omitempty"`
 }
 
@@ -42,7 +42,7 @@ func NewReleaseCountResultWithDefaults() *ReleaseCountResult {
 
 // GetTotal returns the Total field value if set, zero value otherwise.
 func (o *ReleaseCountResult) GetTotal() int32 {
-	if o == nil || isNil(o.Total) {
+	if o == nil || IsNil(o.Total) {
 		var ret int32
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *ReleaseCountResult) GetTotal() int32 {
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseCountResult) GetTotalOk() (*int32, bool) {
-	if o == nil || isNil(o.Total) {
+	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
 	return o.Total, true
@@ -60,7 +60,7 @@ func (o *ReleaseCountResult) GetTotalOk() (*int32, bool) {
 
 // HasTotal returns a boolean if a field has been set.
 func (o *ReleaseCountResult) HasTotal() bool {
-	if o != nil && !isNil(o.Total) {
+	if o != nil && !IsNil(o.Total) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *ReleaseCountResult) SetTotal(v int32) {
 
 // GetByStatus returns the ByStatus field value if set, zero value otherwise.
 func (o *ReleaseCountResult) GetByStatus() map[string]int32 {
-	if o == nil || isNil(o.ByStatus) {
+	if o == nil || IsNil(o.ByStatus) {
 		var ret map[string]int32
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *ReleaseCountResult) GetByStatus() map[string]int32 {
 // GetByStatusOk returns a tuple with the ByStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseCountResult) GetByStatusOk() (*map[string]int32, bool) {
-	if o == nil || isNil(o.ByStatus) {
+	if o == nil || IsNil(o.ByStatus) {
 		return nil, false
 	}
 	return o.ByStatus, true
@@ -92,7 +92,7 @@ func (o *ReleaseCountResult) GetByStatusOk() (*map[string]int32, bool) {
 
 // HasByStatus returns a boolean if a field has been set.
 func (o *ReleaseCountResult) HasByStatus() bool {
-	if o != nil && !isNil(o.ByStatus) {
+	if o != nil && !IsNil(o.ByStatus) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *ReleaseCountResult) SetByStatus(v map[string]int32) {
 }
 
 func (o ReleaseCountResult) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o ReleaseCountResult) MarshalJSON() ([]byte, error) {
 
 func (o ReleaseCountResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Total) {
+	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
-	if !isNil(o.ByStatus) {
+	if !IsNil(o.ByStatus) {
 		toSerialize["byStatus"] = o.ByStatus
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableReleaseCountResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

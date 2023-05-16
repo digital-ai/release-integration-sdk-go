@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the ActivityLogEntry type satisfies the MappedNullable interface at compile time
@@ -19,13 +20,15 @@ var _ MappedNullable = &ActivityLogEntry{}
 
 // ActivityLogEntry struct for ActivityLogEntry
 type ActivityLogEntry struct {
-	Username *string `json:"username,omitempty"`
-	ActivityType *string `json:"activityType,omitempty"`
-	Message *string `json:"message,omitempty"`
-	EventTime *string `json:"eventTime,omitempty"`
-	TargetType *string `json:"targetType,omitempty"`
-	TargetId *string `json:"targetId,omitempty"`
-	DataId *string `json:"dataId,omitempty"`
+	Id           *string    `json:"id,omitempty"`
+	Type         *string    `json:"type,omitempty"`
+	Username     *string    `json:"username,omitempty"`
+	ActivityType *string    `json:"activityType,omitempty"`
+	Message      *string    `json:"message,omitempty"`
+	EventTime    *time.Time `json:"eventTime,omitempty"`
+	TargetType   *string    `json:"targetType,omitempty"`
+	TargetId     *string    `json:"targetId,omitempty"`
+	DataId       *string    `json:"dataId,omitempty"`
 }
 
 // NewActivityLogEntry instantiates a new ActivityLogEntry object
@@ -45,9 +48,73 @@ func NewActivityLogEntryWithDefaults() *ActivityLogEntry {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ActivityLogEntry) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ActivityLogEntry) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ActivityLogEntry) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ActivityLogEntry) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ActivityLogEntry) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ActivityLogEntry) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ActivityLogEntry) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *ActivityLogEntry) SetType(v string) {
+	o.Type = &v
+}
+
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *ActivityLogEntry) GetUsername() string {
-	if o == nil || isNil(o.Username) {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -57,7 +124,7 @@ func (o *ActivityLogEntry) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActivityLogEntry) GetUsernameOk() (*string, bool) {
-	if o == nil || isNil(o.Username) {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -65,7 +132,7 @@ func (o *ActivityLogEntry) GetUsernameOk() (*string, bool) {
 
 // HasUsername returns a boolean if a field has been set.
 func (o *ActivityLogEntry) HasUsername() bool {
-	if o != nil && !isNil(o.Username) {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -79,7 +146,7 @@ func (o *ActivityLogEntry) SetUsername(v string) {
 
 // GetActivityType returns the ActivityType field value if set, zero value otherwise.
 func (o *ActivityLogEntry) GetActivityType() string {
-	if o == nil || isNil(o.ActivityType) {
+	if o == nil || IsNil(o.ActivityType) {
 		var ret string
 		return ret
 	}
@@ -89,7 +156,7 @@ func (o *ActivityLogEntry) GetActivityType() string {
 // GetActivityTypeOk returns a tuple with the ActivityType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActivityLogEntry) GetActivityTypeOk() (*string, bool) {
-	if o == nil || isNil(o.ActivityType) {
+	if o == nil || IsNil(o.ActivityType) {
 		return nil, false
 	}
 	return o.ActivityType, true
@@ -97,7 +164,7 @@ func (o *ActivityLogEntry) GetActivityTypeOk() (*string, bool) {
 
 // HasActivityType returns a boolean if a field has been set.
 func (o *ActivityLogEntry) HasActivityType() bool {
-	if o != nil && !isNil(o.ActivityType) {
+	if o != nil && !IsNil(o.ActivityType) {
 		return true
 	}
 
@@ -111,7 +178,7 @@ func (o *ActivityLogEntry) SetActivityType(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ActivityLogEntry) GetMessage() string {
-	if o == nil || isNil(o.Message) {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -121,7 +188,7 @@ func (o *ActivityLogEntry) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActivityLogEntry) GetMessageOk() (*string, bool) {
-	if o == nil || isNil(o.Message) {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -129,7 +196,7 @@ func (o *ActivityLogEntry) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *ActivityLogEntry) HasMessage() bool {
-	if o != nil && !isNil(o.Message) {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -142,9 +209,9 @@ func (o *ActivityLogEntry) SetMessage(v string) {
 }
 
 // GetEventTime returns the EventTime field value if set, zero value otherwise.
-func (o *ActivityLogEntry) GetEventTime() string {
-	if o == nil || isNil(o.EventTime) {
-		var ret string
+func (o *ActivityLogEntry) GetEventTime() time.Time {
+	if o == nil || IsNil(o.EventTime) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EventTime
@@ -152,8 +219,8 @@ func (o *ActivityLogEntry) GetEventTime() string {
 
 // GetEventTimeOk returns a tuple with the EventTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActivityLogEntry) GetEventTimeOk() (*string, bool) {
-	if o == nil || isNil(o.EventTime) {
+func (o *ActivityLogEntry) GetEventTimeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EventTime) {
 		return nil, false
 	}
 	return o.EventTime, true
@@ -161,21 +228,21 @@ func (o *ActivityLogEntry) GetEventTimeOk() (*string, bool) {
 
 // HasEventTime returns a boolean if a field has been set.
 func (o *ActivityLogEntry) HasEventTime() bool {
-	if o != nil && !isNil(o.EventTime) {
+	if o != nil && !IsNil(o.EventTime) {
 		return true
 	}
 
 	return false
 }
 
-// SetEventTime gets a reference to the given string and assigns it to the EventTime field.
-func (o *ActivityLogEntry) SetEventTime(v string) {
+// SetEventTime gets a reference to the given time.Time and assigns it to the EventTime field.
+func (o *ActivityLogEntry) SetEventTime(v time.Time) {
 	o.EventTime = &v
 }
 
 // GetTargetType returns the TargetType field value if set, zero value otherwise.
 func (o *ActivityLogEntry) GetTargetType() string {
-	if o == nil || isNil(o.TargetType) {
+	if o == nil || IsNil(o.TargetType) {
 		var ret string
 		return ret
 	}
@@ -185,7 +252,7 @@ func (o *ActivityLogEntry) GetTargetType() string {
 // GetTargetTypeOk returns a tuple with the TargetType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActivityLogEntry) GetTargetTypeOk() (*string, bool) {
-	if o == nil || isNil(o.TargetType) {
+	if o == nil || IsNil(o.TargetType) {
 		return nil, false
 	}
 	return o.TargetType, true
@@ -193,7 +260,7 @@ func (o *ActivityLogEntry) GetTargetTypeOk() (*string, bool) {
 
 // HasTargetType returns a boolean if a field has been set.
 func (o *ActivityLogEntry) HasTargetType() bool {
-	if o != nil && !isNil(o.TargetType) {
+	if o != nil && !IsNil(o.TargetType) {
 		return true
 	}
 
@@ -207,7 +274,7 @@ func (o *ActivityLogEntry) SetTargetType(v string) {
 
 // GetTargetId returns the TargetId field value if set, zero value otherwise.
 func (o *ActivityLogEntry) GetTargetId() string {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		var ret string
 		return ret
 	}
@@ -217,7 +284,7 @@ func (o *ActivityLogEntry) GetTargetId() string {
 // GetTargetIdOk returns a tuple with the TargetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActivityLogEntry) GetTargetIdOk() (*string, bool) {
-	if o == nil || isNil(o.TargetId) {
+	if o == nil || IsNil(o.TargetId) {
 		return nil, false
 	}
 	return o.TargetId, true
@@ -225,7 +292,7 @@ func (o *ActivityLogEntry) GetTargetIdOk() (*string, bool) {
 
 // HasTargetId returns a boolean if a field has been set.
 func (o *ActivityLogEntry) HasTargetId() bool {
-	if o != nil && !isNil(o.TargetId) {
+	if o != nil && !IsNil(o.TargetId) {
 		return true
 	}
 
@@ -239,7 +306,7 @@ func (o *ActivityLogEntry) SetTargetId(v string) {
 
 // GetDataId returns the DataId field value if set, zero value otherwise.
 func (o *ActivityLogEntry) GetDataId() string {
-	if o == nil || isNil(o.DataId) {
+	if o == nil || IsNil(o.DataId) {
 		var ret string
 		return ret
 	}
@@ -249,7 +316,7 @@ func (o *ActivityLogEntry) GetDataId() string {
 // GetDataIdOk returns a tuple with the DataId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActivityLogEntry) GetDataIdOk() (*string, bool) {
-	if o == nil || isNil(o.DataId) {
+	if o == nil || IsNil(o.DataId) {
 		return nil, false
 	}
 	return o.DataId, true
@@ -257,7 +324,7 @@ func (o *ActivityLogEntry) GetDataIdOk() (*string, bool) {
 
 // HasDataId returns a boolean if a field has been set.
 func (o *ActivityLogEntry) HasDataId() bool {
-	if o != nil && !isNil(o.DataId) {
+	if o != nil && !IsNil(o.DataId) {
 		return true
 	}
 
@@ -270,7 +337,7 @@ func (o *ActivityLogEntry) SetDataId(v string) {
 }
 
 func (o ActivityLogEntry) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -279,25 +346,31 @@ func (o ActivityLogEntry) MarshalJSON() ([]byte, error) {
 
 func (o ActivityLogEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Username) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
-	if !isNil(o.ActivityType) {
+	if !IsNil(o.ActivityType) {
 		toSerialize["activityType"] = o.ActivityType
 	}
-	if !isNil(o.Message) {
+	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-	if !isNil(o.EventTime) {
+	if !IsNil(o.EventTime) {
 		toSerialize["eventTime"] = o.EventTime
 	}
-	if !isNil(o.TargetType) {
+	if !IsNil(o.TargetType) {
 		toSerialize["targetType"] = o.TargetType
 	}
-	if !isNil(o.TargetId) {
+	if !IsNil(o.TargetId) {
 		toSerialize["targetId"] = o.TargetId
 	}
-	if !isNil(o.DataId) {
+	if !IsNil(o.DataId) {
 		toSerialize["dataId"] = o.DataId
 	}
 	return toSerialize, nil
@@ -338,5 +411,3 @@ func (v *NullableActivityLogEntry) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

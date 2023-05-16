@@ -19,8 +19,8 @@ var _ MappedNullable = &EnvironmentFilters{}
 
 // EnvironmentFilters struct for EnvironmentFilters
 type EnvironmentFilters struct {
-	Title *string `json:"title,omitempty"`
-	Stage *string `json:"stage,omitempty"`
+	Title  *string  `json:"title,omitempty"`
+	Stage  *string  `json:"stage,omitempty"`
 	Labels []string `json:"labels,omitempty"`
 }
 
@@ -43,7 +43,7 @@ func NewEnvironmentFiltersWithDefaults() *EnvironmentFilters {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *EnvironmentFilters) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *EnvironmentFilters) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentFilters) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -61,7 +61,7 @@ func (o *EnvironmentFilters) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *EnvironmentFilters) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *EnvironmentFilters) SetTitle(v string) {
 
 // GetStage returns the Stage field value if set, zero value otherwise.
 func (o *EnvironmentFilters) GetStage() string {
-	if o == nil || isNil(o.Stage) {
+	if o == nil || IsNil(o.Stage) {
 		var ret string
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *EnvironmentFilters) GetStage() string {
 // GetStageOk returns a tuple with the Stage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentFilters) GetStageOk() (*string, bool) {
-	if o == nil || isNil(o.Stage) {
+	if o == nil || IsNil(o.Stage) {
 		return nil, false
 	}
 	return o.Stage, true
@@ -93,7 +93,7 @@ func (o *EnvironmentFilters) GetStageOk() (*string, bool) {
 
 // HasStage returns a boolean if a field has been set.
 func (o *EnvironmentFilters) HasStage() bool {
-	if o != nil && !isNil(o.Stage) {
+	if o != nil && !IsNil(o.Stage) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *EnvironmentFilters) SetStage(v string) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *EnvironmentFilters) GetLabels() []string {
-	if o == nil || isNil(o.Labels) {
+	if o == nil || IsNil(o.Labels) {
 		var ret []string
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *EnvironmentFilters) GetLabels() []string {
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentFilters) GetLabelsOk() ([]string, bool) {
-	if o == nil || isNil(o.Labels) {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -125,7 +125,7 @@ func (o *EnvironmentFilters) GetLabelsOk() ([]string, bool) {
 
 // HasLabels returns a boolean if a field has been set.
 func (o *EnvironmentFilters) HasLabels() bool {
-	if o != nil && !isNil(o.Labels) {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *EnvironmentFilters) SetLabels(v []string) {
 }
 
 func (o EnvironmentFilters) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o EnvironmentFilters) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Stage) {
+	if !IsNil(o.Stage) {
 		toSerialize["stage"] = o.Stage
 	}
-	if !isNil(o.Labels) {
+	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableEnvironmentFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

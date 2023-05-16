@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the DeliveryFlowReleaseInfo type satisfies the MappedNullable interface at compile time
@@ -19,12 +20,12 @@ var _ MappedNullable = &DeliveryFlowReleaseInfo{}
 
 // DeliveryFlowReleaseInfo struct for DeliveryFlowReleaseInfo
 type DeliveryFlowReleaseInfo struct {
-	Id *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Status *string `json:"status,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	Archived *bool `json:"archived,omitempty"`
+	Id        *string    `json:"id,omitempty"`
+	Title     *string    `json:"title,omitempty"`
+	Status    *string    `json:"status,omitempty"`
+	StartDate *time.Time `json:"startDate,omitempty"`
+	EndDate   *time.Time `json:"endDate,omitempty"`
+	Archived  *bool      `json:"archived,omitempty"`
 }
 
 // NewDeliveryFlowReleaseInfo instantiates a new DeliveryFlowReleaseInfo object
@@ -46,7 +47,7 @@ func NewDeliveryFlowReleaseInfoWithDefaults() *DeliveryFlowReleaseInfo {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *DeliveryFlowReleaseInfo) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -56,7 +57,7 @@ func (o *DeliveryFlowReleaseInfo) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFlowReleaseInfo) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -64,7 +65,7 @@ func (o *DeliveryFlowReleaseInfo) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *DeliveryFlowReleaseInfo) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -78,7 +79,7 @@ func (o *DeliveryFlowReleaseInfo) SetId(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *DeliveryFlowReleaseInfo) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -88,7 +89,7 @@ func (o *DeliveryFlowReleaseInfo) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFlowReleaseInfo) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -96,7 +97,7 @@ func (o *DeliveryFlowReleaseInfo) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *DeliveryFlowReleaseInfo) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -110,7 +111,7 @@ func (o *DeliveryFlowReleaseInfo) SetTitle(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *DeliveryFlowReleaseInfo) GetStatus() string {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -120,7 +121,7 @@ func (o *DeliveryFlowReleaseInfo) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFlowReleaseInfo) GetStatusOk() (*string, bool) {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -128,7 +129,7 @@ func (o *DeliveryFlowReleaseInfo) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *DeliveryFlowReleaseInfo) HasStatus() bool {
-	if o != nil && !isNil(o.Status) {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -141,9 +142,9 @@ func (o *DeliveryFlowReleaseInfo) SetStatus(v string) {
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *DeliveryFlowReleaseInfo) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *DeliveryFlowReleaseInfo) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -151,8 +152,8 @@ func (o *DeliveryFlowReleaseInfo) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeliveryFlowReleaseInfo) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *DeliveryFlowReleaseInfo) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -160,22 +161,22 @@ func (o *DeliveryFlowReleaseInfo) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *DeliveryFlowReleaseInfo) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *DeliveryFlowReleaseInfo) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *DeliveryFlowReleaseInfo) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *DeliveryFlowReleaseInfo) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *DeliveryFlowReleaseInfo) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -183,8 +184,8 @@ func (o *DeliveryFlowReleaseInfo) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeliveryFlowReleaseInfo) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *DeliveryFlowReleaseInfo) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -192,21 +193,21 @@ func (o *DeliveryFlowReleaseInfo) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *DeliveryFlowReleaseInfo) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *DeliveryFlowReleaseInfo) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *DeliveryFlowReleaseInfo) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *DeliveryFlowReleaseInfo) GetArchived() bool {
-	if o == nil || isNil(o.Archived) {
+	if o == nil || IsNil(o.Archived) {
 		var ret bool
 		return ret
 	}
@@ -216,7 +217,7 @@ func (o *DeliveryFlowReleaseInfo) GetArchived() bool {
 // GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFlowReleaseInfo) GetArchivedOk() (*bool, bool) {
-	if o == nil || isNil(o.Archived) {
+	if o == nil || IsNil(o.Archived) {
 		return nil, false
 	}
 	return o.Archived, true
@@ -224,7 +225,7 @@ func (o *DeliveryFlowReleaseInfo) GetArchivedOk() (*bool, bool) {
 
 // HasArchived returns a boolean if a field has been set.
 func (o *DeliveryFlowReleaseInfo) HasArchived() bool {
-	if o != nil && !isNil(o.Archived) {
+	if o != nil && !IsNil(o.Archived) {
 		return true
 	}
 
@@ -237,7 +238,7 @@ func (o *DeliveryFlowReleaseInfo) SetArchived(v bool) {
 }
 
 func (o DeliveryFlowReleaseInfo) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -246,22 +247,22 @@ func (o DeliveryFlowReleaseInfo) MarshalJSON() ([]byte, error) {
 
 func (o DeliveryFlowReleaseInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Status) {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.Archived) {
+	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
 	return toSerialize, nil
@@ -302,5 +303,3 @@ func (v *NullableDeliveryFlowReleaseInfo) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

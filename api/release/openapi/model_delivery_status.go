@@ -20,16 +20,16 @@ type DeliveryStatus string
 
 // List of DeliveryStatus
 const (
-	TEMPLATE_DELIVERY DeliveryStatus = "TEMPLATE_DELIVERY"
-	IN_PROGRESS_DELIVERY DeliveryStatus = "IN_PROGRESS_DELIVERY"
-	COMPLETED_DELIVERY DeliveryStatus = "COMPLETED_DELIVERY"
+	DELIVERYSTATUS_TEMPLATE    DeliveryStatus = "TEMPLATE"
+	DELIVERYSTATUS_IN_PROGRESS DeliveryStatus = "IN_PROGRESS"
+	DELIVERYSTATUS_COMPLETED   DeliveryStatus = "COMPLETED"
 )
 
 // All allowed values of DeliveryStatus enum
 var AllowedDeliveryStatusEnumValues = []DeliveryStatus{
-	"TEMPLATE_DELIVERY",
-	"IN_PROGRESS_DELIVERY",
-	"COMPLETED_DELIVERY",
+	"TEMPLATE",
+	"IN_PROGRESS",
+	"COMPLETED",
 }
 
 func (v *DeliveryStatus) UnmarshalJSON(src []byte) error {
@@ -110,4 +110,3 @@ func (v *NullableDeliveryStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

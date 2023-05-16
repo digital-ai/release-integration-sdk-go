@@ -13,19 +13,18 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // ConfigurationApiService ConfigurationApi service
 type ConfigurationApiService service
 
 type ApiAddConfigurationRequest struct {
-	ctx context.Context
-	ApiService *ConfigurationApiService
+	ctx                  context.Context
+	ApiService           *ConfigurationApiService
 	releaseConfiguration *ReleaseConfiguration
 }
 
@@ -41,24 +40,25 @@ func (r ApiAddConfigurationRequest) Execute() (*ReleaseConfiguration, *http.Resp
 /*
 AddConfiguration Method for AddConfiguration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAddConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddConfigurationRequest
 */
 func (a *ConfigurationApiService) AddConfiguration(ctx context.Context) ApiAddConfigurationRequest {
 	return ApiAddConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseConfiguration
+//
+//	@return ReleaseConfiguration
 func (a *ConfigurationApiService) AddConfigurationExecute(r ApiAddConfigurationRequest) (*ReleaseConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseConfiguration
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseConfiguration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.AddConfiguration")
@@ -91,6 +91,20 @@ func (a *ConfigurationApiService) AddConfigurationExecute(r ApiAddConfigurationR
 	}
 	// body params
 	localVarPostBody = r.releaseConfiguration
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -101,9 +115,9 @@ func (a *ConfigurationApiService) AddConfigurationExecute(r ApiAddConfigurationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -129,9 +143,9 @@ func (a *ConfigurationApiService) AddConfigurationExecute(r ApiAddConfigurationR
 }
 
 type ApiAddGlobalVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ConfigurationApiService
-	variable1 *Variable1
+	variable1  *Variable1
 }
 
 func (r ApiAddGlobalVariableRequest) Variable1(variable1 Variable1) ApiAddGlobalVariableRequest {
@@ -146,24 +160,25 @@ func (r ApiAddGlobalVariableRequest) Execute() (*Variable, *http.Response, error
 /*
 AddGlobalVariable Method for AddGlobalVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAddGlobalVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddGlobalVariableRequest
 */
 func (a *ConfigurationApiService) AddGlobalVariable(ctx context.Context) ApiAddGlobalVariableRequest {
 	return ApiAddGlobalVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *ConfigurationApiService) AddGlobalVariableExecute(r ApiAddGlobalVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.AddGlobalVariable")
@@ -196,6 +211,20 @@ func (a *ConfigurationApiService) AddGlobalVariableExecute(r ApiAddGlobalVariabl
 	}
 	// body params
 	localVarPostBody = r.variable1
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -206,9 +235,9 @@ func (a *ConfigurationApiService) AddGlobalVariableExecute(r ApiAddGlobalVariabl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -234,8 +263,8 @@ func (a *ConfigurationApiService) AddGlobalVariableExecute(r ApiAddGlobalVariabl
 }
 
 type ApiCheckStatusRequest struct {
-	ctx context.Context
-	ApiService *ConfigurationApiService
+	ctx               context.Context
+	ApiService        *ConfigurationApiService
 	configurationView *ConfigurationView
 }
 
@@ -251,24 +280,25 @@ func (r ApiCheckStatusRequest) Execute() (*SharedConfigurationStatusResponse, *h
 /*
 CheckStatus Method for CheckStatus
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCheckStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCheckStatusRequest
 */
 func (a *ConfigurationApiService) CheckStatus(ctx context.Context) ApiCheckStatusRequest {
 	return ApiCheckStatusRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SharedConfigurationStatusResponse
+//
+//	@return SharedConfigurationStatusResponse
 func (a *ConfigurationApiService) CheckStatusExecute(r ApiCheckStatusRequest) (*SharedConfigurationStatusResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SharedConfigurationStatusResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SharedConfigurationStatusResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.CheckStatus")
@@ -301,6 +331,20 @@ func (a *ConfigurationApiService) CheckStatusExecute(r ApiCheckStatusRequest) (*
 	}
 	// body params
 	localVarPostBody = r.configurationView
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -311,9 +355,9 @@ func (a *ConfigurationApiService) CheckStatusExecute(r ApiCheckStatusRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -339,8 +383,8 @@ func (a *ConfigurationApiService) CheckStatusExecute(r ApiCheckStatusRequest) (*
 }
 
 type ApiCheckStatus1Request struct {
-	ctx context.Context
-	ApiService *ConfigurationApiService
+	ctx             context.Context
+	ApiService      *ConfigurationApiService
 	configurationId string
 }
 
@@ -351,26 +395,27 @@ func (r ApiCheckStatus1Request) Execute() (*SharedConfigurationStatusResponse, *
 /*
 CheckStatus1 Method for CheckStatus1
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param configurationId
- @return ApiCheckStatus1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationId
+	@return ApiCheckStatus1Request
 */
 func (a *ConfigurationApiService) CheckStatus1(ctx context.Context, configurationId string) ApiCheckStatus1Request {
 	return ApiCheckStatus1Request{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		configurationId: configurationId,
 	}
 }
 
 // Execute executes the request
-//  @return SharedConfigurationStatusResponse
+//
+//	@return SharedConfigurationStatusResponse
 func (a *ConfigurationApiService) CheckStatus1Execute(r ApiCheckStatus1Request) (*SharedConfigurationStatusResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SharedConfigurationStatusResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SharedConfigurationStatusResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.CheckStatus1")
@@ -402,6 +447,20 @@ func (a *ConfigurationApiService) CheckStatus1Execute(r ApiCheckStatus1Request) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -412,9 +471,9 @@ func (a *ConfigurationApiService) CheckStatus1Execute(r ApiCheckStatus1Request) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -440,8 +499,8 @@ func (a *ConfigurationApiService) CheckStatus1Execute(r ApiCheckStatus1Request) 
 }
 
 type ApiDeleteConfigurationRequest struct {
-	ctx context.Context
-	ApiService *ConfigurationApiService
+	ctx             context.Context
+	ApiService      *ConfigurationApiService
 	configurationId string
 }
 
@@ -452,14 +511,14 @@ func (r ApiDeleteConfigurationRequest) Execute() (*http.Response, error) {
 /*
 DeleteConfiguration Method for DeleteConfiguration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param configurationId
- @return ApiDeleteConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationId
+	@return ApiDeleteConfigurationRequest
 */
 func (a *ConfigurationApiService) DeleteConfiguration(ctx context.Context, configurationId string) ApiDeleteConfigurationRequest {
 	return ApiDeleteConfigurationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		configurationId: configurationId,
 	}
 }
@@ -467,9 +526,9 @@ func (a *ConfigurationApiService) DeleteConfiguration(ctx context.Context, confi
 // Execute executes the request
 func (a *ConfigurationApiService) DeleteConfigurationExecute(r ApiDeleteConfigurationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.DeleteConfiguration")
@@ -501,6 +560,20 @@ func (a *ConfigurationApiService) DeleteConfigurationExecute(r ApiDeleteConfigur
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -511,9 +584,9 @@ func (a *ConfigurationApiService) DeleteConfigurationExecute(r ApiDeleteConfigur
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -530,7 +603,7 @@ func (a *ConfigurationApiService) DeleteConfigurationExecute(r ApiDeleteConfigur
 }
 
 type ApiDeleteGlobalVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ConfigurationApiService
 	variableId string
 }
@@ -542,14 +615,14 @@ func (r ApiDeleteGlobalVariableRequest) Execute() (*http.Response, error) {
 /*
 DeleteGlobalVariable Method for DeleteGlobalVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiDeleteGlobalVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiDeleteGlobalVariableRequest
 */
 func (a *ConfigurationApiService) DeleteGlobalVariable(ctx context.Context, variableId string) ApiDeleteGlobalVariableRequest {
 	return ApiDeleteGlobalVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
@@ -557,9 +630,9 @@ func (a *ConfigurationApiService) DeleteGlobalVariable(ctx context.Context, vari
 // Execute executes the request
 func (a *ConfigurationApiService) DeleteGlobalVariableExecute(r ApiDeleteGlobalVariableRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.DeleteGlobalVariable")
@@ -591,6 +664,20 @@ func (a *ConfigurationApiService) DeleteGlobalVariableExecute(r ApiDeleteGlobalV
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -601,9 +688,9 @@ func (a *ConfigurationApiService) DeleteGlobalVariableExecute(r ApiDeleteGlobalV
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -620,8 +707,8 @@ func (a *ConfigurationApiService) DeleteGlobalVariableExecute(r ApiDeleteGlobalV
 }
 
 type ApiGetConfigurationRequest struct {
-	ctx context.Context
-	ApiService *ConfigurationApiService
+	ctx             context.Context
+	ApiService      *ConfigurationApiService
 	configurationId string
 }
 
@@ -632,26 +719,27 @@ func (r ApiGetConfigurationRequest) Execute() (*ReleaseConfiguration, *http.Resp
 /*
 GetConfiguration Method for GetConfiguration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param configurationId
- @return ApiGetConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationId
+	@return ApiGetConfigurationRequest
 */
 func (a *ConfigurationApiService) GetConfiguration(ctx context.Context, configurationId string) ApiGetConfigurationRequest {
 	return ApiGetConfigurationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		configurationId: configurationId,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseConfiguration
+//
+//	@return ReleaseConfiguration
 func (a *ConfigurationApiService) GetConfigurationExecute(r ApiGetConfigurationRequest) (*ReleaseConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseConfiguration
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseConfiguration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.GetConfiguration")
@@ -683,6 +771,20 @@ func (a *ConfigurationApiService) GetConfigurationExecute(r ApiGetConfigurationR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -693,9 +795,9 @@ func (a *ConfigurationApiService) GetConfigurationExecute(r ApiGetConfigurationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -721,7 +823,7 @@ func (a *ConfigurationApiService) GetConfigurationExecute(r ApiGetConfigurationR
 }
 
 type ApiGetGlobalVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ConfigurationApiService
 	variableId string
 }
@@ -733,26 +835,27 @@ func (r ApiGetGlobalVariableRequest) Execute() (*Variable, *http.Response, error
 /*
 GetGlobalVariable Method for GetGlobalVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiGetGlobalVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiGetGlobalVariableRequest
 */
 func (a *ConfigurationApiService) GetGlobalVariable(ctx context.Context, variableId string) ApiGetGlobalVariableRequest {
 	return ApiGetGlobalVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *ConfigurationApiService) GetGlobalVariableExecute(r ApiGetGlobalVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.GetGlobalVariable")
@@ -784,6 +887,20 @@ func (a *ConfigurationApiService) GetGlobalVariableExecute(r ApiGetGlobalVariabl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -794,9 +911,9 @@ func (a *ConfigurationApiService) GetGlobalVariableExecute(r ApiGetGlobalVariabl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -822,7 +939,7 @@ func (a *ConfigurationApiService) GetGlobalVariableExecute(r ApiGetGlobalVariabl
 }
 
 type ApiGetGlobalVariableValuesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ConfigurationApiService
 }
 
@@ -833,24 +950,25 @@ func (r ApiGetGlobalVariableValuesRequest) Execute() (map[string]string, *http.R
 /*
 GetGlobalVariableValues Method for GetGlobalVariableValues
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetGlobalVariableValuesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetGlobalVariableValuesRequest
 */
 func (a *ConfigurationApiService) GetGlobalVariableValues(ctx context.Context) ApiGetGlobalVariableValuesRequest {
 	return ApiGetGlobalVariableValuesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return map[string]string
+//
+//	@return map[string]string
 func (a *ConfigurationApiService) GetGlobalVariableValuesExecute(r ApiGetGlobalVariableValuesRequest) (map[string]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  map[string]string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.GetGlobalVariableValues")
@@ -881,6 +999,20 @@ func (a *ConfigurationApiService) GetGlobalVariableValuesExecute(r ApiGetGlobalV
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -891,9 +1023,9 @@ func (a *ConfigurationApiService) GetGlobalVariableValuesExecute(r ApiGetGlobalV
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -919,7 +1051,7 @@ func (a *ConfigurationApiService) GetGlobalVariableValuesExecute(r ApiGetGlobalV
 }
 
 type ApiGetGlobalVariablesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ConfigurationApiService
 }
 
@@ -930,24 +1062,25 @@ func (r ApiGetGlobalVariablesRequest) Execute() ([]Variable, *http.Response, err
 /*
 GetGlobalVariables Method for GetGlobalVariables
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetGlobalVariablesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetGlobalVariablesRequest
 */
 func (a *ConfigurationApiService) GetGlobalVariables(ctx context.Context) ApiGetGlobalVariablesRequest {
 	return ApiGetGlobalVariablesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Variable
+//
+//	@return []Variable
 func (a *ConfigurationApiService) GetGlobalVariablesExecute(r ApiGetGlobalVariablesRequest) ([]Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Variable
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.GetGlobalVariables")
@@ -978,6 +1111,20 @@ func (a *ConfigurationApiService) GetGlobalVariablesExecute(r ApiGetGlobalVariab
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -988,9 +1135,9 @@ func (a *ConfigurationApiService) GetGlobalVariablesExecute(r ApiGetGlobalVariab
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1016,7 +1163,7 @@ func (a *ConfigurationApiService) GetGlobalVariablesExecute(r ApiGetGlobalVariab
 }
 
 type ApiGetSystemMessageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ConfigurationApiService
 }
 
@@ -1027,24 +1174,25 @@ func (r ApiGetSystemMessageRequest) Execute() (*SystemMessageSettings, *http.Res
 /*
 GetSystemMessage Method for GetSystemMessage
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetSystemMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetSystemMessageRequest
 */
 func (a *ConfigurationApiService) GetSystemMessage(ctx context.Context) ApiGetSystemMessageRequest {
 	return ApiGetSystemMessageRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SystemMessageSettings
+//
+//	@return SystemMessageSettings
 func (a *ConfigurationApiService) GetSystemMessageExecute(r ApiGetSystemMessageRequest) (*SystemMessageSettings, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SystemMessageSettings
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SystemMessageSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.GetSystemMessage")
@@ -1075,6 +1223,20 @@ func (a *ConfigurationApiService) GetSystemMessageExecute(r ApiGetSystemMessageR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1085,9 +1247,9 @@ func (a *ConfigurationApiService) GetSystemMessageExecute(r ApiGetSystemMessageR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1113,12 +1275,12 @@ func (a *ConfigurationApiService) GetSystemMessageExecute(r ApiGetSystemMessageR
 }
 
 type ApiSearchByTypeAndTitleRequest struct {
-	ctx context.Context
-	ApiService *ConfigurationApiService
+	ctx               context.Context
+	ApiService        *ConfigurationApiService
 	configurationType *string
-	folderId *string
-	folderOnly *bool
-	title *string
+	folderId          *string
+	folderOnly        *bool
+	title             *string
 }
 
 func (r ApiSearchByTypeAndTitleRequest) ConfigurationType(configurationType string) ApiSearchByTypeAndTitleRequest {
@@ -1148,24 +1310,25 @@ func (r ApiSearchByTypeAndTitleRequest) Execute() ([]ReleaseConfiguration, *http
 /*
 SearchByTypeAndTitle Method for SearchByTypeAndTitle
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchByTypeAndTitleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchByTypeAndTitleRequest
 */
 func (a *ConfigurationApiService) SearchByTypeAndTitle(ctx context.Context) ApiSearchByTypeAndTitleRequest {
 	return ApiSearchByTypeAndTitleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ReleaseConfiguration
+//
+//	@return []ReleaseConfiguration
 func (a *ConfigurationApiService) SearchByTypeAndTitleExecute(r ApiSearchByTypeAndTitleRequest) ([]ReleaseConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ReleaseConfiguration
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ReleaseConfiguration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.SearchByTypeAndTitle")
@@ -1180,16 +1343,16 @@ func (a *ConfigurationApiService) SearchByTypeAndTitleExecute(r ApiSearchByTypeA
 	localVarFormParams := url.Values{}
 
 	if r.configurationType != nil {
-		parameterAddToQuery(localVarQueryParams, "configurationType", r.configurationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "configurationType", r.configurationType, "")
 	}
 	if r.folderId != nil {
-		parameterAddToQuery(localVarQueryParams, "folderId", r.folderId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folderId", r.folderId, "")
 	}
 	if r.folderOnly != nil {
-		parameterAddToQuery(localVarQueryParams, "folderOnly", r.folderOnly, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folderOnly", r.folderOnly, "")
 	}
 	if r.title != nil {
-		parameterAddToQuery(localVarQueryParams, "title", r.title, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "title", r.title, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1208,6 +1371,20 @@ func (a *ConfigurationApiService) SearchByTypeAndTitleExecute(r ApiSearchByTypeA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1218,9 +1395,9 @@ func (a *ConfigurationApiService) SearchByTypeAndTitleExecute(r ApiSearchByTypeA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1246,9 +1423,9 @@ func (a *ConfigurationApiService) SearchByTypeAndTitleExecute(r ApiSearchByTypeA
 }
 
 type ApiUpdateConfigurationRequest struct {
-	ctx context.Context
-	ApiService *ConfigurationApiService
-	configurationId string
+	ctx                  context.Context
+	ApiService           *ConfigurationApiService
+	configurationId      string
 	releaseConfiguration *ReleaseConfiguration
 }
 
@@ -1264,26 +1441,27 @@ func (r ApiUpdateConfigurationRequest) Execute() (*ReleaseConfiguration, *http.R
 /*
 UpdateConfiguration Method for UpdateConfiguration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param configurationId
- @return ApiUpdateConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationId
+	@return ApiUpdateConfigurationRequest
 */
 func (a *ConfigurationApiService) UpdateConfiguration(ctx context.Context, configurationId string) ApiUpdateConfigurationRequest {
 	return ApiUpdateConfigurationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		configurationId: configurationId,
 	}
 }
 
 // Execute executes the request
-//  @return ReleaseConfiguration
+//
+//	@return ReleaseConfiguration
 func (a *ConfigurationApiService) UpdateConfigurationExecute(r ApiUpdateConfigurationRequest) (*ReleaseConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ReleaseConfiguration
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleaseConfiguration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.UpdateConfiguration")
@@ -1317,6 +1495,20 @@ func (a *ConfigurationApiService) UpdateConfigurationExecute(r ApiUpdateConfigur
 	}
 	// body params
 	localVarPostBody = r.releaseConfiguration
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1327,9 +1519,9 @@ func (a *ConfigurationApiService) UpdateConfigurationExecute(r ApiUpdateConfigur
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1355,10 +1547,10 @@ func (a *ConfigurationApiService) UpdateConfigurationExecute(r ApiUpdateConfigur
 }
 
 type ApiUpdateGlobalVariableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ConfigurationApiService
 	variableId string
-	variable *Variable
+	variable   *Variable
 }
 
 func (r ApiUpdateGlobalVariableRequest) Variable(variable Variable) ApiUpdateGlobalVariableRequest {
@@ -1373,26 +1565,27 @@ func (r ApiUpdateGlobalVariableRequest) Execute() (*Variable, *http.Response, er
 /*
 UpdateGlobalVariable Method for UpdateGlobalVariable
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param variableId
- @return ApiUpdateGlobalVariableRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param variableId
+	@return ApiUpdateGlobalVariableRequest
 */
 func (a *ConfigurationApiService) UpdateGlobalVariable(ctx context.Context, variableId string) ApiUpdateGlobalVariableRequest {
 	return ApiUpdateGlobalVariableRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		variableId: variableId,
 	}
 }
 
 // Execute executes the request
-//  @return Variable
+//
+//	@return Variable
 func (a *ConfigurationApiService) UpdateGlobalVariableExecute(r ApiUpdateGlobalVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Variable
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.UpdateGlobalVariable")
@@ -1426,6 +1619,20 @@ func (a *ConfigurationApiService) UpdateGlobalVariableExecute(r ApiUpdateGlobalV
 	}
 	// body params
 	localVarPostBody = r.variable
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1436,9 +1643,9 @@ func (a *ConfigurationApiService) UpdateGlobalVariableExecute(r ApiUpdateGlobalV
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1464,8 +1671,8 @@ func (a *ConfigurationApiService) UpdateGlobalVariableExecute(r ApiUpdateGlobalV
 }
 
 type ApiUpdateSystemMessageRequest struct {
-	ctx context.Context
-	ApiService *ConfigurationApiService
+	ctx                   context.Context
+	ApiService            *ConfigurationApiService
 	systemMessageSettings *SystemMessageSettings
 }
 
@@ -1481,24 +1688,25 @@ func (r ApiUpdateSystemMessageRequest) Execute() (*SystemMessageSettings, *http.
 /*
 UpdateSystemMessage Method for UpdateSystemMessage
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateSystemMessageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateSystemMessageRequest
 */
 func (a *ConfigurationApiService) UpdateSystemMessage(ctx context.Context) ApiUpdateSystemMessageRequest {
 	return ApiUpdateSystemMessageRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SystemMessageSettings
+//
+//	@return SystemMessageSettings
 func (a *ConfigurationApiService) UpdateSystemMessageExecute(r ApiUpdateSystemMessageRequest) (*SystemMessageSettings, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SystemMessageSettings
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SystemMessageSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationApiService.UpdateSystemMessage")
@@ -1531,6 +1739,20 @@ func (a *ConfigurationApiService) UpdateSystemMessageExecute(r ApiUpdateSystemMe
 	}
 	// body params
 	localVarPostBody = r.systemMessageSettings
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1541,9 +1763,9 @@ func (a *ConfigurationApiService) UpdateSystemMessageExecute(r ApiUpdateSystemMe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

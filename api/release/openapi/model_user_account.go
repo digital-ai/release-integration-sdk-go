@@ -19,21 +19,21 @@ var _ MappedNullable = &UserAccount{}
 
 // UserAccount struct for UserAccount
 type UserAccount struct {
-	Username *string `json:"username,omitempty"`
-	External *bool `json:"external,omitempty"`
-	ProfileId *string `json:"profileId,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Password *string `json:"password,omitempty"`
-	PreviousPassword *string `json:"previousPassword,omitempty"`
-	FullName *string `json:"fullName,omitempty"`
-	ExternalId *string `json:"externalId,omitempty"`
-	LoginAllowed *bool `json:"loginAllowed,omitempty"`
-	DateFormat *string `json:"dateFormat,omitempty"`
-	TimeFormat *string `json:"timeFormat,omitempty"`
-	FirstDayOfWeek *int32 `json:"firstDayOfWeek,omitempty"`
-	LastActive *string `json:"lastActive,omitempty"`
-	AnalyticsEnabled *bool `json:"analyticsEnabled,omitempty"`
-	TaskDrawerEnabled *bool `json:"taskDrawerEnabled,omitempty"`
+	Username          *string `json:"username,omitempty"`
+	External          *bool   `json:"external,omitempty"`
+	ProfileId         *string `json:"profileId,omitempty"`
+	Email             *string `json:"email,omitempty"`
+	Password          *string `json:"password,omitempty"`
+	PreviousPassword  *string `json:"previousPassword,omitempty"`
+	FullName          *string `json:"fullName,omitempty"`
+	ExternalId        *string `json:"externalId,omitempty"`
+	LoginAllowed      *bool   `json:"loginAllowed,omitempty"`
+	DateFormat        *string `json:"dateFormat,omitempty"`
+	TimeFormat        *string `json:"timeFormat,omitempty"`
+	FirstDayOfWeek    *int32  `json:"firstDayOfWeek,omitempty"`
+	LastActive        *string `json:"lastActive,omitempty"`
+	AnalyticsEnabled  *bool   `json:"analyticsEnabled,omitempty"`
+	TaskDrawerEnabled *bool   `json:"taskDrawerEnabled,omitempty"`
 }
 
 // NewUserAccount instantiates a new UserAccount object
@@ -55,7 +55,7 @@ func NewUserAccountWithDefaults() *UserAccount {
 
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *UserAccount) GetUsername() string {
-	if o == nil || isNil(o.Username) {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -65,7 +65,7 @@ func (o *UserAccount) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetUsernameOk() (*string, bool) {
-	if o == nil || isNil(o.Username) {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -73,7 +73,7 @@ func (o *UserAccount) GetUsernameOk() (*string, bool) {
 
 // HasUsername returns a boolean if a field has been set.
 func (o *UserAccount) HasUsername() bool {
-	if o != nil && !isNil(o.Username) {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -87,7 +87,7 @@ func (o *UserAccount) SetUsername(v string) {
 
 // GetExternal returns the External field value if set, zero value otherwise.
 func (o *UserAccount) GetExternal() bool {
-	if o == nil || isNil(o.External) {
+	if o == nil || IsNil(o.External) {
 		var ret bool
 		return ret
 	}
@@ -97,7 +97,7 @@ func (o *UserAccount) GetExternal() bool {
 // GetExternalOk returns a tuple with the External field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetExternalOk() (*bool, bool) {
-	if o == nil || isNil(o.External) {
+	if o == nil || IsNil(o.External) {
 		return nil, false
 	}
 	return o.External, true
@@ -105,7 +105,7 @@ func (o *UserAccount) GetExternalOk() (*bool, bool) {
 
 // HasExternal returns a boolean if a field has been set.
 func (o *UserAccount) HasExternal() bool {
-	if o != nil && !isNil(o.External) {
+	if o != nil && !IsNil(o.External) {
 		return true
 	}
 
@@ -119,7 +119,7 @@ func (o *UserAccount) SetExternal(v bool) {
 
 // GetProfileId returns the ProfileId field value if set, zero value otherwise.
 func (o *UserAccount) GetProfileId() string {
-	if o == nil || isNil(o.ProfileId) {
+	if o == nil || IsNil(o.ProfileId) {
 		var ret string
 		return ret
 	}
@@ -129,7 +129,7 @@ func (o *UserAccount) GetProfileId() string {
 // GetProfileIdOk returns a tuple with the ProfileId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetProfileIdOk() (*string, bool) {
-	if o == nil || isNil(o.ProfileId) {
+	if o == nil || IsNil(o.ProfileId) {
 		return nil, false
 	}
 	return o.ProfileId, true
@@ -137,7 +137,7 @@ func (o *UserAccount) GetProfileIdOk() (*string, bool) {
 
 // HasProfileId returns a boolean if a field has been set.
 func (o *UserAccount) HasProfileId() bool {
-	if o != nil && !isNil(o.ProfileId) {
+	if o != nil && !IsNil(o.ProfileId) {
 		return true
 	}
 
@@ -151,7 +151,7 @@ func (o *UserAccount) SetProfileId(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *UserAccount) GetEmail() string {
-	if o == nil || isNil(o.Email) {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -161,7 +161,7 @@ func (o *UserAccount) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetEmailOk() (*string, bool) {
-	if o == nil || isNil(o.Email) {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -169,7 +169,7 @@ func (o *UserAccount) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *UserAccount) HasEmail() bool {
-	if o != nil && !isNil(o.Email) {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -183,7 +183,7 @@ func (o *UserAccount) SetEmail(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *UserAccount) GetPassword() string {
-	if o == nil || isNil(o.Password) {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -193,7 +193,7 @@ func (o *UserAccount) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetPasswordOk() (*string, bool) {
-	if o == nil || isNil(o.Password) {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -201,7 +201,7 @@ func (o *UserAccount) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *UserAccount) HasPassword() bool {
-	if o != nil && !isNil(o.Password) {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -215,7 +215,7 @@ func (o *UserAccount) SetPassword(v string) {
 
 // GetPreviousPassword returns the PreviousPassword field value if set, zero value otherwise.
 func (o *UserAccount) GetPreviousPassword() string {
-	if o == nil || isNil(o.PreviousPassword) {
+	if o == nil || IsNil(o.PreviousPassword) {
 		var ret string
 		return ret
 	}
@@ -225,7 +225,7 @@ func (o *UserAccount) GetPreviousPassword() string {
 // GetPreviousPasswordOk returns a tuple with the PreviousPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetPreviousPasswordOk() (*string, bool) {
-	if o == nil || isNil(o.PreviousPassword) {
+	if o == nil || IsNil(o.PreviousPassword) {
 		return nil, false
 	}
 	return o.PreviousPassword, true
@@ -233,7 +233,7 @@ func (o *UserAccount) GetPreviousPasswordOk() (*string, bool) {
 
 // HasPreviousPassword returns a boolean if a field has been set.
 func (o *UserAccount) HasPreviousPassword() bool {
-	if o != nil && !isNil(o.PreviousPassword) {
+	if o != nil && !IsNil(o.PreviousPassword) {
 		return true
 	}
 
@@ -247,7 +247,7 @@ func (o *UserAccount) SetPreviousPassword(v string) {
 
 // GetFullName returns the FullName field value if set, zero value otherwise.
 func (o *UserAccount) GetFullName() string {
-	if o == nil || isNil(o.FullName) {
+	if o == nil || IsNil(o.FullName) {
 		var ret string
 		return ret
 	}
@@ -257,7 +257,7 @@ func (o *UserAccount) GetFullName() string {
 // GetFullNameOk returns a tuple with the FullName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetFullNameOk() (*string, bool) {
-	if o == nil || isNil(o.FullName) {
+	if o == nil || IsNil(o.FullName) {
 		return nil, false
 	}
 	return o.FullName, true
@@ -265,7 +265,7 @@ func (o *UserAccount) GetFullNameOk() (*string, bool) {
 
 // HasFullName returns a boolean if a field has been set.
 func (o *UserAccount) HasFullName() bool {
-	if o != nil && !isNil(o.FullName) {
+	if o != nil && !IsNil(o.FullName) {
 		return true
 	}
 
@@ -279,7 +279,7 @@ func (o *UserAccount) SetFullName(v string) {
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *UserAccount) GetExternalId() string {
-	if o == nil || isNil(o.ExternalId) {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -289,7 +289,7 @@ func (o *UserAccount) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetExternalIdOk() (*string, bool) {
-	if o == nil || isNil(o.ExternalId) {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -297,7 +297,7 @@ func (o *UserAccount) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *UserAccount) HasExternalId() bool {
-	if o != nil && !isNil(o.ExternalId) {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -311,7 +311,7 @@ func (o *UserAccount) SetExternalId(v string) {
 
 // GetLoginAllowed returns the LoginAllowed field value if set, zero value otherwise.
 func (o *UserAccount) GetLoginAllowed() bool {
-	if o == nil || isNil(o.LoginAllowed) {
+	if o == nil || IsNil(o.LoginAllowed) {
 		var ret bool
 		return ret
 	}
@@ -321,7 +321,7 @@ func (o *UserAccount) GetLoginAllowed() bool {
 // GetLoginAllowedOk returns a tuple with the LoginAllowed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetLoginAllowedOk() (*bool, bool) {
-	if o == nil || isNil(o.LoginAllowed) {
+	if o == nil || IsNil(o.LoginAllowed) {
 		return nil, false
 	}
 	return o.LoginAllowed, true
@@ -329,7 +329,7 @@ func (o *UserAccount) GetLoginAllowedOk() (*bool, bool) {
 
 // HasLoginAllowed returns a boolean if a field has been set.
 func (o *UserAccount) HasLoginAllowed() bool {
-	if o != nil && !isNil(o.LoginAllowed) {
+	if o != nil && !IsNil(o.LoginAllowed) {
 		return true
 	}
 
@@ -343,7 +343,7 @@ func (o *UserAccount) SetLoginAllowed(v bool) {
 
 // GetDateFormat returns the DateFormat field value if set, zero value otherwise.
 func (o *UserAccount) GetDateFormat() string {
-	if o == nil || isNil(o.DateFormat) {
+	if o == nil || IsNil(o.DateFormat) {
 		var ret string
 		return ret
 	}
@@ -353,7 +353,7 @@ func (o *UserAccount) GetDateFormat() string {
 // GetDateFormatOk returns a tuple with the DateFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetDateFormatOk() (*string, bool) {
-	if o == nil || isNil(o.DateFormat) {
+	if o == nil || IsNil(o.DateFormat) {
 		return nil, false
 	}
 	return o.DateFormat, true
@@ -361,7 +361,7 @@ func (o *UserAccount) GetDateFormatOk() (*string, bool) {
 
 // HasDateFormat returns a boolean if a field has been set.
 func (o *UserAccount) HasDateFormat() bool {
-	if o != nil && !isNil(o.DateFormat) {
+	if o != nil && !IsNil(o.DateFormat) {
 		return true
 	}
 
@@ -375,7 +375,7 @@ func (o *UserAccount) SetDateFormat(v string) {
 
 // GetTimeFormat returns the TimeFormat field value if set, zero value otherwise.
 func (o *UserAccount) GetTimeFormat() string {
-	if o == nil || isNil(o.TimeFormat) {
+	if o == nil || IsNil(o.TimeFormat) {
 		var ret string
 		return ret
 	}
@@ -385,7 +385,7 @@ func (o *UserAccount) GetTimeFormat() string {
 // GetTimeFormatOk returns a tuple with the TimeFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetTimeFormatOk() (*string, bool) {
-	if o == nil || isNil(o.TimeFormat) {
+	if o == nil || IsNil(o.TimeFormat) {
 		return nil, false
 	}
 	return o.TimeFormat, true
@@ -393,7 +393,7 @@ func (o *UserAccount) GetTimeFormatOk() (*string, bool) {
 
 // HasTimeFormat returns a boolean if a field has been set.
 func (o *UserAccount) HasTimeFormat() bool {
-	if o != nil && !isNil(o.TimeFormat) {
+	if o != nil && !IsNil(o.TimeFormat) {
 		return true
 	}
 
@@ -407,7 +407,7 @@ func (o *UserAccount) SetTimeFormat(v string) {
 
 // GetFirstDayOfWeek returns the FirstDayOfWeek field value if set, zero value otherwise.
 func (o *UserAccount) GetFirstDayOfWeek() int32 {
-	if o == nil || isNil(o.FirstDayOfWeek) {
+	if o == nil || IsNil(o.FirstDayOfWeek) {
 		var ret int32
 		return ret
 	}
@@ -417,7 +417,7 @@ func (o *UserAccount) GetFirstDayOfWeek() int32 {
 // GetFirstDayOfWeekOk returns a tuple with the FirstDayOfWeek field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetFirstDayOfWeekOk() (*int32, bool) {
-	if o == nil || isNil(o.FirstDayOfWeek) {
+	if o == nil || IsNil(o.FirstDayOfWeek) {
 		return nil, false
 	}
 	return o.FirstDayOfWeek, true
@@ -425,7 +425,7 @@ func (o *UserAccount) GetFirstDayOfWeekOk() (*int32, bool) {
 
 // HasFirstDayOfWeek returns a boolean if a field has been set.
 func (o *UserAccount) HasFirstDayOfWeek() bool {
-	if o != nil && !isNil(o.FirstDayOfWeek) {
+	if o != nil && !IsNil(o.FirstDayOfWeek) {
 		return true
 	}
 
@@ -439,7 +439,7 @@ func (o *UserAccount) SetFirstDayOfWeek(v int32) {
 
 // GetLastActive returns the LastActive field value if set, zero value otherwise.
 func (o *UserAccount) GetLastActive() string {
-	if o == nil || isNil(o.LastActive) {
+	if o == nil || IsNil(o.LastActive) {
 		var ret string
 		return ret
 	}
@@ -449,7 +449,7 @@ func (o *UserAccount) GetLastActive() string {
 // GetLastActiveOk returns a tuple with the LastActive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetLastActiveOk() (*string, bool) {
-	if o == nil || isNil(o.LastActive) {
+	if o == nil || IsNil(o.LastActive) {
 		return nil, false
 	}
 	return o.LastActive, true
@@ -457,7 +457,7 @@ func (o *UserAccount) GetLastActiveOk() (*string, bool) {
 
 // HasLastActive returns a boolean if a field has been set.
 func (o *UserAccount) HasLastActive() bool {
-	if o != nil && !isNil(o.LastActive) {
+	if o != nil && !IsNil(o.LastActive) {
 		return true
 	}
 
@@ -471,7 +471,7 @@ func (o *UserAccount) SetLastActive(v string) {
 
 // GetAnalyticsEnabled returns the AnalyticsEnabled field value if set, zero value otherwise.
 func (o *UserAccount) GetAnalyticsEnabled() bool {
-	if o == nil || isNil(o.AnalyticsEnabled) {
+	if o == nil || IsNil(o.AnalyticsEnabled) {
 		var ret bool
 		return ret
 	}
@@ -481,7 +481,7 @@ func (o *UserAccount) GetAnalyticsEnabled() bool {
 // GetAnalyticsEnabledOk returns a tuple with the AnalyticsEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetAnalyticsEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.AnalyticsEnabled) {
+	if o == nil || IsNil(o.AnalyticsEnabled) {
 		return nil, false
 	}
 	return o.AnalyticsEnabled, true
@@ -489,7 +489,7 @@ func (o *UserAccount) GetAnalyticsEnabledOk() (*bool, bool) {
 
 // HasAnalyticsEnabled returns a boolean if a field has been set.
 func (o *UserAccount) HasAnalyticsEnabled() bool {
-	if o != nil && !isNil(o.AnalyticsEnabled) {
+	if o != nil && !IsNil(o.AnalyticsEnabled) {
 		return true
 	}
 
@@ -503,7 +503,7 @@ func (o *UserAccount) SetAnalyticsEnabled(v bool) {
 
 // GetTaskDrawerEnabled returns the TaskDrawerEnabled field value if set, zero value otherwise.
 func (o *UserAccount) GetTaskDrawerEnabled() bool {
-	if o == nil || isNil(o.TaskDrawerEnabled) {
+	if o == nil || IsNil(o.TaskDrawerEnabled) {
 		var ret bool
 		return ret
 	}
@@ -513,7 +513,7 @@ func (o *UserAccount) GetTaskDrawerEnabled() bool {
 // GetTaskDrawerEnabledOk returns a tuple with the TaskDrawerEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserAccount) GetTaskDrawerEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.TaskDrawerEnabled) {
+	if o == nil || IsNil(o.TaskDrawerEnabled) {
 		return nil, false
 	}
 	return o.TaskDrawerEnabled, true
@@ -521,7 +521,7 @@ func (o *UserAccount) GetTaskDrawerEnabledOk() (*bool, bool) {
 
 // HasTaskDrawerEnabled returns a boolean if a field has been set.
 func (o *UserAccount) HasTaskDrawerEnabled() bool {
-	if o != nil && !isNil(o.TaskDrawerEnabled) {
+	if o != nil && !IsNil(o.TaskDrawerEnabled) {
 		return true
 	}
 
@@ -534,7 +534,7 @@ func (o *UserAccount) SetTaskDrawerEnabled(v bool) {
 }
 
 func (o UserAccount) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -543,49 +543,49 @@ func (o UserAccount) MarshalJSON() ([]byte, error) {
 
 func (o UserAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Username) {
+	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
-	if !isNil(o.External) {
+	if !IsNil(o.External) {
 		toSerialize["external"] = o.External
 	}
-	if !isNil(o.ProfileId) {
+	if !IsNil(o.ProfileId) {
 		toSerialize["profileId"] = o.ProfileId
 	}
-	if !isNil(o.Email) {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if !isNil(o.Password) {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if !isNil(o.PreviousPassword) {
+	if !IsNil(o.PreviousPassword) {
 		toSerialize["previousPassword"] = o.PreviousPassword
 	}
-	if !isNil(o.FullName) {
+	if !IsNil(o.FullName) {
 		toSerialize["fullName"] = o.FullName
 	}
-	if !isNil(o.ExternalId) {
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if !isNil(o.LoginAllowed) {
+	if !IsNil(o.LoginAllowed) {
 		toSerialize["loginAllowed"] = o.LoginAllowed
 	}
-	if !isNil(o.DateFormat) {
+	if !IsNil(o.DateFormat) {
 		toSerialize["dateFormat"] = o.DateFormat
 	}
-	if !isNil(o.TimeFormat) {
+	if !IsNil(o.TimeFormat) {
 		toSerialize["timeFormat"] = o.TimeFormat
 	}
-	if !isNil(o.FirstDayOfWeek) {
+	if !IsNil(o.FirstDayOfWeek) {
 		toSerialize["firstDayOfWeek"] = o.FirstDayOfWeek
 	}
-	if !isNil(o.LastActive) {
+	if !IsNil(o.LastActive) {
 		toSerialize["lastActive"] = o.LastActive
 	}
-	if !isNil(o.AnalyticsEnabled) {
+	if !IsNil(o.AnalyticsEnabled) {
 		toSerialize["analyticsEnabled"] = o.AnalyticsEnabled
 	}
-	if !isNil(o.TaskDrawerEnabled) {
+	if !IsNil(o.TaskDrawerEnabled) {
 		toSerialize["taskDrawerEnabled"] = o.TaskDrawerEnabled
 	}
 	return toSerialize, nil
@@ -626,5 +626,3 @@ func (v *NullableUserAccount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -19,10 +19,10 @@ var _ MappedNullable = &RoleView{}
 
 // RoleView struct for RoleView
 type RoleView struct {
-	Name *string `json:"name,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Permissions []string `json:"permissions,omitempty"`
-	Principals []PrincipalView `json:"principals,omitempty"`
+	Name        *string         `json:"name,omitempty"`
+	Id          *string         `json:"id,omitempty"`
+	Permissions []string        `json:"permissions,omitempty"`
+	Principals  []PrincipalView `json:"principals,omitempty"`
 }
 
 // NewRoleView instantiates a new RoleView object
@@ -44,7 +44,7 @@ func NewRoleViewWithDefaults() *RoleView {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *RoleView) GetName() string {
-	if o == nil || isNil(o.Name) {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -54,7 +54,7 @@ func (o *RoleView) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleView) GetNameOk() (*string, bool) {
-	if o == nil || isNil(o.Name) {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -62,7 +62,7 @@ func (o *RoleView) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *RoleView) HasName() bool {
-	if o != nil && !isNil(o.Name) {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -76,7 +76,7 @@ func (o *RoleView) SetName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *RoleView) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -86,7 +86,7 @@ func (o *RoleView) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleView) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -94,7 +94,7 @@ func (o *RoleView) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *RoleView) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -108,7 +108,7 @@ func (o *RoleView) SetId(v string) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *RoleView) GetPermissions() []string {
-	if o == nil || isNil(o.Permissions) {
+	if o == nil || IsNil(o.Permissions) {
 		var ret []string
 		return ret
 	}
@@ -118,7 +118,7 @@ func (o *RoleView) GetPermissions() []string {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleView) GetPermissionsOk() ([]string, bool) {
-	if o == nil || isNil(o.Permissions) {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -126,7 +126,7 @@ func (o *RoleView) GetPermissionsOk() ([]string, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *RoleView) HasPermissions() bool {
-	if o != nil && !isNil(o.Permissions) {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -140,7 +140,7 @@ func (o *RoleView) SetPermissions(v []string) {
 
 // GetPrincipals returns the Principals field value if set, zero value otherwise.
 func (o *RoleView) GetPrincipals() []PrincipalView {
-	if o == nil || isNil(o.Principals) {
+	if o == nil || IsNil(o.Principals) {
 		var ret []PrincipalView
 		return ret
 	}
@@ -150,7 +150,7 @@ func (o *RoleView) GetPrincipals() []PrincipalView {
 // GetPrincipalsOk returns a tuple with the Principals field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleView) GetPrincipalsOk() ([]PrincipalView, bool) {
-	if o == nil || isNil(o.Principals) {
+	if o == nil || IsNil(o.Principals) {
 		return nil, false
 	}
 	return o.Principals, true
@@ -158,7 +158,7 @@ func (o *RoleView) GetPrincipalsOk() ([]PrincipalView, bool) {
 
 // HasPrincipals returns a boolean if a field has been set.
 func (o *RoleView) HasPrincipals() bool {
-	if o != nil && !isNil(o.Principals) {
+	if o != nil && !IsNil(o.Principals) {
 		return true
 	}
 
@@ -171,7 +171,7 @@ func (o *RoleView) SetPrincipals(v []PrincipalView) {
 }
 
 func (o RoleView) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -180,16 +180,16 @@ func (o RoleView) MarshalJSON() ([]byte, error) {
 
 func (o RoleView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Name) {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !isNil(o.Id) {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !isNil(o.Permissions) {
+	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
-	if !isNil(o.Principals) {
+	if !IsNil(o.Principals) {
 		toSerialize["principals"] = o.Principals
 	}
 	return toSerialize, nil
@@ -230,5 +230,3 @@ func (v *NullableRoleView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

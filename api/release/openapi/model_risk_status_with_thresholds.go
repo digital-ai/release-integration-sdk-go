@@ -19,9 +19,9 @@ var _ MappedNullable = &RiskStatusWithThresholds{}
 
 // RiskStatusWithThresholds struct for RiskStatusWithThresholds
 type RiskStatusWithThresholds struct {
-	RiskStatus *RiskStatus `json:"riskStatus,omitempty"`
-	AttentionNeededFrom *int32 `json:"attentionNeededFrom,omitempty"`
-	AtRiskFrom *int32 `json:"atRiskFrom,omitempty"`
+	RiskStatus          *RiskStatus `json:"riskStatus,omitempty"`
+	AttentionNeededFrom *int32      `json:"attentionNeededFrom,omitempty"`
+	AtRiskFrom          *int32      `json:"atRiskFrom,omitempty"`
 }
 
 // NewRiskStatusWithThresholds instantiates a new RiskStatusWithThresholds object
@@ -43,7 +43,7 @@ func NewRiskStatusWithThresholdsWithDefaults() *RiskStatusWithThresholds {
 
 // GetRiskStatus returns the RiskStatus field value if set, zero value otherwise.
 func (o *RiskStatusWithThresholds) GetRiskStatus() RiskStatus {
-	if o == nil || isNil(o.RiskStatus) {
+	if o == nil || IsNil(o.RiskStatus) {
 		var ret RiskStatus
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *RiskStatusWithThresholds) GetRiskStatus() RiskStatus {
 // GetRiskStatusOk returns a tuple with the RiskStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskStatusWithThresholds) GetRiskStatusOk() (*RiskStatus, bool) {
-	if o == nil || isNil(o.RiskStatus) {
+	if o == nil || IsNil(o.RiskStatus) {
 		return nil, false
 	}
 	return o.RiskStatus, true
@@ -61,7 +61,7 @@ func (o *RiskStatusWithThresholds) GetRiskStatusOk() (*RiskStatus, bool) {
 
 // HasRiskStatus returns a boolean if a field has been set.
 func (o *RiskStatusWithThresholds) HasRiskStatus() bool {
-	if o != nil && !isNil(o.RiskStatus) {
+	if o != nil && !IsNil(o.RiskStatus) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *RiskStatusWithThresholds) SetRiskStatus(v RiskStatus) {
 
 // GetAttentionNeededFrom returns the AttentionNeededFrom field value if set, zero value otherwise.
 func (o *RiskStatusWithThresholds) GetAttentionNeededFrom() int32 {
-	if o == nil || isNil(o.AttentionNeededFrom) {
+	if o == nil || IsNil(o.AttentionNeededFrom) {
 		var ret int32
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *RiskStatusWithThresholds) GetAttentionNeededFrom() int32 {
 // GetAttentionNeededFromOk returns a tuple with the AttentionNeededFrom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskStatusWithThresholds) GetAttentionNeededFromOk() (*int32, bool) {
-	if o == nil || isNil(o.AttentionNeededFrom) {
+	if o == nil || IsNil(o.AttentionNeededFrom) {
 		return nil, false
 	}
 	return o.AttentionNeededFrom, true
@@ -93,7 +93,7 @@ func (o *RiskStatusWithThresholds) GetAttentionNeededFromOk() (*int32, bool) {
 
 // HasAttentionNeededFrom returns a boolean if a field has been set.
 func (o *RiskStatusWithThresholds) HasAttentionNeededFrom() bool {
-	if o != nil && !isNil(o.AttentionNeededFrom) {
+	if o != nil && !IsNil(o.AttentionNeededFrom) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *RiskStatusWithThresholds) SetAttentionNeededFrom(v int32) {
 
 // GetAtRiskFrom returns the AtRiskFrom field value if set, zero value otherwise.
 func (o *RiskStatusWithThresholds) GetAtRiskFrom() int32 {
-	if o == nil || isNil(o.AtRiskFrom) {
+	if o == nil || IsNil(o.AtRiskFrom) {
 		var ret int32
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *RiskStatusWithThresholds) GetAtRiskFrom() int32 {
 // GetAtRiskFromOk returns a tuple with the AtRiskFrom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskStatusWithThresholds) GetAtRiskFromOk() (*int32, bool) {
-	if o == nil || isNil(o.AtRiskFrom) {
+	if o == nil || IsNil(o.AtRiskFrom) {
 		return nil, false
 	}
 	return o.AtRiskFrom, true
@@ -125,7 +125,7 @@ func (o *RiskStatusWithThresholds) GetAtRiskFromOk() (*int32, bool) {
 
 // HasAtRiskFrom returns a boolean if a field has been set.
 func (o *RiskStatusWithThresholds) HasAtRiskFrom() bool {
-	if o != nil && !isNil(o.AtRiskFrom) {
+	if o != nil && !IsNil(o.AtRiskFrom) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *RiskStatusWithThresholds) SetAtRiskFrom(v int32) {
 }
 
 func (o RiskStatusWithThresholds) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o RiskStatusWithThresholds) MarshalJSON() ([]byte, error) {
 
 func (o RiskStatusWithThresholds) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.RiskStatus) {
+	if !IsNil(o.RiskStatus) {
 		toSerialize["riskStatus"] = o.RiskStatus
 	}
-	if !isNil(o.AttentionNeededFrom) {
+	if !IsNil(o.AttentionNeededFrom) {
 		toSerialize["attentionNeededFrom"] = o.AttentionNeededFrom
 	}
-	if !isNil(o.AtRiskFrom) {
+	if !IsNil(o.AtRiskFrom) {
 		toSerialize["atRiskFrom"] = o.AtRiskFrom
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableRiskStatusWithThresholds) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

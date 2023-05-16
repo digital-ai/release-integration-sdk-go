@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the Condition type satisfies the MappedNullable interface at compile time
@@ -19,14 +20,16 @@ var _ MappedNullable = &Condition{}
 
 // Condition struct for Condition
 type Condition struct {
-	Satisfied *bool `json:"satisfied,omitempty"`
-	SatisfiedDate *string `json:"satisfiedDate,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Active *bool `json:"active,omitempty"`
+	Id              *string       `json:"id,omitempty"`
+	Type            *string       `json:"type,omitempty"`
+	Satisfied       *bool         `json:"satisfied,omitempty"`
+	SatisfiedDate   *time.Time    `json:"satisfiedDate,omitempty"`
+	Description     *string       `json:"description,omitempty"`
+	Active          *bool         `json:"active,omitempty"`
 	InputProperties []interface{} `json:"inputProperties,omitempty"`
-	Leaf *bool `json:"leaf,omitempty"`
-	AllConditions []Condition `json:"allConditions,omitempty"`
-	LeafConditions []Condition `json:"leafConditions,omitempty"`
+	Leaf            *bool         `json:"leaf,omitempty"`
+	AllConditions   []Condition   `json:"allConditions,omitempty"`
+	LeafConditions  []Condition   `json:"leafConditions,omitempty"`
 }
 
 // NewCondition instantiates a new Condition object
@@ -46,9 +49,73 @@ func NewConditionWithDefaults() *Condition {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Condition) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Condition) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Condition) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Condition) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Condition) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Condition) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Condition) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Condition) SetType(v string) {
+	o.Type = &v
+}
+
 // GetSatisfied returns the Satisfied field value if set, zero value otherwise.
 func (o *Condition) GetSatisfied() bool {
-	if o == nil || isNil(o.Satisfied) {
+	if o == nil || IsNil(o.Satisfied) {
 		var ret bool
 		return ret
 	}
@@ -58,7 +125,7 @@ func (o *Condition) GetSatisfied() bool {
 // GetSatisfiedOk returns a tuple with the Satisfied field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition) GetSatisfiedOk() (*bool, bool) {
-	if o == nil || isNil(o.Satisfied) {
+	if o == nil || IsNil(o.Satisfied) {
 		return nil, false
 	}
 	return o.Satisfied, true
@@ -66,7 +133,7 @@ func (o *Condition) GetSatisfiedOk() (*bool, bool) {
 
 // HasSatisfied returns a boolean if a field has been set.
 func (o *Condition) HasSatisfied() bool {
-	if o != nil && !isNil(o.Satisfied) {
+	if o != nil && !IsNil(o.Satisfied) {
 		return true
 	}
 
@@ -79,9 +146,9 @@ func (o *Condition) SetSatisfied(v bool) {
 }
 
 // GetSatisfiedDate returns the SatisfiedDate field value if set, zero value otherwise.
-func (o *Condition) GetSatisfiedDate() string {
-	if o == nil || isNil(o.SatisfiedDate) {
-		var ret string
+func (o *Condition) GetSatisfiedDate() time.Time {
+	if o == nil || IsNil(o.SatisfiedDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.SatisfiedDate
@@ -89,8 +156,8 @@ func (o *Condition) GetSatisfiedDate() string {
 
 // GetSatisfiedDateOk returns a tuple with the SatisfiedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Condition) GetSatisfiedDateOk() (*string, bool) {
-	if o == nil || isNil(o.SatisfiedDate) {
+func (o *Condition) GetSatisfiedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.SatisfiedDate) {
 		return nil, false
 	}
 	return o.SatisfiedDate, true
@@ -98,21 +165,21 @@ func (o *Condition) GetSatisfiedDateOk() (*string, bool) {
 
 // HasSatisfiedDate returns a boolean if a field has been set.
 func (o *Condition) HasSatisfiedDate() bool {
-	if o != nil && !isNil(o.SatisfiedDate) {
+	if o != nil && !IsNil(o.SatisfiedDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetSatisfiedDate gets a reference to the given string and assigns it to the SatisfiedDate field.
-func (o *Condition) SetSatisfiedDate(v string) {
+// SetSatisfiedDate gets a reference to the given time.Time and assigns it to the SatisfiedDate field.
+func (o *Condition) SetSatisfiedDate(v time.Time) {
 	o.SatisfiedDate = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Condition) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -122,7 +189,7 @@ func (o *Condition) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -130,7 +197,7 @@ func (o *Condition) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Condition) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -144,7 +211,7 @@ func (o *Condition) SetDescription(v string) {
 
 // GetActive returns the Active field value if set, zero value otherwise.
 func (o *Condition) GetActive() bool {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		var ret bool
 		return ret
 	}
@@ -154,7 +221,7 @@ func (o *Condition) GetActive() bool {
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition) GetActiveOk() (*bool, bool) {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
 	return o.Active, true
@@ -162,7 +229,7 @@ func (o *Condition) GetActiveOk() (*bool, bool) {
 
 // HasActive returns a boolean if a field has been set.
 func (o *Condition) HasActive() bool {
-	if o != nil && !isNil(o.Active) {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
@@ -176,7 +243,7 @@ func (o *Condition) SetActive(v bool) {
 
 // GetInputProperties returns the InputProperties field value if set, zero value otherwise.
 func (o *Condition) GetInputProperties() []interface{} {
-	if o == nil || isNil(o.InputProperties) {
+	if o == nil || IsNil(o.InputProperties) {
 		var ret []interface{}
 		return ret
 	}
@@ -186,7 +253,7 @@ func (o *Condition) GetInputProperties() []interface{} {
 // GetInputPropertiesOk returns a tuple with the InputProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition) GetInputPropertiesOk() ([]interface{}, bool) {
-	if o == nil || isNil(o.InputProperties) {
+	if o == nil || IsNil(o.InputProperties) {
 		return nil, false
 	}
 	return o.InputProperties, true
@@ -194,7 +261,7 @@ func (o *Condition) GetInputPropertiesOk() ([]interface{}, bool) {
 
 // HasInputProperties returns a boolean if a field has been set.
 func (o *Condition) HasInputProperties() bool {
-	if o != nil && !isNil(o.InputProperties) {
+	if o != nil && !IsNil(o.InputProperties) {
 		return true
 	}
 
@@ -208,7 +275,7 @@ func (o *Condition) SetInputProperties(v []interface{}) {
 
 // GetLeaf returns the Leaf field value if set, zero value otherwise.
 func (o *Condition) GetLeaf() bool {
-	if o == nil || isNil(o.Leaf) {
+	if o == nil || IsNil(o.Leaf) {
 		var ret bool
 		return ret
 	}
@@ -218,7 +285,7 @@ func (o *Condition) GetLeaf() bool {
 // GetLeafOk returns a tuple with the Leaf field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition) GetLeafOk() (*bool, bool) {
-	if o == nil || isNil(o.Leaf) {
+	if o == nil || IsNil(o.Leaf) {
 		return nil, false
 	}
 	return o.Leaf, true
@@ -226,7 +293,7 @@ func (o *Condition) GetLeafOk() (*bool, bool) {
 
 // HasLeaf returns a boolean if a field has been set.
 func (o *Condition) HasLeaf() bool {
-	if o != nil && !isNil(o.Leaf) {
+	if o != nil && !IsNil(o.Leaf) {
 		return true
 	}
 
@@ -240,7 +307,7 @@ func (o *Condition) SetLeaf(v bool) {
 
 // GetAllConditions returns the AllConditions field value if set, zero value otherwise.
 func (o *Condition) GetAllConditions() []Condition {
-	if o == nil || isNil(o.AllConditions) {
+	if o == nil || IsNil(o.AllConditions) {
 		var ret []Condition
 		return ret
 	}
@@ -250,7 +317,7 @@ func (o *Condition) GetAllConditions() []Condition {
 // GetAllConditionsOk returns a tuple with the AllConditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition) GetAllConditionsOk() ([]Condition, bool) {
-	if o == nil || isNil(o.AllConditions) {
+	if o == nil || IsNil(o.AllConditions) {
 		return nil, false
 	}
 	return o.AllConditions, true
@@ -258,7 +325,7 @@ func (o *Condition) GetAllConditionsOk() ([]Condition, bool) {
 
 // HasAllConditions returns a boolean if a field has been set.
 func (o *Condition) HasAllConditions() bool {
-	if o != nil && !isNil(o.AllConditions) {
+	if o != nil && !IsNil(o.AllConditions) {
 		return true
 	}
 
@@ -272,7 +339,7 @@ func (o *Condition) SetAllConditions(v []Condition) {
 
 // GetLeafConditions returns the LeafConditions field value if set, zero value otherwise.
 func (o *Condition) GetLeafConditions() []Condition {
-	if o == nil || isNil(o.LeafConditions) {
+	if o == nil || IsNil(o.LeafConditions) {
 		var ret []Condition
 		return ret
 	}
@@ -282,7 +349,7 @@ func (o *Condition) GetLeafConditions() []Condition {
 // GetLeafConditionsOk returns a tuple with the LeafConditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Condition) GetLeafConditionsOk() ([]Condition, bool) {
-	if o == nil || isNil(o.LeafConditions) {
+	if o == nil || IsNil(o.LeafConditions) {
 		return nil, false
 	}
 	return o.LeafConditions, true
@@ -290,7 +357,7 @@ func (o *Condition) GetLeafConditionsOk() ([]Condition, bool) {
 
 // HasLeafConditions returns a boolean if a field has been set.
 func (o *Condition) HasLeafConditions() bool {
-	if o != nil && !isNil(o.LeafConditions) {
+	if o != nil && !IsNil(o.LeafConditions) {
 		return true
 	}
 
@@ -303,7 +370,7 @@ func (o *Condition) SetLeafConditions(v []Condition) {
 }
 
 func (o Condition) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -312,28 +379,34 @@ func (o Condition) MarshalJSON() ([]byte, error) {
 
 func (o Condition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Satisfied) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Satisfied) {
 		toSerialize["satisfied"] = o.Satisfied
 	}
-	if !isNil(o.SatisfiedDate) {
+	if !IsNil(o.SatisfiedDate) {
 		toSerialize["satisfiedDate"] = o.SatisfiedDate
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Active) {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	if !isNil(o.InputProperties) {
+	if !IsNil(o.InputProperties) {
 		toSerialize["inputProperties"] = o.InputProperties
 	}
-	if !isNil(o.Leaf) {
+	if !IsNil(o.Leaf) {
 		toSerialize["leaf"] = o.Leaf
 	}
-	if !isNil(o.AllConditions) {
+	if !IsNil(o.AllConditions) {
 		toSerialize["allConditions"] = o.AllConditions
 	}
-	if !isNil(o.LeafConditions) {
+	if !IsNil(o.LeafConditions) {
 		toSerialize["leafConditions"] = o.LeafConditions
 	}
 	return toSerialize, nil
@@ -374,5 +447,3 @@ func (v *NullableCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

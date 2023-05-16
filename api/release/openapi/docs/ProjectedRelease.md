@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
 **StartDateString** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **EndDateString** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
@@ -60,20 +60,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *ProjectedRelease) GetStartDate() string`
+`func (o *ProjectedRelease) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *ProjectedRelease) GetStartDateOk() (*string, bool)`
+`func (o *ProjectedRelease) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *ProjectedRelease) SetStartDate(v string)`
+`func (o *ProjectedRelease) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -110,20 +110,20 @@ HasStartDateString returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *ProjectedRelease) GetEndDate() string`
+`func (o *ProjectedRelease) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *ProjectedRelease) GetEndDateOk() (*string, bool)`
+`func (o *ProjectedRelease) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *ProjectedRelease) SetEndDate(v string)`
+`func (o *ProjectedRelease) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 

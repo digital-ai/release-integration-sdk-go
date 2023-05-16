@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the ReleasesFilters type satisfies the MappedNullable interface at compile time
@@ -19,31 +20,31 @@ var _ MappedNullable = &ReleasesFilters{}
 
 // ReleasesFilters struct for ReleasesFilters
 type ReleasesFilters struct {
-	Title *string `json:"title,omitempty"`
-	Tags []string `json:"tags,omitempty"`
-	TaskTags []string `json:"taskTags,omitempty"`
-	TimeFrame *TimeFrame `json:"timeFrame,omitempty"`
-	From *string `json:"from,omitempty"`
-	To *string `json:"to,omitempty"`
-	Active *bool `json:"active,omitempty"`
-	Planned *bool `json:"planned,omitempty"`
-	InProgress *bool `json:"inProgress,omitempty"`
-	Paused *bool `json:"paused,omitempty"`
-	Failing *bool `json:"failing,omitempty"`
-	Failed *bool `json:"failed,omitempty"`
-	Inactive *bool `json:"inactive,omitempty"`
-	Completed *bool `json:"completed,omitempty"`
-	Aborted *bool `json:"aborted,omitempty"`
-	OnlyMine *bool `json:"onlyMine,omitempty"`
-	OnlyFlagged *bool `json:"onlyFlagged,omitempty"`
-	OnlyArchived *bool `json:"onlyArchived,omitempty"`
-	ParentId *string `json:"parentId,omitempty"`
-	OrderBy *ReleaseOrderMode `json:"orderBy,omitempty"`
-	OrderDirection *ReleaseOrderDirection `json:"orderDirection,omitempty"`
+	Title                    *string                   `json:"title,omitempty"`
+	Tags                     []string                  `json:"tags,omitempty"`
+	TaskTags                 []string                  `json:"taskTags,omitempty"`
+	TimeFrame                *TimeFrame                `json:"timeFrame,omitempty"`
+	From                     *time.Time                `json:"from,omitempty"`
+	To                       *time.Time                `json:"to,omitempty"`
+	Active                   *bool                     `json:"active,omitempty"`
+	Planned                  *bool                     `json:"planned,omitempty"`
+	InProgress               *bool                     `json:"inProgress,omitempty"`
+	Paused                   *bool                     `json:"paused,omitempty"`
+	Failing                  *bool                     `json:"failing,omitempty"`
+	Failed                   *bool                     `json:"failed,omitempty"`
+	Inactive                 *bool                     `json:"inactive,omitempty"`
+	Completed                *bool                     `json:"completed,omitempty"`
+	Aborted                  *bool                     `json:"aborted,omitempty"`
+	OnlyMine                 *bool                     `json:"onlyMine,omitempty"`
+	OnlyFlagged              *bool                     `json:"onlyFlagged,omitempty"`
+	OnlyArchived             *bool                     `json:"onlyArchived,omitempty"`
+	ParentId                 *string                   `json:"parentId,omitempty"`
+	OrderBy                  *ReleaseOrderMode         `json:"orderBy,omitempty"`
+	OrderDirection           *ReleaseOrderDirection    `json:"orderDirection,omitempty"`
 	RiskStatusWithThresholds *RiskStatusWithThresholds `json:"riskStatusWithThresholds,omitempty"`
-	QueryStartDate *string `json:"queryStartDate,omitempty"`
-	QueryEndDate *string `json:"queryEndDate,omitempty"`
-	Statuses []ReleaseStatus `json:"statuses,omitempty"`
+	QueryStartDate           *time.Time                `json:"queryStartDate,omitempty"`
+	QueryEndDate             *time.Time                `json:"queryEndDate,omitempty"`
+	Statuses                 []ReleaseStatus           `json:"statuses,omitempty"`
 }
 
 // NewReleasesFilters instantiates a new ReleasesFilters object
@@ -65,7 +66,7 @@ func NewReleasesFiltersWithDefaults() *ReleasesFilters {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -75,7 +76,7 @@ func (o *ReleasesFilters) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -83,7 +84,7 @@ func (o *ReleasesFilters) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -97,7 +98,7 @@ func (o *ReleasesFilters) SetTitle(v string) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetTags() []string {
-	if o == nil || isNil(o.Tags) {
+	if o == nil || IsNil(o.Tags) {
 		var ret []string
 		return ret
 	}
@@ -107,7 +108,7 @@ func (o *ReleasesFilters) GetTags() []string {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetTagsOk() ([]string, bool) {
-	if o == nil || isNil(o.Tags) {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -115,7 +116,7 @@ func (o *ReleasesFilters) GetTagsOk() ([]string, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasTags() bool {
-	if o != nil && !isNil(o.Tags) {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -129,7 +130,7 @@ func (o *ReleasesFilters) SetTags(v []string) {
 
 // GetTaskTags returns the TaskTags field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetTaskTags() []string {
-	if o == nil || isNil(o.TaskTags) {
+	if o == nil || IsNil(o.TaskTags) {
 		var ret []string
 		return ret
 	}
@@ -139,7 +140,7 @@ func (o *ReleasesFilters) GetTaskTags() []string {
 // GetTaskTagsOk returns a tuple with the TaskTags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetTaskTagsOk() ([]string, bool) {
-	if o == nil || isNil(o.TaskTags) {
+	if o == nil || IsNil(o.TaskTags) {
 		return nil, false
 	}
 	return o.TaskTags, true
@@ -147,7 +148,7 @@ func (o *ReleasesFilters) GetTaskTagsOk() ([]string, bool) {
 
 // HasTaskTags returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasTaskTags() bool {
-	if o != nil && !isNil(o.TaskTags) {
+	if o != nil && !IsNil(o.TaskTags) {
 		return true
 	}
 
@@ -161,7 +162,7 @@ func (o *ReleasesFilters) SetTaskTags(v []string) {
 
 // GetTimeFrame returns the TimeFrame field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetTimeFrame() TimeFrame {
-	if o == nil || isNil(o.TimeFrame) {
+	if o == nil || IsNil(o.TimeFrame) {
 		var ret TimeFrame
 		return ret
 	}
@@ -171,7 +172,7 @@ func (o *ReleasesFilters) GetTimeFrame() TimeFrame {
 // GetTimeFrameOk returns a tuple with the TimeFrame field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetTimeFrameOk() (*TimeFrame, bool) {
-	if o == nil || isNil(o.TimeFrame) {
+	if o == nil || IsNil(o.TimeFrame) {
 		return nil, false
 	}
 	return o.TimeFrame, true
@@ -179,7 +180,7 @@ func (o *ReleasesFilters) GetTimeFrameOk() (*TimeFrame, bool) {
 
 // HasTimeFrame returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasTimeFrame() bool {
-	if o != nil && !isNil(o.TimeFrame) {
+	if o != nil && !IsNil(o.TimeFrame) {
 		return true
 	}
 
@@ -192,9 +193,9 @@ func (o *ReleasesFilters) SetTimeFrame(v TimeFrame) {
 }
 
 // GetFrom returns the From field value if set, zero value otherwise.
-func (o *ReleasesFilters) GetFrom() string {
-	if o == nil || isNil(o.From) {
-		var ret string
+func (o *ReleasesFilters) GetFrom() time.Time {
+	if o == nil || IsNil(o.From) {
+		var ret time.Time
 		return ret
 	}
 	return *o.From
@@ -202,8 +203,8 @@ func (o *ReleasesFilters) GetFrom() string {
 
 // GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReleasesFilters) GetFromOk() (*string, bool) {
-	if o == nil || isNil(o.From) {
+func (o *ReleasesFilters) GetFromOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.From) {
 		return nil, false
 	}
 	return o.From, true
@@ -211,22 +212,22 @@ func (o *ReleasesFilters) GetFromOk() (*string, bool) {
 
 // HasFrom returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasFrom() bool {
-	if o != nil && !isNil(o.From) {
+	if o != nil && !IsNil(o.From) {
 		return true
 	}
 
 	return false
 }
 
-// SetFrom gets a reference to the given string and assigns it to the From field.
-func (o *ReleasesFilters) SetFrom(v string) {
+// SetFrom gets a reference to the given time.Time and assigns it to the From field.
+func (o *ReleasesFilters) SetFrom(v time.Time) {
 	o.From = &v
 }
 
 // GetTo returns the To field value if set, zero value otherwise.
-func (o *ReleasesFilters) GetTo() string {
-	if o == nil || isNil(o.To) {
-		var ret string
+func (o *ReleasesFilters) GetTo() time.Time {
+	if o == nil || IsNil(o.To) {
+		var ret time.Time
 		return ret
 	}
 	return *o.To
@@ -234,8 +235,8 @@ func (o *ReleasesFilters) GetTo() string {
 
 // GetToOk returns a tuple with the To field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReleasesFilters) GetToOk() (*string, bool) {
-	if o == nil || isNil(o.To) {
+func (o *ReleasesFilters) GetToOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.To) {
 		return nil, false
 	}
 	return o.To, true
@@ -243,21 +244,21 @@ func (o *ReleasesFilters) GetToOk() (*string, bool) {
 
 // HasTo returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasTo() bool {
-	if o != nil && !isNil(o.To) {
+	if o != nil && !IsNil(o.To) {
 		return true
 	}
 
 	return false
 }
 
-// SetTo gets a reference to the given string and assigns it to the To field.
-func (o *ReleasesFilters) SetTo(v string) {
+// SetTo gets a reference to the given time.Time and assigns it to the To field.
+func (o *ReleasesFilters) SetTo(v time.Time) {
 	o.To = &v
 }
 
 // GetActive returns the Active field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetActive() bool {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		var ret bool
 		return ret
 	}
@@ -267,7 +268,7 @@ func (o *ReleasesFilters) GetActive() bool {
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetActiveOk() (*bool, bool) {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
 	return o.Active, true
@@ -275,7 +276,7 @@ func (o *ReleasesFilters) GetActiveOk() (*bool, bool) {
 
 // HasActive returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasActive() bool {
-	if o != nil && !isNil(o.Active) {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
@@ -289,7 +290,7 @@ func (o *ReleasesFilters) SetActive(v bool) {
 
 // GetPlanned returns the Planned field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetPlanned() bool {
-	if o == nil || isNil(o.Planned) {
+	if o == nil || IsNil(o.Planned) {
 		var ret bool
 		return ret
 	}
@@ -299,7 +300,7 @@ func (o *ReleasesFilters) GetPlanned() bool {
 // GetPlannedOk returns a tuple with the Planned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetPlannedOk() (*bool, bool) {
-	if o == nil || isNil(o.Planned) {
+	if o == nil || IsNil(o.Planned) {
 		return nil, false
 	}
 	return o.Planned, true
@@ -307,7 +308,7 @@ func (o *ReleasesFilters) GetPlannedOk() (*bool, bool) {
 
 // HasPlanned returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasPlanned() bool {
-	if o != nil && !isNil(o.Planned) {
+	if o != nil && !IsNil(o.Planned) {
 		return true
 	}
 
@@ -321,7 +322,7 @@ func (o *ReleasesFilters) SetPlanned(v bool) {
 
 // GetInProgress returns the InProgress field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetInProgress() bool {
-	if o == nil || isNil(o.InProgress) {
+	if o == nil || IsNil(o.InProgress) {
 		var ret bool
 		return ret
 	}
@@ -331,7 +332,7 @@ func (o *ReleasesFilters) GetInProgress() bool {
 // GetInProgressOk returns a tuple with the InProgress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetInProgressOk() (*bool, bool) {
-	if o == nil || isNil(o.InProgress) {
+	if o == nil || IsNil(o.InProgress) {
 		return nil, false
 	}
 	return o.InProgress, true
@@ -339,7 +340,7 @@ func (o *ReleasesFilters) GetInProgressOk() (*bool, bool) {
 
 // HasInProgress returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasInProgress() bool {
-	if o != nil && !isNil(o.InProgress) {
+	if o != nil && !IsNil(o.InProgress) {
 		return true
 	}
 
@@ -353,7 +354,7 @@ func (o *ReleasesFilters) SetInProgress(v bool) {
 
 // GetPaused returns the Paused field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetPaused() bool {
-	if o == nil || isNil(o.Paused) {
+	if o == nil || IsNil(o.Paused) {
 		var ret bool
 		return ret
 	}
@@ -363,7 +364,7 @@ func (o *ReleasesFilters) GetPaused() bool {
 // GetPausedOk returns a tuple with the Paused field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetPausedOk() (*bool, bool) {
-	if o == nil || isNil(o.Paused) {
+	if o == nil || IsNil(o.Paused) {
 		return nil, false
 	}
 	return o.Paused, true
@@ -371,7 +372,7 @@ func (o *ReleasesFilters) GetPausedOk() (*bool, bool) {
 
 // HasPaused returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasPaused() bool {
-	if o != nil && !isNil(o.Paused) {
+	if o != nil && !IsNil(o.Paused) {
 		return true
 	}
 
@@ -385,7 +386,7 @@ func (o *ReleasesFilters) SetPaused(v bool) {
 
 // GetFailing returns the Failing field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetFailing() bool {
-	if o == nil || isNil(o.Failing) {
+	if o == nil || IsNil(o.Failing) {
 		var ret bool
 		return ret
 	}
@@ -395,7 +396,7 @@ func (o *ReleasesFilters) GetFailing() bool {
 // GetFailingOk returns a tuple with the Failing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetFailingOk() (*bool, bool) {
-	if o == nil || isNil(o.Failing) {
+	if o == nil || IsNil(o.Failing) {
 		return nil, false
 	}
 	return o.Failing, true
@@ -403,7 +404,7 @@ func (o *ReleasesFilters) GetFailingOk() (*bool, bool) {
 
 // HasFailing returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasFailing() bool {
-	if o != nil && !isNil(o.Failing) {
+	if o != nil && !IsNil(o.Failing) {
 		return true
 	}
 
@@ -417,7 +418,7 @@ func (o *ReleasesFilters) SetFailing(v bool) {
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetFailed() bool {
-	if o == nil || isNil(o.Failed) {
+	if o == nil || IsNil(o.Failed) {
 		var ret bool
 		return ret
 	}
@@ -427,7 +428,7 @@ func (o *ReleasesFilters) GetFailed() bool {
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetFailedOk() (*bool, bool) {
-	if o == nil || isNil(o.Failed) {
+	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
 	return o.Failed, true
@@ -435,7 +436,7 @@ func (o *ReleasesFilters) GetFailedOk() (*bool, bool) {
 
 // HasFailed returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasFailed() bool {
-	if o != nil && !isNil(o.Failed) {
+	if o != nil && !IsNil(o.Failed) {
 		return true
 	}
 
@@ -449,7 +450,7 @@ func (o *ReleasesFilters) SetFailed(v bool) {
 
 // GetInactive returns the Inactive field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetInactive() bool {
-	if o == nil || isNil(o.Inactive) {
+	if o == nil || IsNil(o.Inactive) {
 		var ret bool
 		return ret
 	}
@@ -459,7 +460,7 @@ func (o *ReleasesFilters) GetInactive() bool {
 // GetInactiveOk returns a tuple with the Inactive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetInactiveOk() (*bool, bool) {
-	if o == nil || isNil(o.Inactive) {
+	if o == nil || IsNil(o.Inactive) {
 		return nil, false
 	}
 	return o.Inactive, true
@@ -467,7 +468,7 @@ func (o *ReleasesFilters) GetInactiveOk() (*bool, bool) {
 
 // HasInactive returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasInactive() bool {
-	if o != nil && !isNil(o.Inactive) {
+	if o != nil && !IsNil(o.Inactive) {
 		return true
 	}
 
@@ -481,7 +482,7 @@ func (o *ReleasesFilters) SetInactive(v bool) {
 
 // GetCompleted returns the Completed field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetCompleted() bool {
-	if o == nil || isNil(o.Completed) {
+	if o == nil || IsNil(o.Completed) {
 		var ret bool
 		return ret
 	}
@@ -491,7 +492,7 @@ func (o *ReleasesFilters) GetCompleted() bool {
 // GetCompletedOk returns a tuple with the Completed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetCompletedOk() (*bool, bool) {
-	if o == nil || isNil(o.Completed) {
+	if o == nil || IsNil(o.Completed) {
 		return nil, false
 	}
 	return o.Completed, true
@@ -499,7 +500,7 @@ func (o *ReleasesFilters) GetCompletedOk() (*bool, bool) {
 
 // HasCompleted returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasCompleted() bool {
-	if o != nil && !isNil(o.Completed) {
+	if o != nil && !IsNil(o.Completed) {
 		return true
 	}
 
@@ -513,7 +514,7 @@ func (o *ReleasesFilters) SetCompleted(v bool) {
 
 // GetAborted returns the Aborted field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetAborted() bool {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		var ret bool
 		return ret
 	}
@@ -523,7 +524,7 @@ func (o *ReleasesFilters) GetAborted() bool {
 // GetAbortedOk returns a tuple with the Aborted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetAbortedOk() (*bool, bool) {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		return nil, false
 	}
 	return o.Aborted, true
@@ -531,7 +532,7 @@ func (o *ReleasesFilters) GetAbortedOk() (*bool, bool) {
 
 // HasAborted returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasAborted() bool {
-	if o != nil && !isNil(o.Aborted) {
+	if o != nil && !IsNil(o.Aborted) {
 		return true
 	}
 
@@ -545,7 +546,7 @@ func (o *ReleasesFilters) SetAborted(v bool) {
 
 // GetOnlyMine returns the OnlyMine field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetOnlyMine() bool {
-	if o == nil || isNil(o.OnlyMine) {
+	if o == nil || IsNil(o.OnlyMine) {
 		var ret bool
 		return ret
 	}
@@ -555,7 +556,7 @@ func (o *ReleasesFilters) GetOnlyMine() bool {
 // GetOnlyMineOk returns a tuple with the OnlyMine field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetOnlyMineOk() (*bool, bool) {
-	if o == nil || isNil(o.OnlyMine) {
+	if o == nil || IsNil(o.OnlyMine) {
 		return nil, false
 	}
 	return o.OnlyMine, true
@@ -563,7 +564,7 @@ func (o *ReleasesFilters) GetOnlyMineOk() (*bool, bool) {
 
 // HasOnlyMine returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasOnlyMine() bool {
-	if o != nil && !isNil(o.OnlyMine) {
+	if o != nil && !IsNil(o.OnlyMine) {
 		return true
 	}
 
@@ -577,7 +578,7 @@ func (o *ReleasesFilters) SetOnlyMine(v bool) {
 
 // GetOnlyFlagged returns the OnlyFlagged field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetOnlyFlagged() bool {
-	if o == nil || isNil(o.OnlyFlagged) {
+	if o == nil || IsNil(o.OnlyFlagged) {
 		var ret bool
 		return ret
 	}
@@ -587,7 +588,7 @@ func (o *ReleasesFilters) GetOnlyFlagged() bool {
 // GetOnlyFlaggedOk returns a tuple with the OnlyFlagged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetOnlyFlaggedOk() (*bool, bool) {
-	if o == nil || isNil(o.OnlyFlagged) {
+	if o == nil || IsNil(o.OnlyFlagged) {
 		return nil, false
 	}
 	return o.OnlyFlagged, true
@@ -595,7 +596,7 @@ func (o *ReleasesFilters) GetOnlyFlaggedOk() (*bool, bool) {
 
 // HasOnlyFlagged returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasOnlyFlagged() bool {
-	if o != nil && !isNil(o.OnlyFlagged) {
+	if o != nil && !IsNil(o.OnlyFlagged) {
 		return true
 	}
 
@@ -609,7 +610,7 @@ func (o *ReleasesFilters) SetOnlyFlagged(v bool) {
 
 // GetOnlyArchived returns the OnlyArchived field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetOnlyArchived() bool {
-	if o == nil || isNil(o.OnlyArchived) {
+	if o == nil || IsNil(o.OnlyArchived) {
 		var ret bool
 		return ret
 	}
@@ -619,7 +620,7 @@ func (o *ReleasesFilters) GetOnlyArchived() bool {
 // GetOnlyArchivedOk returns a tuple with the OnlyArchived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetOnlyArchivedOk() (*bool, bool) {
-	if o == nil || isNil(o.OnlyArchived) {
+	if o == nil || IsNil(o.OnlyArchived) {
 		return nil, false
 	}
 	return o.OnlyArchived, true
@@ -627,7 +628,7 @@ func (o *ReleasesFilters) GetOnlyArchivedOk() (*bool, bool) {
 
 // HasOnlyArchived returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasOnlyArchived() bool {
-	if o != nil && !isNil(o.OnlyArchived) {
+	if o != nil && !IsNil(o.OnlyArchived) {
 		return true
 	}
 
@@ -641,7 +642,7 @@ func (o *ReleasesFilters) SetOnlyArchived(v bool) {
 
 // GetParentId returns the ParentId field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetParentId() string {
-	if o == nil || isNil(o.ParentId) {
+	if o == nil || IsNil(o.ParentId) {
 		var ret string
 		return ret
 	}
@@ -651,7 +652,7 @@ func (o *ReleasesFilters) GetParentId() string {
 // GetParentIdOk returns a tuple with the ParentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetParentIdOk() (*string, bool) {
-	if o == nil || isNil(o.ParentId) {
+	if o == nil || IsNil(o.ParentId) {
 		return nil, false
 	}
 	return o.ParentId, true
@@ -659,7 +660,7 @@ func (o *ReleasesFilters) GetParentIdOk() (*string, bool) {
 
 // HasParentId returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasParentId() bool {
-	if o != nil && !isNil(o.ParentId) {
+	if o != nil && !IsNil(o.ParentId) {
 		return true
 	}
 
@@ -673,7 +674,7 @@ func (o *ReleasesFilters) SetParentId(v string) {
 
 // GetOrderBy returns the OrderBy field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetOrderBy() ReleaseOrderMode {
-	if o == nil || isNil(o.OrderBy) {
+	if o == nil || IsNil(o.OrderBy) {
 		var ret ReleaseOrderMode
 		return ret
 	}
@@ -683,7 +684,7 @@ func (o *ReleasesFilters) GetOrderBy() ReleaseOrderMode {
 // GetOrderByOk returns a tuple with the OrderBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetOrderByOk() (*ReleaseOrderMode, bool) {
-	if o == nil || isNil(o.OrderBy) {
+	if o == nil || IsNil(o.OrderBy) {
 		return nil, false
 	}
 	return o.OrderBy, true
@@ -691,7 +692,7 @@ func (o *ReleasesFilters) GetOrderByOk() (*ReleaseOrderMode, bool) {
 
 // HasOrderBy returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasOrderBy() bool {
-	if o != nil && !isNil(o.OrderBy) {
+	if o != nil && !IsNil(o.OrderBy) {
 		return true
 	}
 
@@ -705,7 +706,7 @@ func (o *ReleasesFilters) SetOrderBy(v ReleaseOrderMode) {
 
 // GetOrderDirection returns the OrderDirection field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetOrderDirection() ReleaseOrderDirection {
-	if o == nil || isNil(o.OrderDirection) {
+	if o == nil || IsNil(o.OrderDirection) {
 		var ret ReleaseOrderDirection
 		return ret
 	}
@@ -715,7 +716,7 @@ func (o *ReleasesFilters) GetOrderDirection() ReleaseOrderDirection {
 // GetOrderDirectionOk returns a tuple with the OrderDirection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetOrderDirectionOk() (*ReleaseOrderDirection, bool) {
-	if o == nil || isNil(o.OrderDirection) {
+	if o == nil || IsNil(o.OrderDirection) {
 		return nil, false
 	}
 	return o.OrderDirection, true
@@ -723,7 +724,7 @@ func (o *ReleasesFilters) GetOrderDirectionOk() (*ReleaseOrderDirection, bool) {
 
 // HasOrderDirection returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasOrderDirection() bool {
-	if o != nil && !isNil(o.OrderDirection) {
+	if o != nil && !IsNil(o.OrderDirection) {
 		return true
 	}
 
@@ -737,7 +738,7 @@ func (o *ReleasesFilters) SetOrderDirection(v ReleaseOrderDirection) {
 
 // GetRiskStatusWithThresholds returns the RiskStatusWithThresholds field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetRiskStatusWithThresholds() RiskStatusWithThresholds {
-	if o == nil || isNil(o.RiskStatusWithThresholds) {
+	if o == nil || IsNil(o.RiskStatusWithThresholds) {
 		var ret RiskStatusWithThresholds
 		return ret
 	}
@@ -747,7 +748,7 @@ func (o *ReleasesFilters) GetRiskStatusWithThresholds() RiskStatusWithThresholds
 // GetRiskStatusWithThresholdsOk returns a tuple with the RiskStatusWithThresholds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetRiskStatusWithThresholdsOk() (*RiskStatusWithThresholds, bool) {
-	if o == nil || isNil(o.RiskStatusWithThresholds) {
+	if o == nil || IsNil(o.RiskStatusWithThresholds) {
 		return nil, false
 	}
 	return o.RiskStatusWithThresholds, true
@@ -755,7 +756,7 @@ func (o *ReleasesFilters) GetRiskStatusWithThresholdsOk() (*RiskStatusWithThresh
 
 // HasRiskStatusWithThresholds returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasRiskStatusWithThresholds() bool {
-	if o != nil && !isNil(o.RiskStatusWithThresholds) {
+	if o != nil && !IsNil(o.RiskStatusWithThresholds) {
 		return true
 	}
 
@@ -768,9 +769,9 @@ func (o *ReleasesFilters) SetRiskStatusWithThresholds(v RiskStatusWithThresholds
 }
 
 // GetQueryStartDate returns the QueryStartDate field value if set, zero value otherwise.
-func (o *ReleasesFilters) GetQueryStartDate() string {
-	if o == nil || isNil(o.QueryStartDate) {
-		var ret string
+func (o *ReleasesFilters) GetQueryStartDate() time.Time {
+	if o == nil || IsNil(o.QueryStartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.QueryStartDate
@@ -778,8 +779,8 @@ func (o *ReleasesFilters) GetQueryStartDate() string {
 
 // GetQueryStartDateOk returns a tuple with the QueryStartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReleasesFilters) GetQueryStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.QueryStartDate) {
+func (o *ReleasesFilters) GetQueryStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.QueryStartDate) {
 		return nil, false
 	}
 	return o.QueryStartDate, true
@@ -787,22 +788,22 @@ func (o *ReleasesFilters) GetQueryStartDateOk() (*string, bool) {
 
 // HasQueryStartDate returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasQueryStartDate() bool {
-	if o != nil && !isNil(o.QueryStartDate) {
+	if o != nil && !IsNil(o.QueryStartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetQueryStartDate gets a reference to the given string and assigns it to the QueryStartDate field.
-func (o *ReleasesFilters) SetQueryStartDate(v string) {
+// SetQueryStartDate gets a reference to the given time.Time and assigns it to the QueryStartDate field.
+func (o *ReleasesFilters) SetQueryStartDate(v time.Time) {
 	o.QueryStartDate = &v
 }
 
 // GetQueryEndDate returns the QueryEndDate field value if set, zero value otherwise.
-func (o *ReleasesFilters) GetQueryEndDate() string {
-	if o == nil || isNil(o.QueryEndDate) {
-		var ret string
+func (o *ReleasesFilters) GetQueryEndDate() time.Time {
+	if o == nil || IsNil(o.QueryEndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.QueryEndDate
@@ -810,8 +811,8 @@ func (o *ReleasesFilters) GetQueryEndDate() string {
 
 // GetQueryEndDateOk returns a tuple with the QueryEndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReleasesFilters) GetQueryEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.QueryEndDate) {
+func (o *ReleasesFilters) GetQueryEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.QueryEndDate) {
 		return nil, false
 	}
 	return o.QueryEndDate, true
@@ -819,21 +820,21 @@ func (o *ReleasesFilters) GetQueryEndDateOk() (*string, bool) {
 
 // HasQueryEndDate returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasQueryEndDate() bool {
-	if o != nil && !isNil(o.QueryEndDate) {
+	if o != nil && !IsNil(o.QueryEndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetQueryEndDate gets a reference to the given string and assigns it to the QueryEndDate field.
-func (o *ReleasesFilters) SetQueryEndDate(v string) {
+// SetQueryEndDate gets a reference to the given time.Time and assigns it to the QueryEndDate field.
+func (o *ReleasesFilters) SetQueryEndDate(v time.Time) {
 	o.QueryEndDate = &v
 }
 
 // GetStatuses returns the Statuses field value if set, zero value otherwise.
 func (o *ReleasesFilters) GetStatuses() []ReleaseStatus {
-	if o == nil || isNil(o.Statuses) {
+	if o == nil || IsNil(o.Statuses) {
 		var ret []ReleaseStatus
 		return ret
 	}
@@ -843,7 +844,7 @@ func (o *ReleasesFilters) GetStatuses() []ReleaseStatus {
 // GetStatusesOk returns a tuple with the Statuses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleasesFilters) GetStatusesOk() ([]ReleaseStatus, bool) {
-	if o == nil || isNil(o.Statuses) {
+	if o == nil || IsNil(o.Statuses) {
 		return nil, false
 	}
 	return o.Statuses, true
@@ -851,7 +852,7 @@ func (o *ReleasesFilters) GetStatusesOk() ([]ReleaseStatus, bool) {
 
 // HasStatuses returns a boolean if a field has been set.
 func (o *ReleasesFilters) HasStatuses() bool {
-	if o != nil && !isNil(o.Statuses) {
+	if o != nil && !IsNil(o.Statuses) {
 		return true
 	}
 
@@ -864,7 +865,7 @@ func (o *ReleasesFilters) SetStatuses(v []ReleaseStatus) {
 }
 
 func (o ReleasesFilters) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -873,79 +874,79 @@ func (o ReleasesFilters) MarshalJSON() ([]byte, error) {
 
 func (o ReleasesFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Tags) {
+	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
-	if !isNil(o.TaskTags) {
+	if !IsNil(o.TaskTags) {
 		toSerialize["taskTags"] = o.TaskTags
 	}
-	if !isNil(o.TimeFrame) {
+	if !IsNil(o.TimeFrame) {
 		toSerialize["timeFrame"] = o.TimeFrame
 	}
-	if !isNil(o.From) {
+	if !IsNil(o.From) {
 		toSerialize["from"] = o.From
 	}
-	if !isNil(o.To) {
+	if !IsNil(o.To) {
 		toSerialize["to"] = o.To
 	}
-	if !isNil(o.Active) {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	if !isNil(o.Planned) {
+	if !IsNil(o.Planned) {
 		toSerialize["planned"] = o.Planned
 	}
-	if !isNil(o.InProgress) {
+	if !IsNil(o.InProgress) {
 		toSerialize["inProgress"] = o.InProgress
 	}
-	if !isNil(o.Paused) {
+	if !IsNil(o.Paused) {
 		toSerialize["paused"] = o.Paused
 	}
-	if !isNil(o.Failing) {
+	if !IsNil(o.Failing) {
 		toSerialize["failing"] = o.Failing
 	}
-	if !isNil(o.Failed) {
+	if !IsNil(o.Failed) {
 		toSerialize["failed"] = o.Failed
 	}
-	if !isNil(o.Inactive) {
+	if !IsNil(o.Inactive) {
 		toSerialize["inactive"] = o.Inactive
 	}
-	if !isNil(o.Completed) {
+	if !IsNil(o.Completed) {
 		toSerialize["completed"] = o.Completed
 	}
-	if !isNil(o.Aborted) {
+	if !IsNil(o.Aborted) {
 		toSerialize["aborted"] = o.Aborted
 	}
-	if !isNil(o.OnlyMine) {
+	if !IsNil(o.OnlyMine) {
 		toSerialize["onlyMine"] = o.OnlyMine
 	}
-	if !isNil(o.OnlyFlagged) {
+	if !IsNil(o.OnlyFlagged) {
 		toSerialize["onlyFlagged"] = o.OnlyFlagged
 	}
-	if !isNil(o.OnlyArchived) {
+	if !IsNil(o.OnlyArchived) {
 		toSerialize["onlyArchived"] = o.OnlyArchived
 	}
-	if !isNil(o.ParentId) {
+	if !IsNil(o.ParentId) {
 		toSerialize["parentId"] = o.ParentId
 	}
-	if !isNil(o.OrderBy) {
+	if !IsNil(o.OrderBy) {
 		toSerialize["orderBy"] = o.OrderBy
 	}
-	if !isNil(o.OrderDirection) {
+	if !IsNil(o.OrderDirection) {
 		toSerialize["orderDirection"] = o.OrderDirection
 	}
-	if !isNil(o.RiskStatusWithThresholds) {
+	if !IsNil(o.RiskStatusWithThresholds) {
 		toSerialize["riskStatusWithThresholds"] = o.RiskStatusWithThresholds
 	}
-	if !isNil(o.QueryStartDate) {
+	if !IsNil(o.QueryStartDate) {
 		toSerialize["queryStartDate"] = o.QueryStartDate
 	}
-	if !isNil(o.QueryEndDate) {
+	if !IsNil(o.QueryEndDate) {
 		toSerialize["queryEndDate"] = o.QueryEndDate
 	}
-	if !isNil(o.Statuses) {
+	if !IsNil(o.Statuses) {
 		toSerialize["statuses"] = o.Statuses
 	}
 	return toSerialize, nil
@@ -986,5 +987,3 @@ func (v *NullableReleasesFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -19,7 +19,7 @@ var _ MappedNullable = &ReleaseFullSearchResult{}
 
 // ReleaseFullSearchResult struct for ReleaseFullSearchResult
 type ReleaseFullSearchResult struct {
-	Live *ReleaseSearchResult `json:"live,omitempty"`
+	Live     *ReleaseSearchResult `json:"live,omitempty"`
 	Archived *ReleaseSearchResult `json:"archived,omitempty"`
 }
 
@@ -42,7 +42,7 @@ func NewReleaseFullSearchResultWithDefaults() *ReleaseFullSearchResult {
 
 // GetLive returns the Live field value if set, zero value otherwise.
 func (o *ReleaseFullSearchResult) GetLive() ReleaseSearchResult {
-	if o == nil || isNil(o.Live) {
+	if o == nil || IsNil(o.Live) {
 		var ret ReleaseSearchResult
 		return ret
 	}
@@ -52,7 +52,7 @@ func (o *ReleaseFullSearchResult) GetLive() ReleaseSearchResult {
 // GetLiveOk returns a tuple with the Live field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseFullSearchResult) GetLiveOk() (*ReleaseSearchResult, bool) {
-	if o == nil || isNil(o.Live) {
+	if o == nil || IsNil(o.Live) {
 		return nil, false
 	}
 	return o.Live, true
@@ -60,7 +60,7 @@ func (o *ReleaseFullSearchResult) GetLiveOk() (*ReleaseSearchResult, bool) {
 
 // HasLive returns a boolean if a field has been set.
 func (o *ReleaseFullSearchResult) HasLive() bool {
-	if o != nil && !isNil(o.Live) {
+	if o != nil && !IsNil(o.Live) {
 		return true
 	}
 
@@ -74,7 +74,7 @@ func (o *ReleaseFullSearchResult) SetLive(v ReleaseSearchResult) {
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *ReleaseFullSearchResult) GetArchived() ReleaseSearchResult {
-	if o == nil || isNil(o.Archived) {
+	if o == nil || IsNil(o.Archived) {
 		var ret ReleaseSearchResult
 		return ret
 	}
@@ -84,7 +84,7 @@ func (o *ReleaseFullSearchResult) GetArchived() ReleaseSearchResult {
 // GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReleaseFullSearchResult) GetArchivedOk() (*ReleaseSearchResult, bool) {
-	if o == nil || isNil(o.Archived) {
+	if o == nil || IsNil(o.Archived) {
 		return nil, false
 	}
 	return o.Archived, true
@@ -92,7 +92,7 @@ func (o *ReleaseFullSearchResult) GetArchivedOk() (*ReleaseSearchResult, bool) {
 
 // HasArchived returns a boolean if a field has been set.
 func (o *ReleaseFullSearchResult) HasArchived() bool {
-	if o != nil && !isNil(o.Archived) {
+	if o != nil && !IsNil(o.Archived) {
 		return true
 	}
 
@@ -105,7 +105,7 @@ func (o *ReleaseFullSearchResult) SetArchived(v ReleaseSearchResult) {
 }
 
 func (o ReleaseFullSearchResult) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -114,10 +114,10 @@ func (o ReleaseFullSearchResult) MarshalJSON() ([]byte, error) {
 
 func (o ReleaseFullSearchResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Live) {
+	if !IsNil(o.Live) {
 		toSerialize["live"] = o.Live
 	}
-	if !isNil(o.Archived) {
+	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
 	return toSerialize, nil
@@ -158,5 +158,3 @@ func (v *NullableReleaseFullSearchResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

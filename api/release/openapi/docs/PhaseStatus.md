@@ -3,19 +3,19 @@
 ## Enum
 
 
-* `PLANNED_PHASE` (value: `"PLANNED_PHASE"`)
+* `PLANNED` (value: `"PLANNED"`)
 
-* `IN_PROGRESS_PHASE` (value: `"IN_PROGRESS_PHASE"`)
+* `IN_PROGRESS` (value: `"IN_PROGRESS"`)
 
-* `COMPLETED_PHASE` (value: `"COMPLETED_PHASE"`)
+* `COMPLETED` (value: `"COMPLETED"`)
 
-* `FAILING_PHASE` (value: `"FAILING_PHASE"`)
+* `FAILING` (value: `"FAILING"`)
 
-* `FAILED_PHASE` (value: `"FAILED_PHASE"`)
+* `FAILED` (value: `"FAILED"`)
 
-* `SKIPPED_PHASE` (value: `"SKIPPED_PHASE"`)
+* `SKIPPED` (value: `"SKIPPED"`)
 
-* `ABORTED_PHASE` (value: `"ABORTED_PHASE"`)
+* `ABORTED` (value: `"ABORTED"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -20,9 +20,9 @@ type PhaseVersion string
 
 // List of PhaseVersion
 const (
-	LATEST PhaseVersion = "LATEST"
-	ORIGINAL PhaseVersion = "ORIGINAL"
-	ALL PhaseVersion = "ALL"
+	PHASEVERSION_LATEST   PhaseVersion = "LATEST"
+	PHASEVERSION_ORIGINAL PhaseVersion = "ORIGINAL"
+	PHASEVERSION_ALL      PhaseVersion = "ALL"
 )
 
 // All allowed values of PhaseVersion enum
@@ -110,4 +110,3 @@ func (v *NullablePhaseVersion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

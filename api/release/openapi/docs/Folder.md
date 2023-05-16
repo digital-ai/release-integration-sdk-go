@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Children** | Pointer to [**[]Folder**](Folder.md) |  | [optional] 
 **Metadata** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
@@ -28,6 +30,56 @@ will change when the set of required properties is changed
 NewFolderWithDefaults instantiates a new Folder object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *Folder) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Folder) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Folder) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Folder) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *Folder) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Folder) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Folder) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Folder) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetTitle
 

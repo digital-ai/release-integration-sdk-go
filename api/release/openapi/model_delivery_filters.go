@@ -19,13 +19,13 @@ var _ MappedNullable = &DeliveryFilters{}
 
 // DeliveryFilters struct for DeliveryFilters
 type DeliveryFilters struct {
-	Title *string `json:"title,omitempty"`
-	StrictTitleMatch *bool `json:"strictTitleMatch,omitempty"`
-	TrackedItemTitle *string `json:"trackedItemTitle,omitempty"`
-	StrictTrackedItemTitleMatch *bool `json:"strictTrackedItemTitleMatch,omitempty"`
-	FolderId *string `json:"folderId,omitempty"`
-	OriginPatternId *string `json:"originPatternId,omitempty"`
-	Statuses []DeliveryStatus `json:"statuses,omitempty"`
+	Title                       *string          `json:"title,omitempty"`
+	StrictTitleMatch            *bool            `json:"strictTitleMatch,omitempty"`
+	TrackedItemTitle            *string          `json:"trackedItemTitle,omitempty"`
+	StrictTrackedItemTitleMatch *bool            `json:"strictTrackedItemTitleMatch,omitempty"`
+	FolderId                    *string          `json:"folderId,omitempty"`
+	OriginPatternId             *string          `json:"originPatternId,omitempty"`
+	Statuses                    []DeliveryStatus `json:"statuses,omitempty"`
 }
 
 // NewDeliveryFilters instantiates a new DeliveryFilters object
@@ -47,7 +47,7 @@ func NewDeliveryFiltersWithDefaults() *DeliveryFilters {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *DeliveryFilters) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -57,7 +57,7 @@ func (o *DeliveryFilters) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFilters) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -65,7 +65,7 @@ func (o *DeliveryFilters) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *DeliveryFilters) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -79,7 +79,7 @@ func (o *DeliveryFilters) SetTitle(v string) {
 
 // GetStrictTitleMatch returns the StrictTitleMatch field value if set, zero value otherwise.
 func (o *DeliveryFilters) GetStrictTitleMatch() bool {
-	if o == nil || isNil(o.StrictTitleMatch) {
+	if o == nil || IsNil(o.StrictTitleMatch) {
 		var ret bool
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *DeliveryFilters) GetStrictTitleMatch() bool {
 // GetStrictTitleMatchOk returns a tuple with the StrictTitleMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFilters) GetStrictTitleMatchOk() (*bool, bool) {
-	if o == nil || isNil(o.StrictTitleMatch) {
+	if o == nil || IsNil(o.StrictTitleMatch) {
 		return nil, false
 	}
 	return o.StrictTitleMatch, true
@@ -97,7 +97,7 @@ func (o *DeliveryFilters) GetStrictTitleMatchOk() (*bool, bool) {
 
 // HasStrictTitleMatch returns a boolean if a field has been set.
 func (o *DeliveryFilters) HasStrictTitleMatch() bool {
-	if o != nil && !isNil(o.StrictTitleMatch) {
+	if o != nil && !IsNil(o.StrictTitleMatch) {
 		return true
 	}
 
@@ -111,7 +111,7 @@ func (o *DeliveryFilters) SetStrictTitleMatch(v bool) {
 
 // GetTrackedItemTitle returns the TrackedItemTitle field value if set, zero value otherwise.
 func (o *DeliveryFilters) GetTrackedItemTitle() string {
-	if o == nil || isNil(o.TrackedItemTitle) {
+	if o == nil || IsNil(o.TrackedItemTitle) {
 		var ret string
 		return ret
 	}
@@ -121,7 +121,7 @@ func (o *DeliveryFilters) GetTrackedItemTitle() string {
 // GetTrackedItemTitleOk returns a tuple with the TrackedItemTitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFilters) GetTrackedItemTitleOk() (*string, bool) {
-	if o == nil || isNil(o.TrackedItemTitle) {
+	if o == nil || IsNil(o.TrackedItemTitle) {
 		return nil, false
 	}
 	return o.TrackedItemTitle, true
@@ -129,7 +129,7 @@ func (o *DeliveryFilters) GetTrackedItemTitleOk() (*string, bool) {
 
 // HasTrackedItemTitle returns a boolean if a field has been set.
 func (o *DeliveryFilters) HasTrackedItemTitle() bool {
-	if o != nil && !isNil(o.TrackedItemTitle) {
+	if o != nil && !IsNil(o.TrackedItemTitle) {
 		return true
 	}
 
@@ -143,7 +143,7 @@ func (o *DeliveryFilters) SetTrackedItemTitle(v string) {
 
 // GetStrictTrackedItemTitleMatch returns the StrictTrackedItemTitleMatch field value if set, zero value otherwise.
 func (o *DeliveryFilters) GetStrictTrackedItemTitleMatch() bool {
-	if o == nil || isNil(o.StrictTrackedItemTitleMatch) {
+	if o == nil || IsNil(o.StrictTrackedItemTitleMatch) {
 		var ret bool
 		return ret
 	}
@@ -153,7 +153,7 @@ func (o *DeliveryFilters) GetStrictTrackedItemTitleMatch() bool {
 // GetStrictTrackedItemTitleMatchOk returns a tuple with the StrictTrackedItemTitleMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFilters) GetStrictTrackedItemTitleMatchOk() (*bool, bool) {
-	if o == nil || isNil(o.StrictTrackedItemTitleMatch) {
+	if o == nil || IsNil(o.StrictTrackedItemTitleMatch) {
 		return nil, false
 	}
 	return o.StrictTrackedItemTitleMatch, true
@@ -161,7 +161,7 @@ func (o *DeliveryFilters) GetStrictTrackedItemTitleMatchOk() (*bool, bool) {
 
 // HasStrictTrackedItemTitleMatch returns a boolean if a field has been set.
 func (o *DeliveryFilters) HasStrictTrackedItemTitleMatch() bool {
-	if o != nil && !isNil(o.StrictTrackedItemTitleMatch) {
+	if o != nil && !IsNil(o.StrictTrackedItemTitleMatch) {
 		return true
 	}
 
@@ -175,7 +175,7 @@ func (o *DeliveryFilters) SetStrictTrackedItemTitleMatch(v bool) {
 
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *DeliveryFilters) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -185,7 +185,7 @@ func (o *DeliveryFilters) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFilters) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -193,7 +193,7 @@ func (o *DeliveryFilters) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *DeliveryFilters) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -207,7 +207,7 @@ func (o *DeliveryFilters) SetFolderId(v string) {
 
 // GetOriginPatternId returns the OriginPatternId field value if set, zero value otherwise.
 func (o *DeliveryFilters) GetOriginPatternId() string {
-	if o == nil || isNil(o.OriginPatternId) {
+	if o == nil || IsNil(o.OriginPatternId) {
 		var ret string
 		return ret
 	}
@@ -217,7 +217,7 @@ func (o *DeliveryFilters) GetOriginPatternId() string {
 // GetOriginPatternIdOk returns a tuple with the OriginPatternId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFilters) GetOriginPatternIdOk() (*string, bool) {
-	if o == nil || isNil(o.OriginPatternId) {
+	if o == nil || IsNil(o.OriginPatternId) {
 		return nil, false
 	}
 	return o.OriginPatternId, true
@@ -225,7 +225,7 @@ func (o *DeliveryFilters) GetOriginPatternIdOk() (*string, bool) {
 
 // HasOriginPatternId returns a boolean if a field has been set.
 func (o *DeliveryFilters) HasOriginPatternId() bool {
-	if o != nil && !isNil(o.OriginPatternId) {
+	if o != nil && !IsNil(o.OriginPatternId) {
 		return true
 	}
 
@@ -239,7 +239,7 @@ func (o *DeliveryFilters) SetOriginPatternId(v string) {
 
 // GetStatuses returns the Statuses field value if set, zero value otherwise.
 func (o *DeliveryFilters) GetStatuses() []DeliveryStatus {
-	if o == nil || isNil(o.Statuses) {
+	if o == nil || IsNil(o.Statuses) {
 		var ret []DeliveryStatus
 		return ret
 	}
@@ -249,7 +249,7 @@ func (o *DeliveryFilters) GetStatuses() []DeliveryStatus {
 // GetStatusesOk returns a tuple with the Statuses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryFilters) GetStatusesOk() ([]DeliveryStatus, bool) {
-	if o == nil || isNil(o.Statuses) {
+	if o == nil || IsNil(o.Statuses) {
 		return nil, false
 	}
 	return o.Statuses, true
@@ -257,7 +257,7 @@ func (o *DeliveryFilters) GetStatusesOk() ([]DeliveryStatus, bool) {
 
 // HasStatuses returns a boolean if a field has been set.
 func (o *DeliveryFilters) HasStatuses() bool {
-	if o != nil && !isNil(o.Statuses) {
+	if o != nil && !IsNil(o.Statuses) {
 		return true
 	}
 
@@ -270,7 +270,7 @@ func (o *DeliveryFilters) SetStatuses(v []DeliveryStatus) {
 }
 
 func (o DeliveryFilters) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -279,25 +279,25 @@ func (o DeliveryFilters) MarshalJSON() ([]byte, error) {
 
 func (o DeliveryFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.StrictTitleMatch) {
+	if !IsNil(o.StrictTitleMatch) {
 		toSerialize["strictTitleMatch"] = o.StrictTitleMatch
 	}
-	if !isNil(o.TrackedItemTitle) {
+	if !IsNil(o.TrackedItemTitle) {
 		toSerialize["trackedItemTitle"] = o.TrackedItemTitle
 	}
-	if !isNil(o.StrictTrackedItemTitleMatch) {
+	if !IsNil(o.StrictTrackedItemTitleMatch) {
 		toSerialize["strictTrackedItemTitleMatch"] = o.StrictTrackedItemTitleMatch
 	}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.OriginPatternId) {
+	if !IsNil(o.OriginPatternId) {
 		toSerialize["originPatternId"] = o.OriginPatternId
 	}
-	if !isNil(o.Statuses) {
+	if !IsNil(o.Statuses) {
 		toSerialize["statuses"] = o.Statuses
 	}
 	return toSerialize, nil
@@ -338,5 +338,3 @@ func (v *NullableDeliveryFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the Phase type satisfies the MappedNullable interface at compile time
@@ -19,50 +20,52 @@ var _ MappedNullable = &Phase{}
 
 // Phase struct for Phase
 type Phase struct {
-	Locked *bool `json:"locked,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Owner *string `json:"owner,omitempty"`
-	ScheduledStartDate *string `json:"scheduledStartDate,omitempty"`
-	DueDate *string `json:"dueDate,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate *string `json:"endDate,omitempty"`
-	PlannedDuration *int32 `json:"plannedDuration,omitempty"`
-	FlagStatus *FlagStatus `json:"flagStatus,omitempty"`
-	FlagComment *string `json:"flagComment,omitempty"`
-	OverdueNotified *bool `json:"overdueNotified,omitempty"`
-	Flagged *bool `json:"flagged,omitempty"`
-	StartOrScheduledDate *string `json:"startOrScheduledDate,omitempty"`
-	EndOrDueDate *string `json:"endOrDueDate,omitempty"`
-	Overdue *bool `json:"overdue,omitempty"`
-	OrCalculateDueDate NullableString `json:"orCalculateDueDate,omitempty"`
+	Id                      *string                `json:"id,omitempty"`
+	Type                    *string                `json:"type,omitempty"`
+	Locked                  *bool                  `json:"locked,omitempty"`
+	Title                   *string                `json:"title,omitempty"`
+	Description             *string                `json:"description,omitempty"`
+	Owner                   *string                `json:"owner,omitempty"`
+	ScheduledStartDate      *time.Time             `json:"scheduledStartDate,omitempty"`
+	DueDate                 *time.Time             `json:"dueDate,omitempty"`
+	StartDate               *time.Time             `json:"startDate,omitempty"`
+	EndDate                 *time.Time             `json:"endDate,omitempty"`
+	PlannedDuration         *int32                 `json:"plannedDuration,omitempty"`
+	FlagStatus              *FlagStatus            `json:"flagStatus,omitempty"`
+	FlagComment             *string                `json:"flagComment,omitempty"`
+	OverdueNotified         *bool                  `json:"overdueNotified,omitempty"`
+	Flagged                 *bool                  `json:"flagged,omitempty"`
+	StartOrScheduledDate    *time.Time             `json:"startOrScheduledDate,omitempty"`
+	EndOrDueDate            *time.Time             `json:"endOrDueDate,omitempty"`
+	Overdue                 *bool                  `json:"overdue,omitempty"`
+	OrCalculateDueDate      NullableTime           `json:"orCalculateDueDate,omitempty"`
 	ComputedPlannedDuration map[string]interface{} `json:"computedPlannedDuration,omitempty"`
-	ActualDuration map[string]interface{} `json:"actualDuration,omitempty"`
-	ReleaseUid *int32 `json:"releaseUid,omitempty"`
-	Tasks []Task `json:"tasks,omitempty"`
-	Release *Release `json:"release,omitempty"`
-	Status *PhaseStatus `json:"status,omitempty"`
-	Color *string `json:"color,omitempty"`
-	OriginId *string `json:"originId,omitempty"`
-	CurrentTask *Task `json:"currentTask,omitempty"`
-	DisplayPath *string `json:"displayPath,omitempty"`
-	Active *bool `json:"active,omitempty"`
-	Done *bool `json:"done,omitempty"`
-	Defunct *bool `json:"defunct,omitempty"`
-	Updatable *bool `json:"updatable,omitempty"`
-	Aborted *bool `json:"aborted,omitempty"`
-	Planned *bool `json:"planned,omitempty"`
-	Failed *bool `json:"failed,omitempty"`
-	Failing *bool `json:"failing,omitempty"`
-	ReleaseOwner *string `json:"releaseOwner,omitempty"`
-	AllGates []GateTask `json:"allGates,omitempty"`
-	AllTasks []Task `json:"allTasks,omitempty"`
-	Children []PlanItem `json:"children,omitempty"`
-	VariableUsages []UsagePoint `json:"variableUsages,omitempty"`
-	Original *bool `json:"original,omitempty"`
-	PhaseCopied *bool `json:"phaseCopied,omitempty"`
-	AncestorId *string `json:"ancestorId,omitempty"`
-	LatestCopy *bool `json:"latestCopy,omitempty"`
+	ActualDuration          map[string]interface{} `json:"actualDuration,omitempty"`
+	ReleaseUid              *int32                 `json:"releaseUid,omitempty"`
+	Tasks                   []Task                 `json:"tasks,omitempty"`
+	Release                 interface{}            `json:"release,omitempty"`
+	Status                  *PhaseStatus           `json:"status,omitempty"`
+	Color                   *string                `json:"color,omitempty"`
+	OriginId                *string                `json:"originId,omitempty"`
+	CurrentTask             *Task                  `json:"currentTask,omitempty"`
+	DisplayPath             *string                `json:"displayPath,omitempty"`
+	Active                  *bool                  `json:"active,omitempty"`
+	Done                    *bool                  `json:"done,omitempty"`
+	Defunct                 *bool                  `json:"defunct,omitempty"`
+	Updatable               *bool                  `json:"updatable,omitempty"`
+	Aborted                 *bool                  `json:"aborted,omitempty"`
+	Planned                 *bool                  `json:"planned,omitempty"`
+	Failed                  *bool                  `json:"failed,omitempty"`
+	Failing                 *bool                  `json:"failing,omitempty"`
+	ReleaseOwner            *string                `json:"releaseOwner,omitempty"`
+	AllGates                []GateTask             `json:"allGates,omitempty"`
+	AllTasks                []Task                 `json:"allTasks,omitempty"`
+	Children                []PlanItem             `json:"children,omitempty"`
+	VariableUsages          []UsagePoint           `json:"variableUsages,omitempty"`
+	Original                *bool                  `json:"original,omitempty"`
+	PhaseCopied             *bool                  `json:"phaseCopied,omitempty"`
+	AncestorId              *string                `json:"ancestorId,omitempty"`
+	LatestCopy              *bool                  `json:"latestCopy,omitempty"`
 }
 
 // NewPhase instantiates a new Phase object
@@ -82,9 +85,73 @@ func NewPhaseWithDefaults() *Phase {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Phase) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Phase) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Phase) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Phase) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Phase) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Phase) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Phase) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Phase) SetType(v string) {
+	o.Type = &v
+}
+
 // GetLocked returns the Locked field value if set, zero value otherwise.
 func (o *Phase) GetLocked() bool {
-	if o == nil || isNil(o.Locked) {
+	if o == nil || IsNil(o.Locked) {
 		var ret bool
 		return ret
 	}
@@ -94,7 +161,7 @@ func (o *Phase) GetLocked() bool {
 // GetLockedOk returns a tuple with the Locked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetLockedOk() (*bool, bool) {
-	if o == nil || isNil(o.Locked) {
+	if o == nil || IsNil(o.Locked) {
 		return nil, false
 	}
 	return o.Locked, true
@@ -102,7 +169,7 @@ func (o *Phase) GetLockedOk() (*bool, bool) {
 
 // HasLocked returns a boolean if a field has been set.
 func (o *Phase) HasLocked() bool {
-	if o != nil && !isNil(o.Locked) {
+	if o != nil && !IsNil(o.Locked) {
 		return true
 	}
 
@@ -116,7 +183,7 @@ func (o *Phase) SetLocked(v bool) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *Phase) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -126,7 +193,7 @@ func (o *Phase) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -134,7 +201,7 @@ func (o *Phase) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *Phase) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -148,7 +215,7 @@ func (o *Phase) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Phase) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -158,7 +225,7 @@ func (o *Phase) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -166,7 +233,7 @@ func (o *Phase) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Phase) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -180,7 +247,7 @@ func (o *Phase) SetDescription(v string) {
 
 // GetOwner returns the Owner field value if set, zero value otherwise.
 func (o *Phase) GetOwner() string {
-	if o == nil || isNil(o.Owner) {
+	if o == nil || IsNil(o.Owner) {
 		var ret string
 		return ret
 	}
@@ -190,7 +257,7 @@ func (o *Phase) GetOwner() string {
 // GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetOwnerOk() (*string, bool) {
-	if o == nil || isNil(o.Owner) {
+	if o == nil || IsNil(o.Owner) {
 		return nil, false
 	}
 	return o.Owner, true
@@ -198,7 +265,7 @@ func (o *Phase) GetOwnerOk() (*string, bool) {
 
 // HasOwner returns a boolean if a field has been set.
 func (o *Phase) HasOwner() bool {
-	if o != nil && !isNil(o.Owner) {
+	if o != nil && !IsNil(o.Owner) {
 		return true
 	}
 
@@ -211,9 +278,9 @@ func (o *Phase) SetOwner(v string) {
 }
 
 // GetScheduledStartDate returns the ScheduledStartDate field value if set, zero value otherwise.
-func (o *Phase) GetScheduledStartDate() string {
-	if o == nil || isNil(o.ScheduledStartDate) {
-		var ret string
+func (o *Phase) GetScheduledStartDate() time.Time {
+	if o == nil || IsNil(o.ScheduledStartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.ScheduledStartDate
@@ -221,8 +288,8 @@ func (o *Phase) GetScheduledStartDate() string {
 
 // GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Phase) GetScheduledStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.ScheduledStartDate) {
+func (o *Phase) GetScheduledStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ScheduledStartDate) {
 		return nil, false
 	}
 	return o.ScheduledStartDate, true
@@ -230,22 +297,22 @@ func (o *Phase) GetScheduledStartDateOk() (*string, bool) {
 
 // HasScheduledStartDate returns a boolean if a field has been set.
 func (o *Phase) HasScheduledStartDate() bool {
-	if o != nil && !isNil(o.ScheduledStartDate) {
+	if o != nil && !IsNil(o.ScheduledStartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetScheduledStartDate gets a reference to the given string and assigns it to the ScheduledStartDate field.
-func (o *Phase) SetScheduledStartDate(v string) {
+// SetScheduledStartDate gets a reference to the given time.Time and assigns it to the ScheduledStartDate field.
+func (o *Phase) SetScheduledStartDate(v time.Time) {
 	o.ScheduledStartDate = &v
 }
 
 // GetDueDate returns the DueDate field value if set, zero value otherwise.
-func (o *Phase) GetDueDate() string {
-	if o == nil || isNil(o.DueDate) {
-		var ret string
+func (o *Phase) GetDueDate() time.Time {
+	if o == nil || IsNil(o.DueDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.DueDate
@@ -253,8 +320,8 @@ func (o *Phase) GetDueDate() string {
 
 // GetDueDateOk returns a tuple with the DueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Phase) GetDueDateOk() (*string, bool) {
-	if o == nil || isNil(o.DueDate) {
+func (o *Phase) GetDueDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DueDate) {
 		return nil, false
 	}
 	return o.DueDate, true
@@ -262,22 +329,22 @@ func (o *Phase) GetDueDateOk() (*string, bool) {
 
 // HasDueDate returns a boolean if a field has been set.
 func (o *Phase) HasDueDate() bool {
-	if o != nil && !isNil(o.DueDate) {
+	if o != nil && !IsNil(o.DueDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetDueDate gets a reference to the given string and assigns it to the DueDate field.
-func (o *Phase) SetDueDate(v string) {
+// SetDueDate gets a reference to the given time.Time and assigns it to the DueDate field.
+func (o *Phase) SetDueDate(v time.Time) {
 	o.DueDate = &v
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *Phase) GetStartDate() string {
-	if o == nil || isNil(o.StartDate) {
-		var ret string
+func (o *Phase) GetStartDate() time.Time {
+	if o == nil || IsNil(o.StartDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartDate
@@ -285,8 +352,8 @@ func (o *Phase) GetStartDate() string {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Phase) GetStartDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartDate) {
+func (o *Phase) GetStartDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -294,22 +361,22 @@ func (o *Phase) GetStartDateOk() (*string, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *Phase) HasStartDate() bool {
-	if o != nil && !isNil(o.StartDate) {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
-func (o *Phase) SetStartDate(v string) {
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
+func (o *Phase) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
-func (o *Phase) GetEndDate() string {
-	if o == nil || isNil(o.EndDate) {
-		var ret string
+func (o *Phase) GetEndDate() time.Time {
+	if o == nil || IsNil(o.EndDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndDate
@@ -317,8 +384,8 @@ func (o *Phase) GetEndDate() string {
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Phase) GetEndDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndDate) {
+func (o *Phase) GetEndDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -326,21 +393,21 @@ func (o *Phase) GetEndDateOk() (*string, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *Phase) HasEndDate() bool {
-	if o != nil && !isNil(o.EndDate) {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
-func (o *Phase) SetEndDate(v string) {
+// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+func (o *Phase) SetEndDate(v time.Time) {
 	o.EndDate = &v
 }
 
 // GetPlannedDuration returns the PlannedDuration field value if set, zero value otherwise.
 func (o *Phase) GetPlannedDuration() int32 {
-	if o == nil || isNil(o.PlannedDuration) {
+	if o == nil || IsNil(o.PlannedDuration) {
 		var ret int32
 		return ret
 	}
@@ -350,7 +417,7 @@ func (o *Phase) GetPlannedDuration() int32 {
 // GetPlannedDurationOk returns a tuple with the PlannedDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetPlannedDurationOk() (*int32, bool) {
-	if o == nil || isNil(o.PlannedDuration) {
+	if o == nil || IsNil(o.PlannedDuration) {
 		return nil, false
 	}
 	return o.PlannedDuration, true
@@ -358,7 +425,7 @@ func (o *Phase) GetPlannedDurationOk() (*int32, bool) {
 
 // HasPlannedDuration returns a boolean if a field has been set.
 func (o *Phase) HasPlannedDuration() bool {
-	if o != nil && !isNil(o.PlannedDuration) {
+	if o != nil && !IsNil(o.PlannedDuration) {
 		return true
 	}
 
@@ -372,7 +439,7 @@ func (o *Phase) SetPlannedDuration(v int32) {
 
 // GetFlagStatus returns the FlagStatus field value if set, zero value otherwise.
 func (o *Phase) GetFlagStatus() FlagStatus {
-	if o == nil || isNil(o.FlagStatus) {
+	if o == nil || IsNil(o.FlagStatus) {
 		var ret FlagStatus
 		return ret
 	}
@@ -382,7 +449,7 @@ func (o *Phase) GetFlagStatus() FlagStatus {
 // GetFlagStatusOk returns a tuple with the FlagStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetFlagStatusOk() (*FlagStatus, bool) {
-	if o == nil || isNil(o.FlagStatus) {
+	if o == nil || IsNil(o.FlagStatus) {
 		return nil, false
 	}
 	return o.FlagStatus, true
@@ -390,7 +457,7 @@ func (o *Phase) GetFlagStatusOk() (*FlagStatus, bool) {
 
 // HasFlagStatus returns a boolean if a field has been set.
 func (o *Phase) HasFlagStatus() bool {
-	if o != nil && !isNil(o.FlagStatus) {
+	if o != nil && !IsNil(o.FlagStatus) {
 		return true
 	}
 
@@ -404,7 +471,7 @@ func (o *Phase) SetFlagStatus(v FlagStatus) {
 
 // GetFlagComment returns the FlagComment field value if set, zero value otherwise.
 func (o *Phase) GetFlagComment() string {
-	if o == nil || isNil(o.FlagComment) {
+	if o == nil || IsNil(o.FlagComment) {
 		var ret string
 		return ret
 	}
@@ -414,7 +481,7 @@ func (o *Phase) GetFlagComment() string {
 // GetFlagCommentOk returns a tuple with the FlagComment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetFlagCommentOk() (*string, bool) {
-	if o == nil || isNil(o.FlagComment) {
+	if o == nil || IsNil(o.FlagComment) {
 		return nil, false
 	}
 	return o.FlagComment, true
@@ -422,7 +489,7 @@ func (o *Phase) GetFlagCommentOk() (*string, bool) {
 
 // HasFlagComment returns a boolean if a field has been set.
 func (o *Phase) HasFlagComment() bool {
-	if o != nil && !isNil(o.FlagComment) {
+	if o != nil && !IsNil(o.FlagComment) {
 		return true
 	}
 
@@ -436,7 +503,7 @@ func (o *Phase) SetFlagComment(v string) {
 
 // GetOverdueNotified returns the OverdueNotified field value if set, zero value otherwise.
 func (o *Phase) GetOverdueNotified() bool {
-	if o == nil || isNil(o.OverdueNotified) {
+	if o == nil || IsNil(o.OverdueNotified) {
 		var ret bool
 		return ret
 	}
@@ -446,7 +513,7 @@ func (o *Phase) GetOverdueNotified() bool {
 // GetOverdueNotifiedOk returns a tuple with the OverdueNotified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetOverdueNotifiedOk() (*bool, bool) {
-	if o == nil || isNil(o.OverdueNotified) {
+	if o == nil || IsNil(o.OverdueNotified) {
 		return nil, false
 	}
 	return o.OverdueNotified, true
@@ -454,7 +521,7 @@ func (o *Phase) GetOverdueNotifiedOk() (*bool, bool) {
 
 // HasOverdueNotified returns a boolean if a field has been set.
 func (o *Phase) HasOverdueNotified() bool {
-	if o != nil && !isNil(o.OverdueNotified) {
+	if o != nil && !IsNil(o.OverdueNotified) {
 		return true
 	}
 
@@ -468,7 +535,7 @@ func (o *Phase) SetOverdueNotified(v bool) {
 
 // GetFlagged returns the Flagged field value if set, zero value otherwise.
 func (o *Phase) GetFlagged() bool {
-	if o == nil || isNil(o.Flagged) {
+	if o == nil || IsNil(o.Flagged) {
 		var ret bool
 		return ret
 	}
@@ -478,7 +545,7 @@ func (o *Phase) GetFlagged() bool {
 // GetFlaggedOk returns a tuple with the Flagged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetFlaggedOk() (*bool, bool) {
-	if o == nil || isNil(o.Flagged) {
+	if o == nil || IsNil(o.Flagged) {
 		return nil, false
 	}
 	return o.Flagged, true
@@ -486,7 +553,7 @@ func (o *Phase) GetFlaggedOk() (*bool, bool) {
 
 // HasFlagged returns a boolean if a field has been set.
 func (o *Phase) HasFlagged() bool {
-	if o != nil && !isNil(o.Flagged) {
+	if o != nil && !IsNil(o.Flagged) {
 		return true
 	}
 
@@ -499,9 +566,9 @@ func (o *Phase) SetFlagged(v bool) {
 }
 
 // GetStartOrScheduledDate returns the StartOrScheduledDate field value if set, zero value otherwise.
-func (o *Phase) GetStartOrScheduledDate() string {
-	if o == nil || isNil(o.StartOrScheduledDate) {
-		var ret string
+func (o *Phase) GetStartOrScheduledDate() time.Time {
+	if o == nil || IsNil(o.StartOrScheduledDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.StartOrScheduledDate
@@ -509,8 +576,8 @@ func (o *Phase) GetStartOrScheduledDate() string {
 
 // GetStartOrScheduledDateOk returns a tuple with the StartOrScheduledDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Phase) GetStartOrScheduledDateOk() (*string, bool) {
-	if o == nil || isNil(o.StartOrScheduledDate) {
+func (o *Phase) GetStartOrScheduledDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartOrScheduledDate) {
 		return nil, false
 	}
 	return o.StartOrScheduledDate, true
@@ -518,22 +585,22 @@ func (o *Phase) GetStartOrScheduledDateOk() (*string, bool) {
 
 // HasStartOrScheduledDate returns a boolean if a field has been set.
 func (o *Phase) HasStartOrScheduledDate() bool {
-	if o != nil && !isNil(o.StartOrScheduledDate) {
+	if o != nil && !IsNil(o.StartOrScheduledDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetStartOrScheduledDate gets a reference to the given string and assigns it to the StartOrScheduledDate field.
-func (o *Phase) SetStartOrScheduledDate(v string) {
+// SetStartOrScheduledDate gets a reference to the given time.Time and assigns it to the StartOrScheduledDate field.
+func (o *Phase) SetStartOrScheduledDate(v time.Time) {
 	o.StartOrScheduledDate = &v
 }
 
 // GetEndOrDueDate returns the EndOrDueDate field value if set, zero value otherwise.
-func (o *Phase) GetEndOrDueDate() string {
-	if o == nil || isNil(o.EndOrDueDate) {
-		var ret string
+func (o *Phase) GetEndOrDueDate() time.Time {
+	if o == nil || IsNil(o.EndOrDueDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.EndOrDueDate
@@ -541,8 +608,8 @@ func (o *Phase) GetEndOrDueDate() string {
 
 // GetEndOrDueDateOk returns a tuple with the EndOrDueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Phase) GetEndOrDueDateOk() (*string, bool) {
-	if o == nil || isNil(o.EndOrDueDate) {
+func (o *Phase) GetEndOrDueDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndOrDueDate) {
 		return nil, false
 	}
 	return o.EndOrDueDate, true
@@ -550,21 +617,21 @@ func (o *Phase) GetEndOrDueDateOk() (*string, bool) {
 
 // HasEndOrDueDate returns a boolean if a field has been set.
 func (o *Phase) HasEndOrDueDate() bool {
-	if o != nil && !isNil(o.EndOrDueDate) {
+	if o != nil && !IsNil(o.EndOrDueDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetEndOrDueDate gets a reference to the given string and assigns it to the EndOrDueDate field.
-func (o *Phase) SetEndOrDueDate(v string) {
+// SetEndOrDueDate gets a reference to the given time.Time and assigns it to the EndOrDueDate field.
+func (o *Phase) SetEndOrDueDate(v time.Time) {
 	o.EndOrDueDate = &v
 }
 
 // GetOverdue returns the Overdue field value if set, zero value otherwise.
 func (o *Phase) GetOverdue() bool {
-	if o == nil || isNil(o.Overdue) {
+	if o == nil || IsNil(o.Overdue) {
 		var ret bool
 		return ret
 	}
@@ -574,7 +641,7 @@ func (o *Phase) GetOverdue() bool {
 // GetOverdueOk returns a tuple with the Overdue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetOverdueOk() (*bool, bool) {
-	if o == nil || isNil(o.Overdue) {
+	if o == nil || IsNil(o.Overdue) {
 		return nil, false
 	}
 	return o.Overdue, true
@@ -582,7 +649,7 @@ func (o *Phase) GetOverdueOk() (*bool, bool) {
 
 // HasOverdue returns a boolean if a field has been set.
 func (o *Phase) HasOverdue() bool {
-	if o != nil && !isNil(o.Overdue) {
+	if o != nil && !IsNil(o.Overdue) {
 		return true
 	}
 
@@ -595,9 +662,9 @@ func (o *Phase) SetOverdue(v bool) {
 }
 
 // GetOrCalculateDueDate returns the OrCalculateDueDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Phase) GetOrCalculateDueDate() string {
-	if o == nil || isNil(o.OrCalculateDueDate.Get()) {
-		var ret string
+func (o *Phase) GetOrCalculateDueDate() time.Time {
+	if o == nil || IsNil(o.OrCalculateDueDate.Get()) {
+		var ret time.Time
 		return ret
 	}
 	return *o.OrCalculateDueDate.Get()
@@ -606,7 +673,7 @@ func (o *Phase) GetOrCalculateDueDate() string {
 // GetOrCalculateDueDateOk returns a tuple with the OrCalculateDueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Phase) GetOrCalculateDueDateOk() (*string, bool) {
+func (o *Phase) GetOrCalculateDueDateOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -622,10 +689,11 @@ func (o *Phase) HasOrCalculateDueDate() bool {
 	return false
 }
 
-// SetOrCalculateDueDate gets a reference to the given NullableString and assigns it to the OrCalculateDueDate field.
-func (o *Phase) SetOrCalculateDueDate(v string) {
+// SetOrCalculateDueDate gets a reference to the given NullableTime and assigns it to the OrCalculateDueDate field.
+func (o *Phase) SetOrCalculateDueDate(v time.Time) {
 	o.OrCalculateDueDate.Set(&v)
 }
+
 // SetOrCalculateDueDateNil sets the value for OrCalculateDueDate to be an explicit nil
 func (o *Phase) SetOrCalculateDueDateNil() {
 	o.OrCalculateDueDate.Set(nil)
@@ -638,7 +706,7 @@ func (o *Phase) UnsetOrCalculateDueDate() {
 
 // GetComputedPlannedDuration returns the ComputedPlannedDuration field value if set, zero value otherwise.
 func (o *Phase) GetComputedPlannedDuration() map[string]interface{} {
-	if o == nil || isNil(o.ComputedPlannedDuration) {
+	if o == nil || IsNil(o.ComputedPlannedDuration) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -648,7 +716,7 @@ func (o *Phase) GetComputedPlannedDuration() map[string]interface{} {
 // GetComputedPlannedDurationOk returns a tuple with the ComputedPlannedDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetComputedPlannedDurationOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.ComputedPlannedDuration) {
+	if o == nil || IsNil(o.ComputedPlannedDuration) {
 		return map[string]interface{}{}, false
 	}
 	return o.ComputedPlannedDuration, true
@@ -656,7 +724,7 @@ func (o *Phase) GetComputedPlannedDurationOk() (map[string]interface{}, bool) {
 
 // HasComputedPlannedDuration returns a boolean if a field has been set.
 func (o *Phase) HasComputedPlannedDuration() bool {
-	if o != nil && !isNil(o.ComputedPlannedDuration) {
+	if o != nil && !IsNil(o.ComputedPlannedDuration) {
 		return true
 	}
 
@@ -670,7 +738,7 @@ func (o *Phase) SetComputedPlannedDuration(v map[string]interface{}) {
 
 // GetActualDuration returns the ActualDuration field value if set, zero value otherwise.
 func (o *Phase) GetActualDuration() map[string]interface{} {
-	if o == nil || isNil(o.ActualDuration) {
+	if o == nil || IsNil(o.ActualDuration) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -680,7 +748,7 @@ func (o *Phase) GetActualDuration() map[string]interface{} {
 // GetActualDurationOk returns a tuple with the ActualDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetActualDurationOk() (map[string]interface{}, bool) {
-	if o == nil || isNil(o.ActualDuration) {
+	if o == nil || IsNil(o.ActualDuration) {
 		return map[string]interface{}{}, false
 	}
 	return o.ActualDuration, true
@@ -688,7 +756,7 @@ func (o *Phase) GetActualDurationOk() (map[string]interface{}, bool) {
 
 // HasActualDuration returns a boolean if a field has been set.
 func (o *Phase) HasActualDuration() bool {
-	if o != nil && !isNil(o.ActualDuration) {
+	if o != nil && !IsNil(o.ActualDuration) {
 		return true
 	}
 
@@ -702,7 +770,7 @@ func (o *Phase) SetActualDuration(v map[string]interface{}) {
 
 // GetReleaseUid returns the ReleaseUid field value if set, zero value otherwise.
 func (o *Phase) GetReleaseUid() int32 {
-	if o == nil || isNil(o.ReleaseUid) {
+	if o == nil || IsNil(o.ReleaseUid) {
 		var ret int32
 		return ret
 	}
@@ -712,7 +780,7 @@ func (o *Phase) GetReleaseUid() int32 {
 // GetReleaseUidOk returns a tuple with the ReleaseUid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetReleaseUidOk() (*int32, bool) {
-	if o == nil || isNil(o.ReleaseUid) {
+	if o == nil || IsNil(o.ReleaseUid) {
 		return nil, false
 	}
 	return o.ReleaseUid, true
@@ -720,7 +788,7 @@ func (o *Phase) GetReleaseUidOk() (*int32, bool) {
 
 // HasReleaseUid returns a boolean if a field has been set.
 func (o *Phase) HasReleaseUid() bool {
-	if o != nil && !isNil(o.ReleaseUid) {
+	if o != nil && !IsNil(o.ReleaseUid) {
 		return true
 	}
 
@@ -734,7 +802,7 @@ func (o *Phase) SetReleaseUid(v int32) {
 
 // GetTasks returns the Tasks field value if set, zero value otherwise.
 func (o *Phase) GetTasks() []Task {
-	if o == nil || isNil(o.Tasks) {
+	if o == nil || IsNil(o.Tasks) {
 		var ret []Task
 		return ret
 	}
@@ -744,7 +812,7 @@ func (o *Phase) GetTasks() []Task {
 // GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetTasksOk() ([]Task, bool) {
-	if o == nil || isNil(o.Tasks) {
+	if o == nil || IsNil(o.Tasks) {
 		return nil, false
 	}
 	return o.Tasks, true
@@ -752,7 +820,7 @@ func (o *Phase) GetTasksOk() ([]Task, bool) {
 
 // HasTasks returns a boolean if a field has been set.
 func (o *Phase) HasTasks() bool {
-	if o != nil && !isNil(o.Tasks) {
+	if o != nil && !IsNil(o.Tasks) {
 		return true
 	}
 
@@ -764,41 +832,42 @@ func (o *Phase) SetTasks(v []Task) {
 	o.Tasks = v
 }
 
-// GetRelease returns the Release field value if set, zero value otherwise.
-func (o *Phase) GetRelease() Release {
-	if o == nil || isNil(o.Release) {
-		var ret Release
+// GetRelease returns the Release field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Phase) GetRelease() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.Release
+	return o.Release
 }
 
 // GetReleaseOk returns a tuple with the Release field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Phase) GetReleaseOk() (*Release, bool) {
-	if o == nil || isNil(o.Release) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Phase) GetReleaseOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Release) {
 		return nil, false
 	}
-	return o.Release, true
+	return &o.Release, true
 }
 
 // HasRelease returns a boolean if a field has been set.
 func (o *Phase) HasRelease() bool {
-	if o != nil && !isNil(o.Release) {
+	if o != nil && IsNil(o.Release) {
 		return true
 	}
 
 	return false
 }
 
-// SetRelease gets a reference to the given Release and assigns it to the Release field.
-func (o *Phase) SetRelease(v Release) {
-	o.Release = &v
+// SetRelease gets a reference to the given interface{} and assigns it to the Release field.
+func (o *Phase) SetRelease(v interface{}) {
+	o.Release = v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Phase) GetStatus() PhaseStatus {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		var ret PhaseStatus
 		return ret
 	}
@@ -808,7 +877,7 @@ func (o *Phase) GetStatus() PhaseStatus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetStatusOk() (*PhaseStatus, bool) {
-	if o == nil || isNil(o.Status) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -816,7 +885,7 @@ func (o *Phase) GetStatusOk() (*PhaseStatus, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Phase) HasStatus() bool {
-	if o != nil && !isNil(o.Status) {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -830,7 +899,7 @@ func (o *Phase) SetStatus(v PhaseStatus) {
 
 // GetColor returns the Color field value if set, zero value otherwise.
 func (o *Phase) GetColor() string {
-	if o == nil || isNil(o.Color) {
+	if o == nil || IsNil(o.Color) {
 		var ret string
 		return ret
 	}
@@ -840,7 +909,7 @@ func (o *Phase) GetColor() string {
 // GetColorOk returns a tuple with the Color field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetColorOk() (*string, bool) {
-	if o == nil || isNil(o.Color) {
+	if o == nil || IsNil(o.Color) {
 		return nil, false
 	}
 	return o.Color, true
@@ -848,7 +917,7 @@ func (o *Phase) GetColorOk() (*string, bool) {
 
 // HasColor returns a boolean if a field has been set.
 func (o *Phase) HasColor() bool {
-	if o != nil && !isNil(o.Color) {
+	if o != nil && !IsNil(o.Color) {
 		return true
 	}
 
@@ -862,7 +931,7 @@ func (o *Phase) SetColor(v string) {
 
 // GetOriginId returns the OriginId field value if set, zero value otherwise.
 func (o *Phase) GetOriginId() string {
-	if o == nil || isNil(o.OriginId) {
+	if o == nil || IsNil(o.OriginId) {
 		var ret string
 		return ret
 	}
@@ -872,7 +941,7 @@ func (o *Phase) GetOriginId() string {
 // GetOriginIdOk returns a tuple with the OriginId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetOriginIdOk() (*string, bool) {
-	if o == nil || isNil(o.OriginId) {
+	if o == nil || IsNil(o.OriginId) {
 		return nil, false
 	}
 	return o.OriginId, true
@@ -880,7 +949,7 @@ func (o *Phase) GetOriginIdOk() (*string, bool) {
 
 // HasOriginId returns a boolean if a field has been set.
 func (o *Phase) HasOriginId() bool {
-	if o != nil && !isNil(o.OriginId) {
+	if o != nil && !IsNil(o.OriginId) {
 		return true
 	}
 
@@ -894,7 +963,7 @@ func (o *Phase) SetOriginId(v string) {
 
 // GetCurrentTask returns the CurrentTask field value if set, zero value otherwise.
 func (o *Phase) GetCurrentTask() Task {
-	if o == nil || isNil(o.CurrentTask) {
+	if o == nil || IsNil(o.CurrentTask) {
 		var ret Task
 		return ret
 	}
@@ -904,7 +973,7 @@ func (o *Phase) GetCurrentTask() Task {
 // GetCurrentTaskOk returns a tuple with the CurrentTask field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetCurrentTaskOk() (*Task, bool) {
-	if o == nil || isNil(o.CurrentTask) {
+	if o == nil || IsNil(o.CurrentTask) {
 		return nil, false
 	}
 	return o.CurrentTask, true
@@ -912,7 +981,7 @@ func (o *Phase) GetCurrentTaskOk() (*Task, bool) {
 
 // HasCurrentTask returns a boolean if a field has been set.
 func (o *Phase) HasCurrentTask() bool {
-	if o != nil && !isNil(o.CurrentTask) {
+	if o != nil && !IsNil(o.CurrentTask) {
 		return true
 	}
 
@@ -926,7 +995,7 @@ func (o *Phase) SetCurrentTask(v Task) {
 
 // GetDisplayPath returns the DisplayPath field value if set, zero value otherwise.
 func (o *Phase) GetDisplayPath() string {
-	if o == nil || isNil(o.DisplayPath) {
+	if o == nil || IsNil(o.DisplayPath) {
 		var ret string
 		return ret
 	}
@@ -936,7 +1005,7 @@ func (o *Phase) GetDisplayPath() string {
 // GetDisplayPathOk returns a tuple with the DisplayPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetDisplayPathOk() (*string, bool) {
-	if o == nil || isNil(o.DisplayPath) {
+	if o == nil || IsNil(o.DisplayPath) {
 		return nil, false
 	}
 	return o.DisplayPath, true
@@ -944,7 +1013,7 @@ func (o *Phase) GetDisplayPathOk() (*string, bool) {
 
 // HasDisplayPath returns a boolean if a field has been set.
 func (o *Phase) HasDisplayPath() bool {
-	if o != nil && !isNil(o.DisplayPath) {
+	if o != nil && !IsNil(o.DisplayPath) {
 		return true
 	}
 
@@ -958,7 +1027,7 @@ func (o *Phase) SetDisplayPath(v string) {
 
 // GetActive returns the Active field value if set, zero value otherwise.
 func (o *Phase) GetActive() bool {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		var ret bool
 		return ret
 	}
@@ -968,7 +1037,7 @@ func (o *Phase) GetActive() bool {
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetActiveOk() (*bool, bool) {
-	if o == nil || isNil(o.Active) {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
 	return o.Active, true
@@ -976,7 +1045,7 @@ func (o *Phase) GetActiveOk() (*bool, bool) {
 
 // HasActive returns a boolean if a field has been set.
 func (o *Phase) HasActive() bool {
-	if o != nil && !isNil(o.Active) {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
@@ -990,7 +1059,7 @@ func (o *Phase) SetActive(v bool) {
 
 // GetDone returns the Done field value if set, zero value otherwise.
 func (o *Phase) GetDone() bool {
-	if o == nil || isNil(o.Done) {
+	if o == nil || IsNil(o.Done) {
 		var ret bool
 		return ret
 	}
@@ -1000,7 +1069,7 @@ func (o *Phase) GetDone() bool {
 // GetDoneOk returns a tuple with the Done field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetDoneOk() (*bool, bool) {
-	if o == nil || isNil(o.Done) {
+	if o == nil || IsNil(o.Done) {
 		return nil, false
 	}
 	return o.Done, true
@@ -1008,7 +1077,7 @@ func (o *Phase) GetDoneOk() (*bool, bool) {
 
 // HasDone returns a boolean if a field has been set.
 func (o *Phase) HasDone() bool {
-	if o != nil && !isNil(o.Done) {
+	if o != nil && !IsNil(o.Done) {
 		return true
 	}
 
@@ -1022,7 +1091,7 @@ func (o *Phase) SetDone(v bool) {
 
 // GetDefunct returns the Defunct field value if set, zero value otherwise.
 func (o *Phase) GetDefunct() bool {
-	if o == nil || isNil(o.Defunct) {
+	if o == nil || IsNil(o.Defunct) {
 		var ret bool
 		return ret
 	}
@@ -1032,7 +1101,7 @@ func (o *Phase) GetDefunct() bool {
 // GetDefunctOk returns a tuple with the Defunct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetDefunctOk() (*bool, bool) {
-	if o == nil || isNil(o.Defunct) {
+	if o == nil || IsNil(o.Defunct) {
 		return nil, false
 	}
 	return o.Defunct, true
@@ -1040,7 +1109,7 @@ func (o *Phase) GetDefunctOk() (*bool, bool) {
 
 // HasDefunct returns a boolean if a field has been set.
 func (o *Phase) HasDefunct() bool {
-	if o != nil && !isNil(o.Defunct) {
+	if o != nil && !IsNil(o.Defunct) {
 		return true
 	}
 
@@ -1054,7 +1123,7 @@ func (o *Phase) SetDefunct(v bool) {
 
 // GetUpdatable returns the Updatable field value if set, zero value otherwise.
 func (o *Phase) GetUpdatable() bool {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		var ret bool
 		return ret
 	}
@@ -1064,7 +1133,7 @@ func (o *Phase) GetUpdatable() bool {
 // GetUpdatableOk returns a tuple with the Updatable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetUpdatableOk() (*bool, bool) {
-	if o == nil || isNil(o.Updatable) {
+	if o == nil || IsNil(o.Updatable) {
 		return nil, false
 	}
 	return o.Updatable, true
@@ -1072,7 +1141,7 @@ func (o *Phase) GetUpdatableOk() (*bool, bool) {
 
 // HasUpdatable returns a boolean if a field has been set.
 func (o *Phase) HasUpdatable() bool {
-	if o != nil && !isNil(o.Updatable) {
+	if o != nil && !IsNil(o.Updatable) {
 		return true
 	}
 
@@ -1086,7 +1155,7 @@ func (o *Phase) SetUpdatable(v bool) {
 
 // GetAborted returns the Aborted field value if set, zero value otherwise.
 func (o *Phase) GetAborted() bool {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		var ret bool
 		return ret
 	}
@@ -1096,7 +1165,7 @@ func (o *Phase) GetAborted() bool {
 // GetAbortedOk returns a tuple with the Aborted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetAbortedOk() (*bool, bool) {
-	if o == nil || isNil(o.Aborted) {
+	if o == nil || IsNil(o.Aborted) {
 		return nil, false
 	}
 	return o.Aborted, true
@@ -1104,7 +1173,7 @@ func (o *Phase) GetAbortedOk() (*bool, bool) {
 
 // HasAborted returns a boolean if a field has been set.
 func (o *Phase) HasAborted() bool {
-	if o != nil && !isNil(o.Aborted) {
+	if o != nil && !IsNil(o.Aborted) {
 		return true
 	}
 
@@ -1118,7 +1187,7 @@ func (o *Phase) SetAborted(v bool) {
 
 // GetPlanned returns the Planned field value if set, zero value otherwise.
 func (o *Phase) GetPlanned() bool {
-	if o == nil || isNil(o.Planned) {
+	if o == nil || IsNil(o.Planned) {
 		var ret bool
 		return ret
 	}
@@ -1128,7 +1197,7 @@ func (o *Phase) GetPlanned() bool {
 // GetPlannedOk returns a tuple with the Planned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetPlannedOk() (*bool, bool) {
-	if o == nil || isNil(o.Planned) {
+	if o == nil || IsNil(o.Planned) {
 		return nil, false
 	}
 	return o.Planned, true
@@ -1136,7 +1205,7 @@ func (o *Phase) GetPlannedOk() (*bool, bool) {
 
 // HasPlanned returns a boolean if a field has been set.
 func (o *Phase) HasPlanned() bool {
-	if o != nil && !isNil(o.Planned) {
+	if o != nil && !IsNil(o.Planned) {
 		return true
 	}
 
@@ -1150,7 +1219,7 @@ func (o *Phase) SetPlanned(v bool) {
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
 func (o *Phase) GetFailed() bool {
-	if o == nil || isNil(o.Failed) {
+	if o == nil || IsNil(o.Failed) {
 		var ret bool
 		return ret
 	}
@@ -1160,7 +1229,7 @@ func (o *Phase) GetFailed() bool {
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetFailedOk() (*bool, bool) {
-	if o == nil || isNil(o.Failed) {
+	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
 	return o.Failed, true
@@ -1168,7 +1237,7 @@ func (o *Phase) GetFailedOk() (*bool, bool) {
 
 // HasFailed returns a boolean if a field has been set.
 func (o *Phase) HasFailed() bool {
-	if o != nil && !isNil(o.Failed) {
+	if o != nil && !IsNil(o.Failed) {
 		return true
 	}
 
@@ -1182,7 +1251,7 @@ func (o *Phase) SetFailed(v bool) {
 
 // GetFailing returns the Failing field value if set, zero value otherwise.
 func (o *Phase) GetFailing() bool {
-	if o == nil || isNil(o.Failing) {
+	if o == nil || IsNil(o.Failing) {
 		var ret bool
 		return ret
 	}
@@ -1192,7 +1261,7 @@ func (o *Phase) GetFailing() bool {
 // GetFailingOk returns a tuple with the Failing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetFailingOk() (*bool, bool) {
-	if o == nil || isNil(o.Failing) {
+	if o == nil || IsNil(o.Failing) {
 		return nil, false
 	}
 	return o.Failing, true
@@ -1200,7 +1269,7 @@ func (o *Phase) GetFailingOk() (*bool, bool) {
 
 // HasFailing returns a boolean if a field has been set.
 func (o *Phase) HasFailing() bool {
-	if o != nil && !isNil(o.Failing) {
+	if o != nil && !IsNil(o.Failing) {
 		return true
 	}
 
@@ -1214,7 +1283,7 @@ func (o *Phase) SetFailing(v bool) {
 
 // GetReleaseOwner returns the ReleaseOwner field value if set, zero value otherwise.
 func (o *Phase) GetReleaseOwner() string {
-	if o == nil || isNil(o.ReleaseOwner) {
+	if o == nil || IsNil(o.ReleaseOwner) {
 		var ret string
 		return ret
 	}
@@ -1224,7 +1293,7 @@ func (o *Phase) GetReleaseOwner() string {
 // GetReleaseOwnerOk returns a tuple with the ReleaseOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetReleaseOwnerOk() (*string, bool) {
-	if o == nil || isNil(o.ReleaseOwner) {
+	if o == nil || IsNil(o.ReleaseOwner) {
 		return nil, false
 	}
 	return o.ReleaseOwner, true
@@ -1232,7 +1301,7 @@ func (o *Phase) GetReleaseOwnerOk() (*string, bool) {
 
 // HasReleaseOwner returns a boolean if a field has been set.
 func (o *Phase) HasReleaseOwner() bool {
-	if o != nil && !isNil(o.ReleaseOwner) {
+	if o != nil && !IsNil(o.ReleaseOwner) {
 		return true
 	}
 
@@ -1246,7 +1315,7 @@ func (o *Phase) SetReleaseOwner(v string) {
 
 // GetAllGates returns the AllGates field value if set, zero value otherwise.
 func (o *Phase) GetAllGates() []GateTask {
-	if o == nil || isNil(o.AllGates) {
+	if o == nil || IsNil(o.AllGates) {
 		var ret []GateTask
 		return ret
 	}
@@ -1256,7 +1325,7 @@ func (o *Phase) GetAllGates() []GateTask {
 // GetAllGatesOk returns a tuple with the AllGates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetAllGatesOk() ([]GateTask, bool) {
-	if o == nil || isNil(o.AllGates) {
+	if o == nil || IsNil(o.AllGates) {
 		return nil, false
 	}
 	return o.AllGates, true
@@ -1264,7 +1333,7 @@ func (o *Phase) GetAllGatesOk() ([]GateTask, bool) {
 
 // HasAllGates returns a boolean if a field has been set.
 func (o *Phase) HasAllGates() bool {
-	if o != nil && !isNil(o.AllGates) {
+	if o != nil && !IsNil(o.AllGates) {
 		return true
 	}
 
@@ -1278,7 +1347,7 @@ func (o *Phase) SetAllGates(v []GateTask) {
 
 // GetAllTasks returns the AllTasks field value if set, zero value otherwise.
 func (o *Phase) GetAllTasks() []Task {
-	if o == nil || isNil(o.AllTasks) {
+	if o == nil || IsNil(o.AllTasks) {
 		var ret []Task
 		return ret
 	}
@@ -1288,7 +1357,7 @@ func (o *Phase) GetAllTasks() []Task {
 // GetAllTasksOk returns a tuple with the AllTasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetAllTasksOk() ([]Task, bool) {
-	if o == nil || isNil(o.AllTasks) {
+	if o == nil || IsNil(o.AllTasks) {
 		return nil, false
 	}
 	return o.AllTasks, true
@@ -1296,7 +1365,7 @@ func (o *Phase) GetAllTasksOk() ([]Task, bool) {
 
 // HasAllTasks returns a boolean if a field has been set.
 func (o *Phase) HasAllTasks() bool {
-	if o != nil && !isNil(o.AllTasks) {
+	if o != nil && !IsNil(o.AllTasks) {
 		return true
 	}
 
@@ -1310,7 +1379,7 @@ func (o *Phase) SetAllTasks(v []Task) {
 
 // GetChildren returns the Children field value if set, zero value otherwise.
 func (o *Phase) GetChildren() []PlanItem {
-	if o == nil || isNil(o.Children) {
+	if o == nil || IsNil(o.Children) {
 		var ret []PlanItem
 		return ret
 	}
@@ -1320,7 +1389,7 @@ func (o *Phase) GetChildren() []PlanItem {
 // GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetChildrenOk() ([]PlanItem, bool) {
-	if o == nil || isNil(o.Children) {
+	if o == nil || IsNil(o.Children) {
 		return nil, false
 	}
 	return o.Children, true
@@ -1328,7 +1397,7 @@ func (o *Phase) GetChildrenOk() ([]PlanItem, bool) {
 
 // HasChildren returns a boolean if a field has been set.
 func (o *Phase) HasChildren() bool {
-	if o != nil && !isNil(o.Children) {
+	if o != nil && !IsNil(o.Children) {
 		return true
 	}
 
@@ -1342,7 +1411,7 @@ func (o *Phase) SetChildren(v []PlanItem) {
 
 // GetVariableUsages returns the VariableUsages field value if set, zero value otherwise.
 func (o *Phase) GetVariableUsages() []UsagePoint {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		var ret []UsagePoint
 		return ret
 	}
@@ -1352,7 +1421,7 @@ func (o *Phase) GetVariableUsages() []UsagePoint {
 // GetVariableUsagesOk returns a tuple with the VariableUsages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetVariableUsagesOk() ([]UsagePoint, bool) {
-	if o == nil || isNil(o.VariableUsages) {
+	if o == nil || IsNil(o.VariableUsages) {
 		return nil, false
 	}
 	return o.VariableUsages, true
@@ -1360,7 +1429,7 @@ func (o *Phase) GetVariableUsagesOk() ([]UsagePoint, bool) {
 
 // HasVariableUsages returns a boolean if a field has been set.
 func (o *Phase) HasVariableUsages() bool {
-	if o != nil && !isNil(o.VariableUsages) {
+	if o != nil && !IsNil(o.VariableUsages) {
 		return true
 	}
 
@@ -1374,7 +1443,7 @@ func (o *Phase) SetVariableUsages(v []UsagePoint) {
 
 // GetOriginal returns the Original field value if set, zero value otherwise.
 func (o *Phase) GetOriginal() bool {
-	if o == nil || isNil(o.Original) {
+	if o == nil || IsNil(o.Original) {
 		var ret bool
 		return ret
 	}
@@ -1384,7 +1453,7 @@ func (o *Phase) GetOriginal() bool {
 // GetOriginalOk returns a tuple with the Original field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetOriginalOk() (*bool, bool) {
-	if o == nil || isNil(o.Original) {
+	if o == nil || IsNil(o.Original) {
 		return nil, false
 	}
 	return o.Original, true
@@ -1392,7 +1461,7 @@ func (o *Phase) GetOriginalOk() (*bool, bool) {
 
 // HasOriginal returns a boolean if a field has been set.
 func (o *Phase) HasOriginal() bool {
-	if o != nil && !isNil(o.Original) {
+	if o != nil && !IsNil(o.Original) {
 		return true
 	}
 
@@ -1406,7 +1475,7 @@ func (o *Phase) SetOriginal(v bool) {
 
 // GetPhaseCopied returns the PhaseCopied field value if set, zero value otherwise.
 func (o *Phase) GetPhaseCopied() bool {
-	if o == nil || isNil(o.PhaseCopied) {
+	if o == nil || IsNil(o.PhaseCopied) {
 		var ret bool
 		return ret
 	}
@@ -1416,7 +1485,7 @@ func (o *Phase) GetPhaseCopied() bool {
 // GetPhaseCopiedOk returns a tuple with the PhaseCopied field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetPhaseCopiedOk() (*bool, bool) {
-	if o == nil || isNil(o.PhaseCopied) {
+	if o == nil || IsNil(o.PhaseCopied) {
 		return nil, false
 	}
 	return o.PhaseCopied, true
@@ -1424,7 +1493,7 @@ func (o *Phase) GetPhaseCopiedOk() (*bool, bool) {
 
 // HasPhaseCopied returns a boolean if a field has been set.
 func (o *Phase) HasPhaseCopied() bool {
-	if o != nil && !isNil(o.PhaseCopied) {
+	if o != nil && !IsNil(o.PhaseCopied) {
 		return true
 	}
 
@@ -1438,7 +1507,7 @@ func (o *Phase) SetPhaseCopied(v bool) {
 
 // GetAncestorId returns the AncestorId field value if set, zero value otherwise.
 func (o *Phase) GetAncestorId() string {
-	if o == nil || isNil(o.AncestorId) {
+	if o == nil || IsNil(o.AncestorId) {
 		var ret string
 		return ret
 	}
@@ -1448,7 +1517,7 @@ func (o *Phase) GetAncestorId() string {
 // GetAncestorIdOk returns a tuple with the AncestorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetAncestorIdOk() (*string, bool) {
-	if o == nil || isNil(o.AncestorId) {
+	if o == nil || IsNil(o.AncestorId) {
 		return nil, false
 	}
 	return o.AncestorId, true
@@ -1456,7 +1525,7 @@ func (o *Phase) GetAncestorIdOk() (*string, bool) {
 
 // HasAncestorId returns a boolean if a field has been set.
 func (o *Phase) HasAncestorId() bool {
-	if o != nil && !isNil(o.AncestorId) {
+	if o != nil && !IsNil(o.AncestorId) {
 		return true
 	}
 
@@ -1470,7 +1539,7 @@ func (o *Phase) SetAncestorId(v string) {
 
 // GetLatestCopy returns the LatestCopy field value if set, zero value otherwise.
 func (o *Phase) GetLatestCopy() bool {
-	if o == nil || isNil(o.LatestCopy) {
+	if o == nil || IsNil(o.LatestCopy) {
 		var ret bool
 		return ret
 	}
@@ -1480,7 +1549,7 @@ func (o *Phase) GetLatestCopy() bool {
 // GetLatestCopyOk returns a tuple with the LatestCopy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Phase) GetLatestCopyOk() (*bool, bool) {
-	if o == nil || isNil(o.LatestCopy) {
+	if o == nil || IsNil(o.LatestCopy) {
 		return nil, false
 	}
 	return o.LatestCopy, true
@@ -1488,7 +1557,7 @@ func (o *Phase) GetLatestCopyOk() (*bool, bool) {
 
 // HasLatestCopy returns a boolean if a field has been set.
 func (o *Phase) HasLatestCopy() bool {
-	if o != nil && !isNil(o.LatestCopy) {
+	if o != nil && !IsNil(o.LatestCopy) {
 		return true
 	}
 
@@ -1501,7 +1570,7 @@ func (o *Phase) SetLatestCopy(v bool) {
 }
 
 func (o Phase) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -1510,136 +1579,142 @@ func (o Phase) MarshalJSON() ([]byte, error) {
 
 func (o Phase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Locked) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Locked) {
 		toSerialize["locked"] = o.Locked
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Owner) {
+	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
-	if !isNil(o.ScheduledStartDate) {
+	if !IsNil(o.ScheduledStartDate) {
 		toSerialize["scheduledStartDate"] = o.ScheduledStartDate
 	}
-	if !isNil(o.DueDate) {
+	if !IsNil(o.DueDate) {
 		toSerialize["dueDate"] = o.DueDate
 	}
-	if !isNil(o.StartDate) {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !isNil(o.EndDate) {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if !isNil(o.PlannedDuration) {
+	if !IsNil(o.PlannedDuration) {
 		toSerialize["plannedDuration"] = o.PlannedDuration
 	}
-	if !isNil(o.FlagStatus) {
+	if !IsNil(o.FlagStatus) {
 		toSerialize["flagStatus"] = o.FlagStatus
 	}
-	if !isNil(o.FlagComment) {
+	if !IsNil(o.FlagComment) {
 		toSerialize["flagComment"] = o.FlagComment
 	}
-	if !isNil(o.OverdueNotified) {
+	if !IsNil(o.OverdueNotified) {
 		toSerialize["overdueNotified"] = o.OverdueNotified
 	}
-	if !isNil(o.Flagged) {
+	if !IsNil(o.Flagged) {
 		toSerialize["flagged"] = o.Flagged
 	}
-	if !isNil(o.StartOrScheduledDate) {
+	if !IsNil(o.StartOrScheduledDate) {
 		toSerialize["startOrScheduledDate"] = o.StartOrScheduledDate
 	}
-	if !isNil(o.EndOrDueDate) {
+	if !IsNil(o.EndOrDueDate) {
 		toSerialize["endOrDueDate"] = o.EndOrDueDate
 	}
-	if !isNil(o.Overdue) {
+	if !IsNil(o.Overdue) {
 		toSerialize["overdue"] = o.Overdue
 	}
 	if o.OrCalculateDueDate.IsSet() {
 		toSerialize["orCalculateDueDate"] = o.OrCalculateDueDate.Get()
 	}
-	if !isNil(o.ComputedPlannedDuration) {
+	if !IsNil(o.ComputedPlannedDuration) {
 		toSerialize["computedPlannedDuration"] = o.ComputedPlannedDuration
 	}
-	if !isNil(o.ActualDuration) {
+	if !IsNil(o.ActualDuration) {
 		toSerialize["actualDuration"] = o.ActualDuration
 	}
-	if !isNil(o.ReleaseUid) {
+	if !IsNil(o.ReleaseUid) {
 		toSerialize["releaseUid"] = o.ReleaseUid
 	}
-	if !isNil(o.Tasks) {
+	if !IsNil(o.Tasks) {
 		toSerialize["tasks"] = o.Tasks
 	}
-	if !isNil(o.Release) {
+	if o.Release != nil {
 		toSerialize["release"] = o.Release
 	}
-	if !isNil(o.Status) {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !isNil(o.Color) {
+	if !IsNil(o.Color) {
 		toSerialize["color"] = o.Color
 	}
-	if !isNil(o.OriginId) {
+	if !IsNil(o.OriginId) {
 		toSerialize["originId"] = o.OriginId
 	}
-	if !isNil(o.CurrentTask) {
+	if !IsNil(o.CurrentTask) {
 		toSerialize["currentTask"] = o.CurrentTask
 	}
-	if !isNil(o.DisplayPath) {
+	if !IsNil(o.DisplayPath) {
 		toSerialize["displayPath"] = o.DisplayPath
 	}
-	if !isNil(o.Active) {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	if !isNil(o.Done) {
+	if !IsNil(o.Done) {
 		toSerialize["done"] = o.Done
 	}
-	if !isNil(o.Defunct) {
+	if !IsNil(o.Defunct) {
 		toSerialize["defunct"] = o.Defunct
 	}
-	if !isNil(o.Updatable) {
+	if !IsNil(o.Updatable) {
 		toSerialize["updatable"] = o.Updatable
 	}
-	if !isNil(o.Aborted) {
+	if !IsNil(o.Aborted) {
 		toSerialize["aborted"] = o.Aborted
 	}
-	if !isNil(o.Planned) {
+	if !IsNil(o.Planned) {
 		toSerialize["planned"] = o.Planned
 	}
-	if !isNil(o.Failed) {
+	if !IsNil(o.Failed) {
 		toSerialize["failed"] = o.Failed
 	}
-	if !isNil(o.Failing) {
+	if !IsNil(o.Failing) {
 		toSerialize["failing"] = o.Failing
 	}
-	if !isNil(o.ReleaseOwner) {
+	if !IsNil(o.ReleaseOwner) {
 		toSerialize["releaseOwner"] = o.ReleaseOwner
 	}
-	if !isNil(o.AllGates) {
+	if !IsNil(o.AllGates) {
 		toSerialize["allGates"] = o.AllGates
 	}
-	if !isNil(o.AllTasks) {
+	if !IsNil(o.AllTasks) {
 		toSerialize["allTasks"] = o.AllTasks
 	}
-	if !isNil(o.Children) {
+	if !IsNil(o.Children) {
 		toSerialize["children"] = o.Children
 	}
-	if !isNil(o.VariableUsages) {
+	if !IsNil(o.VariableUsages) {
 		toSerialize["variableUsages"] = o.VariableUsages
 	}
-	if !isNil(o.Original) {
+	if !IsNil(o.Original) {
 		toSerialize["original"] = o.Original
 	}
-	if !isNil(o.PhaseCopied) {
+	if !IsNil(o.PhaseCopied) {
 		toSerialize["phaseCopied"] = o.PhaseCopied
 	}
-	if !isNil(o.AncestorId) {
+	if !IsNil(o.AncestorId) {
 		toSerialize["ancestorId"] = o.AncestorId
 	}
-	if !isNil(o.LatestCopy) {
+	if !IsNil(o.LatestCopy) {
 		toSerialize["latestCopy"] = o.LatestCopy
 	}
 	return toSerialize, nil
@@ -1680,5 +1755,3 @@ func (v *NullablePhase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

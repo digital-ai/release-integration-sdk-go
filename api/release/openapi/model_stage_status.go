@@ -20,8 +20,8 @@ type StageStatus string
 
 // List of StageStatus
 const (
-	OPEN StageStatus = "OPEN"
-	CLOSED StageStatus = "CLOSED"
+	STAGESTATUS_OPEN   StageStatus = "OPEN"
+	STAGESTATUS_CLOSED StageStatus = "CLOSED"
 )
 
 // All allowed values of StageStatus enum
@@ -108,4 +108,3 @@ func (v *NullableStageStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

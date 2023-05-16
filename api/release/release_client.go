@@ -3,28 +3,24 @@ package release
 import (
 	"encoding/base64"
 	"github.com/digital-ai/release-integration-sdk-go/api/release/openapi"
-	_ "github.com/digital-ai/release-integration-sdk-go/http"
 	"github.com/digital-ai/release-integration-sdk-go/task"
+	"net/url"
 )
 
-type ReleaseClient struct {
-	Client *openapi.APIClient
-}
-
-func NewReleaseClient(ctx task.ReleaseContext) *ReleaseClient {
-	client := NewReleaseApiClient(ctx)
-	return &ReleaseClient{Client: client}
-}
-
-func NewReleaseApiClient(ctx task.ReleaseContext) *openapi.APIClient {
+func NewReleaseApiClient(ctx task.ReleaseContext) (*openapi.APIClient, error) {
 	conf := openapi.NewConfiguration()
 	conf.DefaultHeader = map[string]string{
 		"Authorization": "Basic " + basicAuth(ctx.AutomatedTaskAsUser.Username, ctx.AutomatedTaskAsUser.Password),
 		"Content-Type":  "application/json",
 	}
-	conf.Host = ctx.Url
-	conf.Scheme = "http"
-	return openapi.NewAPIClient(conf)
+
+	baseUrl, err := url.Parse(ctx.Url)
+	if err != nil {
+		return nil, err
+	}
+
+	conf.Host = baseUrl.Host
+	return openapi.NewAPIClient(conf), nil
 }
 
 func basicAuth(username, password string) string {

@@ -12,6 +12,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the Trigger type satisfies the MappedNullable interface at compile time
@@ -19,19 +20,21 @@ var _ MappedNullable = &Trigger{}
 
 // Trigger struct for Trigger
 type Trigger struct {
-	Script *string `json:"script,omitempty"`
-	AbortScript *string `json:"abortScript,omitempty"`
-	CiUid *int32 `json:"ciUid,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Enabled *bool `json:"enabled,omitempty"`
-	TriggerState *string `json:"triggerState,omitempty"`
-	FolderId *string `json:"folderId,omitempty"`
-	AllowParallelExecution *bool `json:"allowParallelExecution,omitempty"`
-	LastRunDate *string `json:"lastRunDate,omitempty"`
-	LastRunStatus *TriggerExecutionStatus `json:"lastRunStatus,omitempty"`
-	InternalProperties []string `json:"internalProperties,omitempty"`
-	ContainerId *string `json:"containerId,omitempty"`
+	Id                     *string                 `json:"id,omitempty"`
+	Type                   *string                 `json:"type,omitempty"`
+	Script                 *string                 `json:"script,omitempty"`
+	AbortScript            *string                 `json:"abortScript,omitempty"`
+	CiUid                  *int32                  `json:"ciUid,omitempty"`
+	Title                  *string                 `json:"title,omitempty"`
+	Description            *string                 `json:"description,omitempty"`
+	Enabled                *bool                   `json:"enabled,omitempty"`
+	TriggerState           *string                 `json:"triggerState,omitempty"`
+	FolderId               *string                 `json:"folderId,omitempty"`
+	AllowParallelExecution *bool                   `json:"allowParallelExecution,omitempty"`
+	LastRunDate            *time.Time              `json:"lastRunDate,omitempty"`
+	LastRunStatus          *TriggerExecutionStatus `json:"lastRunStatus,omitempty"`
+	InternalProperties     []string                `json:"internalProperties,omitempty"`
+	ContainerId            *string                 `json:"containerId,omitempty"`
 }
 
 // NewTrigger instantiates a new Trigger object
@@ -51,9 +54,73 @@ func NewTriggerWithDefaults() *Trigger {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Trigger) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Trigger) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Trigger) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Trigger) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Trigger) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Trigger) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Trigger) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Trigger) SetType(v string) {
+	o.Type = &v
+}
+
 // GetScript returns the Script field value if set, zero value otherwise.
 func (o *Trigger) GetScript() string {
-	if o == nil || isNil(o.Script) {
+	if o == nil || IsNil(o.Script) {
 		var ret string
 		return ret
 	}
@@ -63,7 +130,7 @@ func (o *Trigger) GetScript() string {
 // GetScriptOk returns a tuple with the Script field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetScriptOk() (*string, bool) {
-	if o == nil || isNil(o.Script) {
+	if o == nil || IsNil(o.Script) {
 		return nil, false
 	}
 	return o.Script, true
@@ -71,7 +138,7 @@ func (o *Trigger) GetScriptOk() (*string, bool) {
 
 // HasScript returns a boolean if a field has been set.
 func (o *Trigger) HasScript() bool {
-	if o != nil && !isNil(o.Script) {
+	if o != nil && !IsNil(o.Script) {
 		return true
 	}
 
@@ -85,7 +152,7 @@ func (o *Trigger) SetScript(v string) {
 
 // GetAbortScript returns the AbortScript field value if set, zero value otherwise.
 func (o *Trigger) GetAbortScript() string {
-	if o == nil || isNil(o.AbortScript) {
+	if o == nil || IsNil(o.AbortScript) {
 		var ret string
 		return ret
 	}
@@ -95,7 +162,7 @@ func (o *Trigger) GetAbortScript() string {
 // GetAbortScriptOk returns a tuple with the AbortScript field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetAbortScriptOk() (*string, bool) {
-	if o == nil || isNil(o.AbortScript) {
+	if o == nil || IsNil(o.AbortScript) {
 		return nil, false
 	}
 	return o.AbortScript, true
@@ -103,7 +170,7 @@ func (o *Trigger) GetAbortScriptOk() (*string, bool) {
 
 // HasAbortScript returns a boolean if a field has been set.
 func (o *Trigger) HasAbortScript() bool {
-	if o != nil && !isNil(o.AbortScript) {
+	if o != nil && !IsNil(o.AbortScript) {
 		return true
 	}
 
@@ -117,7 +184,7 @@ func (o *Trigger) SetAbortScript(v string) {
 
 // GetCiUid returns the CiUid field value if set, zero value otherwise.
 func (o *Trigger) GetCiUid() int32 {
-	if o == nil || isNil(o.CiUid) {
+	if o == nil || IsNil(o.CiUid) {
 		var ret int32
 		return ret
 	}
@@ -127,7 +194,7 @@ func (o *Trigger) GetCiUid() int32 {
 // GetCiUidOk returns a tuple with the CiUid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetCiUidOk() (*int32, bool) {
-	if o == nil || isNil(o.CiUid) {
+	if o == nil || IsNil(o.CiUid) {
 		return nil, false
 	}
 	return o.CiUid, true
@@ -135,7 +202,7 @@ func (o *Trigger) GetCiUidOk() (*int32, bool) {
 
 // HasCiUid returns a boolean if a field has been set.
 func (o *Trigger) HasCiUid() bool {
-	if o != nil && !isNil(o.CiUid) {
+	if o != nil && !IsNil(o.CiUid) {
 		return true
 	}
 
@@ -149,7 +216,7 @@ func (o *Trigger) SetCiUid(v int32) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *Trigger) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -159,7 +226,7 @@ func (o *Trigger) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -167,7 +234,7 @@ func (o *Trigger) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *Trigger) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -181,7 +248,7 @@ func (o *Trigger) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Trigger) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -191,7 +258,7 @@ func (o *Trigger) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -199,7 +266,7 @@ func (o *Trigger) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Trigger) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -213,7 +280,7 @@ func (o *Trigger) SetDescription(v string) {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *Trigger) GetEnabled() bool {
-	if o == nil || isNil(o.Enabled) {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -223,7 +290,7 @@ func (o *Trigger) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.Enabled) {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -231,7 +298,7 @@ func (o *Trigger) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *Trigger) HasEnabled() bool {
-	if o != nil && !isNil(o.Enabled) {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -245,7 +312,7 @@ func (o *Trigger) SetEnabled(v bool) {
 
 // GetTriggerState returns the TriggerState field value if set, zero value otherwise.
 func (o *Trigger) GetTriggerState() string {
-	if o == nil || isNil(o.TriggerState) {
+	if o == nil || IsNil(o.TriggerState) {
 		var ret string
 		return ret
 	}
@@ -255,7 +322,7 @@ func (o *Trigger) GetTriggerState() string {
 // GetTriggerStateOk returns a tuple with the TriggerState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetTriggerStateOk() (*string, bool) {
-	if o == nil || isNil(o.TriggerState) {
+	if o == nil || IsNil(o.TriggerState) {
 		return nil, false
 	}
 	return o.TriggerState, true
@@ -263,7 +330,7 @@ func (o *Trigger) GetTriggerStateOk() (*string, bool) {
 
 // HasTriggerState returns a boolean if a field has been set.
 func (o *Trigger) HasTriggerState() bool {
-	if o != nil && !isNil(o.TriggerState) {
+	if o != nil && !IsNil(o.TriggerState) {
 		return true
 	}
 
@@ -277,7 +344,7 @@ func (o *Trigger) SetTriggerState(v string) {
 
 // GetFolderId returns the FolderId field value if set, zero value otherwise.
 func (o *Trigger) GetFolderId() string {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		var ret string
 		return ret
 	}
@@ -287,7 +354,7 @@ func (o *Trigger) GetFolderId() string {
 // GetFolderIdOk returns a tuple with the FolderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetFolderIdOk() (*string, bool) {
-	if o == nil || isNil(o.FolderId) {
+	if o == nil || IsNil(o.FolderId) {
 		return nil, false
 	}
 	return o.FolderId, true
@@ -295,7 +362,7 @@ func (o *Trigger) GetFolderIdOk() (*string, bool) {
 
 // HasFolderId returns a boolean if a field has been set.
 func (o *Trigger) HasFolderId() bool {
-	if o != nil && !isNil(o.FolderId) {
+	if o != nil && !IsNil(o.FolderId) {
 		return true
 	}
 
@@ -309,7 +376,7 @@ func (o *Trigger) SetFolderId(v string) {
 
 // GetAllowParallelExecution returns the AllowParallelExecution field value if set, zero value otherwise.
 func (o *Trigger) GetAllowParallelExecution() bool {
-	if o == nil || isNil(o.AllowParallelExecution) {
+	if o == nil || IsNil(o.AllowParallelExecution) {
 		var ret bool
 		return ret
 	}
@@ -319,7 +386,7 @@ func (o *Trigger) GetAllowParallelExecution() bool {
 // GetAllowParallelExecutionOk returns a tuple with the AllowParallelExecution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetAllowParallelExecutionOk() (*bool, bool) {
-	if o == nil || isNil(o.AllowParallelExecution) {
+	if o == nil || IsNil(o.AllowParallelExecution) {
 		return nil, false
 	}
 	return o.AllowParallelExecution, true
@@ -327,7 +394,7 @@ func (o *Trigger) GetAllowParallelExecutionOk() (*bool, bool) {
 
 // HasAllowParallelExecution returns a boolean if a field has been set.
 func (o *Trigger) HasAllowParallelExecution() bool {
-	if o != nil && !isNil(o.AllowParallelExecution) {
+	if o != nil && !IsNil(o.AllowParallelExecution) {
 		return true
 	}
 
@@ -340,9 +407,9 @@ func (o *Trigger) SetAllowParallelExecution(v bool) {
 }
 
 // GetLastRunDate returns the LastRunDate field value if set, zero value otherwise.
-func (o *Trigger) GetLastRunDate() string {
-	if o == nil || isNil(o.LastRunDate) {
-		var ret string
+func (o *Trigger) GetLastRunDate() time.Time {
+	if o == nil || IsNil(o.LastRunDate) {
+		var ret time.Time
 		return ret
 	}
 	return *o.LastRunDate
@@ -350,8 +417,8 @@ func (o *Trigger) GetLastRunDate() string {
 
 // GetLastRunDateOk returns a tuple with the LastRunDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Trigger) GetLastRunDateOk() (*string, bool) {
-	if o == nil || isNil(o.LastRunDate) {
+func (o *Trigger) GetLastRunDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastRunDate) {
 		return nil, false
 	}
 	return o.LastRunDate, true
@@ -359,21 +426,21 @@ func (o *Trigger) GetLastRunDateOk() (*string, bool) {
 
 // HasLastRunDate returns a boolean if a field has been set.
 func (o *Trigger) HasLastRunDate() bool {
-	if o != nil && !isNil(o.LastRunDate) {
+	if o != nil && !IsNil(o.LastRunDate) {
 		return true
 	}
 
 	return false
 }
 
-// SetLastRunDate gets a reference to the given string and assigns it to the LastRunDate field.
-func (o *Trigger) SetLastRunDate(v string) {
+// SetLastRunDate gets a reference to the given time.Time and assigns it to the LastRunDate field.
+func (o *Trigger) SetLastRunDate(v time.Time) {
 	o.LastRunDate = &v
 }
 
 // GetLastRunStatus returns the LastRunStatus field value if set, zero value otherwise.
 func (o *Trigger) GetLastRunStatus() TriggerExecutionStatus {
-	if o == nil || isNil(o.LastRunStatus) {
+	if o == nil || IsNil(o.LastRunStatus) {
 		var ret TriggerExecutionStatus
 		return ret
 	}
@@ -383,7 +450,7 @@ func (o *Trigger) GetLastRunStatus() TriggerExecutionStatus {
 // GetLastRunStatusOk returns a tuple with the LastRunStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetLastRunStatusOk() (*TriggerExecutionStatus, bool) {
-	if o == nil || isNil(o.LastRunStatus) {
+	if o == nil || IsNil(o.LastRunStatus) {
 		return nil, false
 	}
 	return o.LastRunStatus, true
@@ -391,7 +458,7 @@ func (o *Trigger) GetLastRunStatusOk() (*TriggerExecutionStatus, bool) {
 
 // HasLastRunStatus returns a boolean if a field has been set.
 func (o *Trigger) HasLastRunStatus() bool {
-	if o != nil && !isNil(o.LastRunStatus) {
+	if o != nil && !IsNil(o.LastRunStatus) {
 		return true
 	}
 
@@ -405,7 +472,7 @@ func (o *Trigger) SetLastRunStatus(v TriggerExecutionStatus) {
 
 // GetInternalProperties returns the InternalProperties field value if set, zero value otherwise.
 func (o *Trigger) GetInternalProperties() []string {
-	if o == nil || isNil(o.InternalProperties) {
+	if o == nil || IsNil(o.InternalProperties) {
 		var ret []string
 		return ret
 	}
@@ -415,7 +482,7 @@ func (o *Trigger) GetInternalProperties() []string {
 // GetInternalPropertiesOk returns a tuple with the InternalProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetInternalPropertiesOk() ([]string, bool) {
-	if o == nil || isNil(o.InternalProperties) {
+	if o == nil || IsNil(o.InternalProperties) {
 		return nil, false
 	}
 	return o.InternalProperties, true
@@ -423,7 +490,7 @@ func (o *Trigger) GetInternalPropertiesOk() ([]string, bool) {
 
 // HasInternalProperties returns a boolean if a field has been set.
 func (o *Trigger) HasInternalProperties() bool {
-	if o != nil && !isNil(o.InternalProperties) {
+	if o != nil && !IsNil(o.InternalProperties) {
 		return true
 	}
 
@@ -437,7 +504,7 @@ func (o *Trigger) SetInternalProperties(v []string) {
 
 // GetContainerId returns the ContainerId field value if set, zero value otherwise.
 func (o *Trigger) GetContainerId() string {
-	if o == nil || isNil(o.ContainerId) {
+	if o == nil || IsNil(o.ContainerId) {
 		var ret string
 		return ret
 	}
@@ -447,7 +514,7 @@ func (o *Trigger) GetContainerId() string {
 // GetContainerIdOk returns a tuple with the ContainerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Trigger) GetContainerIdOk() (*string, bool) {
-	if o == nil || isNil(o.ContainerId) {
+	if o == nil || IsNil(o.ContainerId) {
 		return nil, false
 	}
 	return o.ContainerId, true
@@ -455,7 +522,7 @@ func (o *Trigger) GetContainerIdOk() (*string, bool) {
 
 // HasContainerId returns a boolean if a field has been set.
 func (o *Trigger) HasContainerId() bool {
-	if o != nil && !isNil(o.ContainerId) {
+	if o != nil && !IsNil(o.ContainerId) {
 		return true
 	}
 
@@ -468,7 +535,7 @@ func (o *Trigger) SetContainerId(v string) {
 }
 
 func (o Trigger) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -477,43 +544,49 @@ func (o Trigger) MarshalJSON() ([]byte, error) {
 
 func (o Trigger) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Script) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Script) {
 		toSerialize["script"] = o.Script
 	}
-	if !isNil(o.AbortScript) {
+	if !IsNil(o.AbortScript) {
 		toSerialize["abortScript"] = o.AbortScript
 	}
-	if !isNil(o.CiUid) {
+	if !IsNil(o.CiUid) {
 		toSerialize["ciUid"] = o.CiUid
 	}
-	if !isNil(o.Title) {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Enabled) {
+	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if !isNil(o.TriggerState) {
+	if !IsNil(o.TriggerState) {
 		toSerialize["triggerState"] = o.TriggerState
 	}
-	if !isNil(o.FolderId) {
+	if !IsNil(o.FolderId) {
 		toSerialize["folderId"] = o.FolderId
 	}
-	if !isNil(o.AllowParallelExecution) {
+	if !IsNil(o.AllowParallelExecution) {
 		toSerialize["allowParallelExecution"] = o.AllowParallelExecution
 	}
-	if !isNil(o.LastRunDate) {
+	if !IsNil(o.LastRunDate) {
 		toSerialize["lastRunDate"] = o.LastRunDate
 	}
-	if !isNil(o.LastRunStatus) {
+	if !IsNil(o.LastRunStatus) {
 		toSerialize["lastRunStatus"] = o.LastRunStatus
 	}
-	if !isNil(o.InternalProperties) {
+	if !IsNil(o.InternalProperties) {
 		toSerialize["internalProperties"] = o.InternalProperties
 	}
-	if !isNil(o.ContainerId) {
+	if !IsNil(o.ContainerId) {
 		toSerialize["containerId"] = o.ContainerId
 	}
 	return toSerialize, nil
@@ -554,5 +627,3 @@ func (v *NullableTrigger) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

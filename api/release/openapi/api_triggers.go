@@ -13,21 +13,20 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"strings"
 	"reflect"
+	"strings"
 )
-
 
 // TriggersApiService TriggersApi service
 type TriggersApiService service
 
 type ApiAddTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
-	trigger *Trigger
+	trigger    *Trigger
 }
 
 func (r ApiAddTriggerRequest) Trigger(trigger Trigger) ApiAddTriggerRequest {
@@ -42,24 +41,25 @@ func (r ApiAddTriggerRequest) Execute() (*Trigger, *http.Response, error) {
 /*
 AddTrigger Method for AddTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAddTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddTriggerRequest
 */
 func (a *TriggersApiService) AddTrigger(ctx context.Context) ApiAddTriggerRequest {
 	return ApiAddTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Trigger
+//
+//	@return Trigger
 func (a *TriggersApiService) AddTriggerExecute(r ApiAddTriggerRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Trigger
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.AddTrigger")
@@ -92,6 +92,20 @@ func (a *TriggersApiService) AddTriggerExecute(r ApiAddTriggerRequest) (*Trigger
 	}
 	// body params
 	localVarPostBody = r.trigger
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -102,9 +116,9 @@ func (a *TriggersApiService) AddTriggerExecute(r ApiAddTriggerRequest) (*Trigger
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -130,7 +144,7 @@ func (a *TriggersApiService) AddTriggerExecute(r ApiAddTriggerRequest) (*Trigger
 }
 
 type ApiDisableAllTriggersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
 }
 
@@ -141,24 +155,25 @@ func (r ApiDisableAllTriggersRequest) Execute() (*BulkActionResultView, *http.Re
 /*
 DisableAllTriggers Method for DisableAllTriggers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDisableAllTriggersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDisableAllTriggersRequest
 */
 func (a *TriggersApiService) DisableAllTriggers(ctx context.Context) ApiDisableAllTriggersRequest {
 	return ApiDisableAllTriggersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return BulkActionResultView
+//
+//	@return BulkActionResultView
 func (a *TriggersApiService) DisableAllTriggersExecute(r ApiDisableAllTriggersRequest) (*BulkActionResultView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BulkActionResultView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BulkActionResultView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.DisableAllTriggers")
@@ -189,6 +204,20 @@ func (a *TriggersApiService) DisableAllTriggersExecute(r ApiDisableAllTriggersRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -199,9 +228,9 @@ func (a *TriggersApiService) DisableAllTriggersExecute(r ApiDisableAllTriggersRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -227,9 +256,9 @@ func (a *TriggersApiService) DisableAllTriggersExecute(r ApiDisableAllTriggersRe
 }
 
 type ApiDisableTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
-	triggerId string
+	triggerId  string
 }
 
 func (r ApiDisableTriggerRequest) Execute() (*http.Response, error) {
@@ -239,24 +268,24 @@ func (r ApiDisableTriggerRequest) Execute() (*http.Response, error) {
 /*
 DisableTrigger Method for DisableTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param triggerId
- @return ApiDisableTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param triggerId
+	@return ApiDisableTriggerRequest
 */
 func (a *TriggersApiService) DisableTrigger(ctx context.Context, triggerId string) ApiDisableTriggerRequest {
 	return ApiDisableTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
-		triggerId: triggerId,
+		ctx:        ctx,
+		triggerId:  triggerId,
 	}
 }
 
 // Execute executes the request
 func (a *TriggersApiService) DisableTriggerExecute(r ApiDisableTriggerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.DisableTrigger")
@@ -288,6 +317,20 @@ func (a *TriggersApiService) DisableTriggerExecute(r ApiDisableTriggerRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -298,9 +341,9 @@ func (a *TriggersApiService) DisableTriggerExecute(r ApiDisableTriggerRequest) (
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -317,8 +360,8 @@ func (a *TriggersApiService) DisableTriggerExecute(r ApiDisableTriggerRequest) (
 }
 
 type ApiDisableTriggersRequest struct {
-	ctx context.Context
-	ApiService *TriggersApiService
+	ctx         context.Context
+	ApiService  *TriggersApiService
 	requestBody *[]string
 }
 
@@ -334,24 +377,25 @@ func (r ApiDisableTriggersRequest) Execute() (*BulkActionResultView, *http.Respo
 /*
 DisableTriggers Method for DisableTriggers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDisableTriggersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDisableTriggersRequest
 */
 func (a *TriggersApiService) DisableTriggers(ctx context.Context) ApiDisableTriggersRequest {
 	return ApiDisableTriggersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return BulkActionResultView
+//
+//	@return BulkActionResultView
 func (a *TriggersApiService) DisableTriggersExecute(r ApiDisableTriggersRequest) (*BulkActionResultView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BulkActionResultView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BulkActionResultView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.DisableTriggers")
@@ -384,6 +428,20 @@ func (a *TriggersApiService) DisableTriggersExecute(r ApiDisableTriggersRequest)
 	}
 	// body params
 	localVarPostBody = r.requestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -394,9 +452,9 @@ func (a *TriggersApiService) DisableTriggersExecute(r ApiDisableTriggersRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -422,7 +480,7 @@ func (a *TriggersApiService) DisableTriggersExecute(r ApiDisableTriggersRequest)
 }
 
 type ApiEnableAllTriggersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
 }
 
@@ -433,24 +491,25 @@ func (r ApiEnableAllTriggersRequest) Execute() (*BulkActionResultView, *http.Res
 /*
 EnableAllTriggers Method for EnableAllTriggers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiEnableAllTriggersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiEnableAllTriggersRequest
 */
 func (a *TriggersApiService) EnableAllTriggers(ctx context.Context) ApiEnableAllTriggersRequest {
 	return ApiEnableAllTriggersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return BulkActionResultView
+//
+//	@return BulkActionResultView
 func (a *TriggersApiService) EnableAllTriggersExecute(r ApiEnableAllTriggersRequest) (*BulkActionResultView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BulkActionResultView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BulkActionResultView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.EnableAllTriggers")
@@ -481,6 +540,20 @@ func (a *TriggersApiService) EnableAllTriggersExecute(r ApiEnableAllTriggersRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -491,9 +564,9 @@ func (a *TriggersApiService) EnableAllTriggersExecute(r ApiEnableAllTriggersRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -519,9 +592,9 @@ func (a *TriggersApiService) EnableAllTriggersExecute(r ApiEnableAllTriggersRequ
 }
 
 type ApiEnableTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
-	triggerId string
+	triggerId  string
 }
 
 func (r ApiEnableTriggerRequest) Execute() (*http.Response, error) {
@@ -531,24 +604,24 @@ func (r ApiEnableTriggerRequest) Execute() (*http.Response, error) {
 /*
 EnableTrigger Method for EnableTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param triggerId
- @return ApiEnableTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param triggerId
+	@return ApiEnableTriggerRequest
 */
 func (a *TriggersApiService) EnableTrigger(ctx context.Context, triggerId string) ApiEnableTriggerRequest {
 	return ApiEnableTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
-		triggerId: triggerId,
+		ctx:        ctx,
+		triggerId:  triggerId,
 	}
 }
 
 // Execute executes the request
 func (a *TriggersApiService) EnableTriggerExecute(r ApiEnableTriggerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.EnableTrigger")
@@ -580,6 +653,20 @@ func (a *TriggersApiService) EnableTriggerExecute(r ApiEnableTriggerRequest) (*h
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -590,9 +677,9 @@ func (a *TriggersApiService) EnableTriggerExecute(r ApiEnableTriggerRequest) (*h
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -609,8 +696,8 @@ func (a *TriggersApiService) EnableTriggerExecute(r ApiEnableTriggerRequest) (*h
 }
 
 type ApiEnableTriggersRequest struct {
-	ctx context.Context
-	ApiService *TriggersApiService
+	ctx         context.Context
+	ApiService  *TriggersApiService
 	requestBody *[]string
 }
 
@@ -626,24 +713,25 @@ func (r ApiEnableTriggersRequest) Execute() (*BulkActionResultView, *http.Respon
 /*
 EnableTriggers Method for EnableTriggers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiEnableTriggersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiEnableTriggersRequest
 */
 func (a *TriggersApiService) EnableTriggers(ctx context.Context) ApiEnableTriggersRequest {
 	return ApiEnableTriggersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return BulkActionResultView
+//
+//	@return BulkActionResultView
 func (a *TriggersApiService) EnableTriggersExecute(r ApiEnableTriggersRequest) (*BulkActionResultView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *BulkActionResultView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BulkActionResultView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.EnableTriggers")
@@ -676,6 +764,20 @@ func (a *TriggersApiService) EnableTriggersExecute(r ApiEnableTriggersRequest) (
 	}
 	// body params
 	localVarPostBody = r.requestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -686,9 +788,9 @@ func (a *TriggersApiService) EnableTriggersExecute(r ApiEnableTriggersRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -714,9 +816,9 @@ func (a *TriggersApiService) EnableTriggersExecute(r ApiEnableTriggersRequest) (
 }
 
 type ApiGetTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
-	triggerId string
+	triggerId  string
 }
 
 func (r ApiGetTriggerRequest) Execute() (*Trigger, *http.Response, error) {
@@ -726,26 +828,27 @@ func (r ApiGetTriggerRequest) Execute() (*Trigger, *http.Response, error) {
 /*
 GetTrigger Method for GetTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param triggerId
- @return ApiGetTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param triggerId
+	@return ApiGetTriggerRequest
 */
 func (a *TriggersApiService) GetTrigger(ctx context.Context, triggerId string) ApiGetTriggerRequest {
 	return ApiGetTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
-		triggerId: triggerId,
+		ctx:        ctx,
+		triggerId:  triggerId,
 	}
 }
 
 // Execute executes the request
-//  @return Trigger
+//
+//	@return Trigger
 func (a *TriggersApiService) GetTriggerExecute(r ApiGetTriggerRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Trigger
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.GetTrigger")
@@ -777,6 +880,20 @@ func (a *TriggersApiService) GetTriggerExecute(r ApiGetTriggerRequest) (*Trigger
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -787,9 +904,9 @@ func (a *TriggersApiService) GetTriggerExecute(r ApiGetTriggerRequest) (*Trigger
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -815,7 +932,7 @@ func (a *TriggersApiService) GetTriggerExecute(r ApiGetTriggerRequest) (*Trigger
 }
 
 type ApiGetTypesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
 }
 
@@ -826,24 +943,25 @@ func (r ApiGetTypesRequest) Execute() ([]interface{}, *http.Response, error) {
 /*
 GetTypes Method for GetTypes
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTypesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTypesRequest
 */
 func (a *TriggersApiService) GetTypes(ctx context.Context) ApiGetTypesRequest {
 	return ApiGetTypesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []interface{}
+//
+//	@return []interface{}
 func (a *TriggersApiService) GetTypesExecute(r ApiGetTypesRequest) ([]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.GetTypes")
@@ -874,6 +992,20 @@ func (a *TriggersApiService) GetTypesExecute(r ApiGetTypesRequest) ([]interface{
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -884,9 +1016,9 @@ func (a *TriggersApiService) GetTypesExecute(r ApiGetTypesRequest) ([]interface{
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -912,9 +1044,9 @@ func (a *TriggersApiService) GetTypesExecute(r ApiGetTypesRequest) ([]interface{
 }
 
 type ApiRemoveTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
-	triggerId string
+	triggerId  string
 }
 
 func (r ApiRemoveTriggerRequest) Execute() (*http.Response, error) {
@@ -924,24 +1056,24 @@ func (r ApiRemoveTriggerRequest) Execute() (*http.Response, error) {
 /*
 RemoveTrigger Method for RemoveTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param triggerId
- @return ApiRemoveTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param triggerId
+	@return ApiRemoveTriggerRequest
 */
 func (a *TriggersApiService) RemoveTrigger(ctx context.Context, triggerId string) ApiRemoveTriggerRequest {
 	return ApiRemoveTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
-		triggerId: triggerId,
+		ctx:        ctx,
+		triggerId:  triggerId,
 	}
 }
 
 // Execute executes the request
 func (a *TriggersApiService) RemoveTriggerExecute(r ApiRemoveTriggerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.RemoveTrigger")
@@ -973,6 +1105,20 @@ func (a *TriggersApiService) RemoveTriggerExecute(r ApiRemoveTriggerRequest) (*h
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -983,9 +1129,9 @@ func (a *TriggersApiService) RemoveTriggerExecute(r ApiRemoveTriggerRequest) (*h
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1002,9 +1148,9 @@ func (a *TriggersApiService) RemoveTriggerExecute(r ApiRemoveTriggerRequest) (*h
 }
 
 type ApiRunTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
-	triggerId string
+	triggerId  string
 }
 
 func (r ApiRunTriggerRequest) Execute() (*http.Response, error) {
@@ -1014,24 +1160,24 @@ func (r ApiRunTriggerRequest) Execute() (*http.Response, error) {
 /*
 RunTrigger Method for RunTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param triggerId
- @return ApiRunTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param triggerId
+	@return ApiRunTriggerRequest
 */
 func (a *TriggersApiService) RunTrigger(ctx context.Context, triggerId string) ApiRunTriggerRequest {
 	return ApiRunTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
-		triggerId: triggerId,
+		ctx:        ctx,
+		triggerId:  triggerId,
 	}
 }
 
 // Execute executes the request
 func (a *TriggersApiService) RunTriggerExecute(r ApiRunTriggerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.RunTrigger")
@@ -1063,6 +1209,20 @@ func (a *TriggersApiService) RunTriggerExecute(r ApiRunTriggerRequest) (*http.Re
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1073,9 +1233,9 @@ func (a *TriggersApiService) RunTriggerExecute(r ApiRunTriggerRequest) (*http.Re
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1092,16 +1252,16 @@ func (a *TriggersApiService) RunTriggerExecute(r ApiRunTriggerRequest) (*http.Re
 }
 
 type ApiSearchTriggersRequest struct {
-	ctx context.Context
-	ApiService *TriggersApiService
-	folderId *string
-	folderTitle *string
-	page *int32
+	ctx            context.Context
+	ApiService     *TriggersApiService
+	folderId       *string
+	folderTitle    *string
+	page           *int32
 	resultsPerPage *int32
-	templateId *string
-	templateTitle *string
-	triggerTitle *string
-	triggerType *[]string
+	templateId     *string
+	templateTitle  *string
+	triggerTitle   *string
+	triggerType    *[]string
 }
 
 func (r ApiSearchTriggersRequest) FolderId(folderId string) ApiSearchTriggersRequest {
@@ -1151,24 +1311,25 @@ func (r ApiSearchTriggersRequest) Execute() (map[string]interface{}, *http.Respo
 /*
 SearchTriggers Method for SearchTriggers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchTriggersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchTriggersRequest
 */
 func (a *TriggersApiService) SearchTriggers(ctx context.Context) ApiSearchTriggersRequest {
 	return ApiSearchTriggersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
+//
+//	@return map[string]interface{}
 func (a *TriggersApiService) SearchTriggersExecute(r ApiSearchTriggersRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  map[string]interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.SearchTriggers")
@@ -1183,35 +1344,35 @@ func (a *TriggersApiService) SearchTriggersExecute(r ApiSearchTriggersRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.folderId != nil {
-		parameterAddToQuery(localVarQueryParams, "folderId", r.folderId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folderId", r.folderId, "")
 	}
 	if r.folderTitle != nil {
-		parameterAddToQuery(localVarQueryParams, "folderTitle", r.folderTitle, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folderTitle", r.folderTitle, "")
 	}
 	if r.page != nil {
-		parameterAddToQuery(localVarQueryParams, "page", r.page, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	if r.resultsPerPage != nil {
-		parameterAddToQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resultsPerPage", r.resultsPerPage, "")
 	}
 	if r.templateId != nil {
-		parameterAddToQuery(localVarQueryParams, "templateId", r.templateId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "templateId", r.templateId, "")
 	}
 	if r.templateTitle != nil {
-		parameterAddToQuery(localVarQueryParams, "templateTitle", r.templateTitle, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "templateTitle", r.templateTitle, "")
 	}
 	if r.triggerTitle != nil {
-		parameterAddToQuery(localVarQueryParams, "triggerTitle", r.triggerTitle, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggerTitle", r.triggerTitle, "")
 	}
 	if r.triggerType != nil {
 		t := *r.triggerType
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToQuery(localVarQueryParams, "triggerType", s.Index(i), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "triggerType", s.Index(i), "multi")
 			}
 		} else {
-			parameterAddToQuery(localVarQueryParams, "triggerType", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "triggerType", t, "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -1231,6 +1392,20 @@ func (a *TriggersApiService) SearchTriggersExecute(r ApiSearchTriggersRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1241,9 +1416,9 @@ func (a *TriggersApiService) SearchTriggersExecute(r ApiSearchTriggersRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1269,10 +1444,10 @@ func (a *TriggersApiService) SearchTriggersExecute(r ApiSearchTriggersRequest) (
 }
 
 type ApiUpdateTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggersApiService
-	triggerId string
-	trigger *Trigger
+	triggerId  string
+	trigger    *Trigger
 }
 
 func (r ApiUpdateTriggerRequest) Trigger(trigger Trigger) ApiUpdateTriggerRequest {
@@ -1287,26 +1462,27 @@ func (r ApiUpdateTriggerRequest) Execute() (*Trigger, *http.Response, error) {
 /*
 UpdateTrigger Method for UpdateTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param triggerId
- @return ApiUpdateTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param triggerId
+	@return ApiUpdateTriggerRequest
 */
 func (a *TriggersApiService) UpdateTrigger(ctx context.Context, triggerId string) ApiUpdateTriggerRequest {
 	return ApiUpdateTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
-		triggerId: triggerId,
+		ctx:        ctx,
+		triggerId:  triggerId,
 	}
 }
 
 // Execute executes the request
-//  @return Trigger
+//
+//	@return Trigger
 func (a *TriggersApiService) UpdateTriggerExecute(r ApiUpdateTriggerRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Trigger
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggersApiService.UpdateTrigger")
@@ -1340,6 +1516,20 @@ func (a *TriggersApiService) UpdateTriggerExecute(r ApiUpdateTriggerRequest) (*T
 	}
 	// body params
 	localVarPostBody = r.trigger
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1350,9 +1540,9 @@ func (a *TriggersApiService) UpdateTriggerExecute(r ApiUpdateTriggerRequest) (*T
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

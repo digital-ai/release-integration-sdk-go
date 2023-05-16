@@ -1,6 +1,6 @@
 # \ReportApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:5516*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -26,7 +26,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReportApi.DownloadReleaseReport(context.Background(), releaseId, reportType).Execute()
+    r, err := apiClient.ReportApi.DownloadReleaseReport(context.Background(), releaseId, reportType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ReportApi.DownloadReleaseReport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -95,7 +95,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -163,7 +163,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -231,7 +231,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 

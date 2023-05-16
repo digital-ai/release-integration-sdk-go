@@ -19,13 +19,15 @@ var _ MappedNullable = &RiskAssessor{}
 
 // RiskAssessor struct for RiskAssessor
 type RiskAssessor struct {
-	Title *string `json:"title,omitempty"`
+	Id          *string `json:"id,omitempty"`
+	Type        *string `json:"type,omitempty"`
+	Title       *string `json:"title,omitempty"`
 	Description *string `json:"description,omitempty"`
-	Weight *int32 `json:"weight,omitempty"`
-	Score *int32 `json:"score,omitempty"`
-	Order *string `json:"order,omitempty"`
-	Group *string `json:"group,omitempty"`
-	Icon *string `json:"icon,omitempty"`
+	Weight      *int32  `json:"weight,omitempty"`
+	Score       *int32  `json:"score,omitempty"`
+	Order       *string `json:"order,omitempty"`
+	Group       *string `json:"group,omitempty"`
+	Icon        *string `json:"icon,omitempty"`
 }
 
 // NewRiskAssessor instantiates a new RiskAssessor object
@@ -45,9 +47,73 @@ func NewRiskAssessorWithDefaults() *RiskAssessor {
 	return &this
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *RiskAssessor) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RiskAssessor) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *RiskAssessor) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *RiskAssessor) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *RiskAssessor) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RiskAssessor) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *RiskAssessor) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *RiskAssessor) SetType(v string) {
+	o.Type = &v
+}
+
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *RiskAssessor) GetTitle() string {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -57,7 +123,7 @@ func (o *RiskAssessor) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessor) GetTitleOk() (*string, bool) {
-	if o == nil || isNil(o.Title) {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -65,7 +131,7 @@ func (o *RiskAssessor) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *RiskAssessor) HasTitle() bool {
-	if o != nil && !isNil(o.Title) {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -79,7 +145,7 @@ func (o *RiskAssessor) SetTitle(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RiskAssessor) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -89,7 +155,7 @@ func (o *RiskAssessor) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessor) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -97,7 +163,7 @@ func (o *RiskAssessor) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RiskAssessor) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -111,7 +177,7 @@ func (o *RiskAssessor) SetDescription(v string) {
 
 // GetWeight returns the Weight field value if set, zero value otherwise.
 func (o *RiskAssessor) GetWeight() int32 {
-	if o == nil || isNil(o.Weight) {
+	if o == nil || IsNil(o.Weight) {
 		var ret int32
 		return ret
 	}
@@ -121,7 +187,7 @@ func (o *RiskAssessor) GetWeight() int32 {
 // GetWeightOk returns a tuple with the Weight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessor) GetWeightOk() (*int32, bool) {
-	if o == nil || isNil(o.Weight) {
+	if o == nil || IsNil(o.Weight) {
 		return nil, false
 	}
 	return o.Weight, true
@@ -129,7 +195,7 @@ func (o *RiskAssessor) GetWeightOk() (*int32, bool) {
 
 // HasWeight returns a boolean if a field has been set.
 func (o *RiskAssessor) HasWeight() bool {
-	if o != nil && !isNil(o.Weight) {
+	if o != nil && !IsNil(o.Weight) {
 		return true
 	}
 
@@ -143,7 +209,7 @@ func (o *RiskAssessor) SetWeight(v int32) {
 
 // GetScore returns the Score field value if set, zero value otherwise.
 func (o *RiskAssessor) GetScore() int32 {
-	if o == nil || isNil(o.Score) {
+	if o == nil || IsNil(o.Score) {
 		var ret int32
 		return ret
 	}
@@ -153,7 +219,7 @@ func (o *RiskAssessor) GetScore() int32 {
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessor) GetScoreOk() (*int32, bool) {
-	if o == nil || isNil(o.Score) {
+	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
 	return o.Score, true
@@ -161,7 +227,7 @@ func (o *RiskAssessor) GetScoreOk() (*int32, bool) {
 
 // HasScore returns a boolean if a field has been set.
 func (o *RiskAssessor) HasScore() bool {
-	if o != nil && !isNil(o.Score) {
+	if o != nil && !IsNil(o.Score) {
 		return true
 	}
 
@@ -175,7 +241,7 @@ func (o *RiskAssessor) SetScore(v int32) {
 
 // GetOrder returns the Order field value if set, zero value otherwise.
 func (o *RiskAssessor) GetOrder() string {
-	if o == nil || isNil(o.Order) {
+	if o == nil || IsNil(o.Order) {
 		var ret string
 		return ret
 	}
@@ -185,7 +251,7 @@ func (o *RiskAssessor) GetOrder() string {
 // GetOrderOk returns a tuple with the Order field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessor) GetOrderOk() (*string, bool) {
-	if o == nil || isNil(o.Order) {
+	if o == nil || IsNil(o.Order) {
 		return nil, false
 	}
 	return o.Order, true
@@ -193,7 +259,7 @@ func (o *RiskAssessor) GetOrderOk() (*string, bool) {
 
 // HasOrder returns a boolean if a field has been set.
 func (o *RiskAssessor) HasOrder() bool {
-	if o != nil && !isNil(o.Order) {
+	if o != nil && !IsNil(o.Order) {
 		return true
 	}
 
@@ -207,7 +273,7 @@ func (o *RiskAssessor) SetOrder(v string) {
 
 // GetGroup returns the Group field value if set, zero value otherwise.
 func (o *RiskAssessor) GetGroup() string {
-	if o == nil || isNil(o.Group) {
+	if o == nil || IsNil(o.Group) {
 		var ret string
 		return ret
 	}
@@ -217,7 +283,7 @@ func (o *RiskAssessor) GetGroup() string {
 // GetGroupOk returns a tuple with the Group field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessor) GetGroupOk() (*string, bool) {
-	if o == nil || isNil(o.Group) {
+	if o == nil || IsNil(o.Group) {
 		return nil, false
 	}
 	return o.Group, true
@@ -225,7 +291,7 @@ func (o *RiskAssessor) GetGroupOk() (*string, bool) {
 
 // HasGroup returns a boolean if a field has been set.
 func (o *RiskAssessor) HasGroup() bool {
-	if o != nil && !isNil(o.Group) {
+	if o != nil && !IsNil(o.Group) {
 		return true
 	}
 
@@ -239,7 +305,7 @@ func (o *RiskAssessor) SetGroup(v string) {
 
 // GetIcon returns the Icon field value if set, zero value otherwise.
 func (o *RiskAssessor) GetIcon() string {
-	if o == nil || isNil(o.Icon) {
+	if o == nil || IsNil(o.Icon) {
 		var ret string
 		return ret
 	}
@@ -249,7 +315,7 @@ func (o *RiskAssessor) GetIcon() string {
 // GetIconOk returns a tuple with the Icon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskAssessor) GetIconOk() (*string, bool) {
-	if o == nil || isNil(o.Icon) {
+	if o == nil || IsNil(o.Icon) {
 		return nil, false
 	}
 	return o.Icon, true
@@ -257,7 +323,7 @@ func (o *RiskAssessor) GetIconOk() (*string, bool) {
 
 // HasIcon returns a boolean if a field has been set.
 func (o *RiskAssessor) HasIcon() bool {
-	if o != nil && !isNil(o.Icon) {
+	if o != nil && !IsNil(o.Icon) {
 		return true
 	}
 
@@ -270,7 +336,7 @@ func (o *RiskAssessor) SetIcon(v string) {
 }
 
 func (o RiskAssessor) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -279,25 +345,31 @@ func (o RiskAssessor) MarshalJSON() ([]byte, error) {
 
 func (o RiskAssessor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Title) {
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !isNil(o.Description) {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !isNil(o.Weight) {
+	if !IsNil(o.Weight) {
 		toSerialize["weight"] = o.Weight
 	}
-	if !isNil(o.Score) {
+	if !IsNil(o.Score) {
 		toSerialize["score"] = o.Score
 	}
-	if !isNil(o.Order) {
+	if !IsNil(o.Order) {
 		toSerialize["order"] = o.Order
 	}
-	if !isNil(o.Group) {
+	if !IsNil(o.Group) {
 		toSerialize["group"] = o.Group
 	}
-	if !isNil(o.Icon) {
+	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
 	}
 	return toSerialize, nil
@@ -338,5 +410,3 @@ func (v *NullableRiskAssessor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

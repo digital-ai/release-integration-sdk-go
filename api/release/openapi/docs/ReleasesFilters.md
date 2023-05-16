@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Tags** | Pointer to **[]string** |  | [optional] 
 **TaskTags** | Pointer to **[]string** |  | [optional] 
 **TimeFrame** | Pointer to [**TimeFrame**](TimeFrame.md) |  | [optional] 
-**From** | Pointer to **string** |  | [optional] 
-**To** | Pointer to **string** |  | [optional] 
+**From** | Pointer to **time.Time** |  | [optional] 
+**To** | Pointer to **time.Time** |  | [optional] 
 **Active** | Pointer to **bool** |  | [optional] 
 **Planned** | Pointer to **bool** |  | [optional] 
 **InProgress** | Pointer to **bool** |  | [optional] 
@@ -26,8 +26,8 @@ Name | Type | Description | Notes
 **OrderBy** | Pointer to [**ReleaseOrderMode**](ReleaseOrderMode.md) |  | [optional] 
 **OrderDirection** | Pointer to [**ReleaseOrderDirection**](ReleaseOrderDirection.md) |  | [optional] 
 **RiskStatusWithThresholds** | Pointer to [**RiskStatusWithThresholds**](RiskStatusWithThresholds.md) |  | [optional] 
-**QueryStartDate** | Pointer to **string** |  | [optional] 
-**QueryEndDate** | Pointer to **string** |  | [optional] 
+**QueryStartDate** | Pointer to **time.Time** |  | [optional] 
+**QueryEndDate** | Pointer to **time.Time** |  | [optional] 
 **Statuses** | Pointer to [**[]ReleaseStatus**](ReleaseStatus.md) |  | [optional] 
 
 ## Methods
@@ -151,20 +151,20 @@ HasTimeFrame returns a boolean if a field has been set.
 
 ### GetFrom
 
-`func (o *ReleasesFilters) GetFrom() string`
+`func (o *ReleasesFilters) GetFrom() time.Time`
 
 GetFrom returns the From field if non-nil, zero value otherwise.
 
 ### GetFromOk
 
-`func (o *ReleasesFilters) GetFromOk() (*string, bool)`
+`func (o *ReleasesFilters) GetFromOk() (*time.Time, bool)`
 
 GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFrom
 
-`func (o *ReleasesFilters) SetFrom(v string)`
+`func (o *ReleasesFilters) SetFrom(v time.Time)`
 
 SetFrom sets From field to given value.
 
@@ -176,20 +176,20 @@ HasFrom returns a boolean if a field has been set.
 
 ### GetTo
 
-`func (o *ReleasesFilters) GetTo() string`
+`func (o *ReleasesFilters) GetTo() time.Time`
 
 GetTo returns the To field if non-nil, zero value otherwise.
 
 ### GetToOk
 
-`func (o *ReleasesFilters) GetToOk() (*string, bool)`
+`func (o *ReleasesFilters) GetToOk() (*time.Time, bool)`
 
 GetToOk returns a tuple with the To field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTo
 
-`func (o *ReleasesFilters) SetTo(v string)`
+`func (o *ReleasesFilters) SetTo(v time.Time)`
 
 SetTo sets To field to given value.
 
@@ -601,20 +601,20 @@ HasRiskStatusWithThresholds returns a boolean if a field has been set.
 
 ### GetQueryStartDate
 
-`func (o *ReleasesFilters) GetQueryStartDate() string`
+`func (o *ReleasesFilters) GetQueryStartDate() time.Time`
 
 GetQueryStartDate returns the QueryStartDate field if non-nil, zero value otherwise.
 
 ### GetQueryStartDateOk
 
-`func (o *ReleasesFilters) GetQueryStartDateOk() (*string, bool)`
+`func (o *ReleasesFilters) GetQueryStartDateOk() (*time.Time, bool)`
 
 GetQueryStartDateOk returns a tuple with the QueryStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueryStartDate
 
-`func (o *ReleasesFilters) SetQueryStartDate(v string)`
+`func (o *ReleasesFilters) SetQueryStartDate(v time.Time)`
 
 SetQueryStartDate sets QueryStartDate field to given value.
 
@@ -626,20 +626,20 @@ HasQueryStartDate returns a boolean if a field has been set.
 
 ### GetQueryEndDate
 
-`func (o *ReleasesFilters) GetQueryEndDate() string`
+`func (o *ReleasesFilters) GetQueryEndDate() time.Time`
 
 GetQueryEndDate returns the QueryEndDate field if non-nil, zero value otherwise.
 
 ### GetQueryEndDateOk
 
-`func (o *ReleasesFilters) GetQueryEndDateOk() (*string, bool)`
+`func (o *ReleasesFilters) GetQueryEndDateOk() (*time.Time, bool)`
 
 GetQueryEndDateOk returns a tuple with the QueryEndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQueryEndDate
 
-`func (o *ReleasesFilters) SetQueryEndDate(v string)`
+`func (o *ReleasesFilters) SetQueryEndDate(v time.Time)`
 
 SetQueryEndDate sets QueryEndDate field to given value.
 

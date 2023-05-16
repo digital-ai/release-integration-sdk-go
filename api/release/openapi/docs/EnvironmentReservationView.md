@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
 **Note** | Pointer to **string** |  | [optional] 
 **Environment** | Pointer to [**EnvironmentView**](EnvironmentView.md) |  | [optional] 
 **Applications** | Pointer to [**[]BaseApplicationView**](BaseApplicationView.md) |  | [optional] 
@@ -57,20 +57,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *EnvironmentReservationView) GetStartDate() string`
+`func (o *EnvironmentReservationView) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *EnvironmentReservationView) GetStartDateOk() (*string, bool)`
+`func (o *EnvironmentReservationView) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *EnvironmentReservationView) SetStartDate(v string)`
+`func (o *EnvironmentReservationView) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -82,20 +82,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *EnvironmentReservationView) GetEndDate() string`
+`func (o *EnvironmentReservationView) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *EnvironmentReservationView) GetEndDateOk() (*string, bool)`
+`func (o *EnvironmentReservationView) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *EnvironmentReservationView) SetEndDate(v string)`
+`func (o *EnvironmentReservationView) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 

@@ -13,22 +13,21 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-
 // PhaseApiService PhaseApi service
 type PhaseApiService service
 
 type ApiAddPhaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PhaseApiService
-	releaseId string
-	position *int32
-	phase *Phase
+	releaseId  string
+	position   *int32
+	phase      *Phase
 }
 
 func (r ApiAddPhaseRequest) Position(position int32) ApiAddPhaseRequest {
@@ -48,26 +47,27 @@ func (r ApiAddPhaseRequest) Execute() (*Phase, *http.Response, error) {
 /*
 AddPhase Method for AddPhase
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param releaseId
- @return ApiAddPhaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param releaseId
+	@return ApiAddPhaseRequest
 */
 func (a *PhaseApiService) AddPhase(ctx context.Context, releaseId string) ApiAddPhaseRequest {
 	return ApiAddPhaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		releaseId: releaseId,
+		ctx:        ctx,
+		releaseId:  releaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Phase
+//
+//	@return Phase
 func (a *PhaseApiService) AddPhaseExecute(r ApiAddPhaseRequest) (*Phase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Phase
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Phase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PhaseApiService.AddPhase")
@@ -83,7 +83,7 @@ func (a *PhaseApiService) AddPhaseExecute(r ApiAddPhaseRequest) (*Phase, *http.R
 	localVarFormParams := url.Values{}
 
 	if r.position != nil {
-		parameterAddToQuery(localVarQueryParams, "position", r.position, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "position", r.position, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -104,6 +104,20 @@ func (a *PhaseApiService) AddPhaseExecute(r ApiAddPhaseRequest) (*Phase, *http.R
 	}
 	// body params
 	localVarPostBody = r.phase
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -114,9 +128,9 @@ func (a *PhaseApiService) AddPhaseExecute(r ApiAddPhaseRequest) (*Phase, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -142,11 +156,11 @@ func (a *PhaseApiService) AddPhaseExecute(r ApiAddPhaseRequest) (*Phase, *http.R
 }
 
 type ApiAddTaskToContainerRequest struct {
-	ctx context.Context
-	ApiService *PhaseApiService
+	ctx         context.Context
+	ApiService  *PhaseApiService
 	containerId string
-	position *int32
-	task *Task
+	position    *int32
+	task        *Task
 }
 
 func (r ApiAddTaskToContainerRequest) Position(position int32) ApiAddTaskToContainerRequest {
@@ -166,26 +180,27 @@ func (r ApiAddTaskToContainerRequest) Execute() (*Task, *http.Response, error) {
 /*
 AddTaskToContainer Method for AddTaskToContainer
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param containerId
- @return ApiAddTaskToContainerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param containerId
+	@return ApiAddTaskToContainerRequest
 */
 func (a *PhaseApiService) AddTaskToContainer(ctx context.Context, containerId string) ApiAddTaskToContainerRequest {
 	return ApiAddTaskToContainerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		containerId: containerId,
 	}
 }
 
 // Execute executes the request
-//  @return Task
+//
+//	@return Task
 func (a *PhaseApiService) AddTaskToContainerExecute(r ApiAddTaskToContainerRequest) (*Task, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Task
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Task
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PhaseApiService.AddTaskToContainer")
@@ -201,7 +216,7 @@ func (a *PhaseApiService) AddTaskToContainerExecute(r ApiAddTaskToContainerReque
 	localVarFormParams := url.Values{}
 
 	if r.position != nil {
-		parameterAddToQuery(localVarQueryParams, "position", r.position, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "position", r.position, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -222,6 +237,20 @@ func (a *PhaseApiService) AddTaskToContainerExecute(r ApiAddTaskToContainerReque
 	}
 	// body params
 	localVarPostBody = r.task
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -232,9 +261,9 @@ func (a *PhaseApiService) AddTaskToContainerExecute(r ApiAddTaskToContainerReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -260,9 +289,9 @@ func (a *PhaseApiService) AddTaskToContainerExecute(r ApiAddTaskToContainerReque
 }
 
 type ApiCopyPhaseRequest struct {
-	ctx context.Context
-	ApiService *PhaseApiService
-	phaseId string
+	ctx            context.Context
+	ApiService     *PhaseApiService
+	phaseId        string
 	targetPosition *int32
 }
 
@@ -278,26 +307,27 @@ func (r ApiCopyPhaseRequest) Execute() (*Phase, *http.Response, error) {
 /*
 CopyPhase Method for CopyPhase
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param phaseId
- @return ApiCopyPhaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param phaseId
+	@return ApiCopyPhaseRequest
 */
 func (a *PhaseApiService) CopyPhase(ctx context.Context, phaseId string) ApiCopyPhaseRequest {
 	return ApiCopyPhaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		phaseId: phaseId,
+		ctx:        ctx,
+		phaseId:    phaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Phase
+//
+//	@return Phase
 func (a *PhaseApiService) CopyPhaseExecute(r ApiCopyPhaseRequest) (*Phase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Phase
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Phase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PhaseApiService.CopyPhase")
@@ -313,7 +343,7 @@ func (a *PhaseApiService) CopyPhaseExecute(r ApiCopyPhaseRequest) (*Phase, *http
 	localVarFormParams := url.Values{}
 
 	if r.targetPosition != nil {
-		parameterAddToQuery(localVarQueryParams, "targetPosition", r.targetPosition, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "targetPosition", r.targetPosition, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -332,6 +362,20 @@ func (a *PhaseApiService) CopyPhaseExecute(r ApiCopyPhaseRequest) (*Phase, *http
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -342,9 +386,9 @@ func (a *PhaseApiService) CopyPhaseExecute(r ApiCopyPhaseRequest) (*Phase, *http
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -370,9 +414,9 @@ func (a *PhaseApiService) CopyPhaseExecute(r ApiCopyPhaseRequest) (*Phase, *http
 }
 
 type ApiDeletePhaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PhaseApiService
-	phaseId string
+	phaseId    string
 }
 
 func (r ApiDeletePhaseRequest) Execute() (*http.Response, error) {
@@ -382,24 +426,24 @@ func (r ApiDeletePhaseRequest) Execute() (*http.Response, error) {
 /*
 DeletePhase Method for DeletePhase
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param phaseId
- @return ApiDeletePhaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param phaseId
+	@return ApiDeletePhaseRequest
 */
 func (a *PhaseApiService) DeletePhase(ctx context.Context, phaseId string) ApiDeletePhaseRequest {
 	return ApiDeletePhaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		phaseId: phaseId,
+		ctx:        ctx,
+		phaseId:    phaseId,
 	}
 }
 
 // Execute executes the request
 func (a *PhaseApiService) DeletePhaseExecute(r ApiDeletePhaseRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PhaseApiService.DeletePhase")
@@ -431,6 +475,20 @@ func (a *PhaseApiService) DeletePhaseExecute(r ApiDeletePhaseRequest) (*http.Res
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -441,9 +499,9 @@ func (a *PhaseApiService) DeletePhaseExecute(r ApiDeletePhaseRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -460,9 +518,9 @@ func (a *PhaseApiService) DeletePhaseExecute(r ApiDeletePhaseRequest) (*http.Res
 }
 
 type ApiGetPhaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PhaseApiService
-	phaseId string
+	phaseId    string
 }
 
 func (r ApiGetPhaseRequest) Execute() (*Phase, *http.Response, error) {
@@ -472,26 +530,27 @@ func (r ApiGetPhaseRequest) Execute() (*Phase, *http.Response, error) {
 /*
 GetPhase Method for GetPhase
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param phaseId
- @return ApiGetPhaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param phaseId
+	@return ApiGetPhaseRequest
 */
 func (a *PhaseApiService) GetPhase(ctx context.Context, phaseId string) ApiGetPhaseRequest {
 	return ApiGetPhaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		phaseId: phaseId,
+		ctx:        ctx,
+		phaseId:    phaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Phase
+//
+//	@return Phase
 func (a *PhaseApiService) GetPhaseExecute(r ApiGetPhaseRequest) (*Phase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Phase
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Phase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PhaseApiService.GetPhase")
@@ -523,6 +582,20 @@ func (a *PhaseApiService) GetPhaseExecute(r ApiGetPhaseRequest) (*Phase, *http.R
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -533,9 +606,9 @@ func (a *PhaseApiService) GetPhaseExecute(r ApiGetPhaseRequest) (*Phase, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -561,11 +634,11 @@ func (a *PhaseApiService) GetPhaseExecute(r ApiGetPhaseRequest) (*Phase, *http.R
 }
 
 type ApiSearchPhasesRequest struct {
-	ctx context.Context
-	ApiService *PhaseApiService
-	phaseTitle *string
+	ctx          context.Context
+	ApiService   *PhaseApiService
+	phaseTitle   *string
 	phaseVersion *PhaseVersion
-	releaseId *string
+	releaseId    *string
 }
 
 func (r ApiSearchPhasesRequest) PhaseTitle(phaseTitle string) ApiSearchPhasesRequest {
@@ -590,24 +663,25 @@ func (r ApiSearchPhasesRequest) Execute() ([]Phase, *http.Response, error) {
 /*
 SearchPhases Method for SearchPhases
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchPhasesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchPhasesRequest
 */
 func (a *PhaseApiService) SearchPhases(ctx context.Context) ApiSearchPhasesRequest {
 	return ApiSearchPhasesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Phase
+//
+//	@return []Phase
 func (a *PhaseApiService) SearchPhasesExecute(r ApiSearchPhasesRequest) ([]Phase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Phase
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Phase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PhaseApiService.SearchPhases")
@@ -622,13 +696,13 @@ func (a *PhaseApiService) SearchPhasesExecute(r ApiSearchPhasesRequest) ([]Phase
 	localVarFormParams := url.Values{}
 
 	if r.phaseTitle != nil {
-		parameterAddToQuery(localVarQueryParams, "phaseTitle", r.phaseTitle, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "phaseTitle", r.phaseTitle, "")
 	}
 	if r.phaseVersion != nil {
-		parameterAddToQuery(localVarQueryParams, "phaseVersion", r.phaseVersion, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "phaseVersion", r.phaseVersion, "")
 	}
 	if r.releaseId != nil {
-		parameterAddToQuery(localVarQueryParams, "releaseId", r.releaseId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "releaseId", r.releaseId, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -647,6 +721,20 @@ func (a *PhaseApiService) SearchPhasesExecute(r ApiSearchPhasesRequest) ([]Phase
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -657,9 +745,9 @@ func (a *PhaseApiService) SearchPhasesExecute(r ApiSearchPhasesRequest) ([]Phase
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -685,10 +773,10 @@ func (a *PhaseApiService) SearchPhasesExecute(r ApiSearchPhasesRequest) ([]Phase
 }
 
 type ApiSearchPhasesByTitleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PhaseApiService
 	phaseTitle *string
-	releaseId *string
+	releaseId  *string
 }
 
 func (r ApiSearchPhasesByTitleRequest) PhaseTitle(phaseTitle string) ApiSearchPhasesByTitleRequest {
@@ -708,24 +796,25 @@ func (r ApiSearchPhasesByTitleRequest) Execute() ([]Phase, *http.Response, error
 /*
 SearchPhasesByTitle Method for SearchPhasesByTitle
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchPhasesByTitleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchPhasesByTitleRequest
 */
 func (a *PhaseApiService) SearchPhasesByTitle(ctx context.Context) ApiSearchPhasesByTitleRequest {
 	return ApiSearchPhasesByTitleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Phase
+//
+//	@return []Phase
 func (a *PhaseApiService) SearchPhasesByTitleExecute(r ApiSearchPhasesByTitleRequest) ([]Phase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Phase
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Phase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PhaseApiService.SearchPhasesByTitle")
@@ -740,10 +829,10 @@ func (a *PhaseApiService) SearchPhasesByTitleExecute(r ApiSearchPhasesByTitleReq
 	localVarFormParams := url.Values{}
 
 	if r.phaseTitle != nil {
-		parameterAddToQuery(localVarQueryParams, "phaseTitle", r.phaseTitle, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "phaseTitle", r.phaseTitle, "")
 	}
 	if r.releaseId != nil {
-		parameterAddToQuery(localVarQueryParams, "releaseId", r.releaseId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "releaseId", r.releaseId, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -762,6 +851,20 @@ func (a *PhaseApiService) SearchPhasesByTitleExecute(r ApiSearchPhasesByTitleReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -772,9 +875,9 @@ func (a *PhaseApiService) SearchPhasesByTitleExecute(r ApiSearchPhasesByTitleReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -800,10 +903,10 @@ func (a *PhaseApiService) SearchPhasesByTitleExecute(r ApiSearchPhasesByTitleReq
 }
 
 type ApiUpdatePhaseRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PhaseApiService
-	phaseId string
-	phase *Phase
+	phaseId    string
+	phase      *Phase
 }
 
 func (r ApiUpdatePhaseRequest) Phase(phase Phase) ApiUpdatePhaseRequest {
@@ -818,26 +921,27 @@ func (r ApiUpdatePhaseRequest) Execute() (*Phase, *http.Response, error) {
 /*
 UpdatePhase Method for UpdatePhase
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param phaseId
- @return ApiUpdatePhaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param phaseId
+	@return ApiUpdatePhaseRequest
 */
 func (a *PhaseApiService) UpdatePhase(ctx context.Context, phaseId string) ApiUpdatePhaseRequest {
 	return ApiUpdatePhaseRequest{
 		ApiService: a,
-		ctx: ctx,
-		phaseId: phaseId,
+		ctx:        ctx,
+		phaseId:    phaseId,
 	}
 }
 
 // Execute executes the request
-//  @return Phase
+//
+//	@return Phase
 func (a *PhaseApiService) UpdatePhaseExecute(r ApiUpdatePhaseRequest) (*Phase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Phase
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Phase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PhaseApiService.UpdatePhase")
@@ -871,6 +975,20 @@ func (a *PhaseApiService) UpdatePhaseExecute(r ApiUpdatePhaseRequest) (*Phase, *
 	}
 	// body params
 	localVarPostBody = r.phase
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["patAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-release-personal-token"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -881,9 +999,9 @@ func (a *PhaseApiService) UpdatePhaseExecute(r ApiUpdatePhaseRequest) (*Phase, *
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

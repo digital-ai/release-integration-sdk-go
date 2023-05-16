@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
-**ScheduledStartDate** | Pointer to **string** |  | [optional] 
-**DueDate** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **string** |  | [optional] 
-**EndDate** | Pointer to **string** |  | [optional] 
-**PlannedStartDate** | Pointer to **string** |  | [optional] 
-**PlannedEndDate** | Pointer to **string** |  | [optional] 
+**ScheduledStartDate** | Pointer to **time.Time** |  | [optional] 
+**DueDate** | Pointer to **time.Time** |  | [optional] 
+**StartDate** | Pointer to **time.Time** |  | [optional] 
+**EndDate** | Pointer to **time.Time** |  | [optional] 
+**PlannedStartDate** | Pointer to **time.Time** |  | [optional] 
+**PlannedEndDate** | Pointer to **time.Time** |  | [optional] 
 **Phases** | Pointer to [**[]PhaseTimeline**](PhaseTimeline.md) |  | [optional] 
 **RiskScore** | Pointer to **int32** |  | [optional] 
 **Status** | Pointer to [**ReleaseStatus**](ReleaseStatus.md) |  | [optional] 
@@ -87,20 +87,20 @@ HasTitle returns a boolean if a field has been set.
 
 ### GetScheduledStartDate
 
-`func (o *ReleaseTimeline) GetScheduledStartDate() string`
+`func (o *ReleaseTimeline) GetScheduledStartDate() time.Time`
 
 GetScheduledStartDate returns the ScheduledStartDate field if non-nil, zero value otherwise.
 
 ### GetScheduledStartDateOk
 
-`func (o *ReleaseTimeline) GetScheduledStartDateOk() (*string, bool)`
+`func (o *ReleaseTimeline) GetScheduledStartDateOk() (*time.Time, bool)`
 
 GetScheduledStartDateOk returns a tuple with the ScheduledStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledStartDate
 
-`func (o *ReleaseTimeline) SetScheduledStartDate(v string)`
+`func (o *ReleaseTimeline) SetScheduledStartDate(v time.Time)`
 
 SetScheduledStartDate sets ScheduledStartDate field to given value.
 
@@ -112,20 +112,20 @@ HasScheduledStartDate returns a boolean if a field has been set.
 
 ### GetDueDate
 
-`func (o *ReleaseTimeline) GetDueDate() string`
+`func (o *ReleaseTimeline) GetDueDate() time.Time`
 
 GetDueDate returns the DueDate field if non-nil, zero value otherwise.
 
 ### GetDueDateOk
 
-`func (o *ReleaseTimeline) GetDueDateOk() (*string, bool)`
+`func (o *ReleaseTimeline) GetDueDateOk() (*time.Time, bool)`
 
 GetDueDateOk returns a tuple with the DueDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDueDate
 
-`func (o *ReleaseTimeline) SetDueDate(v string)`
+`func (o *ReleaseTimeline) SetDueDate(v time.Time)`
 
 SetDueDate sets DueDate field to given value.
 
@@ -137,20 +137,20 @@ HasDueDate returns a boolean if a field has been set.
 
 ### GetStartDate
 
-`func (o *ReleaseTimeline) GetStartDate() string`
+`func (o *ReleaseTimeline) GetStartDate() time.Time`
 
 GetStartDate returns the StartDate field if non-nil, zero value otherwise.
 
 ### GetStartDateOk
 
-`func (o *ReleaseTimeline) GetStartDateOk() (*string, bool)`
+`func (o *ReleaseTimeline) GetStartDateOk() (*time.Time, bool)`
 
 GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartDate
 
-`func (o *ReleaseTimeline) SetStartDate(v string)`
+`func (o *ReleaseTimeline) SetStartDate(v time.Time)`
 
 SetStartDate sets StartDate field to given value.
 
@@ -162,20 +162,20 @@ HasStartDate returns a boolean if a field has been set.
 
 ### GetEndDate
 
-`func (o *ReleaseTimeline) GetEndDate() string`
+`func (o *ReleaseTimeline) GetEndDate() time.Time`
 
 GetEndDate returns the EndDate field if non-nil, zero value otherwise.
 
 ### GetEndDateOk
 
-`func (o *ReleaseTimeline) GetEndDateOk() (*string, bool)`
+`func (o *ReleaseTimeline) GetEndDateOk() (*time.Time, bool)`
 
 GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndDate
 
-`func (o *ReleaseTimeline) SetEndDate(v string)`
+`func (o *ReleaseTimeline) SetEndDate(v time.Time)`
 
 SetEndDate sets EndDate field to given value.
 
@@ -187,20 +187,20 @@ HasEndDate returns a boolean if a field has been set.
 
 ### GetPlannedStartDate
 
-`func (o *ReleaseTimeline) GetPlannedStartDate() string`
+`func (o *ReleaseTimeline) GetPlannedStartDate() time.Time`
 
 GetPlannedStartDate returns the PlannedStartDate field if non-nil, zero value otherwise.
 
 ### GetPlannedStartDateOk
 
-`func (o *ReleaseTimeline) GetPlannedStartDateOk() (*string, bool)`
+`func (o *ReleaseTimeline) GetPlannedStartDateOk() (*time.Time, bool)`
 
 GetPlannedStartDateOk returns a tuple with the PlannedStartDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlannedStartDate
 
-`func (o *ReleaseTimeline) SetPlannedStartDate(v string)`
+`func (o *ReleaseTimeline) SetPlannedStartDate(v time.Time)`
 
 SetPlannedStartDate sets PlannedStartDate field to given value.
 
@@ -212,20 +212,20 @@ HasPlannedStartDate returns a boolean if a field has been set.
 
 ### GetPlannedEndDate
 
-`func (o *ReleaseTimeline) GetPlannedEndDate() string`
+`func (o *ReleaseTimeline) GetPlannedEndDate() time.Time`
 
 GetPlannedEndDate returns the PlannedEndDate field if non-nil, zero value otherwise.
 
 ### GetPlannedEndDateOk
 
-`func (o *ReleaseTimeline) GetPlannedEndDateOk() (*string, bool)`
+`func (o *ReleaseTimeline) GetPlannedEndDateOk() (*time.Time, bool)`
 
 GetPlannedEndDateOk returns a tuple with the PlannedEndDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlannedEndDate
 
-`func (o *ReleaseTimeline) SetPlannedEndDate(v string)`
+`func (o *ReleaseTimeline) SetPlannedEndDate(v time.Time)`
 
 SetPlannedEndDate sets PlannedEndDate field to given value.
 

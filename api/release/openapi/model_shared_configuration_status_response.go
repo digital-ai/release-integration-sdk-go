@@ -19,9 +19,9 @@ var _ MappedNullable = &SharedConfigurationStatusResponse{}
 
 // SharedConfigurationStatusResponse struct for SharedConfigurationStatusResponse
 type SharedConfigurationStatusResponse struct {
-	Success *bool `json:"success,omitempty"`
-	ErrorText *string `json:"errorText,omitempty"`
-	ScriptFound *bool `json:"scriptFound,omitempty"`
+	Success     *bool   `json:"success,omitempty"`
+	ErrorText   *string `json:"errorText,omitempty"`
+	ScriptFound *bool   `json:"scriptFound,omitempty"`
 }
 
 // NewSharedConfigurationStatusResponse instantiates a new SharedConfigurationStatusResponse object
@@ -43,7 +43,7 @@ func NewSharedConfigurationStatusResponseWithDefaults() *SharedConfigurationStat
 
 // GetSuccess returns the Success field value if set, zero value otherwise.
 func (o *SharedConfigurationStatusResponse) GetSuccess() bool {
-	if o == nil || isNil(o.Success) {
+	if o == nil || IsNil(o.Success) {
 		var ret bool
 		return ret
 	}
@@ -53,7 +53,7 @@ func (o *SharedConfigurationStatusResponse) GetSuccess() bool {
 // GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SharedConfigurationStatusResponse) GetSuccessOk() (*bool, bool) {
-	if o == nil || isNil(o.Success) {
+	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
 	return o.Success, true
@@ -61,7 +61,7 @@ func (o *SharedConfigurationStatusResponse) GetSuccessOk() (*bool, bool) {
 
 // HasSuccess returns a boolean if a field has been set.
 func (o *SharedConfigurationStatusResponse) HasSuccess() bool {
-	if o != nil && !isNil(o.Success) {
+	if o != nil && !IsNil(o.Success) {
 		return true
 	}
 
@@ -75,7 +75,7 @@ func (o *SharedConfigurationStatusResponse) SetSuccess(v bool) {
 
 // GetErrorText returns the ErrorText field value if set, zero value otherwise.
 func (o *SharedConfigurationStatusResponse) GetErrorText() string {
-	if o == nil || isNil(o.ErrorText) {
+	if o == nil || IsNil(o.ErrorText) {
 		var ret string
 		return ret
 	}
@@ -85,7 +85,7 @@ func (o *SharedConfigurationStatusResponse) GetErrorText() string {
 // GetErrorTextOk returns a tuple with the ErrorText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SharedConfigurationStatusResponse) GetErrorTextOk() (*string, bool) {
-	if o == nil || isNil(o.ErrorText) {
+	if o == nil || IsNil(o.ErrorText) {
 		return nil, false
 	}
 	return o.ErrorText, true
@@ -93,7 +93,7 @@ func (o *SharedConfigurationStatusResponse) GetErrorTextOk() (*string, bool) {
 
 // HasErrorText returns a boolean if a field has been set.
 func (o *SharedConfigurationStatusResponse) HasErrorText() bool {
-	if o != nil && !isNil(o.ErrorText) {
+	if o != nil && !IsNil(o.ErrorText) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *SharedConfigurationStatusResponse) SetErrorText(v string) {
 
 // GetScriptFound returns the ScriptFound field value if set, zero value otherwise.
 func (o *SharedConfigurationStatusResponse) GetScriptFound() bool {
-	if o == nil || isNil(o.ScriptFound) {
+	if o == nil || IsNil(o.ScriptFound) {
 		var ret bool
 		return ret
 	}
@@ -117,7 +117,7 @@ func (o *SharedConfigurationStatusResponse) GetScriptFound() bool {
 // GetScriptFoundOk returns a tuple with the ScriptFound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SharedConfigurationStatusResponse) GetScriptFoundOk() (*bool, bool) {
-	if o == nil || isNil(o.ScriptFound) {
+	if o == nil || IsNil(o.ScriptFound) {
 		return nil, false
 	}
 	return o.ScriptFound, true
@@ -125,7 +125,7 @@ func (o *SharedConfigurationStatusResponse) GetScriptFoundOk() (*bool, bool) {
 
 // HasScriptFound returns a boolean if a field has been set.
 func (o *SharedConfigurationStatusResponse) HasScriptFound() bool {
-	if o != nil && !isNil(o.ScriptFound) {
+	if o != nil && !IsNil(o.ScriptFound) {
 		return true
 	}
 
@@ -138,7 +138,7 @@ func (o *SharedConfigurationStatusResponse) SetScriptFound(v bool) {
 }
 
 func (o SharedConfigurationStatusResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -147,13 +147,13 @@ func (o SharedConfigurationStatusResponse) MarshalJSON() ([]byte, error) {
 
 func (o SharedConfigurationStatusResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Success) {
+	if !IsNil(o.Success) {
 		toSerialize["success"] = o.Success
 	}
-	if !isNil(o.ErrorText) {
+	if !IsNil(o.ErrorText) {
 		toSerialize["errorText"] = o.ErrorText
 	}
-	if !isNil(o.ScriptFound) {
+	if !IsNil(o.ScriptFound) {
 		toSerialize["scriptFound"] = o.ScriptFound
 	}
 	return toSerialize, nil
@@ -194,5 +194,3 @@ func (v *NullableSharedConfigurationStatusResponse) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

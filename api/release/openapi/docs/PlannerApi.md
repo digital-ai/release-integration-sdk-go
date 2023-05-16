@@ -1,6 +1,6 @@
 # \PlannerApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:5516*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -25,7 +25,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -91,7 +91,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
@@ -159,7 +159,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [patAuth](../README.md#patAuth)
 
 ### HTTP request headers
 
