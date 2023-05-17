@@ -9,18 +9,21 @@ import (
 )
 
 const (
-	InputCategory    = "input"
-	OutputCategory   = "output"
-	InputLocation    = "INPUT_LOCATION"
-	OutputLocation   = "OUTPUT_LOCATION"
-	CallbackURL      = "CALLBACK_URL"
-	ResultSecretName = "RESULT_SECRET_NAME"
-	ReleaseURL       = "RELEASE_URL"
+	InputCategory               = "input"
+	OutputCategory              = "output"
+	InputLocation               = "INPUT_LOCATION"
+	OutputLocation              = "OUTPUT_LOCATION"
+	CallbackURL                 = "CALLBACK_URL"
+	ResultSecretName            = "RESULT_SECRET_NAME"
+	ReleaseURL                  = "RELEASE_URL"
+	InputContextSecretName      = "INPUT_CONTEXT_SECRET_NAME"
+	RunnerNamespace             = "RUNNER_NAMESPACE"
+	InputContextSecretDataInput = "input"
 )
 
 func Deserialize(context *InputContext) error {
-	runnerNamespace := os.Getenv("RUNNER_NAMESPACE")
-	secretName := os.Getenv("SECRET_NAME")
+	secretName := os.Getenv(InputContextSecretName)
+	runnerNamespace := os.Getenv(RunnerNamespace)
 
 	clientset, err := newDefaultClientset()
 	if err != nil {
@@ -32,28 +35,8 @@ func Deserialize(context *InputContext) error {
 		klog.Warningf("Cannot fetch Result Secret: %s", err)
 		return err
 	}
-	content := secret.Data["input"]
+	content := secret.Data[InputContextSecretDataInput]
 
-	//context.Release.Url = os.Getenv(ReleaseURL)
-	//
-	//var inputLocation = os.Getenv(InputLocation)
-	//inputContent, err := os.Open(inputLocation)
-	//// if we os.Open returns an error then handle it
-	//if err != nil {
-	//	klog.Errorf("Cannot open: '%s' [%v]", inputLocation, err)
-	//	return err
-	//}
-	//// defer the closing of our inputContent so that we can parse it later on
-	//defer func(inputContent *os.File) {
-	//	if deferredErr := inputContent.Close(); deferredErr != nil {
-	//		err = deferredErr
-	//	}
-	//}(inputContent)
-	//
-	//content, err := io.ReadAll(inputContent)
-	//if err != nil {
-	//	return err
-	//}
 	decrypted, err := Decrypt(content)
 	if err != nil {
 		return err
