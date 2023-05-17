@@ -9,6 +9,7 @@ import (
 
 const (
 	Null = "null"
+	CI   = "CI"
 )
 
 func ExtractType(fieldLabel string, properties []task.PropertyDefinition, extract any) error {
@@ -67,4 +68,14 @@ func Deserialize(raw json.RawMessage) ([]task.PropertyDefinition, error) {
 		return nil, fmt.Errorf("failed to unmarshal properties: %w", unMarshalErr)
 	}
 	return propertyWrapper.Properties, nil
+}
+
+func ExtractCIs(properties []task.PropertyDefinition) []task.PropertyDefinition {
+	var ciProperties []task.PropertyDefinition
+	for _, property := range properties {
+		if property.Kind == CI {
+			ciProperties = append(ciProperties, property)
+		}
+	}
+	return ciProperties
 }
