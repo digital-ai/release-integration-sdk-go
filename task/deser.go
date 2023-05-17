@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
+	"os"
 )
 
 const (
@@ -18,12 +19,15 @@ const (
 )
 
 func Deserialize(context *InputContext) error {
+	runnerNamespace := os.Getenv("RUNNER_NAMESPACE")
+	secretName := os.Getenv("SECRET_NAME")
+
 	clientset, err := newDefaultClientset()
 	if err != nil {
 		klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
 		return err
 	}
-	secret, err := clientset.CoreV1().Secrets("default-runner").Get(ctx.Background(), "test-secret", v1.GetOptions{})
+	secret, err := clientset.CoreV1().Secrets(runnerNamespace).Get(ctx.Background(), secretName, v1.GetOptions{})
 	if err != nil {
 		klog.Warningf("Cannot fetch Result Secret: %s", err)
 		return err
