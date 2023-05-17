@@ -1,10 +1,10 @@
 package task
 
 import (
+	ctx "context"
 	"encoding/json"
-	"io"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
-	"os"
 )
 
 const (
@@ -18,26 +18,38 @@ const (
 )
 
 func Deserialize(context *InputContext) error {
-	context.Release.Url = os.Getenv(ReleaseURL)
-
-	var inputLocation = os.Getenv(InputLocation)
-	inputContent, err := os.Open(inputLocation)
-	// if we os.Open returns an error then handle it
+	clientset, err := newDefaultClientset()
 	if err != nil {
-		klog.Errorf("Cannot open: '%s' [%v]", inputLocation, err)
+		klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
 		return err
 	}
-	// defer the closing of our inputContent so that we can parse it later on
-	defer func(inputContent *os.File) {
-		if deferredErr := inputContent.Close(); deferredErr != nil {
-			err = deferredErr
-		}
-	}(inputContent)
-
-	content, err := io.ReadAll(inputContent)
+	secret, err := clientset.CoreV1().Secrets("default-runner").Get(ctx.Background(), "test-secret", v1.GetOptions{})
 	if err != nil {
+		klog.Warningf("Cannot fetch Result Secret: %s", err)
 		return err
 	}
+	content := secret.Data["input"]
+
+	//context.Release.Url = os.Getenv(ReleaseURL)
+	//
+	//var inputLocation = os.Getenv(InputLocation)
+	//inputContent, err := os.Open(inputLocation)
+	//// if we os.Open returns an error then handle it
+	//if err != nil {
+	//	klog.Errorf("Cannot open: '%s' [%v]", inputLocation, err)
+	//	return err
+	//}
+	//// defer the closing of our inputContent so that we can parse it later on
+	//defer func(inputContent *os.File) {
+	//	if deferredErr := inputContent.Close(); deferredErr != nil {
+	//		err = deferredErr
+	//	}
+	//}(inputContent)
+	//
+	//content, err := io.ReadAll(inputContent)
+	//if err != nil {
+	//	return err
+	//}
 	decrypted, err := Decrypt(content)
 	if err != nil {
 		return err
