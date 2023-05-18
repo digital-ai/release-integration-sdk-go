@@ -9,16 +9,17 @@ import (
 )
 
 const (
-	InputCategory               = "input"
-	OutputCategory              = "output"
-	InputLocation               = "INPUT_LOCATION"
-	OutputLocation              = "OUTPUT_LOCATION"
-	CallbackURL                 = "CALLBACK_URL"
-	ResultSecretName            = "RESULT_SECRET_NAME"
-	ReleaseURL                  = "RELEASE_URL"
-	InputContextSecretName      = "INPUT_CONTEXT_SECRET_NAME"
-	RunnerNamespace             = "RUNNER_NAMESPACE"
-	InputContextSecretDataInput = "input"
+	InputCategory                    = "input"
+	OutputCategory                   = "output"
+	InputLocation                    = "INPUT_LOCATION"
+	OutputLocation                   = "OUTPUT_LOCATION"
+	CallbackURL                      = "CALLBACK_URL"
+	ResultSecretName                 = "RESULT_SECRET_NAME"
+	ReleaseURL                       = "RELEASE_URL"
+	InputContextSecretName           = "INPUT_CONTEXT_SECRET_NAME"
+	RunnerNamespace                  = "RUNNER_NAMESPACE"
+	InputContextSecretDataInput      = "input"
+	InputContextSecretDataSessionKey = "session-key"
 )
 
 func Deserialize(context *InputContext) error {
@@ -36,6 +37,7 @@ func Deserialize(context *InputContext) error {
 		return err
 	}
 	content := secret.Data[InputContextSecretDataInput]
+	SessionKey = string(secret.Data[InputContextSecretDataSessionKey])
 
 	decrypted, err := Decrypt(content)
 	if err != nil {
