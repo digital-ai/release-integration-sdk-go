@@ -3,6 +3,7 @@ package task
 import (
 	ctx "context"
 	"encoding/json"
+	"github.com/digital-ai/release-integration-sdk-go/k8s"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
 	"os"
@@ -27,7 +28,7 @@ func Deserialize(context *InputContext) error {
 	secretName := os.Getenv(InputContextSecretName)
 	runnerNamespace := os.Getenv(RunnerNamespace)
 
-	clientset, err := newDefaultClientset()
+	clientset, err := k8s.GetClientset()
 	if err != nil {
 		klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
 		return err

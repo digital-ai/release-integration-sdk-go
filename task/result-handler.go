@@ -7,9 +7,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/digital-ai/release-integration-sdk-go/k8s"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/rest"
 	"k8s.io/klog/v2"
 	"net/http"
 	"os"
@@ -84,15 +83,6 @@ func handleResultHandlerError(handler string, done chan string, success chan boo
 	}
 }
 
-func newDefaultClientset() (*kubernetes.Clientset, error) {
-	config, err := rest.InClusterConfig()
-	if err != nil {
-		return nil, err
-	}
-
-	return kubernetes.NewForConfig(config)
-}
-
 func splitSecretResourceData(secretEntry string) (string, string, string, error) {
 	split := strings.Split(secretEntry, ":")
 	if len(split) != 3 {
@@ -109,7 +99,7 @@ func writeToSecret(encryptedData []byte) error {
 			klog.Warningf("Cannot resolve value of Result Secret Name and Key %s, skipping - output written to output file", err)
 			return err
 		}
-		clientset, err := newDefaultClientset()
+		clientset, err := k8s.GetClientset()
 		if err != nil {
 			klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
 			return err
