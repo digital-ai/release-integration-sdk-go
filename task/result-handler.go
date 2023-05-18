@@ -16,6 +16,8 @@ import (
 	"strings"
 )
 
+var CallbackUrl = os.Getenv(CallbackURL)
+
 func HandleSuccess(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
@@ -134,9 +136,8 @@ func writeToSecret(encryptedData []byte) error {
 }
 
 func pushResult(encryptedData []byte) error {
-	encodedCallBackUrl := os.Getenv(CallbackURL)
-	if len(encodedCallBackUrl) > 0 {
-		callBackUrl, err := base64.StdEncoding.DecodeString(encodedCallBackUrl)
+	if len(CallbackUrl) > 0 {
+		callBackUrl, err := base64.StdEncoding.DecodeString(CallbackUrl)
 		if err != nil {
 			klog.Warningf("Cannot decode Callback URL %s", err)
 			return err
