@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/digital-ai/release-integration-sdk-go/k8s"
+	core "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
 	"net/http"
@@ -104,17 +105,16 @@ func writeToSecret(encryptedData []byte) error {
 			klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
 			return err
 		}
-
-		secret, err := clientset.CoreV1().Secrets(namespace).Get(context.Background(), name, v1.GetOptions{})
-		if err != nil {
-			klog.Warningf("Cannot fetch Result Secret: %s", err)
-			return err
+		valueMap := make(map[string][]byte)
+		valueMap[key] = encryptedData
+		secret := &core.Secret{
+			ObjectMeta: v1.ObjectMeta{
+				Name:      name,
+				Namespace: namespace,
+			},
+			Data: valueMap,
 		}
-		if secret.Data == nil {
-			secret.Data = make(map[string][]byte)
-		}
-		secret.Data[key] = encryptedData
-		_, err = clientset.CoreV1().Secrets(namespace).Update(context.TODO(), secret, v1.UpdateOptions{})
+		_, err = clientset.CoreV1().Secrets(namespace).Create(context.TODO(), secret, v1.CreateOptions{})
 		if err != nil {
 			klog.Warningf("Cannot update Result Secret: %s", err)
 			return err
