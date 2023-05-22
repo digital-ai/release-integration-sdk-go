@@ -93,9 +93,8 @@ func splitSecretResourceData(secretEntry string) (string, string, string, error)
 }
 
 func writeToSecret(encryptedData []byte) error {
-	resultSecretNameKey := ResultSecretKey
-	if len(resultSecretNameKey) > 0 {
-		namespace, name, key, err := splitSecretResourceData(resultSecretNameKey)
+	if len(ResultSecretKey) > 0 {
+		namespace, name, key, err := splitSecretResourceData(ResultSecretKey)
 		if err != nil {
 			klog.Warningf("Cannot resolve value of Result Secret Name and Key %s, skipping - output written to output file", err)
 			return err
