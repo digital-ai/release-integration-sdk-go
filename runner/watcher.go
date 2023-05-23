@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-var executionChan = make(chan bool, 1)
+var ExecutionChan = make(chan bool, 1)
 
 func Watch() {
 	stop := make(chan struct{})
@@ -56,7 +56,7 @@ func startSecretWatcher(stop chan struct{}) error {
 				// Check if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
 					klog.Infof("Secret values have been updated, starting new execution")
-					executionChan <- true
+					ExecutionChan <- true
 				}
 			},
 		},
