@@ -22,6 +22,8 @@ func Watch() {
 		klog.Info("Failed to start secret watcher: ", err)
 		return
 	}
+
+	<-time.After(1 * time.Minute)
 }
 
 func startSecretWatcher(stop chan struct{}) error {
