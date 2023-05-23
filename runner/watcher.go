@@ -21,11 +21,10 @@ func StartExecutionRetriggerWatcher() {
 		return
 	}
 
-	<-time.After(1 * time.Minute)
+	<-time.After(1 * time.Minute) //TODO read from configuration
 }
 
 func startSecretWatcher(stop chan struct{}) error {
-	klog.Infof("Starting execution retrigger watcher")
 	secretName := os.Getenv(task.InputContextSecretName)
 	runnerNamespace := os.Getenv(task.RunnerNamespace)
 
@@ -56,7 +55,7 @@ func startSecretWatcher(stop chan struct{}) error {
 
 				// Check if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
-					klog.Infof("Secret values have been updated, starting new execution")
+					klog.Infof("Input values have been updated, starting new execution")
 					ExecutionChan <- true
 				}
 			},
