@@ -10,19 +10,18 @@ import (
 )
 
 const (
-	InputCategory                         = "input"
-	OutputCategory                        = "output"
-	InputLocation                         = "INPUT_LOCATION"
-	OutputLocation                        = "OUTPUT_LOCATION"
-	CallbackURL                           = "CALLBACK_URL"
-	ResultSecretName                      = "RESULT_SECRET_NAME"
-	ReleaseURL                            = "RELEASE_URL"
-	InputContextSecretName                = "INPUT_CONTEXT_SECRET_NAME"
-	RunnerNamespace                       = "RUNNER_NAMESPACE"
-	InputContextSecretDataInput           = "input"
-	InputContextSecretDataSessionKey      = "session-key"
-	InputContextSecretDataUrlKey          = "url"
-	InputContextSecretResultSecretNameKey = "result-secret-name"
+	InputCategory                    = "input"
+	OutputCategory                   = "output"
+	InputLocation                    = "INPUT_LOCATION"
+	OutputLocation                   = "OUTPUT_LOCATION"
+	CallbackURL                      = "CALLBACK_URL"
+	ResultSecretName                 = "RESULT_SECRET_NAME"
+	ReleaseURL                       = "RELEASE_URL"
+	InputContextSecretName           = "INPUT_CONTEXT_SECRET_NAME"
+	RunnerNamespace                  = "RUNNER_NAMESPACE"
+	InputContextSecretDataInput      = "input"
+	InputContextSecretDataSessionKey = "session-key"
+	InputContextSecretDataUrlKey     = "url"
 )
 
 func Deserialize(context *InputContext) error {
@@ -42,7 +41,6 @@ func Deserialize(context *InputContext) error {
 	content := secret.Data[InputContextSecretDataInput]
 	SessionKey = string(secret.Data[InputContextSecretDataSessionKey])
 	CallbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
-	ResultSecretKey = string(secret.Data[InputContextSecretResultSecretNameKey])
 
 	decrypted, err := Decrypt(content)
 	if err != nil {
