@@ -14,7 +14,7 @@ import (
 
 var ExecutionChan = make(chan bool, 1)
 
-func Watch() {
+func StartExecutionRetriggerWatcher() {
 	stop := make(chan struct{})
 	defer close(stop)
 	err := startSecretWatcher(stop)
