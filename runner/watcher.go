@@ -12,8 +12,6 @@ import (
 	"time"
 )
 
-var ExecutionChan = make(chan bool, 1)
-
 func StartExecutionRetriggerWatcher() {
 	stop := make(chan struct{})
 	defer close(stop)
