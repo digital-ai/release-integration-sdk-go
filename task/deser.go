@@ -40,7 +40,6 @@ func Deserialize(context *InputContext) error {
 	}
 	content := secret.Data[InputContextSecretDataInput]
 	SessionKey = string(secret.Data[InputContextSecretDataSessionKey])
-	//CallbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
 
 	decrypted, err := Decrypt(content)
 	if err != nil {

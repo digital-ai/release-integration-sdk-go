@@ -25,6 +25,7 @@ func StartExecutionRetriggerWatcher() {
 }
 
 func startSecretWatcher(stop chan struct{}) error {
+	klog.Infof("Starting execution retrigger watcher")
 	secretName := os.Getenv(task.InputContextSecretName)
 	runnerNamespace := os.Getenv(task.RunnerNamespace)
 
