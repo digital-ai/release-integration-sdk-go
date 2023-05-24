@@ -14,7 +14,6 @@ const (
 	OutputCategory                   = "output"
 	InputLocation                    = "INPUT_LOCATION"
 	OutputLocation                   = "OUTPUT_LOCATION"
-	CallbackURL                      = "CALLBACK_URL"
 	ResultSecretName                 = "RESULT_SECRET_NAME"
 	ReleaseURL                       = "RELEASE_URL"
 	InputContextSecret               = "INPUT_CONTEXT_SECRET"
@@ -25,6 +24,8 @@ const (
 )
 
 func Deserialize(context *InputContext) error {
+	context.Release.Url = os.Getenv(ReleaseURL)
+
 	clientset, err := k8s.GetClientset()
 	if err != nil {
 		klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
