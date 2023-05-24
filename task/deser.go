@@ -17,7 +17,7 @@ const (
 	CallbackURL                      = "CALLBACK_URL"
 	ResultSecretName                 = "RESULT_SECRET_NAME"
 	ReleaseURL                       = "RELEASE_URL"
-	InputContextSecretName           = "INPUT_CONTEXT_SECRET_NAME"
+	InputContextSecret               = "INPUT_CONTEXT_SECRET"
 	RunnerNamespace                  = "RUNNER_NAMESPACE"
 	InputContextSecretDataInput      = "input"
 	InputContextSecretDataSessionKey = "session-key"
@@ -25,15 +25,12 @@ const (
 )
 
 func Deserialize(context *InputContext) error {
-	secretName := os.Getenv(InputContextSecretName)
-	runnerNamespace := os.Getenv(RunnerNamespace)
-
 	clientset, err := k8s.GetClientset()
 	if err != nil {
 		klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
 		return err
 	}
-	secret, err := clientset.CoreV1().Secrets(runnerNamespace).Get(ctx.Background(), secretName, v1.GetOptions{})
+	secret, err := clientset.CoreV1().Secrets(os.Getenv(RunnerNamespace)).Get(ctx.Background(), os.Getenv(InputContextSecret), v1.GetOptions{})
 	if err != nil {
 		klog.Warningf("Cannot fetch Result Secret: %s", err)
 		return err

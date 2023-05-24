@@ -49,7 +49,7 @@ func startInputSecretWatcher(stop chan struct{}) error {
 		clientset.CoreV1().RESTClient(),
 		"secrets",
 		os.Getenv(task.RunnerNamespace),
-		fields.OneTermEqualSelector("metadata.name", os.Getenv(task.InputContextSecretName)),
+		fields.OneTermEqualSelector("metadata.name", os.Getenv(task.InputContextSecret)),
 	)
 
 	_, controller := cache.NewInformer(
