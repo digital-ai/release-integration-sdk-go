@@ -66,7 +66,7 @@ func startInputSecretWatcher(stop chan struct{}) error {
 
 				// Check if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
-					klog.Infof("Input values have been updated, starting new execution")
+					klog.Infof("Detected input context value change")
 					inputContextUpdateChan <- true
 				}
 			},
