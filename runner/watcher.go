@@ -12,22 +12,11 @@ import (
 	"time"
 )
 
-var inputContextUpdateChan = make(chan bool, 1)
-
 func StartInputContextWatcher(onInputContextUpdateFunc func()) {
 	stop := make(chan struct{})
 	defer close(stop)
 
-	go func() {
-		for {
-			select {
-			case <-inputContextUpdateChan:
-				onInputContextUpdateFunc()
-			}
-		}
-	}()
-
-	err := startInputSecretWatcher(stop)
+	err := startInputSecretWatcher(stop, onInputContextUpdateFunc)
 	if err != nil {
 		klog.Info("Failed to start secret watcher: ", err)
 		return
@@ -36,7 +25,7 @@ func StartInputContextWatcher(onInputContextUpdateFunc func()) {
 	<-time.After(1 * time.Minute) //TODO read from configuration
 }
 
-func startInputSecretWatcher(stop chan struct{}) error {
+func startInputSecretWatcher(stop chan struct{}, onInputContextUpdateFunc func()) error {
 	clientset, err := k8s.GetClientset()
 	if err != nil {
 		klog.Warningf("Cannot get clientset for fetching Secret: %s", err)
@@ -65,7 +54,7 @@ func startInputSecretWatcher(stop chan struct{}) error {
 				// Check if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
 					klog.Infof("Detected input context value change")
-					inputContextUpdateChan <- true
+					onInputContextUpdateFunc()
 				}
 			},
 		},
