@@ -16,6 +16,7 @@ const (
 	InputLocation                    = "INPUT_LOCATION"
 	OutputLocation                   = "OUTPUT_LOCATION"
 	ResultSecretName                 = "RESULT_SECRET_NAME"
+	CallbackURL                      = "CALLBACK_URL"
 	ReleaseURL                       = "RELEASE_URL"
 	InputContextSecret               = "INPUT_CONTEXT_SECRET"
 	RunnerNamespace                  = "RUNNER_NAMESPACE"

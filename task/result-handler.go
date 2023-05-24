@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-var CallbackUrl string
+var CallbackUrl = os.Getenv(CallbackURL)
 var ResultSecretKey = os.Getenv(ResultSecretName)
 
 func HandleSuccess(result map[string]interface{}) {
