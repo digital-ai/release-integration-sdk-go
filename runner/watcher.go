@@ -12,11 +12,23 @@ import (
 	"time"
 )
 
-var InputContextUpdateChan = make(chan bool, 1)
+var inputContextUpdateChan = make(chan bool, 1)
 
-func StartInputContextWatcher() {
+type inputContextUpdatedFunc func()
+
+func StartInputContextWatcher(onInputContextUpdateFunc inputContextUpdatedFunc) {
 	stop := make(chan struct{})
 	defer close(stop)
+
+	go func() {
+		for {
+			select {
+			case <-inputContextUpdateChan:
+				onInputContextUpdateFunc()
+			}
+		}
+	}()
+
 	err := startInputSecretWatcher(stop)
 	if err != nil {
 		klog.Info("Failed to start secret watcher: ", err)
@@ -55,7 +67,7 @@ func startInputSecretWatcher(stop chan struct{}) error {
 				// Check if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
 					klog.Infof("Input values have been updated, starting new execution")
-					InputContextUpdateChan <- true
+					inputContextUpdateChan <- true
 				}
 			},
 		},
