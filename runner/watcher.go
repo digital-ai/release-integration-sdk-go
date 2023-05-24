@@ -14,9 +14,7 @@ import (
 
 var inputContextUpdateChan = make(chan bool, 1)
 
-type inputContextUpdatedFunc func()
-
-func StartInputContextWatcher(onInputContextUpdateFunc inputContextUpdatedFunc) {
+func StartInputContextWatcher(onInputContextUpdateFunc func()) {
 	stop := make(chan struct{})
 	defer close(stop)
 
