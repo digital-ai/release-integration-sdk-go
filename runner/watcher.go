@@ -12,6 +12,8 @@ import (
 	"time"
 )
 
+var ExecutionRetriggerChan = make(chan bool, 1)
+
 func StartExecutionRetriggerWatcher() {
 	stop := make(chan struct{})
 	defer close(stop)
@@ -56,7 +58,7 @@ func startSecretWatcher(stop chan struct{}) error {
 				// Check if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
 					klog.Infof("Input values have been updated, starting new execution")
-					ExecutionChan <- true
+					ExecutionRetriggerChan <- true
 				}
 			},
 		},

@@ -8,8 +8,6 @@ import (
 	"k8s.io/klog/v2"
 )
 
-var ExecutionChan = make(chan bool, 1)
-
 type RunFunction func(task.InputContext) *task.Result
 type FactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
 
