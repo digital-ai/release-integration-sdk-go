@@ -4,6 +4,7 @@ import (
 	ctx "context"
 	"encoding/json"
 	"github.com/digital-ai/release-integration-sdk-go/k8s"
+	"io"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
 	"os"
@@ -25,20 +26,42 @@ const (
 
 func Deserialize(context *InputContext) error {
 	context.Release.Url = os.Getenv(ReleaseURL)
+	inputLocation := os.Getenv(InputLocation)
 
-	clientset, err := k8s.GetClientset()
-	if err != nil {
-		klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
-		return err
+	var content []byte
+	if len(inputLocation) > 0 {
+		inputContent, err := os.Open(inputLocation)
+		// if we os.Open returns an error then handle it
+		if err != nil {
+			klog.Errorf("Cannot open: '%s' [%v]", inputLocation, err)
+			return err
+		}
+		// defer the closing of our inputContent so that we can parse it later on
+		defer func(inputContent *os.File) {
+			if deferredErr := inputContent.Close(); deferredErr != nil {
+				err = deferredErr
+			}
+		}(inputContent)
+
+		content, err = io.ReadAll(inputContent)
+		if err != nil {
+			return err
+		}
+	} else {
+		clientset, err := k8s.GetClientset()
+		if err != nil {
+			klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
+			return err
+		}
+		secret, err := clientset.CoreV1().Secrets(os.Getenv(RunnerNamespace)).Get(ctx.Background(), os.Getenv(InputContextSecret), v1.GetOptions{})
+		if err != nil {
+			klog.Warningf("Cannot fetch Result Secret: %s", err)
+			return err
+		}
+		content = secret.Data[InputContextSecretDataInput]
+		SessionKey = string(secret.Data[InputContextSecretDataSessionKey])
+		CallbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
 	}
-	secret, err := clientset.CoreV1().Secrets(os.Getenv(RunnerNamespace)).Get(ctx.Background(), os.Getenv(InputContextSecret), v1.GetOptions{})
-	if err != nil {
-		klog.Warningf("Cannot fetch Result Secret: %s", err)
-		return err
-	}
-	content := secret.Data[InputContextSecretDataInput]
-	SessionKey = string(secret.Data[InputContextSecretDataSessionKey])
-	CallbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
 
 	decrypted, err := Decrypt(content)
 	if err != nil {
