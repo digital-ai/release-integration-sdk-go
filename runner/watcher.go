@@ -12,12 +12,12 @@ import (
 	"time"
 )
 
-var ExecutionRetriggerChan = make(chan bool, 1)
+var InputContextUpdateChan = make(chan bool, 1)
 
-func StartExecutionRetriggerWatcher() {
+func StartInputContextWatcher() {
 	stop := make(chan struct{})
 	defer close(stop)
-	err := startSecretWatcher(stop)
+	err := startInputSecretWatcher(stop)
 	if err != nil {
 		klog.Info("Failed to start secret watcher: ", err)
 		return
@@ -26,10 +26,7 @@ func StartExecutionRetriggerWatcher() {
 	<-time.After(1 * time.Minute) //TODO read from configuration
 }
 
-func startSecretWatcher(stop chan struct{}) error {
-	secretName := os.Getenv(task.InputContextSecretName)
-	runnerNamespace := os.Getenv(task.RunnerNamespace)
-
+func startInputSecretWatcher(stop chan struct{}) error {
 	clientset, err := k8s.GetClientset()
 	if err != nil {
 		klog.Warningf("Cannot get clientset for fetching Secret: %s", err)
@@ -39,8 +36,8 @@ func startSecretWatcher(stop chan struct{}) error {
 	watchlist := cache.NewListWatchFromClient(
 		clientset.CoreV1().RESTClient(),
 		"secrets",
-		runnerNamespace,
-		fields.OneTermEqualSelector("metadata.name", secretName),
+		os.Getenv(task.RunnerNamespace),
+		fields.OneTermEqualSelector("metadata.name", os.Getenv(task.InputContextSecretName)),
 	)
 
 	_, controller := cache.NewInformer(
@@ -58,7 +55,7 @@ func startSecretWatcher(stop chan struct{}) error {
 				// Check if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
 					klog.Infof("Input values have been updated, starting new execution")
-					ExecutionRetriggerChan <- true
+					InputContextUpdateChan <- true
 				}
 			},
 		},
