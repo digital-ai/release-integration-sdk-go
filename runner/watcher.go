@@ -9,20 +9,48 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/klog/v2"
 	"os"
+	"strconv"
 	"time"
+)
+
+const (
+	EvictionTime = "EXECUTOR_EVICTION_TIME"
 )
 
 func StartInputContextWatcher(onInputContextUpdateFunc func()) {
 	stop := make(chan struct{})
 	defer close(stop)
 
-	err := startInputSecretWatcher(stop, onInputContextUpdateFunc)
+	evictionTime, err := strconv.Atoi(os.Getenv(EvictionTime))
+	if err != nil {
+		klog.Errorf("Failed to read executor eviction time, the executor will be marked for shut down: ", err)
+		return
+	}
+	t := time.NewTimer(time.Duration(evictionTime) * time.Second)
+	defer t.Stop()
+
+	// Resetting timer when new execution occurs
+	wrappedOnInputContextUpdateFunc := func() {
+		onInputContextUpdateFunc()
+		if !t.Stop() {
+			<-t.C
+		}
+		t.Reset(time.Duration(evictionTime) * time.Second)
+	}
+
+	err = startInputSecretWatcher(stop, wrappedOnInputContextUpdateFunc)
 	if err != nil {
 		klog.Info("Failed to start secret watcher: ", err)
 		return
 	}
 
-	<-time.After(1 * time.Minute) //TODO read from configuration
+	for {
+		select {
+		case <-t.C:
+			klog.Info("Input Context Watcher reached eviction time: ", err)
+			return
+		}
+	}
 }
 
 func startInputSecretWatcher(stop chan struct{}, onInputContextUpdateFunc func()) error {
@@ -51,7 +79,7 @@ func startInputSecretWatcher(stop chan struct{}, onInputContextUpdateFunc func()
 				oldInput := oldSecret.Data[task.InputCategory]
 				newInput := newSecret.Data[task.InputCategory]
 
-				// Check if 'input' field has changed
+				// Checking if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
 					klog.Infof("Detected input context value change")
 					onInputContextUpdateFunc()
