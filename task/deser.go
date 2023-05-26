@@ -49,6 +49,7 @@ func Deserialize(context *InputContext) error {
 			return err
 		}
 	} else {
+		// reading input context from secret
 		clientset, err := k8s.GetClientset()
 		if err != nil {
 			klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
