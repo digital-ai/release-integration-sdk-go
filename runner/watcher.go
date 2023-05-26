@@ -14,8 +14,9 @@ import (
 )
 
 const (
-	ExecutionMode = "EXECUTOR_EXECUTION_MODE"
-	EvictionTime  = "EXECUTOR_EVICTION_TIME"
+	ExecutionMode       = "EXECUTOR_EXECUTION_MODE"
+	ExecutionModeDaemon = "daemon"
+	EvictionTime        = "EXECUTOR_EVICTION_TIME"
 )
 
 func StartInputContextWatcher(onInputContextUpdateFunc func()) {
