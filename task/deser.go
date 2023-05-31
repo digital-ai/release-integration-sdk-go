@@ -23,6 +23,7 @@ const (
 	InputContextSecretDataInput      = "input"
 	InputContextSecretDataSessionKey = "session-key"
 	InputContextSecretDataUrlKey     = "url"
+	InputContextSecretExecutionIdKey = "execution-id"
 )
 
 func Deserialize(context *InputContext) error {
