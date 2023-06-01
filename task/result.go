@@ -266,20 +266,20 @@ func (gen JsonRawGenerator) FieldName() string {
 	return gen.fieldName
 }
 
-type LookupResultElementGenerator struct {
+type LookupResultElementsGenerator struct {
 	fieldName     string
 	lookupResults []LookupResultElement
 }
 
-func (gen LookupResultElementGenerator) GenerateValue() (interface{}, error) {
+func (gen LookupResultElementsGenerator) GenerateValue() (interface{}, error) {
 	result, err := json.Marshal(gen.lookupResults)
 	if err != nil {
 		return nil, err
 	}
-	return result, nil
+	return json.RawMessage(result), nil
 }
 
-func (gen LookupResultElementGenerator) FieldName() string {
+func (gen LookupResultElementsGenerator) FieldName() string {
 	return gen.fieldName
 }
 
@@ -345,8 +345,8 @@ func (r *Result) JsonRaw(resultField string, jsonPayload json.RawMessage) *Resul
 	return r.addGenerator(JsonRawGenerator{resultField, jsonPayload})
 }
 
-func (r *Result) LookupResultElement(resultField string, lookupResults []LookupResultElement) *Result {
-	return r.addGenerator(LookupResultElementGenerator{resultField, lookupResults})
+func (r *Result) LookupResultElements(resultField string, lookupResults []LookupResultElement) *Result {
+	return r.addGenerator(LookupResultElementsGenerator{resultField, lookupResults})
 }
 
 // CustomValue - provide custom implementation of Generator interface which will add custom parsed or generated value to the result
