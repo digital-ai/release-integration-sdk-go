@@ -266,6 +266,23 @@ func (gen JsonRawGenerator) FieldName() string {
 	return gen.fieldName
 }
 
+type LookupResultElementGenerator struct {
+	fieldName     string
+	lookupResults []LookupResultElement
+}
+
+func (gen LookupResultElementGenerator) GenerateValue() (interface{}, error) {
+	result, err := json.Marshal(gen.lookupResults)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+func (gen LookupResultElementGenerator) FieldName() string {
+	return gen.fieldName
+}
+
 type JsonGenerator struct {
 	fieldName   string
 	jsonPayload json.RawMessage
