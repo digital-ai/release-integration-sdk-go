@@ -20,6 +20,19 @@ func ExtractType(fieldLabel string, properties []task.PropertyDefinition, extrac
 	return DeserializeType(fieldLabel, obj, extract)
 }
 
+func ExtractNestedType(rootField string, fieldLabel string, properties []task.PropertyDefinition, extract any) error {
+	var taskReference task.TaskContext
+	obj, err := ExtractByName(rootField, properties)
+	if err != nil {
+		return fmt.Errorf("cannot extract root property: %w", err)
+	}
+	err = json.Unmarshal(obj, &taskReference)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal root object: %w", err)
+	}
+	return ExtractType(fieldLabel, taskReference.Properties, extract)
+}
+
 func DeserializeType(fieldLabel string, rawProperty json.RawMessage, extract any) error {
 	serverProperties, err := Deserialize(rawProperty)
 	if err != nil {
