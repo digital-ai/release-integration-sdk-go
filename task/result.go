@@ -345,6 +345,10 @@ func (r *Result) JsonRaw(resultField string, jsonPayload json.RawMessage) *Resul
 	return r.addGenerator(JsonRawGenerator{resultField, jsonPayload})
 }
 
+func (r *Result) LookupResultElement(resultField string, lookupResults []LookupResultElement) *Result {
+	return r.addGenerator(LookupResultElementGenerator{resultField, lookupResults})
+}
+
 // CustomValue - provide custom implementation of Generator interface which will add custom parsed or generated value to the result
 func (r *Result) CustomValue(generator Generator) *Result {
 	return r.addGenerator(generator)
