@@ -49,7 +49,7 @@ func StartInputContextWatcher(onInputContextUpdateFunc func()) {
 	for {
 		select {
 		case <-t.C:
-			klog.Info("Input Context Watcher reached eviction time")
+			klog.Info("Input context watcher reached eviction time, wont listen for any more executions")
 			return
 		}
 	}
