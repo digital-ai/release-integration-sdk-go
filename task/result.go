@@ -253,6 +253,36 @@ func (r *Result) JsonNode(resultField string, jqOp string, jsonPayload json.RawM
 	return r.addGenerator(JsonValueNodeGenerator{JsonValueGenerator{resultField, jqOp, jsonPayload}})
 }
 
+type JsonRawGenerator struct {
+	fieldName   string
+	jsonPayload json.RawMessage
+}
+
+func (gen JsonRawGenerator) GenerateValue() (interface{}, error) {
+	return gen.jsonPayload, nil
+}
+
+func (gen JsonRawGenerator) FieldName() string {
+	return gen.fieldName
+}
+
+type LookupResultElementsGenerator struct {
+	fieldName     string
+	lookupResults []LookupResultElement
+}
+
+func (gen LookupResultElementsGenerator) GenerateValue() (interface{}, error) {
+	result, err := json.Marshal(gen.lookupResults)
+	if err != nil {
+		return nil, err
+	}
+	return json.RawMessage(result), nil
+}
+
+func (gen LookupResultElementsGenerator) FieldName() string {
+	return gen.fieldName
+}
+
 type JsonGenerator struct {
 	fieldName   string
 	jsonPayload json.RawMessage
@@ -309,6 +339,14 @@ func (r *Result) Slice(resultField string, result []interface{}) *Result {
 
 func (r *Result) Json(resultField string, jsonPayload json.RawMessage) *Result {
 	return r.addGenerator(JsonGenerator{resultField, jsonPayload})
+}
+
+func (r *Result) JsonRaw(resultField string, jsonPayload json.RawMessage) *Result {
+	return r.addGenerator(JsonRawGenerator{resultField, jsonPayload})
+}
+
+func (r *Result) LookupResultElements(resultField string, lookupResults []LookupResultElement) *Result {
+	return r.addGenerator(LookupResultElementsGenerator{resultField, lookupResults})
 }
 
 // CustomValue - provide custom implementation of Generator interface which will add custom parsed or generated value to the result
