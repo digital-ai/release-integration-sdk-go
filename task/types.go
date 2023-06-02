@@ -39,3 +39,8 @@ type TaskOutputContext struct {
 	OutputProperties map[string]interface{} `json:"outputProperties,omitempty"`
 	JobErrorMessage  string                 `json:"jobErrorMessage,omitempty"`
 }
+
+type LookupResultElement struct {
+	Label string `json:"label"`
+	Value string `json:"value"`
+}
