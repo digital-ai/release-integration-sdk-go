@@ -11,6 +11,7 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/klog/v2"
 	"net/http"
+	"net/url"
 )
 
 var DefaultContentType = "application/json"
@@ -43,6 +44,10 @@ type HttpClientConfig struct {
 	TokenAuthentication             *TokenAuthentication
 	ClientCertificateAuthentication *ClientCertificateAuthentication
 	CertificateAuthority            *CertificateAuthority
+	ProxyHost                       string
+	ProxyPort                       string
+	ProxyUsername                   string
+	ProxyPassword                   string
 }
 
 type fetchTokenFunc func(*HttpClientBuilder) (string, error)
@@ -182,6 +187,20 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 		b.config.TLSClientConfig.KeyData = config.ClientCertificateAuthentication.KeyData
 		b.config.TLSClientConfig.CertFile = config.ClientCertificateAuthentication.CertFile
 		b.config.TLSClientConfig.KeyFile = config.ClientCertificateAuthentication.KeyFile
+	}
+	if config.ProxyHost != "" {
+		proxyUrlMethod := func(*http.Request) (*url.URL, error) {
+			proxyUrl, err := url.Parse(fmt.Sprintf("%s:%s", config.ProxyHost, config.ProxyPort))
+			if err != nil {
+				return nil, err
+			}
+
+			proxyUrl.User = url.UserPassword(config.ProxyUsername, config.ProxyPassword)
+			return proxyUrl, nil
+		}
+
+		transport := b.config.Transport.(*http.Transport)
+		transport.Proxy = proxyUrlMethod
 	}
 	b.lazyFetchToken = voidToken
 	return b
