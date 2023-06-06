@@ -26,6 +26,7 @@ func HandleSuccess(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
 		OutputProperties: result,
+		//ReportingRecords: reportingRecords,
 	}
 	handleResult(outputContext)
 }
@@ -36,6 +37,7 @@ func HandleError(err error, result map[string]interface{}) {
 		ExitCode:         -1,
 		OutputProperties: result,
 		JobErrorMessage:  err.Error(),
+		//ReportingRecords: reportingRecords,
 	}
 	handleResult(outputContext)
 }

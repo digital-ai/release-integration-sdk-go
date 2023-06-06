@@ -11,16 +11,23 @@ import (
 const (
 	errorMessage = "errorMessage"
 )
-
 // Result represents the result of a task execution.
 type Result struct {
 	resultGenerators []Generator
+	reportingRecords []ReportingRecord
 }
 
 // NewResult creates a new Result instance.
 func NewResult() *Result {
 	return &Result{
 		resultGenerators: []Generator{},
+	}
+}
+
+func NewReport() *Result {
+	return &Result{
+		resultGenerators: []Generator{},
+		reportingRecords: []ReportingRecord{},
 	}
 }
 
@@ -37,6 +44,34 @@ func (r *Result) addGenerator(generator Generator) *Result {
 }
 
 // ErrorGenerator represents an error in the standardized response.
+//func (r *Result) addRecord(record ReportingRecord) *Result {
+//	r.reportingRecords = append(r.reportingRecords, record)
+//	return r
+//}
+
+// Util functions
+func parseDate(sampleFormat string, dateTime string) (string, error) {
+	parsedDateTime, err := time.Parse(sampleFormat, dateTime)
+	if err != nil {
+		return "", fmt.Errorf("error parsing date: %v", err)
+
+	}
+	return parsedDateTime.Format(time.RFC3339), nil
+}
+
+func parseNode(jqOp string, result json.RawMessage) ([]byte, error) {
+	parse, err := jq.Parse(jqOp)
+	if err != nil {
+		return nil, fmt.Errorf("could not create parser for JQ operation '%s': %v", jqOp, err)
+	}
+	parseResult, err := parse.Apply(result)
+	if err != nil {
+		return nil, fmt.Errorf("could not apply parser for JQ operation '%s': %v", jqOp, err)
+	}
+	return parseResult, nil
+}
+
+// The ErrorGenerator - used to represent error in standardizes response
 type ErrorGenerator struct {
 	err error
 }
