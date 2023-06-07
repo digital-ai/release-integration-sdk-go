@@ -9,50 +9,24 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/klog/v2"
 	"os"
-	"strconv"
 	"time"
 )
 
 const (
 	ExecutionMode       = "EXECUTOR_EXECUTION_MODE"
 	ExecutionModeDaemon = "daemon"
-	EvictionTime        = "EXECUTOR_EVICTION_TIME"
 )
 
 func StartInputContextWatcher(onInputContextUpdateFunc func()) {
 	stop := make(chan struct{})
-	defer close(stop)
 
-	evictionTime, err := strconv.Atoi(os.Getenv(EvictionTime))
-	if err != nil {
-		klog.Errorf("Failed to read executor eviction time, the executor will be marked for shut down: ", err)
-		return
-	}
-	t := time.NewTimer(time.Duration(evictionTime) * time.Second)
-	defer t.Stop()
-
-	// Resetting timer when new execution occurs
-	wrappedOnInputContextUpdateFunc := func() {
-		onInputContextUpdateFunc()
-		if !t.Stop() {
-			<-t.C
-		}
-		t.Reset(time.Duration(evictionTime) * time.Second)
-	}
-
-	err = startInputSecretWatcher(stop, wrappedOnInputContextUpdateFunc)
+	err := startInputSecretWatcher(stop, onInputContextUpdateFunc)
 	if err != nil {
 		klog.Info("Failed to start secret watcher: ", err)
 		return
 	}
 
-	for {
-		select {
-		case <-t.C:
-			klog.Info("Input context watcher reached eviction time, won't listen for any more executions")
-			return
-		}
-	}
+	<-stop
 }
 
 func startInputSecretWatcher(stop chan struct{}, onInputContextUpdateFunc func()) error {

@@ -114,7 +114,6 @@ func writeToSecret(encryptedData []byte) error {
 			secret.Data = make(map[string][]byte)
 		}
 		secret.Data[key] = encryptedData
-		delete(secret.Data, InputContextSecretExecutionIdKey)
 		_, err = clientset.CoreV1().Secrets(namespace).Update(context.TODO(), secret, v1.UpdateOptions{})
 		if err != nil {
 			klog.Warningf("Cannot update Result Secret: %s", err)
