@@ -17,10 +17,10 @@ const (
 	ExecutionModeDaemon = "daemon"
 )
 
-func StartInputContextWatcher(pluginVersion string, buildDate string, factoryBuilder FactoryBuilder, onInputContextUpdateFunc func(pluginVersion string, buildDate string, factoryBuilder FactoryBuilder)) {
+func StartInputContextWatcher(pluginVersion string, buildDate string, commandFactory FactoryBuilder, onInputContextUpdateFunc ExecuteFunction) {
 	stop := make(chan struct{})
 
-	err := startInputSecretWatcher(stop, pluginVersion, buildDate, factoryBuilder, onInputContextUpdateFunc)
+	err := startInputSecretWatcher(pluginVersion, buildDate, commandFactory, onInputContextUpdateFunc, stop)
 	if err != nil {
 		klog.Info("Failed to start secret watcher: ", err)
 		return
@@ -29,7 +29,7 @@ func StartInputContextWatcher(pluginVersion string, buildDate string, factoryBui
 	<-stop
 }
 
-func startInputSecretWatcher(stop chan struct{}, pluginVersion string, buildDate string, factoryBuilder FactoryBuilder, onInputContextUpdateFunc func(pluginVersion string, buildDate string, factoryBuilder FactoryBuilder)) error {
+func startInputSecretWatcher(pluginVersion string, buildDate string, commandFactory FactoryBuilder, onInputContextUpdateFunc ExecuteFunction, stop chan struct{}) error {
 	clientset, err := k8s.GetClientset()
 	if err != nil {
 		klog.Warningf("Cannot get clientset for fetching Secret: %s", err)
@@ -58,7 +58,7 @@ func startInputSecretWatcher(stop chan struct{}, pluginVersion string, buildDate
 				// Checking if 'input' field has changed
 				if !bytes.Equal(oldInput, newInput) {
 					klog.Infof("Detected input context value change")
-					onInputContextUpdateFunc(pluginVersion, buildDate, factoryBuilder)
+					onInputContextUpdateFunc(pluginVersion, buildDate, commandFactory)
 				}
 			},
 		},
