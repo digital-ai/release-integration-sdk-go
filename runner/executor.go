@@ -11,6 +11,7 @@ import (
 
 type RunFunction func(task.InputContext) *task.Result
 type FactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
+type ExecuteFunction func(pluginVersion string, buildDate string, factoryBuilder FactoryBuilder)
 
 type Runner interface {
 	Run(task.InputContext) *task.Result
@@ -87,14 +88,14 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	task.HandleSuccess(resultMap)
 }
 
-func execute(pluginVersion string, buildDate string, factoryBuilder FactoryBuilder) {
-	commandRunner := NewCommandRunner(factoryBuilder)
-	Execute(pluginVersion, buildDate, commandRunner)
+func ExecuteWithCommandFactory(pluginVersion string, buildDate string, commandFactory FactoryBuilder) {
+	execute(pluginVersion, buildDate, commandFactory)
+	if os.Getenv(ExecutionMode) == ExecutionModeDaemon {
+		StartInputContextWatcher(pluginVersion, buildDate, commandFactory, execute)
+	}
 }
 
-func DoExecute(pluginVersion string, buildDate string, factoryBuilder FactoryBuilder) {
-	execute(pluginVersion, buildDate, factoryBuilder)
-	if os.Getenv(ExecutionMode) == ExecutionModeDaemon {
-		StartInputContextWatcher(pluginVersion, buildDate, factoryBuilder, execute)
-	}
+func execute(pluginVersion string, buildDate string, commandFactory FactoryBuilder) {
+	commandRunner := NewCommandRunner(commandFactory)
+	Execute(pluginVersion, buildDate, commandRunner)
 }
