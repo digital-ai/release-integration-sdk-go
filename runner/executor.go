@@ -11,7 +11,7 @@ import (
 
 type RunFunction func(task.InputContext) *task.Result
 type FactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
-type ExecuteFunction func(pluginVersion string, buildDate string, factoryBuilder FactoryBuilder)
+type ExecuteFunction func(pluginVersion string, buildDate string, runner Runner)
 
 type Runner interface {
 	Run(task.InputContext) *task.Result
@@ -64,7 +64,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	return result
 }
 
-func Execute(pluginVersion string, buildDate string, runner Runner) {
+func execute(pluginVersion string, buildDate string, runner Runner) {
 	klog.Infof("PluginVersion:\t%s", pluginVersion)
 	klog.Infof("BuildDate:\t%s", buildDate)
 
@@ -88,14 +88,9 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	task.HandleSuccess(resultMap)
 }
 
-func ExecuteWithCommandFactory(pluginVersion string, buildDate string, commandFactory FactoryBuilder) {
-	execute(pluginVersion, buildDate, commandFactory)
+func Execute(pluginVersion string, buildDate string, runner Runner) {
+	execute(pluginVersion, buildDate, runner)
 	if os.Getenv(ExecutionMode) == ExecutionModeDaemon {
-		StartInputContextWatcher(pluginVersion, buildDate, commandFactory, execute)
+		StartInputContextWatcher(execute, pluginVersion, buildDate, runner)
 	}
-}
-
-func execute(pluginVersion string, buildDate string, commandFactory FactoryBuilder) {
-	commandRunner := NewCommandRunner(commandFactory)
-	Execute(pluginVersion, buildDate, commandRunner)
 }
