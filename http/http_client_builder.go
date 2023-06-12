@@ -6,6 +6,7 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"fmt"
+	"github.com/Azure/go-ntlmssp"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 	"k8s.io/client-go/rest"
@@ -25,6 +26,10 @@ type BasicAuthentication struct {
 	Password string
 }
 
+type NtlmAuthentication struct {
+	Domain string
+}
+
 type ClientCertificateAuthentication struct {
 	CertData []byte
 	KeyData  []byte
@@ -42,12 +47,14 @@ type HttpClientConfig struct {
 	Insecure                        bool
 	BasicAuthentication             *BasicAuthentication
 	TokenAuthentication             *TokenAuthentication
+	NtlmAuthentication              *NtlmAuthentication
 	ClientCertificateAuthentication *ClientCertificateAuthentication
 	CertificateAuthority            *CertificateAuthority
 	ProxyHost                       string
 	ProxyPort                       string
 	ProxyUsername                   string
 	ProxyPassword                   string
+	ProxyDomain                     string
 }
 
 type fetchTokenFunc func(*HttpClientBuilder) (string, error)
@@ -182,6 +189,12 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 	if config.TokenAuthentication != nil {
 		b.config.BearerToken = config.TokenAuthentication.BearerToken
 	}
+	if config.NtlmAuthentication != nil {
+		b.config.Host = fmt.Sprintf("%s\\%s", config.NtlmAuthentication.Domain, config.Host)
+		b.config.Transport = ntlmssp.Negotiator{
+			RoundTripper: b.config.Transport,
+		}
+	}
 	if config.ClientCertificateAuthentication != nil {
 		b.config.TLSClientConfig.CertData = config.ClientCertificateAuthentication.CertData
 		b.config.TLSClientConfig.KeyData = config.ClientCertificateAuthentication.KeyData
@@ -190,7 +203,16 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 	}
 	if config.ProxyHost != "" {
 		proxyUrlMethod := func(*http.Request) (*url.URL, error) {
-			proxyUrl, err := url.Parse(fmt.Sprintf("%s:%s", config.ProxyHost, config.ProxyPort))
+			proxyRawUrl := fmt.Sprintf("%s:%s", config.ProxyHost, config.ProxyPort)
+
+			if config.ProxyDomain != "" {
+				proxyRawUrl = fmt.Sprintf("%s\\%s", config.ProxyDomain, proxyRawUrl)
+				b.config.Transport = ntlmssp.Negotiator{
+					RoundTripper: b.config.Transport,
+				}
+			}
+
+			proxyUrl, err := url.Parse(proxyRawUrl)
 			if err != nil {
 				return nil, err
 			}
