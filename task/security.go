@@ -10,13 +10,13 @@ import (
 	"os"
 )
 
-var SessionKey = os.Getenv("SESSION_KEY")
+var sessionKey = os.Getenv(SessionKey)
 
 func Decrypt(content []byte) ([]byte, error) {
-	if len(SessionKey) == 0 {
+	if len(sessionKey) == 0 {
 		return content, nil
 	} else {
-		key, _ := base64.StdEncoding.DecodeString(SessionKey)
+		key, _ := base64.StdEncoding.DecodeString(sessionKey)
 		ciphertext, _ := base64.StdEncoding.DecodeString(string(content))
 		c, _ := aes.NewCipher(key)
 		nonceSize := 16
@@ -27,10 +27,10 @@ func Decrypt(content []byte) ([]byte, error) {
 }
 
 func Encrypt(content []byte) ([]byte, error) {
-	if len(SessionKey) == 0 {
+	if len(sessionKey) == 0 {
 		return content, nil
 	} else {
-		key, _ := base64.StdEncoding.DecodeString(SessionKey)
+		key, _ := base64.StdEncoding.DecodeString(sessionKey)
 		c, _ := aes.NewCipher(key)
 		nonce := make([]byte, 16)
 		if _, err := io.ReadFull(rand.Reader, nonce); err != nil {

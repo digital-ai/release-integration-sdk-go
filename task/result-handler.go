@@ -15,8 +15,8 @@ import (
 	"strings"
 )
 
-var CallbackUrl = os.Getenv(CallbackURL)
-var ResultSecretKey = os.Getenv(ResultSecretName)
+var callbackUrl = os.Getenv(CallbackURL)
+var resultSecretKey = os.Getenv(ResultSecretName)
 
 func HandleSuccess(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
@@ -93,8 +93,8 @@ func splitSecretResourceData(secretEntry string) (string, string, string, error)
 }
 
 func writeToSecret(encryptedData []byte) error {
-	if len(ResultSecretKey) > 0 {
-		namespace, name, key, err := splitSecretResourceData(ResultSecretKey)
+	if len(resultSecretKey) > 0 {
+		namespace, name, key, err := splitSecretResourceData(resultSecretKey)
 		if err != nil {
 			klog.Warningf("Cannot resolve value of Result Secret Name and Key %s, skipping - output written to output file", err)
 			return err
@@ -126,8 +126,8 @@ func writeToSecret(encryptedData []byte) error {
 }
 
 func pushResult(encryptedData []byte) error {
-	if len(CallbackUrl) > 0 {
-		callBackUrl, err := base64.StdEncoding.DecodeString(CallbackUrl)
+	if len(callbackUrl) > 0 {
+		callBackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
 		if err != nil {
 			klog.Warningf("Cannot decode Callback URL %s", err)
 			return err

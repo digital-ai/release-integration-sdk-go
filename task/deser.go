@@ -20,6 +20,7 @@ const (
 	ReleaseURL                       = "RELEASE_URL"
 	InputContextSecret               = "INPUT_CONTEXT_SECRET"
 	RunnerNamespace                  = "RUNNER_NAMESPACE"
+	SessionKey                       = "SESSION_KEY"
 	InputContextSecretDataInput      = "input"
 	InputContextSecretDataSessionKey = "session-key"
 	InputContextSecretDataUrlKey     = "url"
@@ -62,8 +63,8 @@ func Deserialize(context *InputContext) error {
 			return err
 		}
 		content = secret.Data[InputContextSecretDataInput]
-		SessionKey = string(secret.Data[InputContextSecretDataSessionKey])
-		CallbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
+		sessionKey = string(secret.Data[InputContextSecretDataSessionKey])
+		callbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
 	}
 
 	decrypted, err := Decrypt(content)
