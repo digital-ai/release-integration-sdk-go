@@ -14,7 +14,7 @@ import (
 	"net/url"
 )
 
-var DefaultContentType = "application/json"
+const DefaultContentType = "application/json"
 
 type TokenAuthentication struct {
 	BearerToken string

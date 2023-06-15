@@ -6,10 +6,12 @@ import (
 	"github.com/digital-ai/release-integration-sdk-go/task"
 	"github.com/digital-ai/release-integration-sdk-go/task/command"
 	"k8s.io/klog/v2"
+	"os"
 )
 
 type RunFunction func(task.InputContext) *task.Result
 type FactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
+type ExecuteFunction func(pluginVersion string, buildDate string, runner Runner)
 
 type Runner interface {
 	Run(task.InputContext) *task.Result
@@ -62,7 +64,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	return result
 }
 
-func Execute(pluginVersion string, buildDate string, runner Runner) {
+func execute(pluginVersion string, buildDate string, runner Runner) {
 	klog.Infof("PluginVersion:\t%s", pluginVersion)
 	klog.Infof("BuildDate:\t%s", buildDate)
 
@@ -84,4 +86,11 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	}
 	klog.Infof("Finished executing runner function")
 	task.HandleSuccess(resultMap)
+}
+
+func Execute(pluginVersion string, buildDate string, runner Runner) {
+	execute(pluginVersion, buildDate, runner)
+	if os.Getenv(ExecutionMode) == ExecutionModeDaemon {
+		StartInputContextWatcher(execute, pluginVersion, buildDate, runner)
+	}
 }
