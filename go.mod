@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358
+	github.com/launchdarkly/go-ntlm-proxy-auth v1.0.1
 	github.com/savaki/jq v0.0.0-20161209013833-0e6baecebbf8
 	github.com/smartystreets/assertions v1.2.0
 	github.com/smartystreets/goconvey v1.7.2
@@ -32,12 +33,13 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
+	github.com/launchdarkly/go-ntlmssp v1.0.1 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
+	golang.org/x/crypto v0.1.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/sys v0.6.0 // indirect
 	golang.org/x/term v0.6.0 // indirect
