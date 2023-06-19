@@ -169,7 +169,6 @@ func (b *HttpClientBuilder) WithClientCertAuthFiles(certFile string, keyFile str
 func (b *HttpClientBuilder) WithNtlmAuth(username string, password string, domain string) *HttpClientBuilder {
 	b.config.Username = fmt.Sprintf("%s\\%s", domain, username)
 	b.config.Password = password
-
 	b.config.Transport = ntlmssp.Negotiator{
 		RoundTripper: b.config.Transport,
 	}
