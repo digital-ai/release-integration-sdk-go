@@ -6,6 +6,8 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"fmt"
+	"github.com/Azure/go-ntlmssp"
+	"github.com/launchdarkly/go-ntlm-proxy-auth"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 	"k8s.io/client-go/rest"
@@ -25,6 +27,19 @@ type BasicAuthentication struct {
 	Password string
 }
 
+type NtlmAuthentication struct {
+	Username string
+	Password string
+	Domain   string
+}
+
+type OAuth2Authentication struct {
+	ClientID     string
+	ClientSecret string
+	Scopes       []string
+	TokenURL     string
+}
+
 type ClientCertificateAuthentication struct {
 	CertData []byte
 	KeyData  []byte
@@ -42,12 +57,15 @@ type HttpClientConfig struct {
 	Insecure                        bool
 	BasicAuthentication             *BasicAuthentication
 	TokenAuthentication             *TokenAuthentication
+	NtlmAuthentication              *NtlmAuthentication
+	OAuth2Authentication            *OAuth2Authentication
 	ClientCertificateAuthentication *ClientCertificateAuthentication
 	CertificateAuthority            *CertificateAuthority
 	ProxyHost                       string
 	ProxyPort                       string
 	ProxyUsername                   string
 	ProxyPassword                   string
+	ProxyDomain                     string
 }
 
 type fetchTokenFunc func(*HttpClientBuilder) (string, error)
@@ -148,6 +166,15 @@ func (b *HttpClientBuilder) WithClientCertAuthFiles(certFile string, keyFile str
 	return b
 }
 
+func (b *HttpClientBuilder) WithNtlmAuth(username string, password string, domain string) *HttpClientBuilder {
+	b.config.Username = fmt.Sprintf("%s\\%s", domain, username)
+	b.config.Password = password
+	b.config.Transport = ntlmssp.Negotiator{
+		RoundTripper: b.config.Transport,
+	}
+	return b
+}
+
 func (b *HttpClientBuilder) WithContentType(accept string, contentType string) *HttpClientBuilder {
 	b.config.AcceptContentTypes = accept
 	b.config.ContentType = contentType
@@ -188,19 +215,43 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 		b.config.TLSClientConfig.CertFile = config.ClientCertificateAuthentication.CertFile
 		b.config.TLSClientConfig.KeyFile = config.ClientCertificateAuthentication.KeyFile
 	}
+	if config.NtlmAuthentication != nil {
+		b.config.Username = fmt.Sprintf("%s\\%s", config.NtlmAuthentication.Domain, config.NtlmAuthentication.Username)
+		b.config.Password = config.NtlmAuthentication.Password
+		b.config.Transport = ntlmssp.Negotiator{
+			RoundTripper: b.config.Transport,
+		}
+	}
+	if config.OAuth2Authentication != nil {
+		b.oAuth2Config = &clientcredentials.Config{
+			ClientID:     config.OAuth2Authentication.ClientID,
+			ClientSecret: config.OAuth2Authentication.ClientSecret,
+			Scopes:       config.OAuth2Authentication.Scopes,
+			TokenURL:     config.OAuth2Authentication.TokenURL,
+		}
+	}
 	if config.ProxyHost != "" {
+		proxyUrl, proxyErr := url.Parse(fmt.Sprintf("%s:%s", config.ProxyHost, config.ProxyPort))
 		proxyUrlMethod := func(*http.Request) (*url.URL, error) {
-			proxyUrl, err := url.Parse(fmt.Sprintf("%s:%s", config.ProxyHost, config.ProxyPort))
-			if err != nil {
-				return nil, err
+			if proxyErr != nil {
+				return nil, proxyErr
 			}
-
 			proxyUrl.User = url.UserPassword(config.ProxyUsername, config.ProxyPassword)
 			return proxyUrl, nil
 		}
 
-		transport := b.config.Transport.(*http.Transport)
-		transport.Proxy = proxyUrlMethod
+		if config.NtlmAuthentication != nil {
+			transport := b.config.Transport.(ntlmssp.Negotiator).RoundTripper.(*http.Transport)
+			if config.ProxyDomain != "" {
+				ntlmDialContext := ntlm.NewNTLMProxyDialContext(nil, *proxyUrl, config.ProxyUsername, config.ProxyPassword, config.ProxyDomain, nil)
+				transport.DialContext = ntlmDialContext
+			} else {
+				transport.Proxy = proxyUrlMethod
+			}
+		} else {
+			transport := b.config.Transport.(*http.Transport)
+			transport.Proxy = proxyUrlMethod
+		}
 	}
 	b.lazyFetchToken = voidToken
 	return b
