@@ -1,6 +1,7 @@
 package runner
 
 import (
+	"context"
 	"fmt"
 	"github.com/digital-ai/release-integration-sdk-go/logger"
 	"github.com/digital-ai/release-integration-sdk-go/task"
@@ -59,9 +60,10 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	signal.Notify(signalChannel, syscall.SIGABRT)
 
 	resultChannel := make(chan *task.Result, 1)
+	cancelableCtx, cancel := context.WithCancel(context.Background())
 
 	go func() {
-		result, err := exec.FetchResult()
+		result, err := exec.FetchResult(cancelableCtx)
 		if err != nil {
 			klog.Infof("Finished executing command with error %v", err)
 			if result != nil {
@@ -77,17 +79,19 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 
 	select {
 	case <-signalChannel:
+		cancel()
 		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
 		if err != nil {
 			return returnResult.Error(fmt.Errorf("cannot deserialize abort command: %v", err))
 		}
-		abortResult, err := abortExec.FetchResult()
+		abortResult, err := abortExec.FetchResult(context.Background())
 		if err != nil {
 			klog.Infof("Finished executing abort command with error %v", err)
 			return returnResult.Error(err)
 		}
 		return abortResult
 	case result := <-resultChannel:
+		cancel()
 		return result
 	}
 }

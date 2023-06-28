@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/digital-ai/release-integration-sdk-go/runner"
@@ -35,15 +36,15 @@ func mockResponse(fieldLabel string, param string) (*task.Result, error) {
 	return task.NewResult().Json(fieldLabel, slice), nil
 }
 
-func (command MockSuccessCommand) FetchResult() (*task.Result, error) {
+func (command MockSuccessCommand) FetchResult(_ context.Context) (*task.Result, error) {
 	return mockResponse(command.FieldLabel, command.Parameter)
 }
 
-func (command MockSuccessSecureCommand) FetchResult() (*task.Result, error) {
+func (command MockSuccessSecureCommand) FetchResult(_ context.Context) (*task.Result, error) {
 	return mockResponse(command.FieldLabel, command.Parameter)
 }
 
-func (command MockFailedCommand) FetchResult() (*task.Result, error) {
+func (command MockFailedCommand) FetchResult(_ context.Context) (*task.Result, error) {
 	return nil, fmt.Errorf("simulate error")
 }
 
