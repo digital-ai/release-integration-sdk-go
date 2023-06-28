@@ -7,10 +7,12 @@ import (
 	"github.com/digital-ai/release-integration-sdk-go/task/command"
 	"k8s.io/klog/v2"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 type RunFunction func(task.InputContext) *task.Result
-type FactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
+type CommandFactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
 type ExecuteFunction func(pluginVersion string, buildDate string, runner Runner)
 
 type Runner interface {
@@ -22,7 +24,7 @@ type SimpleRunner struct {
 }
 
 type CommandRunner struct {
-	factoryBuilder FactoryBuilder
+	commandFactoryBuilder CommandFactoryBuilder
 }
 
 func NewSimpleRunner(run RunFunction) *SimpleRunner {
@@ -35,33 +37,59 @@ func (runner SimpleRunner) Run(ctx task.InputContext) *task.Result {
 	return runner.run(ctx)
 }
 
-func NewCommandRunner(factoryBuilder FactoryBuilder) *CommandRunner {
+func NewCommandRunner(factoryBuilder CommandFactoryBuilder) *CommandRunner {
 	var runner CommandRunner
-	runner.factoryBuilder = factoryBuilder
+	runner.commandFactoryBuilder = factoryBuilder
 	return &runner
 }
 
 func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	returnResult := task.NewResult()
-	factory, err := runner.factoryBuilder(ctx)
+	factory, err := runner.commandFactoryBuilder(ctx)
 	if err != nil {
 		return returnResult.Error(fmt.Errorf("cannot crete factory from task: %v", err))
 	}
+
 	exec, err := command.DeserializeCommand(factory, ctx.Task)
 	if err != nil {
 		return returnResult.Error(fmt.Errorf("cannot deserialize input: %v", err))
 	}
 
-	result, err := exec.FetchResult()
-	if err != nil {
-		klog.Infof("Finished executing command with error %v", err)
-		if result != nil {
-			return result.Error(err)
+	signalChannel := make(chan os.Signal, 1)
+	signal.Notify(signalChannel, syscall.SIGABRT)
+
+	resultChannel := make(chan *task.Result, 1)
+
+	go func() {
+		result, err := exec.FetchResult()
+		if err != nil {
+			klog.Infof("Finished executing command with error %v", err)
+			if result != nil {
+				resultChannel <- result.Error(err)
+				return
+			}
+			resultChannel <- returnResult.Error(err)
+			return
 		}
-		return returnResult.Error(err)
+		klog.Infoln("Finished executing command")
+		resultChannel <- result
+	}()
+
+	select {
+	case <-signalChannel:
+		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
+		if err != nil {
+			return returnResult.Error(fmt.Errorf("cannot deserialize abort command: %v", err))
+		}
+		abortResult, err := abortExec.FetchResult()
+		if err != nil {
+			klog.Infof("Finished executing abort command with error %v", err)
+			return returnResult.Error(err)
+		}
+		return abortResult
+	case result := <-resultChannel:
+		return result
 	}
-	klog.Infoln("Finished executing command")
-	return result
 }
 
 func execute(pluginVersion string, buildDate string, runner Runner) {

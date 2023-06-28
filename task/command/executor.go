@@ -7,3 +7,7 @@ import (
 type CommandExecutor interface {
 	FetchResult() (*task.Result, error)
 }
+
+func AbortCommand(command CommandType) CommandType {
+	return command + "#abort"
+}

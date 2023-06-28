@@ -5,21 +5,22 @@ import (
 )
 
 type CommandType string
+type AbortCommandType CommandType
 
 type CommandWrapper struct {
 	CommandType CommandType `json:"type"`
 	Properties  interface{}
 }
 
-func DeserializeCommand(factory CommandFactory, taskContext task.TaskContext) (CommandExecutor, error) {
+func deserializeCommand(factory CommandFactory, properties []task.PropertyDefinition, commandType CommandType) (CommandExecutor, error) {
 	var inputs []task.PropertyDefinition
-	for _, property := range taskContext.Properties {
+	for _, property := range properties {
 		if property.Category == task.InputCategory || property.Category == task.OutputCategory {
 			inputs = append(inputs, property)
 		}
 	}
 
-	command, err := factory.InitCommand(CommandType(taskContext.Type))
+	command, err := factory.InitCommand(commandType)
 	if err != nil {
 		return nil, err
 	}
@@ -28,4 +29,12 @@ func DeserializeCommand(factory CommandFactory, taskContext task.TaskContext) (C
 		return nil, unmarshalErr
 	}
 	return command, nil
+}
+
+func DeserializeCommand(factory CommandFactory, taskContext task.TaskContext) (CommandExecutor, error) {
+	return deserializeCommand(factory, taskContext.Properties, CommandType(taskContext.Type))
+}
+
+func DeserializeAbortCommand(factory CommandFactory, taskContext task.TaskContext) (CommandExecutor, error) {
+	return deserializeCommand(factory, taskContext.Properties, AbortCommand(CommandType(taskContext.Type)))
 }
