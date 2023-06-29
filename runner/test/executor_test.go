@@ -29,6 +29,7 @@ var testMap = map[string]runner.Runner{
 	"command_secure":             commandRunner,
 	"command_fail":               commandRunner,
 	"no_such_command":            commandRunner,
+	// TODO add abort test
 }
 
 var fixtures = test.CreateExecutorTestSet("testdata", testMap)

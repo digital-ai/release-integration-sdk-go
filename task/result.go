@@ -12,6 +12,12 @@ const (
 	errorMessage = "errorMessage"
 )
 
+type AbortError struct{}
+
+func (e *AbortError) Error() string {
+	return "Task was aborted."
+}
+
 type Result struct {
 	resultGenerators []Generator
 }
@@ -52,6 +58,28 @@ func parseNode(jqOp string, result json.RawMessage) ([]byte, error) {
 		return nil, fmt.Errorf("could not apply parser for JQ operation '%s': %v", jqOp, err)
 	}
 	return parseResult, nil
+}
+
+// The AbortGenerator - used to represent aborted execution result
+type AbortGenerator struct {
+	result map[string]interface{}
+}
+
+func (gen AbortGenerator) GenerateValue() (interface{}, error) {
+	return "", &AbortError{}
+}
+
+func (gen AbortGenerator) FieldName() string {
+	return ""
+}
+
+func (r *Result) Aborted(result *Result) *Result {
+	resultMap, err := result.Get()
+	if err != nil {
+		// add empty result
+		return r.addGenerator(AbortGenerator{})
+	}
+	return r.addGenerator(AbortGenerator{result: resultMap})
 }
 
 // The ErrorGenerator - used to represent error in standardizes response
@@ -363,7 +391,9 @@ func (r *Result) Get() (map[string]interface{}, error) {
 			result[generator.FieldName()] = value
 		}
 		if err != nil {
-			switch generator.(type) {
+			switch g := generator.(type) {
+			case AbortGenerator:
+				return g.result, err
 			case ErrorGenerator:
 				return result, err
 			default:

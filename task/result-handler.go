@@ -35,6 +35,14 @@ func HandleError(err error, result map[string]interface{}) {
 	handleResult(outputContext)
 }
 
+func HandleAbort(result map[string]interface{}) {
+	outputContext := TaskOutputContext{
+		ExitCode:         134,
+		OutputProperties: result,
+	}
+	handleResult(outputContext)
+}
+
 type SkipResultHandler struct{}
 
 func (m *SkipResultHandler) Error() string {
