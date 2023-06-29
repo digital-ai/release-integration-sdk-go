@@ -12,11 +12,14 @@ import (
 	"time"
 )
 
-const (
-	ExecutionMode       = "EXECUTOR_EXECUTION_MODE"
-	ExecutionModeDaemon = "daemon"
-)
+// ExecutionMode is an environment variable that determines the execution mode of the executor.
+const ExecutionMode = "EXECUTOR_EXECUTION_MODE"
 
+// ExecutionModeDaemon represents the execution mode for running the executor as a daemon.
+const ExecutionModeDaemon = "daemon"
+
+// StartInputContextWatcher starts the input context watcher that monitors changes in the input context secret.
+// When a change is detected, the provided onInputContextUpdateFunc is invoked.
 func StartInputContextWatcher(onInputContextUpdateFunc ExecuteFunction, pluginVersion string, buildDate string, runner Runner) {
 	stop := make(chan struct{})
 
@@ -29,6 +32,7 @@ func StartInputContextWatcher(onInputContextUpdateFunc ExecuteFunction, pluginVe
 	<-stop
 }
 
+// startInputSecretWatcher starts the watcher for changes in the input context secret.
 func startInputSecretWatcher(onInputContextUpdateFunc ExecuteFunction, pluginVersion string, buildDate string, runner Runner, stop chan struct{}) error {
 	clientset, err := k8s.GetClientset()
 	if err != nil {

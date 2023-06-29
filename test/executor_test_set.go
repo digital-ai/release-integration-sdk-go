@@ -15,6 +15,7 @@ const (
 	buildDate     = "now"
 )
 
+// CreateExecutorTestSet creates a set of executor tests based on the specified base path and runners.
 func CreateExecutorTestSet(basePath string, tests map[string]runner.Runner) []ExecutorTest {
 	var testSet []ExecutorTest
 	for test, runner := range tests {
@@ -27,6 +28,7 @@ func CreateExecutorTestSet(basePath string, tests map[string]runner.Runner) []Ex
 	return testSet
 }
 
+// ConveyTest executes the executor tests using Convey from goconvey.
 func ConveyTest(t *testing.T, tests []ExecutorTest) {
 	Convey("Given input file", t, func() {
 		for _, fixture := range tests {
@@ -38,7 +40,7 @@ func ConveyTest(t *testing.T, tests []ExecutorTest) {
 				Convey("output file should contain expected value", func() {
 					output, outErr := fixture.LoadOutputResult()
 					if outErr != nil {
-						fmt.Println("error loading ouput result", outErr)
+						fmt.Println("error loading output result", outErr)
 					}
 					for _, assert := range fixture.asserts {
 						So(strings.TrimSpace(string(output)), assert, strings.TrimSpace(string(fixture.Expected)))

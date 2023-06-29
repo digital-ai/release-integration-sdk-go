@@ -8,22 +8,30 @@ import (
 	"github.com/digital-ai/release-integration-sdk-go/task/command"
 )
 
+// MockFactory represents a mock implementation of the CommandFactory interface.
 type MockFactory struct {
 	ResultField       string
 	SecureResultField string
 }
+
+// MockSuccessCommand represents a mock implementation of a successful command.
 type MockSuccessCommand struct {
 	FieldLabel string
 	Parameter  string `json:"parameter"`
 }
+
+// MockSuccessSecureCommand represents a mock implementation of a successful secure command.
 type MockSuccessSecureCommand struct {
 	FieldLabel string
 	Parameter  string `json:"parameter"`
 }
+
+// MockFailedCommand represents a mock implementation of a failed command.
 type MockFailedCommand struct {
 	Parameter string `json:"parameter"`
 }
 
+// mockResponse generates a mock task result with the specified field label and parameter.
 func mockResponse(fieldLabel string, param string) (*task.Result, error) {
 	result := make(map[string]string)
 	result["field"] = "command-success"
@@ -35,18 +43,22 @@ func mockResponse(fieldLabel string, param string) (*task.Result, error) {
 	return task.NewResult().Json(fieldLabel, slice), nil
 }
 
+// FetchResult returns the mock result for the MockSuccessCommand.
 func (command MockSuccessCommand) FetchResult() (*task.Result, error) {
 	return mockResponse(command.FieldLabel, command.Parameter)
 }
 
+// FetchResult returns the mock result for the MockSuccessSecureCommand.
 func (command MockSuccessSecureCommand) FetchResult() (*task.Result, error) {
 	return mockResponse(command.FieldLabel, command.Parameter)
 }
 
+// FetchResult returns an error to simulate a failed command execution for MockFailedCommand.
 func (command MockFailedCommand) FetchResult() (*task.Result, error) {
 	return nil, fmt.Errorf("simulate error")
 }
 
+// InitCommand initializes the command based on the provided command type.
 func (mock MockFactory) InitCommand(commandType command.CommandType) (command.CommandExecutor, error) {
 	switch commandType {
 	case "success.Command":

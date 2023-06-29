@@ -10,22 +10,28 @@ import (
 	"strings"
 )
 
+// QueryParam represents a query parameter used in HTTP requests.
 type QueryParam struct {
 	key   string
 	value string
 }
 
+// Pair sets the key-value pair for the QueryParam.
 func (q *QueryParam) Pair(key string, value string) {
 	q.key = key
 	q.value = value
 }
 
+// HttpClient represents an HTTP client for making HTTP requests.
+// It contains the base URL for the client, the underlying HTTP client implementation, and headers to be included in each request made by the client.
 type HttpClient struct {
 	baseUrl string
 	client  rest.HTTPClient
 	headers map[string][]string
 }
 
+// RequestConfig represents a configuration for an HTTP request.
+// It contains the HTTP method, request body, headers, endpoint path, and query parameters to be included in the request.
 type RequestConfig struct {
 	method      string
 	Body        []byte
@@ -34,54 +40,66 @@ type RequestConfig struct {
 	QueryParams []QueryParam
 }
 
+// Client sets the underlying HTTP client for the HttpClient.
 func (httpClient *HttpClient) Client(client rest.HTTPClient) {
 	httpClient.client = client
 }
 
+// BaseUrl sets the base URL for the HttpClient.
 func (httpClient *HttpClient) BaseUrl(baseUrl string) {
 	httpClient.baseUrl = baseUrl
 }
 
+// GetBaseUrl returns the base URL of the HttpClient.
 func (httpClient *HttpClient) GetBaseUrl() string {
 	return httpClient.baseUrl
 }
 
+// Get sends an HTTP GET request to the specified path with optional query parameters.
 func (httpClient *HttpClient) Get(path string, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(http.MethodGet, path, nil, queryParams...)
 }
 
+// GetWithConfig sends an HTTP GET request with a custom configuration.
 func (httpClient *HttpClient) GetWithConfig(config *RequestConfig) ([]byte, error) {
 	config.method = http.MethodGet
 	return httpClient.sendRequestWithCustomHeaders(config)
 }
 
+// Post sends an HTTP POST request to the specified path with the provided request body and optional query parameters.
 func (httpClient *HttpClient) Post(path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(http.MethodPost, path, body, queryParams...)
 }
 
+// PostWithConfig sends an HTTP POST request with a custom configuration.
 func (httpClient *HttpClient) PostWithConfig(config *RequestConfig) ([]byte, error) {
 	config.method = http.MethodPost
 	return httpClient.sendRequestWithCustomHeaders(config)
 }
 
+// Delete sends an HTTP DELETE request to the specified path with optional query parameters.
 func (httpClient *HttpClient) Delete(path string, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(http.MethodDelete, path, nil, queryParams...)
 }
 
+// DeleteWithConfig sends an HTTP DELETE request with a custom configuration.
 func (httpClient *HttpClient) DeleteWithConfig(config *RequestConfig) ([]byte, error) {
 	config.method = http.MethodDelete
 	return httpClient.sendRequestWithCustomHeaders(config)
 }
 
+// Put sends an HTTP PUT request to the specified path with the provided request body and optional query parameters.
 func (httpClient *HttpClient) Put(path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(http.MethodPut, path, body, queryParams...)
 }
 
+// PutWithConfig sends an HTTP PUT request with a custom configuration.
 func (httpClient *HttpClient) PutWithConfig(config *RequestConfig) ([]byte, error) {
 	config.method = http.MethodPut
 	return httpClient.sendRequestWithCustomHeaders(config)
 }
 
+// sendRequest sends an HTTP request with the specified method, path, body, and optional query parameters.
 func (httpClient *HttpClient) sendRequest(method string, path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequestWithCustomHeaders(&RequestConfig{
 		method:      method,
@@ -91,6 +109,7 @@ func (httpClient *HttpClient) sendRequest(method string, path string, body []byt
 	})
 }
 
+// sendRequestWithCustomHeaders sends an HTTP request with a custom configuration and headers.
 func (httpClient *HttpClient) sendRequestWithCustomHeaders(config *RequestConfig) ([]byte, error) {
 	client := httpClient.client
 	if client == nil {
@@ -128,6 +147,7 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(config *RequestConfig
 	return data, err
 }
 
+// setHeaders sets the headers of an HTTP request based on the provided map of headers.
 func setHeaders(request *http.Request, headers map[string][]string) {
 	if headers != nil {
 		for header, value := range headers {
@@ -136,6 +156,7 @@ func setHeaders(request *http.Request, headers map[string][]string) {
 	}
 }
 
+// encodeQueryParams encodes a list of QueryParam objects into a URL-encoded query string.
 func encodeQueryParams(params []QueryParam) string {
 	values := make(url.Values)
 	for _, param := range params {
@@ -144,6 +165,7 @@ func encodeQueryParams(params []QueryParam) string {
 	return values.Encode()
 }
 
+// createUrl creates a complete URL for an API endpoint based on the HttpClient's base URL and provided API path and query parameters.
 func (httpClient *HttpClient) createUrl(api string, params ...QueryParam) string {
 	host := httpClient.baseUrl
 

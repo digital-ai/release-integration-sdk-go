@@ -15,9 +15,13 @@ import (
 	"strings"
 )
 
+// callbackUrl is the environment variable for the callback URL to push results.
 var callbackUrl = os.Getenv(CallbackURL)
+
+// resultSecretKey is the environment variable for the result secret name.
 var resultSecretKey = os.Getenv(ResultSecretName)
 
+// HandleSuccess handles successful task execution by processing the result.
 func HandleSuccess(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
@@ -26,6 +30,7 @@ func HandleSuccess(result map[string]interface{}) {
 	handleResult(outputContext)
 }
 
+// HandleError handles task execution error by processing the result and error message.
 func HandleError(err error, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
@@ -35,12 +40,15 @@ func HandleError(err error, result map[string]interface{}) {
 	handleResult(outputContext)
 }
 
+// SkipResultHandler represents a result handler that should be skipped.
 type SkipResultHandler struct{}
 
+// Error returns the error message for the SkipResultHandler.
 func (m *SkipResultHandler) Error() string {
 	return "skipping result handler"
 }
 
+// handleResult handles the task output context by encrypting and processing it with different result handlers.
 func handleResult(outputContext TaskOutputContext) {
 	data, _ := json.Marshal(outputContext)
 	encryptedData, encryptErr := Encrypt(data)
@@ -73,6 +81,7 @@ func handleResult(outputContext TaskOutputContext) {
 	}
 }
 
+// handleResultHandlerError handles the error from a result handler and updates the done and success channels accordingly.
 func handleResultHandlerError(handler string, done chan string, success chan bool, err error) {
 	if err == nil {
 		done <- fmt.Sprintf("Successfully finished result return using %s.", handler)
@@ -84,6 +93,7 @@ func handleResultHandlerError(handler string, done chan string, success chan boo
 	}
 }
 
+// splitSecretResourceData splits the secret entry string into namespace, name, and key.
 func splitSecretResourceData(secretEntry string) (string, string, string, error) {
 	split := strings.Split(secretEntry, ":")
 	if len(split) != 3 {
@@ -92,6 +102,7 @@ func splitSecretResourceData(secretEntry string) (string, string, string, error)
 	return split[0], split[1], split[2], nil
 }
 
+// writeToSecret writes the encrypted data to the result secret if the resultSecretKey is set.
 func writeToSecret(encryptedData []byte) error {
 	if len(resultSecretKey) > 0 {
 		namespace, name, key, err := splitSecretResourceData(resultSecretKey)
@@ -125,6 +136,7 @@ func writeToSecret(encryptedData []byte) error {
 	}
 }
 
+// pushResult pushes the encrypted data to the callback URL if the callbackUrl is set.
 func pushResult(encryptedData []byte) error {
 	if len(callbackUrl) > 0 {
 		callBackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
@@ -149,6 +161,7 @@ func pushResult(encryptedData []byte) error {
 	}
 }
 
+// writeOutput writes the encrypted data to the output file if the outputLocation is set.
 func writeOutput(encryptedData []byte) error {
 	outputLocation := os.Getenv(OutputLocation)
 	if len(outputLocation) > 0 {

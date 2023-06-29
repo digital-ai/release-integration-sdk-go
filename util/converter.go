@@ -5,6 +5,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// YamlToJson converts YAML data to JSON.
 func YamlToJson(yamlData []byte) ([]byte, error) {
 	var data interface{}
 	err := yaml.Unmarshal(yamlData, &data)
