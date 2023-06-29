@@ -39,6 +39,7 @@ func HandleAbort(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         134,
 		OutputProperties: result,
+		JobErrorMessage:  (&AbortError{}).Error(),
 	}
 	handleResult(outputContext)
 }

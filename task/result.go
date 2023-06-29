@@ -15,7 +15,7 @@ const (
 type AbortError struct{}
 
 func (e *AbortError) Error() string {
-	return "Task was aborted."
+	return "Task was aborted"
 }
 
 type Result struct {
