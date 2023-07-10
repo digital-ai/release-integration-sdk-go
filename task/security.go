@@ -10,8 +10,10 @@ import (
 	"os"
 )
 
+// sessionKey is the environment variable for the session key.
 var sessionKey = os.Getenv(SessionKey)
 
+// Decrypt decrypts the content using the session key.
 func Decrypt(content []byte) ([]byte, error) {
 	if len(sessionKey) == 0 {
 		return content, nil
@@ -26,6 +28,7 @@ func Decrypt(content []byte) ([]byte, error) {
 	}
 }
 
+// Encrypt encrypts the content using the session key.
 func Encrypt(content []byte) ([]byte, error) {
 	if len(sessionKey) == 0 {
 		return content, nil

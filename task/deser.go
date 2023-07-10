@@ -10,23 +10,49 @@ import (
 	"os"
 )
 
-const (
-	InputCategory                    = "input"
-	OutputCategory                   = "output"
-	InputLocation                    = "INPUT_LOCATION"
-	OutputLocation                   = "OUTPUT_LOCATION"
-	ResultSecretName                 = "RESULT_SECRET_NAME"
-	CallbackURL                      = "CALLBACK_URL"
-	ReleaseURL                       = "RELEASE_URL"
-	InputContextSecret               = "INPUT_CONTEXT_SECRET"
-	RunnerNamespace                  = "RUNNER_NAMESPACE"
-	SessionKey                       = "SESSION_KEY"
-	InputContextSecretDataInput      = "input"
-	InputContextSecretDataSessionKey = "session-key"
-	InputContextSecretDataUrlKey     = "url"
-	InputContextSecretExecutionIdKey = "execution-id"
-)
+// InputCategory represents the category of input properties.
+const InputCategory = "input"
 
+// OutputCategory represents the category of output properties.
+const OutputCategory = "output"
+
+// InputLocation represents the environment variable for input location.
+const InputLocation = "INPUT_LOCATION"
+
+// OutputLocation represents the environment variable for output location.
+const OutputLocation = "OUTPUT_LOCATION"
+
+// ResultSecretName represents the name of the result secret.
+const ResultSecretName = "RESULT_SECRET_NAME"
+
+// CallbackURL represents the environment variable for the callback URL.
+const CallbackURL = "CALLBACK_URL"
+
+// ReleaseURL represents the environment variable for the release URL.
+const ReleaseURL = "RELEASE_URL"
+
+// InputContextSecret represents the environment variable for the input context secret.
+const InputContextSecret = "INPUT_CONTEXT_SECRET"
+
+// RunnerNamespace represents the environment variable for the runner namespace.
+const RunnerNamespace = "RUNNER_NAMESPACE"
+
+// SessionKey represents the environment variable for the session key.
+const SessionKey = "SESSION_KEY"
+
+// InputContextSecretDataInput represents the key for input data in the input context secret.
+const InputContextSecretDataInput = "input"
+
+// InputContextSecretDataSessionKey represents the key for session key in the input context secret.
+const InputContextSecretDataSessionKey = "session-key"
+
+// InputContextSecretDataUrlKey represents the key for URL in the input context secret.
+const InputContextSecretDataUrlKey = "url"
+
+// InputContextSecretExecutionIdKey represents the key for execution ID in the input context secret.
+const InputContextSecretExecutionIdKey = "execution-id"
+
+// Deserialize deserializes the input context from the specified source into the provided InputContext object.
 func Deserialize(context *InputContext) error {
 	context.Release.Url = os.Getenv(ReleaseURL)
 	inputLocation := os.Getenv(InputLocation)
@@ -81,6 +107,7 @@ func Deserialize(context *InputContext) error {
 	return err
 }
 
+// DeserializeTask deserializes the input properties into the provided task instance.
 func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
 	var inputs []PropertyDefinition
 	for _, property := range properties {
@@ -92,6 +119,7 @@ func DeserializeTask(properties []PropertyDefinition, taskInstance any) error {
 	return UnmarshalProperties(inputs, taskInstance)
 }
 
+// Serialize serializes the provided result into the output properties.
 func Serialize(result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
@@ -100,6 +128,7 @@ func Serialize(result map[string]interface{}) {
 	handleResult(outputContext)
 }
 
+// SerializeError serializes the provided error and result into the output properties.
 func SerializeError(err error, result map[string]interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
@@ -109,6 +138,7 @@ func SerializeError(err error, result map[string]interface{}) {
 	handleResult(outputContext)
 }
 
+// UnmarshalProperties unmarshalls the input properties into the provided prototype object.
 func UnmarshalProperties(properties []PropertyDefinition, prototype interface{}) error {
 	propsMap := make(map[string]json.RawMessage)
 	for _, property := range properties {

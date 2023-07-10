@@ -4,13 +4,16 @@ import (
 	"github.com/digital-ai/release-integration-sdk-go/task"
 )
 
+// CommandType represents the type of a command.
 type CommandType string
 
+// CommandWrapper represents a wrapper for a command.
 type CommandWrapper struct {
 	CommandType CommandType `json:"type"`
 	Properties  interface{}
 }
 
+// DeserializeCommand deserializes a command from the task context using the provided command factory.
 func DeserializeCommand(factory CommandFactory, taskContext task.TaskContext) (CommandExecutor, error) {
 	var inputs []task.PropertyDefinition
 	for _, property := range taskContext.Properties {
