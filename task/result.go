@@ -11,16 +11,23 @@ import (
 const (
 	errorMessage = "errorMessage"
 )
+
+//type Result struct {
+//	resultGenerators []Generator
+//}
+
 // Result represents the result of a task execution.
 type Result struct {
 	resultGenerators []Generator
-	reportingRecords []ReportingRecord
+	reportingRecords []interface{}
 }
 
 // NewResult creates a new Result instance.
+
 func NewResult() *Result {
 	return &Result{
 		resultGenerators: []Generator{},
+		reportingRecords: []interface{}{},
 	}
 }
 
@@ -32,6 +39,7 @@ func NewReport() *Result {
 }
 
 // Generator is an interface for result value generators.
+
 type Generator interface {
 	GenerateValue() (interface{}, error)
 	FieldName() string
@@ -48,6 +56,10 @@ func (r *Result) addGenerator(generator Generator) *Result {
 //	r.reportingRecords = append(r.reportingRecords, record)
 //	return r
 //}
+func (r *Result) addReportingRecord(record interface{}) *Result {
+	r.reportingRecords = append(r.reportingRecords, record)
+	return r
+}
 
 // Util functions
 func parseDate(sampleFormat string, dateTime string) (string, error) {
@@ -414,6 +426,15 @@ func (r *Result) CustomValue(generator Generator) *Result {
 	return r.addGenerator(generator)
 }
 
+func (r *Result) ReportingRecord(record interface{}) *Result {
+	return r.addReportingRecord(record)
+}
+
+func NewDeploymentRecord() DeploymentRecord {
+	this := DeploymentRecord{}
+	return this
+}
+
 func (r *Result) Get() (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 	for _, generator := range r.resultGenerators {
@@ -432,4 +453,8 @@ func (r *Result) Get() (map[string]interface{}, error) {
 		}
 	}
 	return result, nil
+}
+
+func (r *Result) GetRecords() []interface{} {
+	return r.reportingRecords
 }
