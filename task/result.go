@@ -12,10 +12,6 @@ const (
 	errorMessage = "errorMessage"
 )
 
-//type Result struct {
-//	resultGenerators []Generator
-//}
-
 // Result represents the result of a task execution.
 type Result struct {
 	resultGenerators []Generator
@@ -23,7 +19,6 @@ type Result struct {
 }
 
 // NewResult creates a new Result instance.
-
 func NewResult() *Result {
 	return &Result{
 		resultGenerators: []Generator{},
@@ -31,15 +26,7 @@ func NewResult() *Result {
 	}
 }
 
-func NewReport() *Result {
-	return &Result{
-		resultGenerators: []Generator{},
-		reportingRecords: []ReportingRecord{},
-	}
-}
-
 // Generator is an interface for result value generators.
-
 type Generator interface {
 	GenerateValue() (interface{}, error)
 	FieldName() string
@@ -51,39 +38,13 @@ func (r *Result) addGenerator(generator Generator) *Result {
 	return r
 }
 
-// ErrorGenerator represents an error in the standardized response.
-//func (r *Result) addRecord(record ReportingRecord) *Result {
-//	r.reportingRecords = append(r.reportingRecords, record)
-//	return r
-//}
+// addReportingRecord adds a record to the result.
 func (r *Result) addReportingRecord(record interface{}) *Result {
 	r.reportingRecords = append(r.reportingRecords, record)
 	return r
 }
 
-// Util functions
-func parseDate(sampleFormat string, dateTime string) (string, error) {
-	parsedDateTime, err := time.Parse(sampleFormat, dateTime)
-	if err != nil {
-		return "", fmt.Errorf("error parsing date: %v", err)
-
-	}
-	return parsedDateTime.Format(time.RFC3339), nil
-}
-
-func parseNode(jqOp string, result json.RawMessage) ([]byte, error) {
-	parse, err := jq.Parse(jqOp)
-	if err != nil {
-		return nil, fmt.Errorf("could not create parser for JQ operation '%s': %v", jqOp, err)
-	}
-	parseResult, err := parse.Apply(result)
-	if err != nil {
-		return nil, fmt.Errorf("could not apply parser for JQ operation '%s': %v", jqOp, err)
-	}
-	return parseResult, nil
-}
-
-// The ErrorGenerator - used to represent error in standardizes response
+// ErrorGenerator represents an error in the standardized response.
 type ErrorGenerator struct {
 	err error
 }
