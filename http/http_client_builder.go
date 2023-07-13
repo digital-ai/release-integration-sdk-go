@@ -18,21 +18,25 @@ import (
 
 const DefaultContentType = "application/json"
 
+// TokenAuthentication represents the authentication credentials using a bearer token.
 type TokenAuthentication struct {
 	BearerToken string
 }
 
+// BasicAuthentication represents the authentication credentials using a username and password.
 type BasicAuthentication struct {
 	Username string
 	Password string
 }
 
+// NtlmAuthentication represents the NTLM authentication credentials using a username, password, and domain.
 type NtlmAuthentication struct {
 	Username string
 	Password string
 	Domain   string
 }
 
+// OAuth2Authentication represents the OAuth2 authentication credentials using a client ID, client secret, scopes, and token URL.
 type OAuth2Authentication struct {
 	ClientID     string
 	ClientSecret string
@@ -40,6 +44,7 @@ type OAuth2Authentication struct {
 	TokenURL     string
 }
 
+// ClientCertificateAuthentication represents the authentication credentials using a client certificate.
 type ClientCertificateAuthentication struct {
 	CertData []byte
 	KeyData  []byte
@@ -47,11 +52,13 @@ type ClientCertificateAuthentication struct {
 	KeyFile  string
 }
 
+// CertificateAuthority represents the certificate authority information.
 type CertificateAuthority struct {
 	CAData []byte
 	CAFile string
 }
 
+// HttpClientConfig represents the configuration options for the HttpClient.
 type HttpClientConfig struct {
 	Host                            string
 	Insecure                        bool
@@ -68,8 +75,10 @@ type HttpClientConfig struct {
 	ProxyDomain                     string
 }
 
+// fetchTokenFunc represents the function for fetching authentication token.
 type fetchTokenFunc func(*HttpClientBuilder) (string, error)
 
+// HttpClientBuilder represents a builder for creating an HttpClient instance.
 type HttpClientBuilder struct {
 	config         *rest.Config
 	headers        map[string][]string
@@ -78,6 +87,7 @@ type HttpClientBuilder struct {
 	lazyFetchToken fetchTokenFunc
 }
 
+// NewHttpClientBuilder creates a new instance of HttpClientBuilder.
 func NewHttpClientBuilder() *HttpClientBuilder {
 	return &HttpClientBuilder{
 		config: &rest.Config{
@@ -87,10 +97,12 @@ func NewHttpClientBuilder() *HttpClientBuilder {
 	}
 }
 
+// voidToken is a function that returns empty token.
 func voidToken(_ *HttpClientBuilder) (string, error) {
 	return "", nil
 }
 
+// WithTokenFetch sets the token path and configures the lazy token fetch function for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithTokenFetch(tokenPath string) *HttpClientBuilder {
 	b.tokenPath = tokenPath
 	b.lazyFetchToken = func(builder *HttpClientBuilder) (string, error) {
@@ -123,49 +135,58 @@ func (b *HttpClientBuilder) WithTokenFetch(tokenPath string) *HttpClientBuilder 
 	return b
 }
 
+// ForHost sets the host for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) ForHost(host string) *HttpClientBuilder {
 	b.config.Host = host
 	return b
 }
 
+// SetInsecure sets the insecure flag for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) SetInsecure(insecure bool) *HttpClientBuilder {
 	b.config.Insecure = insecure
 	return b
 }
 
+// WithCertificateAuthority sets the certificate authority data for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithCertificateAuthority(caData []byte) *HttpClientBuilder {
 	b.config.TLSClientConfig.CAData = caData
 	return b
 }
 
+// WithCertificateAuthorityFile sets the certificate authority file for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithCertificateAuthorityFile(caFile string) *HttpClientBuilder {
 	b.config.TLSClientConfig.CAFile = caFile
 	return b
 }
 
+// WithBasicAuth sets the basic authentication credentials for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithBasicAuth(username string, password string) *HttpClientBuilder {
 	b.config.Username = username
 	b.config.Password = password
 	return b
 }
 
+// WithToken sets the bearer token for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithToken(token string) *HttpClientBuilder {
 	b.config.BearerToken = token
 	return b
 }
 
+// WithClientCertAuth sets the client certificate and key data for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithClientCertAuth(certData []byte, keyData []byte) *HttpClientBuilder {
 	b.config.TLSClientConfig.CertData = certData
 	b.config.TLSClientConfig.KeyData = keyData
 	return b
 }
 
+// WithClientCertAuthFiles sets the client certificate and key files for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithClientCertAuthFiles(certFile string, keyFile string) *HttpClientBuilder {
 	b.config.TLSClientConfig.CertFile = certFile
 	b.config.TLSClientConfig.KeyFile = keyFile
 	return b
 }
 
+// WithNtlmAuth sets the NTLM authentication credentials for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithNtlmAuth(username string, password string, domain string) *HttpClientBuilder {
 	b.config.Username = fmt.Sprintf("%s\\%s", domain, username)
 	b.config.Password = password
@@ -175,17 +196,20 @@ func (b *HttpClientBuilder) WithNtlmAuth(username string, password string, domai
 	return b
 }
 
+// WithContentType sets the accept and content type for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithContentType(accept string, contentType string) *HttpClientBuilder {
 	b.config.AcceptContentTypes = accept
 	b.config.ContentType = contentType
 	return b
 }
 
+// WithHeaders sets the additional headers for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithHeaders(headers map[string][]string) *HttpClientBuilder {
 	b.headers = headers
 	return b
 }
 
+// WithHttpClientConfig sets the HttpClientConfig for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *HttpClientBuilder {
 	b.config.Host = config.Host
 	b.config.Insecure = config.Insecure
@@ -257,6 +281,7 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 	return b
 }
 
+// WithOAuth2Config sets the OAuth2 configuration for the HttpClientBuilder instance.
 func (b *HttpClientBuilder) WithOAuth2Config(tokenUrl string, clientId string, clientSecret string, scopes []string) *HttpClientBuilder {
 	b.oAuth2Config = &clientcredentials.Config{
 		ClientID:     clientId,
@@ -267,6 +292,8 @@ func (b *HttpClientBuilder) WithOAuth2Config(tokenUrl string, clientId string, c
 	return b
 }
 
+// Build creates and returns an instance of HttpClient based on the current configuration.
+// It returns an error if there is any issue during the creation of the client.
 func (b *HttpClientBuilder) Build() (*HttpClient, error) {
 	if b.oAuth2Config != nil {
 		ctx := context.Background()
@@ -292,6 +319,8 @@ func (b *HttpClientBuilder) Build() (*HttpClient, error) {
 	return b.buildClient()
 }
 
+// buildClient creates and returns an instance of HttpClient based on the current configuration.
+// It returns an error if there is any issue during the creation of the client.
 func (b *HttpClientBuilder) buildClient() (*HttpClient, error) {
 	client, err := rest.HTTPClientFor(b.config)
 	if err != nil {

@@ -11,22 +11,28 @@ import (
 	"strings"
 )
 
+// QueryParam represents a query parameter used in HTTP requests.
 type QueryParam struct {
 	key   string
 	value string
 }
 
+// Pair sets the key-value pair for the QueryParam.
 func (q *QueryParam) Pair(key string, value string) {
 	q.key = key
 	q.value = value
 }
 
+// HttpClient represents an HTTP client for making HTTP requests.
+// It contains the base URL for the client, the underlying HTTP client implementation, and headers to be included in each request made by the client.
 type HttpClient struct {
 	baseUrl string
 	client  rest.HTTPClient
 	headers map[string][]string
 }
 
+// RequestConfig represents a configuration for an HTTP request.
+// It contains the HTTP method, request body, headers, endpoint path, and query parameters to be included in the request.
 type RequestConfig struct {
 	method      string
 	Body        []byte
@@ -35,14 +41,17 @@ type RequestConfig struct {
 	QueryParams []QueryParam
 }
 
+// Client sets the underlying HTTP client for the HttpClient.
 func (httpClient *HttpClient) Client(client rest.HTTPClient) {
 	httpClient.client = client
 }
 
+// BaseUrl sets the base URL for the HttpClient.
 func (httpClient *HttpClient) BaseUrl(baseUrl string) {
 	httpClient.baseUrl = baseUrl
 }
 
+// GetBaseUrl returns the base URL of the HttpClient.
 func (httpClient *HttpClient) GetBaseUrl() string {
 	return httpClient.baseUrl
 }
@@ -129,6 +138,7 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(ctx context.Context, 
 	return data, err
 }
 
+// setHeaders sets the headers of an HTTP request based on the provided map of headers.
 func setHeaders(request *http.Request, headers map[string][]string) {
 	if headers != nil {
 		for header, value := range headers {
@@ -137,6 +147,7 @@ func setHeaders(request *http.Request, headers map[string][]string) {
 	}
 }
 
+// encodeQueryParams encodes a list of QueryParam objects into a URL-encoded query string.
 func encodeQueryParams(params []QueryParam) string {
 	values := make(url.Values)
 	for _, param := range params {
@@ -145,6 +156,7 @@ func encodeQueryParams(params []QueryParam) string {
 	return values.Encode()
 }
 
+// createUrl creates a complete URL for an API endpoint based on the HttpClient's base URL and provided API path and query parameters.
 func (httpClient *HttpClient) createUrl(api string, params ...QueryParam) string {
 	host := httpClient.baseUrl
 

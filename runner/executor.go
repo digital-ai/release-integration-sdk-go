@@ -12,28 +12,36 @@ import (
 	"syscall"
 )
 
+// RunFunction represents the function signature for running a task.
 type RunFunction func(task.InputContext) *task.Result
+
 type CommandFactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
+
 type ExecuteFunction func(pluginVersion string, buildDate string, runner Runner)
 
+// Runner is an interface for executing a task.
 type Runner interface {
 	Run(task.InputContext) *task.Result
 }
 
+// SimpleRunner represents a simple implementation of the Runner interface.
 type SimpleRunner struct {
 	run RunFunction
 }
 
+// CommandRunner represents a command-based implementation of the Runner interface.
 type CommandRunner struct {
 	commandFactoryBuilder CommandFactoryBuilder
 }
 
+// NewSimpleRunner creates a new instance of SimpleRunner.
 func NewSimpleRunner(run RunFunction) *SimpleRunner {
 	var runner SimpleRunner
 	runner.run = run
 	return &runner
 }
 
+// Run executes the task using the provided RunFunction.
 func (runner SimpleRunner) Run(ctx task.InputContext) *task.Result {
 	return runner.run(ctx)
 }
@@ -44,11 +52,12 @@ func NewCommandRunner(factoryBuilder CommandFactoryBuilder) *CommandRunner {
 	return &runner
 }
 
+// Run executes the task using the command-based approach.
 func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	returnResult := task.NewResult()
 	factory, err := runner.commandFactoryBuilder(ctx)
 	if err != nil {
-		return returnResult.Error(fmt.Errorf("cannot crete factory from task: %v", err))
+		return returnResult.Error(fmt.Errorf("cannot create factory from task: %v", err))
 	}
 
 	exec, err := command.DeserializeCommand(factory, ctx.Task)
@@ -98,6 +107,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	}
 }
 
+// execute is an internal function that executes the runner.
 func execute(pluginVersion string, buildDate string, runner Runner) {
 	klog.Infof("PluginVersion:\t%s", pluginVersion)
 	klog.Infof("BuildDate:\t%s", buildDate)
@@ -128,6 +138,7 @@ func execute(pluginVersion string, buildDate string, runner Runner) {
 	task.HandleSuccess(resultMap)
 }
 
+// Execute executes the runner with the provided plugin version, build date, and runner implementation.
 func Execute(pluginVersion string, buildDate string, runner Runner) {
 	execute(pluginVersion, buildDate, runner)
 	if os.Getenv(ExecutionMode) == ExecutionModeDaemon {

@@ -4,9 +4,11 @@ import (
 	"github.com/digital-ai/release-integration-sdk-go/task"
 )
 
+// CommandType represents the type of a command.
 type CommandType string
 type AbortCommandType CommandType
 
+// CommandWrapper represents a wrapper for a command.
 type CommandWrapper struct {
 	CommandType CommandType `json:"type"`
 	Properties  interface{}

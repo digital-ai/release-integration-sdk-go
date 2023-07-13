@@ -7,6 +7,11 @@ import (
 	"net/http"
 )
 
+// GetContentFromUrl retrieves the content from the specified URL.
+// It sends an HTTP GET request to the URL and returns the response body as a byte slice.
+// The function handles the HTTP response status code and error conditions appropriately.
+// If the request is successful (status code 200), the response body is returned without errors.
+// Otherwise, an error is returned with relevant information.
 func GetContentFromUrl(url string) ([]byte, error) {
 	resp, err := http.Get(url)
 	if err != nil {
