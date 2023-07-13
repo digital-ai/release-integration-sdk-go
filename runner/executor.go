@@ -88,17 +88,18 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 
 	select {
 	case <-signalChannel:
-		cancel()
-		abortResult := task.NewResult()
 		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
-		if err != nil {
-			return returnResult.Error(fmt.Errorf("cannot deserialize abort command: %v", err))
-		}
 		execResult, err := abortExec.FetchResult(context.Background())
+		cancel()
 		if err != nil {
 			klog.Infof("Finished executing abort command with error %v", err)
 			return returnResult.Error(err)
 		}
+		abortResult := task.NewResult()
+		if err != nil {
+			return returnResult.Error(fmt.Errorf("cannot deserialize abort command: %v", err))
+		}
+
 		abortResult.Aborted(execResult)
 		return abortResult
 	case result := <-resultChannel:
