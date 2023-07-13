@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/digital-ai/release-integration-sdk-go/util"
+	"github.com/savaki/jq"
 	"strconv"
 	"time"
 )
