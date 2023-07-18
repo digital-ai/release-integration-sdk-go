@@ -12,6 +12,9 @@ import (
 	"syscall"
 )
 
+// TODO: document this
+const AbortContextFieldKey = "abortContextMap"
+
 // RunFunction represents the function signature for running a task.
 type RunFunction func(task.InputContext) *task.Result
 
@@ -69,7 +72,8 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	signal.Notify(signalChannel, syscall.SIGABRT)
 
 	resultChannel := make(chan *task.Result, 1)
-	cancelableCtx, cancel := context.WithCancel(context.Background())
+	rootCtx := context.WithValue(context.Background(), AbortContextFieldKey, make(map[string]interface{}))
+	cancelableCtx, cancel := context.WithCancel(rootCtx)
 
 	go func() {
 		result, err := exec.FetchResult(cancelableCtx)
@@ -89,7 +93,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	select {
 	case <-signalChannel:
 		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
-		execResult, err := abortExec.FetchResult(context.Background())
+		execResult, err := abortExec.FetchResult(rootCtx)
 		defer cancel()
 		if err != nil {
 			klog.Infof("Finished executing abort command with error %v", err)

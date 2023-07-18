@@ -6,6 +6,8 @@ import (
 
 // CommandType represents the type of a command.
 type CommandType string
+
+// TODO:document this
 type AbortCommandType CommandType
 
 // CommandWrapper represents a wrapper for a command.
