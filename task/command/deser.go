@@ -7,7 +7,8 @@ import (
 // CommandType represents the type of a command.
 type CommandType string
 
-// TODO:document this
+// AbortCommandType represents the type of command that is to be used for aborting a running task.
+// It differentiates between standard commands and abort commands, allowing different handling.
 type AbortCommandType CommandType
 
 // CommandWrapper represents a wrapper for a command.

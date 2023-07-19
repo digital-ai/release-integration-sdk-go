@@ -12,7 +12,8 @@ import (
 	"syscall"
 )
 
-// TODO: document this
+// AbortContextFieldKey is a context key used to share data, such as a task ID,
+// between an ongoing task and a potential abort task.
 const AbortContextFieldKey = "abortContextMap"
 
 // RunFunction represents the function signature for running a task.
@@ -49,6 +50,7 @@ func (runner SimpleRunner) Run(ctx task.InputContext) *task.Result {
 	return runner.run(ctx)
 }
 
+// NewCommandRunner creates a new instance of CommandRunner
 func NewCommandRunner(factoryBuilder CommandFactoryBuilder) *CommandRunner {
 	var runner CommandRunner
 	runner.commandFactoryBuilder = factoryBuilder
@@ -56,6 +58,14 @@ func NewCommandRunner(factoryBuilder CommandFactoryBuilder) *CommandRunner {
 }
 
 // Run executes the task using the command-based approach.
+// The command is then executed asynchronously and waits for
+// either an abort signal or for the execution to complete.
+//
+// If an abort signal is received, it deserializes an abort command and executes it.
+// The task result reflects the output of the abort command.
+//
+// If the command finishes executing before an abort signal is received, the task result
+// reflects the output of the executed command.
 func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	returnResult := task.NewResult()
 	factory, err := runner.commandFactoryBuilder(ctx)
