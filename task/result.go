@@ -387,10 +387,12 @@ func (r *Result) CustomValue(generator Generator) *Result {
 	return r.addGenerator(generator)
 }
 
+// ReportingRecord adds reporting record to the result.
 func (r *Result) ReportingRecord(record interface{}) *Result {
 	return r.addReportingRecord(record)
 }
 
+// NewDeploymentRecord creates a new reporting record for deployment.
 func NewDeploymentRecord() DeploymentRecord {
 	this := DeploymentRecord{}
 	return this

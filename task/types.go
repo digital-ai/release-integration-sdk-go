@@ -51,6 +51,7 @@ type TaskOutputContext struct {
 	ReportingRecords interface{}            `json:"reportingRecords,omitempty"`
 }
 
+// ReportingRecord represents the record produced by task.
 type ReportingRecord struct {
 	TargetId           string    `json:"TargetId,omitempty"`
 	ServerUrl          string    `json:"serverUrl,omitempty"`
@@ -60,6 +61,7 @@ type ReportingRecord struct {
 	CreatedViaApi      bool      `json:"createdViaApi,omitempty"`
 }
 
+// ItsmReportingRecord represents the record for ITSM.
 type ItsmReportingRecord struct {
 	ReportingRecord
 	Record    string `json:"Record,omitempty"`
@@ -70,6 +72,7 @@ type ItsmReportingRecord struct {
 	CreatedBy string `json:"CreatedBy,omitempty"`
 }
 
+// PlanRecord represents the record for plan.
 type PlanRecord struct {
 	ReportingRecord
 	Ticket      string    `json:"Ticket,omitempty"`
@@ -80,6 +83,7 @@ type PlanRecord struct {
 	UpdatedBy   string    `json:"UpdatedBy,omitempty"`
 }
 
+// BuildRecord represents the record for build.
 type BuildRecord struct {
 	ReportingRecord
 	Project   string    `json:"Project,omitempty"`
@@ -91,6 +95,7 @@ type BuildRecord struct {
 	BuildUrl  string    `json:"BuildUrl,omitempty"`
 }
 
+// DeploymentRecord represents the record for deployment.
 type DeploymentRecord struct {
 	ReportingRecord
 	DeploymentTask    string           `json:"DeploymentTask,omitempty"`
@@ -101,6 +106,7 @@ type DeploymentRecord struct {
 	Status            DeploymentStatus `json:"Status,omitempty"`
 }
 
+// CodeComplianceRecord represents the record for code compliance.
 type CodeComplianceRecord struct {
 	ReportingRecord
 	Project        string    `json:"Project,omitempty"`
@@ -110,6 +116,7 @@ type CodeComplianceRecord struct {
 	ComplianceData string    `json:"ComplianceData,omitempty"`
 }
 
+// DeploymentStatus represents the status of the deployment.
 type DeploymentStatus string
 
 const (
