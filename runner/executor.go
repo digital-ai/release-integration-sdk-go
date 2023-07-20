@@ -83,7 +83,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	signal.Notify(signalChannel, syscall.SIGABRT)
 
 	resultChannel := make(chan *task.Result, 1)
-	rootCtx := context.WithValue(context.Background(), AbortContextFieldKey, make(map[string]interface{}))
+	rootCtx := context.WithValue(context.Background(), AbortContextFieldKey, make(map[interface{}]interface{}))
 	cancelableCtx, cancel := context.WithCancel(rootCtx)
 
 	go func() {
