@@ -83,7 +83,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	signal.Notify(signalChannel, syscall.SIGABRT)
 
 	resultChannel := make(chan *task.Result, 1)
-	rootCtx := context.WithValue(context.Background(), AbortContextFieldKey, make(map[interface{}]interface{}))
+	rootCtx := context.WithValue(context.Background(), AbortContextFieldKey, make(map[string]interface{}))
 	cancelableCtx, cancel := context.WithCancel(rootCtx)
 
 	go func() {
@@ -162,25 +162,17 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	}
 }
 
-func PutValueToContextMap(ctx context.Context, contextValueKey string, key, value interface{}) (context.Context, error) {
-	dataContext, ok := ctx.Value(contextValueKey).(map[interface{}]interface{})
+func PutValueToContextMap(ctx context.Context, contextValueKey string, key string, value interface{}) error {
+	dataContext, ok := ctx.Value(contextValueKey).(map[string]interface{})
 	if !ok {
-		return nil, errors.New("expected context value of type 'map[interface{}]interface{}'")
+		return errors.New("expected context value of type 'map[interface{}]interface{}'")
 	}
-
-	newDataContext := make(map[interface{}]interface{})
-	for k, v := range dataContext {
-		newDataContext[k] = v
-	}
-	newDataContext[key] = value
-
-	newCtx := context.WithValue(ctx, contextValueKey, newDataContext)
-
-	return newCtx, nil
+	dataContext[key] = value
+	return nil
 }
 
-func GetValueFromContext(ctx context.Context, contextValueKey string, valueKey interface{}) (interface{}, error) {
-	ctxMap, ok := ctx.Value(contextValueKey).(map[interface{}]interface{})
+func GetValueFromContext(ctx context.Context, contextValueKey string, valueKey string) (interface{}, error) {
+	ctxMap, ok := ctx.Value(contextValueKey).(map[string]interface{})
 	if !ok {
 		return nil, errors.New("expected context value of type 'map[interface{}]interface{}'")
 	}
