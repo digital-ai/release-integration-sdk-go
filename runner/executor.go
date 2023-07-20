@@ -162,13 +162,21 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	}
 }
 
-func PutValueToContextMap(ctx context.Context, contextValueKey string, key, value interface{}) error {
+func PutValueToContextMap(ctx context.Context, contextValueKey string, key, value interface{}) (context.Context, error) {
 	dataContext, ok := ctx.Value(contextValueKey).(map[interface{}]interface{})
 	if !ok {
-		return errors.New("expected context value of type 'map[interface{}]interface{}'")
+		return nil, errors.New("expected context value of type 'map[interface{}]interface{}'")
 	}
-	dataContext[key] = value
-	return nil
+
+	newDataContext := make(map[interface{}]interface{})
+	for k, v := range dataContext {
+		newDataContext[k] = v
+	}
+	newDataContext[key] = value
+
+	newCtx := context.WithValue(ctx, contextValueKey, newDataContext)
+
+	return newCtx, nil
 }
 
 func GetValueFromContext(ctx context.Context, contextValueKey string, valueKey interface{}) (interface{}, error) {
