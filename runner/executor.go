@@ -2,6 +2,7 @@ package runner
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/digital-ai/release-integration-sdk-go/logger"
 	"github.com/digital-ai/release-integration-sdk-go/task"
@@ -159,4 +160,27 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 	if os.Getenv(ExecutionMode) == ExecutionModeDaemon {
 		StartInputContextWatcher(execute, pluginVersion, buildDate, runner)
 	}
+}
+
+func PutValueToContextMap(ctx context.Context, contextValueKey string, key, value interface{}) error {
+	dataContext, ok := ctx.Value(contextValueKey).(map[interface{}]interface{})
+	if !ok {
+		return errors.New("expected context value of type 'map[interface{}]interface{}'")
+	}
+	dataContext[key] = value
+	return nil
+}
+
+func GetValueFromContext(ctx context.Context, contextValueKey string, valueKey interface{}) (interface{}, error) {
+	ctxMap, ok := ctx.Value(contextValueKey).(map[interface{}]interface{})
+	if !ok {
+		return nil, errors.New("expected context value of type 'map[interface{}]interface{}'")
+	}
+
+	extractedValue, ok := ctxMap[valueKey]
+	if !ok {
+		return nil, errors.New("expected value in context map")
+	}
+
+	return extractedValue, nil
 }
