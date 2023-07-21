@@ -51,9 +51,22 @@ type TaskOutputContext struct {
 	ReportingRecords interface{}            `json:"reportingRecords,omitempty"`
 }
 
+// DeploymentRecordTaskInfo represents properties of deployment needed for audit record.
+type DeploymentRecordTaskInfo struct {
+	TaskId                string
+	DeploymentPackage     string
+	DeploymentEnvironment string
+	DeploymentVersion     string
+	DeploymentApplication string
+	DeployedApplication   string
+	Username              string
+	ReleaseTaskId         string
+}
+
 // ReportingRecord represents the record produced by task.
 type ReportingRecord struct {
-	TargetId           string    `json:"TargetId,omitempty"`
+	Id                 string    `json:"id"`
+	TargetId           string    `json:"targetId,omitempty"`
 	ServerUrl          string    `json:"serverUrl,omitempty"`
 	ServerUser         string    `json:"serverUser,omitempty"`
 	CreationDate       time.Time `json:"creationDate,omitempty"`
@@ -64,56 +77,58 @@ type ReportingRecord struct {
 // ItsmReportingRecord represents the record for ITSM.
 type ItsmReportingRecord struct {
 	ReportingRecord
-	Record    string `json:"Record,omitempty"`
-	RecordUrl string `json:"RecordUrl,omitempty"`
-	Title     string `json:"Title,omitempty"`
-	Status    string `json:"Status,omitempty"`
-	Priority  string `json:"Priority,omitempty"`
-	CreatedBy string `json:"CreatedBy,omitempty"`
+	Record    string `json:"record,omitempty"`
+	RecordUrl string `json:"record_url,omitempty"`
+	Title     string `json:"title,omitempty"`
+	Status    string `json:"status,omitempty"`
+	Priority  string `json:"priority,omitempty"`
+	CreatedBy string `json:"createdBy,omitempty"`
 }
 
 // PlanRecord represents the record for plan.
 type PlanRecord struct {
 	ReportingRecord
-	Ticket      string    `json:"Ticket,omitempty"`
-	Title       string    `json:"Title,omitempty"`
-	TicketType  string    `json:"TicketType,omitempty"`
-	Status      string    `json:"Status,omitempty"`
-	UpdatedDate time.Time `json:"UpdatedDate,omitempty"`
-	UpdatedBy   string    `json:"UpdatedBy,omitempty"`
+	Ticket      string    `json:"ticket,omitempty"`
+	TicketUrl   string    `json:"ticket_url,omitempty"`
+	Title       string    `json:"title,omitempty"`
+	TicketType  string    `json:"ticketType,omitempty"`
+	Status      string    `json:"status,omitempty"`
+	UpdatedDate time.Time `json:"updatedDate,omitempty"`
+	UpdatedBy   string    `json:"updatedBy,omitempty"`
 }
 
 // BuildRecord represents the record for build.
 type BuildRecord struct {
 	ReportingRecord
-	Project   string    `json:"Project,omitempty"`
-	Build     string    `json:"Build,omitempty"`
-	Outcome   string    `json:"Outcome,omitempty"`
-	StartDate time.Time `json:"StartDate,omitempty"`
-	EndDate   time.Time `json:"EndDate,omitempty"`
-	Duration  string    `json:"Duration,omitempty"`
-	BuildUrl  string    `json:"BuildUrl,omitempty"`
+	Project   string    `json:"project,omitempty"`
+	Build     string    `json:"build,omitempty"`
+	Outcome   string    `json:"outcome,omitempty"`
+	StartDate time.Time `json:"startDate,omitempty"`
+	EndDate   time.Time `json:"endDate,omitempty"`
+	Duration  string    `json:"duration,omitempty"`
+	BuildUrl  string    `json:"build_url,omitempty"`
 }
 
 // DeploymentRecord represents the record for deployment.
 type DeploymentRecord struct {
 	ReportingRecord
-	DeploymentTask    string           `json:"DeploymentTask,omitempty"`
-	DeploymentTaskUrl string           `json:"DeploymentTaskUrl,omitempty"`
-	ApplicationName   string           `json:"ApplicationName,omitempty"`
-	Version           string           `json:"Version,omitempty"`
-	EnvironmentName   string           `json:"EnvironmentName,omitempty"`
-	Status            DeploymentStatus `json:"Status,omitempty"`
+	Type              string           `json:"type"`
+	DeploymentTask    string           `json:"deploymentTask,omitempty"`
+	DeploymentTaskUrl string           `json:"deploymentTask_url,omitempty"`
+	ApplicationName   string           `json:"applicationName,omitempty"`
+	Version           string           `json:"version,omitempty"`
+	EnvironmentName   string           `json:"environmentName,omitempty"`
+	Status            DeploymentStatus `json:"status,omitempty"`
 }
 
 // CodeComplianceRecord represents the record for code compliance.
 type CodeComplianceRecord struct {
 	ReportingRecord
-	Project        string    `json:"Project,omitempty"`
-	ProjectUrl     string    `json:"ProjectUrl,omitempty"`
-	AnalysisDate   time.Time `json:"AnalysisDate,omitempty"`
-	Outcome        string    `json:"Outcome,omitempty"`
-	ComplianceData string    `json:"ComplianceData,omitempty"`
+	Project        string    `json:"project,omitempty"`
+	ProjectUrl     string    `json:"project_url,omitempty"`
+	AnalysisDate   time.Time `json:"analysisDate,omitempty"`
+	Outcome        string    `json:"outcome,omitempty"`
+	ComplianceData string    `json:"complianceData,omitempty"`
 }
 
 // DeploymentStatus represents the status of the deployment.
