@@ -3,8 +3,10 @@ package task
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/digital-ai/release-integration-sdk-go/http"
 	"github.com/digital-ai/release-integration-sdk-go/util"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -15,12 +17,14 @@ const (
 // Result represents the result of a task execution.
 type Result struct {
 	resultGenerators []Generator
+	reportingRecords []interface{}
 }
 
 // NewResult creates a new Result instance.
 func NewResult() *Result {
 	return &Result{
 		resultGenerators: []Generator{},
+		reportingRecords: []interface{}{},
 	}
 }
 
@@ -33,6 +37,12 @@ type Generator interface {
 // addGenerator adds a generator to the result.
 func (r *Result) addGenerator(generator Generator) *Result {
 	r.resultGenerators = append(r.resultGenerators, generator)
+	return r
+}
+
+// addReportingRecord adds a record to the result.
+func (r *Result) addReportingRecord(record interface{}) *Result {
+	r.reportingRecords = append(r.reportingRecords, record)
 	return r
 }
 
@@ -379,6 +389,60 @@ func (r *Result) CustomValue(generator Generator) *Result {
 	return r.addGenerator(generator)
 }
 
+// ReportingRecord adds reporting record to the result.
+func (r *Result) ReportingRecord(record interface{}) *Result {
+	return r.addReportingRecord(record)
+}
+
+// CreateDeploymentRecord creates a new reporting record for deployment.
+func CreateDeploymentRecord(client *http.HttpClient, taskInfo *DeploymentRecordTaskInfo, status DeploymentStatus) *DeploymentRecord {
+	record := &DeploymentRecord{
+		Type: "udm.DeploymentRecord",
+	}
+	record.Status = status
+	serverUrl := client.GetBaseUrl()
+	record.ServerUrl = serverUrl
+	record.ServerUser = taskInfo.Username
+	record.TargetId = taskInfo.ReleaseTaskId
+
+	if taskInfo.TaskId != "" {
+		record.DeploymentTask = taskInfo.TaskId
+	} else {
+		record.DeploymentTask = "None"
+	}
+
+	if serverUrl != "" && record.DeploymentTask != "" {
+		record.DeploymentTaskUrl = strings.TrimRight(serverUrl, "/") + "/#/task/" + record.DeploymentTask
+	} else {
+		record.DeploymentTaskUrl = ""
+	}
+
+	if taskInfo.DeploymentPackage != "" {
+		deploymentPackage := taskInfo.DeploymentPackage
+		version := taskInfo.DeploymentVersion
+		if strings.HasSuffix(deploymentPackage, version) {
+			record.ApplicationName = deploymentPackage[:len(deploymentPackage)-len(version)-1]
+		} else {
+			record.ApplicationName = deploymentPackage
+		}
+		record.EnvironmentName = taskInfo.DeploymentEnvironment
+		record.Version = version
+	} else {
+		record.ApplicationName = taskInfo.DeployedApplication
+		record.EnvironmentName = getCiParentPath(taskInfo.DeployedApplication)
+	}
+	return record
+}
+
+func getCiParentPath(filePath string) string {
+	lastSlashIndex := strings.LastIndex(filePath, "/")
+	if lastSlashIndex == -1 {
+		return ""
+	}
+	return filePath[:lastSlashIndex]
+}
+
+// Get returns map with all values that were added to result
 func (r *Result) Get() (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 	for _, generator := range r.resultGenerators {
@@ -397,4 +461,9 @@ func (r *Result) Get() (map[string]interface{}, error) {
 		}
 	}
 	return result, nil
+}
+
+// GetRecords returns list of all reporting records
+func (r *Result) GetRecords() []interface{} {
+	return r.reportingRecords
 }
