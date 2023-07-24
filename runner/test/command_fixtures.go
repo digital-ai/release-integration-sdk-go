@@ -44,14 +44,17 @@ func mockResponse(fieldLabel string, param string) (*task.Result, error) {
 	return task.NewResult().Json(fieldLabel, slice), nil
 }
 
+// FetchResult returns the mock result for the MockSuccessCommand.
 func (command MockSuccessCommand) FetchResult(_ context.Context) (*task.Result, error) {
 	return mockResponse(command.FieldLabel, command.Parameter)
 }
 
+// FetchResult returns the mock result for the MockSuccessSecureCommand.
 func (command MockSuccessSecureCommand) FetchResult(_ context.Context) (*task.Result, error) {
 	return mockResponse(command.FieldLabel, command.Parameter)
 }
 
+// FetchResult returns an error to simulate a failed command execution for MockFailedCommand.
 func (command MockFailedCommand) FetchResult(_ context.Context) (*task.Result, error) {
 	return nil, fmt.Errorf("simulate error")
 }

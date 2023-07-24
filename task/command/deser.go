@@ -36,6 +36,7 @@ func deserializeCommand(factory CommandFactory, properties []task.PropertyDefini
 	return command, nil
 }
 
+// DeserializeCommand deserializes a command from the task context using the provided command factory.
 func DeserializeCommand(factory CommandFactory, taskContext task.TaskContext) (CommandExecutor, error) {
 	return deserializeCommand(factory, taskContext.Properties, CommandType(taskContext.Type))
 }

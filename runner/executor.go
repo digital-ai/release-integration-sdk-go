@@ -20,8 +20,10 @@ const AbortContextFieldKey = "abortContextMap"
 // RunFunction represents the function signature for running a task.
 type RunFunction func(task.InputContext) *task.Result
 
+// CommandFactoryBuilder represents the function signature for building a command factory.
 type CommandFactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
 
+// ExecuteFunction represents the function signature for executing the runner.
 type ExecuteFunction func(pluginVersion string, buildDate string, runner Runner)
 
 // Runner is an interface for executing a task.
@@ -166,7 +168,7 @@ func Execute(pluginVersion string, buildDate string, runner Runner) {
 func PutValueToContextMap(ctx context.Context, contextValueKey string, key string, value interface{}) error {
 	dataContext, ok := ctx.Value(contextValueKey).(map[string]interface{})
 	if !ok {
-		return errors.New("expected context value of type 'map[interface{}]interface{}'")
+		return errors.New("expected context value of type 'map[string]interface{}'")
 	}
 	dataContext[key] = value
 	return nil
@@ -175,7 +177,7 @@ func PutValueToContextMap(ctx context.Context, contextValueKey string, key strin
 func GetValueFromContext(ctx context.Context, contextValueKey string, valueKey string) (interface{}, error) {
 	ctxMap, ok := ctx.Value(contextValueKey).(map[string]interface{})
 	if !ok {
-		return nil, errors.New("expected context value of type 'map[interface{}]interface{}'")
+		return nil, errors.New("expected context value of type 'map[string]interface{}'")
 	}
 
 	extractedValue, ok := ctxMap[valueKey]

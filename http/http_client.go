@@ -56,42 +56,51 @@ func (httpClient *HttpClient) GetBaseUrl() string {
 	return httpClient.baseUrl
 }
 
+// Get sends an HTTP GET request to the specified path with optional query parameters.
 func (httpClient *HttpClient) Get(ctx context.Context, path string, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(ctx, http.MethodGet, path, nil, queryParams...)
 }
 
+// GetWithConfig sends an HTTP GET request with a custom configuration.
 func (httpClient *HttpClient) GetWithConfig(ctx context.Context, config *RequestConfig) ([]byte, error) {
 	config.method = http.MethodGet
 	return httpClient.sendRequestWithCustomHeaders(ctx, config)
 }
 
+// Post sends an HTTP POST request to the specified path with the provided request body and optional query parameters.
 func (httpClient *HttpClient) Post(ctx context.Context, path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(ctx, http.MethodPost, path, body, queryParams...)
 }
 
+// PostWithConfig sends an HTTP POST request with a custom configuration.
 func (httpClient *HttpClient) PostWithConfig(ctx context.Context, config *RequestConfig) ([]byte, error) {
 	config.method = http.MethodPost
 	return httpClient.sendRequestWithCustomHeaders(ctx, config)
 }
 
+// Delete sends an HTTP DELETE request to the specified path with optional query parameters.
 func (httpClient *HttpClient) Delete(ctx context.Context, path string, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(ctx, http.MethodDelete, path, nil, queryParams...)
 }
 
+// DeleteWithConfig sends an HTTP DELETE request with a custom configuration.
 func (httpClient *HttpClient) DeleteWithConfig(ctx context.Context, config *RequestConfig) ([]byte, error) {
 	config.method = http.MethodDelete
 	return httpClient.sendRequestWithCustomHeaders(ctx, config)
 }
 
+// Put sends an HTTP PUT request to the specified path with the provided request body and optional query parameters.
 func (httpClient *HttpClient) Put(ctx context.Context, path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequest(ctx, http.MethodPut, path, body, queryParams...)
 }
 
+// PutWithConfig sends an HTTP PUT request with a custom configuration.
 func (httpClient *HttpClient) PutWithConfig(ctx context.Context, config *RequestConfig) ([]byte, error) {
 	config.method = http.MethodPut
 	return httpClient.sendRequestWithCustomHeaders(ctx, config)
 }
 
+// sendRequest sends an HTTP request with the specified method, path, body, and optional query parameters.
 func (httpClient *HttpClient) sendRequest(ctx context.Context, method string, path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequestWithCustomHeaders(ctx, &RequestConfig{
 		method:      method,
@@ -101,6 +110,7 @@ func (httpClient *HttpClient) sendRequest(ctx context.Context, method string, pa
 	})
 }
 
+// sendRequestWithCustomHeaders sends an HTTP request with a custom configuration and headers.
 func (httpClient *HttpClient) sendRequestWithCustomHeaders(ctx context.Context, config *RequestConfig) ([]byte, error) {
 	client := httpClient.client
 	if client == nil {
