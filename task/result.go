@@ -3,9 +3,10 @@ package task
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/digital-ai/release-integration-sdk-go/http"
 	"github.com/digital-ai/release-integration-sdk-go/util"
-	"github.com/savaki/jq"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -22,12 +23,14 @@ func (e *AbortError) Error() string {
 // Result represents the result of a task execution.
 type Result struct {
 	resultGenerators []Generator
+	reportingRecords []interface{}
 }
 
 // NewResult creates a new Result instance.
 func NewResult() *Result {
 	return &Result{
 		resultGenerators: []Generator{},
+		reportingRecords: []interface{}{},
 	}
 }
 
@@ -41,28 +44,6 @@ type Generator interface {
 func (r *Result) addGenerator(generator Generator) *Result {
 	r.resultGenerators = append(r.resultGenerators, generator)
 	return r
-}
-
-// Util functions
-func parseDate(sampleFormat string, dateTime string) (string, error) {
-	parsedDateTime, err := time.Parse(sampleFormat, dateTime)
-	if err != nil {
-		return "", fmt.Errorf("error parsing date: %v", err)
-
-	}
-	return parsedDateTime.Format(time.RFC3339), nil
-}
-
-func parseNode(jqOp string, result json.RawMessage) ([]byte, error) {
-	parse, err := jq.Parse(jqOp)
-	if err != nil {
-		return nil, fmt.Errorf("could not create parser for JQ operation '%s': %v", jqOp, err)
-	}
-	parseResult, err := parse.Apply(result)
-	if err != nil {
-		return nil, fmt.Errorf("could not apply parser for JQ operation '%s': %v", jqOp, err)
-	}
-	return parseResult, nil
 }
 
 // The AbortGenerator - used to represent aborted execution result
@@ -87,7 +68,13 @@ func (r *Result) Aborted(result *Result) *Result {
 	return r.addGenerator(AbortGenerator{result: resultMap})
 }
 
-// The ErrorGenerator - used to represent error in standardizes response
+// addReportingRecord adds a record to the result.
+func (r *Result) addReportingRecord(record interface{}) *Result {
+	r.reportingRecords = append(r.reportingRecords, record)
+	return r
+}
+
+// ErrorGenerator represents an error in the standardized response.
 type ErrorGenerator struct {
 	err error
 }
@@ -430,6 +417,60 @@ func (r *Result) CustomValue(generator Generator) *Result {
 	return r.addGenerator(generator)
 }
 
+// ReportingRecord adds reporting record to the result.
+func (r *Result) ReportingRecord(record interface{}) *Result {
+	return r.addReportingRecord(record)
+}
+
+// CreateDeploymentRecord creates a new reporting record for deployment.
+func CreateDeploymentRecord(client *http.HttpClient, taskInfo *DeploymentRecordTaskInfo, status DeploymentStatus) *DeploymentRecord {
+	record := &DeploymentRecord{
+		Type: "udm.DeploymentRecord",
+	}
+	record.Status = status
+	serverUrl := client.GetBaseUrl()
+	record.ServerUrl = serverUrl
+	record.ServerUser = taskInfo.Username
+	record.TargetId = taskInfo.ReleaseTaskId
+
+	if taskInfo.TaskId != "" {
+		record.DeploymentTask = taskInfo.TaskId
+	} else {
+		record.DeploymentTask = "None"
+	}
+
+	if serverUrl != "" && record.DeploymentTask != "" {
+		record.DeploymentTaskUrl = strings.TrimRight(serverUrl, "/") + "/#/task/" + record.DeploymentTask
+	} else {
+		record.DeploymentTaskUrl = ""
+	}
+
+	if taskInfo.DeploymentPackage != "" {
+		deploymentPackage := taskInfo.DeploymentPackage
+		version := taskInfo.DeploymentVersion
+		if strings.HasSuffix(deploymentPackage, version) {
+			record.ApplicationName = deploymentPackage[:len(deploymentPackage)-len(version)-1]
+		} else {
+			record.ApplicationName = deploymentPackage
+		}
+		record.EnvironmentName = taskInfo.DeploymentEnvironment
+		record.Version = version
+	} else {
+		record.ApplicationName = taskInfo.DeployedApplication
+		record.EnvironmentName = getCiParentPath(taskInfo.DeployedApplication)
+	}
+	return record
+}
+
+func getCiParentPath(filePath string) string {
+	lastSlashIndex := strings.LastIndex(filePath, "/")
+	if lastSlashIndex == -1 {
+		return ""
+	}
+	return filePath[:lastSlashIndex]
+}
+
+// Get returns map with all values that were added to result
 func (r *Result) Get() (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 	for _, generator := range r.resultGenerators {
@@ -450,4 +491,9 @@ func (r *Result) Get() (map[string]interface{}, error) {
 		}
 	}
 	return result, nil
+}
+
+// GetRecords returns list of all reporting records
+func (r *Result) GetRecords() []interface{} {
+	return r.reportingRecords
 }

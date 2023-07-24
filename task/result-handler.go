@@ -21,21 +21,23 @@ var callbackUrl = os.Getenv(CallbackURL)
 // resultSecretKey is the environment variable for the result secret name.
 var resultSecretKey = os.Getenv(ResultSecretName)
 
-// HandleSuccess handles successful task execution by processing the result.
-func HandleSuccess(result map[string]interface{}) {
+// HandleSuccess handles successful task execution by processing the result and reporting records.
+func HandleSuccess(result map[string]interface{}, records interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         0,
 		OutputProperties: result,
+		ReportingRecords: records,
 	}
 	handleResult(outputContext)
 }
 
-// HandleError handles task execution error by processing the result and error message.
-func HandleError(err error, result map[string]interface{}) {
+// HandleError handles task execution error by processing the result, error message and reporting records.
+func HandleError(err error, result map[string]interface{}, records []interface{}) {
 	outputContext := TaskOutputContext{
 		ExitCode:         -1,
 		OutputProperties: result,
 		JobErrorMessage:  err.Error(),
+		ReportingRecords: records,
 	}
 	handleResult(outputContext)
 }
