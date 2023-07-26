@@ -111,7 +111,7 @@ func (b *HttpClientBuilder) WithTokenFetch(tokenPath string) *HttpClientBuilder 
 			jsonValue, _ := json.Marshal(values)
 			httpClient, err := b.buildClient()
 
-			result, err := httpClient.Post(builder.tokenPath, jsonValue)
+			result, err := httpClient.Post(context.Background(), builder.tokenPath, jsonValue)
 			if err != nil {
 				newErr := fmt.Errorf("cannot fetch token for given credentials: %s", err)
 				klog.Errorln(newErr)

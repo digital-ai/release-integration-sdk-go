@@ -42,6 +42,15 @@ func HandleError(err error, result map[string]interface{}, records []interface{}
 	handleResult(outputContext)
 }
 
+func HandleAbort(result map[string]interface{}) {
+	outputContext := TaskOutputContext{
+		ExitCode:         134,
+		OutputProperties: result,
+		JobErrorMessage:  (&AbortError{}).Error(),
+	}
+	handleResult(outputContext)
+}
+
 // SkipResultHandler represents a result handler that should be skipped.
 type SkipResultHandler struct{}
 

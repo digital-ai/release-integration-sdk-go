@@ -14,6 +14,12 @@ const (
 	errorMessage = "errorMessage"
 )
 
+type AbortError struct{}
+
+func (e *AbortError) Error() string {
+	return "Task was aborted"
+}
+
 // Result represents the result of a task execution.
 type Result struct {
 	resultGenerators []Generator
@@ -38,6 +44,28 @@ type Generator interface {
 func (r *Result) addGenerator(generator Generator) *Result {
 	r.resultGenerators = append(r.resultGenerators, generator)
 	return r
+}
+
+// The AbortGenerator - used to represent aborted execution result
+type AbortGenerator struct {
+	result map[string]interface{}
+}
+
+func (gen AbortGenerator) GenerateValue() (interface{}, error) {
+	return "", &AbortError{}
+}
+
+func (gen AbortGenerator) FieldName() string {
+	return ""
+}
+
+func (r *Result) Aborted(result *Result) *Result {
+	resultMap, err := result.Get()
+	if err != nil {
+		// add empty result
+		return r.addGenerator(AbortGenerator{})
+	}
+	return r.addGenerator(AbortGenerator{result: resultMap})
 }
 
 // addReportingRecord adds a record to the result.
@@ -452,7 +480,9 @@ func (r *Result) Get() (map[string]interface{}, error) {
 			result[generator.FieldName()] = value
 		}
 		if err != nil {
-			switch generator.(type) {
+			switch g := generator.(type) {
+			case AbortGenerator:
+				return g.result, err
 			case ErrorGenerator:
 				return result, err
 			default:
