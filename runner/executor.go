@@ -106,6 +106,11 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	select {
 	case <-signalChannel:
 		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
+		klog.Infof("ERR: ", abortExec)
+		if abortExec == nil {
+			cancel()
+			klog.Infoln("Canceled")
+		}
 		execResult, err := abortExec.FetchResult(rootCtx)
 		defer cancel()
 		if err != nil {
