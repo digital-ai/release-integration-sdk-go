@@ -148,9 +148,3 @@ type LookupResultElement struct {
 	Label string `json:"label"`
 	Value string `json:"value"`
 }
-
-// TestConnectionResult represents output of status connection script.
-type TestConnectionResult struct {
-	Success bool   `json:"success"`
-	Output  string `json:"output"`
-}
