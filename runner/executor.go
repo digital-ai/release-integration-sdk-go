@@ -106,6 +106,12 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	select {
 	case <-signalChannel:
 		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
+		if abortExec == nil {
+			cancel()
+			klog.Infoln("Aborted without abort command being explicitly defined")
+			abortResult := task.NewResult()
+			return returnResult.Aborted(abortResult)
+		}
 		execResult, err := abortExec.FetchResult(rootCtx)
 		defer cancel()
 		if err != nil {
