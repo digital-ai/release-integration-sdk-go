@@ -127,7 +127,7 @@ func (b *HttpClientBuilder) WithTokenFetch(tokenPath string) *HttpClientBuilder 
 			}
 			return tokenMap["token"], nil
 		} else {
-			newErr := fmt.Errorf("missing token and credentials for Argo Connection")
+			newErr := fmt.Errorf("missing token and credentials for connection")
 			klog.Errorln(newErr)
 			return "", newErr
 		}
