@@ -120,5 +120,7 @@ func ExtractProperty(propertyName string, ci map[string]interface{}) (*task.Prop
 		}
 	}
 
-	return nil, fmt.Errorf("cannot find property %s", propertyName)
+	err = fmt.Errorf("cannot find property %s", propertyName)
+	klog.Errorf(err.Error())
+	return nil, err
 }
