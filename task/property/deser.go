@@ -103,13 +103,8 @@ func ExtractCIs(properties []task.PropertyDefinition) []task.PropertyDefinition 
 }
 
 // ExtractProperty extracts property with given propertyName.
-func ExtractProperty(propertyName string, ci map[string]interface{}) (*task.PropertyDefinition, error) {
-	ciJson, err := json.Marshal(ci)
-	if err != nil {
-		return nil, err
-	}
-
-	properties, err := Deserialize(ciJson)
+func ExtractProperty(propertyName string, rawMessage json.RawMessage) (*task.PropertyDefinition, error) {
+	properties, err := Deserialize(rawMessage)
 	if err != nil {
 		return nil, err
 	}
