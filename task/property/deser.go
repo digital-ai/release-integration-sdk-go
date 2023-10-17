@@ -101,3 +101,24 @@ func ExtractCIs(properties []task.PropertyDefinition) []task.PropertyDefinition 
 	}
 	return ciProperties
 }
+
+// ExtractProperty extracts property with given propertyName.
+func ExtractProperty(propertyName string, ci map[string]interface{}) (*task.PropertyDefinition, error) {
+	ciJson, err := json.Marshal(ci)
+	if err != nil {
+		return nil, err
+	}
+
+	properties, err := Deserialize(ciJson)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, property := range properties {
+		if property.Name == propertyName {
+			return &property, nil
+		}
+	}
+
+	return nil, fmt.Errorf("cannot find property %s", propertyName)
+}
