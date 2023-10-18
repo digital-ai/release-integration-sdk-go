@@ -101,3 +101,21 @@ func ExtractCIs(properties []task.PropertyDefinition) []task.PropertyDefinition 
 	}
 	return ciProperties
 }
+
+// ExtractProperty extracts property with given propertyName.
+func ExtractProperty(propertyName string, rawMessage json.RawMessage) (*task.PropertyDefinition, error) {
+	properties, err := Deserialize(rawMessage)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, property := range properties {
+		if property.Name == propertyName {
+			return &property, nil
+		}
+	}
+
+	err = fmt.Errorf("cannot find property %s", propertyName)
+	klog.Errorf(err.Error())
+	return nil, err
+}
