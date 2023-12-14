@@ -120,7 +120,7 @@ func Deserialize(context *InputContext) error {
 			}
 
 			// Read the response body into a byte slice
-			content, err := io.ReadAll(response.Body)
+			content, err = io.ReadAll(response.Body)
 			if err != nil {
 				return err
 			}
