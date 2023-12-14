@@ -5,6 +5,7 @@ go 1.21
 require (
 	github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358
 	github.com/launchdarkly/go-ntlm-proxy-auth v1.0.1
+	github.com/pkg/errors v0.9.1
 	github.com/savaki/jq v0.0.0-20161209013833-0e6baecebbf8
 	github.com/smartystreets/assertions v1.2.0
 	github.com/smartystreets/goconvey v1.7.2
