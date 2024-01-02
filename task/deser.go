@@ -2,11 +2,15 @@ package task
 
 import (
 	ctx "context"
+	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"github.com/digital-ai/release-integration-sdk-go/k8s"
+	"github.com/pkg/errors"
 	"io"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
+	"net/http"
 	"os"
 )
 
@@ -49,6 +53,9 @@ const InputContextSecretDataSessionKey = "session-key"
 // InputContextSecretDataUrlKey represents the key for URL in the input context secret.
 const InputContextSecretDataUrlKey = "url"
 
+// InputContextSecretDataFetchUrlKey represents the key for Fetching task content URL in the input context secret. This
+const InputContextSecretDataFetchUrlKey = "fetchUrl"
+
 // InputContextSecretExecutionIdKey represents the key for execution ID in the input context secret.
 const InputContextSecretExecutionIdKey = "execution-id"
 
@@ -88,7 +95,37 @@ func Deserialize(context *InputContext) error {
 			klog.Warningf("Cannot fetch Result Secret: %s", err)
 			return err
 		}
-		content = secret.Data[InputContextSecretDataInput]
+
+		var ok bool
+		content, ok = secret.Data[InputContextSecretDataInput]
+		if !ok || len(content) == 0 {
+			fetchUrlBase64, fetchUrlOk := secret.Data[InputContextSecretDataFetchUrlKey]
+			if !fetchUrlOk || len(fetchUrlBase64) == 0 {
+				return errors.Errorf("cannot find fetch url for task")
+			}
+			fetchUrlBytes, err := base64.StdEncoding.DecodeString(string(fetchUrlBase64))
+			if err != nil {
+				klog.Warningf("Cannot finish data fetch request: %s, skipping", err)
+				return errors.Errorf("cannot decode fetch url %s", err)
+			}
+			response, httpError := http.Get(string(fetchUrlBytes))
+			if httpError != nil {
+				klog.Warningf("Cannot finish fetch request: '%s', returning failure of task execution", httpError)
+				return httpError
+			}
+			defer response.Body.Close()
+
+			if response.StatusCode != http.StatusOK {
+				return fmt.Errorf("failed to fetch data, server returned status: %s", response.Status)
+			}
+
+			// Read the response body into a byte slice
+			content, err = io.ReadAll(response.Body)
+			if err != nil {
+				return err
+			}
+
+		}
 		sessionKey = string(secret.Data[InputContextSecretDataSessionKey])
 		callbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
 	}

@@ -56,11 +56,11 @@ func startInputSecretWatcher(onInputContextUpdateFunc ExecuteFunction, pluginVer
 				oldSecret := oldObj.(*corev1.Secret)
 				newSecret := newObj.(*corev1.Secret)
 
-				oldInput := oldSecret.Data[task.InputCategory]
-				newInput := newSecret.Data[task.InputCategory]
+				oldSessionKey := oldSecret.Data[task.InputContextSecretDataSessionKey]
+				newSessionKey := newSecret.Data[task.InputContextSecretDataSessionKey]
 
 				// Checking if 'input' field has changed
-				if !bytes.Equal(oldInput, newInput) {
+				if !bytes.Equal(oldSessionKey, newSessionKey) {
 					klog.Infof("Detected input context value change")
 					onInputContextUpdateFunc(pluginVersion, buildDate, runner)
 				}
