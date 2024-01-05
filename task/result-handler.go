@@ -79,23 +79,10 @@ func handleResult(outputContext TaskOutputContext) {
 		if err != nil && pErr != nil && strings.Contains(err.Error(), "data: Too long") {
 			klog.Warning("HTTP PUSH RETRY: DATA: TOO LONG")
 
-			for {
-				klog.Infof("Trying to push result to release-remote-runner")
-				err = pushResult(data)
-
-				if err == nil {
-					klog.Info("Successfully pushed the result.")
-					handleResultHandlerError("HTTP Push Retry", done, success, err)
-					return
-				}
-
-				klog.Errorf("Failed to push result: %v. Retrying in 10 seconds...", err)
-				time.Sleep(10 * time.Second)
-			}
-
+			err = retryPushResult(encryptedData)
 			//handleResultHandlerError("HTTP Push Retry", done, success, err)
 		} else {
-			handleResultHandlerError("Secret", done, success, err)
+			//handleResultHandlerError("Secret", done, success, err)
 		}
 	}()
 	go func() {
