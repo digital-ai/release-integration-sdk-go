@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 // callbackUrl is the environment variable for the callback URL to push results.
@@ -70,12 +71,19 @@ func handleResult(outputContext TaskOutputContext) {
 	done := make(chan string, 3)
 	success := make(chan bool)
 	//go func() {
-	//	err := pushResult(encryptedData)
-	//	handleResultHandlerError("HTTP Push", done, success, err)
+	pErr := pushResult(encryptedData)
+	handleResultHandlerError("HTTP Push", done, success, pErr)
 	//}()
 	go func() {
 		err := writeToSecret(encryptedData)
 		handleResultHandlerError("Secret", done, success, err)
+
+		if strings.Contains(err.Error(), "data: Too long") && pErr != nil {
+			klog.Infof("HTTP PUSH RETRY: DATA: TOO LONG")
+
+			err = retryPushResult(encryptedData)
+			handleResultHandlerError("HTTP Push Retry", done, success, err)
+		}
 	}()
 	go func() {
 		err := writeOutput(encryptedData)
@@ -89,6 +97,19 @@ func handleResult(outputContext TaskOutputContext) {
 		klog.Infof("Successfully processed, result with one of the result handlers")
 	default:
 		klog.Fatalf("Result couldn't be processed, exiting execution with error.")
+	}
+}
+
+func retryPushResult(data []byte) error {
+	for {
+		klog.Infof("Trying to push result to release-remote-runner")
+		err := pushResult(data)
+
+		if err == nil {
+			return nil
+		}
+
+		time.Sleep(10 * time.Second)
 	}
 }
 
