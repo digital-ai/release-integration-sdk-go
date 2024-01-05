@@ -80,15 +80,15 @@ func handleResult(outputContext TaskOutputContext) {
 			klog.Warning("HTTP PUSH RETRY: DATA: TOO LONG")
 
 			for i := 0; i < 10; i++ {
-				err = pushResult(data)
-				if err == nil {
+				prErr := pushResult(data)
+				if prErr == nil {
 					handleResultHandlerError("HTTP Push Retry", done, success, err)
 					return
 				} else {
 					time.Sleep(10 * time.Second)
 				}
 			}
-			err = retryPushResult(encryptedData)
+			//err = retryPushResult(encryptedData)
 		} else {
 			//handleResultHandlerError("Secret", done, success, err)
 		}
