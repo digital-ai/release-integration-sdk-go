@@ -102,13 +102,15 @@ func handleResult(outputContext TaskOutputContext) {
 
 func retryPushResult(data []byte) error {
 	for {
-		klog.Warning("Trying to push result to release-remote-runner")
+		klog.Infof("Trying to push result to release-remote-runner")
 		err := pushResult(data)
 
 		if err == nil {
+			klog.Info("Successfully pushed the result.")
 			return nil
 		}
 
+		klog.Errorf("Failed to push result: %v. Retrying in 10 seconds...", err)
 		time.Sleep(10 * time.Second)
 	}
 }
