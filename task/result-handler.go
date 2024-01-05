@@ -69,10 +69,10 @@ func handleResult(outputContext TaskOutputContext) {
 
 	done := make(chan string, 3)
 	success := make(chan bool)
-	go func() {
-		err := pushResult(encryptedData)
-		handleResultHandlerError("HTTP Push", done, success, err)
-	}()
+	//go func() {
+	//	err := pushResult(encryptedData)
+	//	handleResultHandlerError("HTTP Push", done, success, err)
+	//}()
 	go func() {
 		err := writeToSecret(encryptedData)
 		handleResultHandlerError("Secret", done, success, err)
@@ -138,8 +138,17 @@ func writeToSecret(encryptedData []byte) error {
 		secret.Data[key] = encryptedData
 		_, err = clientset.CoreV1().Secrets(namespace).Update(context.TODO(), secret, v1.UpdateOptions{})
 		if err != nil {
+			// TODO check if error contains 'data: Too long'
+			// 	if error contains 'data: Too long' and http push didn't work
+			// 		add retry schema and keep retrying http push
+
 			klog.Warningf("Cannot update Result Secret: %s", err)
-			return err
+			if strings.Contains(err.Error(), "data: Too long") {
+				err = pushResult(encryptedData)
+				return err
+			} else {
+				return err
+			}
 		}
 		return nil
 	} else {
