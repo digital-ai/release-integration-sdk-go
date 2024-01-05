@@ -90,7 +90,7 @@ func handleResult(outputContext TaskOutputContext) {
 			}
 			err = retryPushResult(encryptedData)
 		} else {
-			handleResultHandlerError("Secret", done, success, err)
+			//handleResultHandlerError("Secret", done, success, err)
 		}
 	}()
 	go func() {
