@@ -70,7 +70,7 @@ func handleResult(outputContext TaskOutputContext) {
 
 	done := make(chan string, 3)
 	success := make(chan bool)
-	pushRetry := make(chan bool)
+	pushRetry := make(chan bool, 1)
 
 	go func() {
 		err := pushResult(encryptedData, pushRetry)
