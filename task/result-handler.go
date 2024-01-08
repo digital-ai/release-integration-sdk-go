@@ -76,7 +76,7 @@ func handleResult(outputContext TaskOutputContext) {
 	//}()
 	//go func() {
 	err123 := writeToSecret(encryptedData)
-	if err123 != nil && pErr != nil && strings.Contains(err123.Error(), "data: Too long") {
+	if err123 != nil && pErr != nil {
 		klog.Warningf("HTTP PUSH RETRY: DATA: TOO LONG: %s", "HEREEEEEEEEEEEEEEEEE")
 
 		var err2 error
@@ -175,17 +175,8 @@ func writeToSecret(encryptedData []byte) error {
 		secret.Data[key] = encryptedData
 		_, err = clientset.CoreV1().Secrets(namespace).Update(context.TODO(), secret, v1.UpdateOptions{})
 		if err != nil {
-			// TODO check if error contains 'data: Too long'
-			// 	if error contains 'data: Too long' and http push didn't work
-			// 		add retry schema and keep retrying http push
-
 			klog.Warningf("Cannot update Result Secret: %s", err)
-			if strings.Contains(err.Error(), "data: Too long") {
-				err = pushResult(encryptedData)
-				return err
-			} else {
-				return err
-			}
+			return err
 		}
 		return nil
 	} else {
