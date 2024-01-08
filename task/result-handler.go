@@ -78,7 +78,7 @@ func handleResult(outputContext TaskOutputContext) {
 	}()
 	go func() {
 		err := writeToSecret(encryptedData)
-		// if data is too big for secret, we want to keep retrying to push result through http
+		// if data is too big for secret, we want to keep retrying to push result through http (only if http push failed)
 		if err != nil && strings.Contains(err.Error(), "data: Too long") {
 			pushRetry <- true
 		} else {
@@ -189,13 +189,28 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 }
 
 func retryPushResultInfinitely(encryptedData []byte) error {
+	//TODO add watcher that waits until secret.Data[InputContextSecretDataUrlKey] changes?
+
 	for {
-		callBackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
+		// reading input context from secret
+		clientset, err := k8s.GetClientset()
+		if err != nil {
+			klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
+			return err
+		}
+		secret, err := clientset.CoreV1().Secrets(os.Getenv(RunnerNamespace)).Get(context.Background(), os.Getenv(InputContextSecret), v1.GetOptions{})
+		if err != nil {
+			klog.Warningf("Cannot fetch Result Secret: %s", err)
+			return err
+		}
+		callbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
+
+		decodedCallbackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
 		if err != nil {
 			klog.Warningf("Cannot decode Callback URL %s", err)
 			return err
 		}
-		url := string(callBackUrl)
+		url := string(decodedCallbackUrl)
 
 		_, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
 		if httpError == nil {
