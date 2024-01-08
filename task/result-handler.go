@@ -70,19 +70,20 @@ func handleResult(outputContext TaskOutputContext) {
 
 	done := make(chan string, 3)
 	success := make(chan bool)
-	//go func() {
-	pErr := pushResult(encryptedData)
-	handleResultHandlerError("HTTP Push", done, success, pErr)
-	//}()
+	pushRetry := make(chan bool)
+
+	go func() {
+		err := pushResult(encryptedData, pushRetry)
+		handleResultHandlerError("HTTP Push", done, success, err)
+	}()
 	go func() {
 		err := writeToSecret(encryptedData)
-		if err != nil && pErr != nil && strings.Contains(err.Error(), "data: Too long") {
-			klog.Warning("HTTP PUSH RETRY: DATA: TOO LONG")
-			err2 := retryPushResult(encryptedData)
-			handleResultHandlerError("HTTP Push Retry", done, success, err2)
+		if err != nil && strings.Contains(err.Error(), "data: Too long") {
+			pushRetry <- true
 		} else {
-			handleResultHandlerError("Secret", done, success, err)
+			pushRetry <- false
 		}
+		handleResultHandlerError("Secret", done, success, err)
 	}()
 	go func() {
 		err := writeOutput(encryptedData)
@@ -96,30 +97,6 @@ func handleResult(outputContext TaskOutputContext) {
 		klog.Infof("Successfully processed, result with one of the result handlers")
 	default:
 		klog.Fatalf("Result couldn't be processed, exiting execution with error.")
-	}
-}
-
-func retryPushResult(data []byte) error {
-	timeoutCtx, cancel := context.WithTimeout(context.Background(), time.Duration(100)*time.Second)
-	defer cancel()
-
-	for {
-		select {
-		case <-timeoutCtx.Done():
-			errMsg := "case <-timeoutCtx.Done(): I AM ERR"
-			return errors.New(errMsg)
-		default:
-			klog.Infof("Trying to push result to release-remote-runner")
-			err := pushResult(data)
-
-			if err == nil {
-				klog.Info("Successfully pushed the result.")
-				return nil
-			}
-
-			klog.Errorf("Failed to push result: %v. Retrying in 10 seconds...", err)
-			time.Sleep(5 * time.Second)
-		}
 	}
 }
 
@@ -179,7 +156,7 @@ func writeToSecret(encryptedData []byte) error {
 }
 
 // pushResult pushes the encrypted data to the callback URL if the callbackUrl is set.
-func pushResult(encryptedData []byte) error {
+func pushResult(encryptedData []byte, pushRetry chan bool) error {
 	if len(callbackUrl) > 0 {
 		callBackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
 		if err != nil {
@@ -191,7 +168,19 @@ func pushResult(encryptedData []byte) error {
 		response, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
 		if httpError != nil {
 			klog.Warningf("Cannot finish Callback request: %s, skipping", httpError)
-			return httpError
+			doRetry := <-pushRetry
+			if doRetry {
+				klog.Infof("RETRYING HTTP PUSH UNTIL SUCCESSFUL")
+				for {
+					response, httpError = http.Post(url, "application/json", bytes.NewReader(encryptedData))
+					if httpError == nil {
+						return nil
+					}
+					time.Sleep(5 * time.Second)
+				}
+			} else {
+				return httpError
+			}
 		}
 		if response.StatusCode != 204 {
 			klog.Warningf("Got NOK HTTP Status Code %s, skipping", response.Status)
