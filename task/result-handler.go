@@ -13,7 +13,6 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"time"
 )
 
 // callbackUrl is the environment variable for the callback URL to push results.
@@ -78,6 +77,7 @@ func handleResult(outputContext TaskOutputContext) {
 	}()
 	go func() {
 		err := writeToSecret(encryptedData)
+		// if data is too big for secret, we want to keep retrying to push result through http
 		if err != nil && strings.Contains(err.Error(), "data: Too long") {
 			pushRetry <- true
 		} else {
@@ -171,14 +171,14 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 			doRetry := <-pushRetry
 			if doRetry {
 				klog.Infof("RETRYING HTTP PUSH UNTIL SUCCESSFUL")
-				for {
-					response, httpError = http.Post(url, "application/json", bytes.NewReader(encryptedData))
-					if httpError == nil {
-						return nil
-					}
-					klog.Warningf("Cannot finish Callback request: %s", httpError)
-					time.Sleep(5 * time.Second)
+				//for {
+				response, httpError = http.Post(url, "application/json", bytes.NewReader(encryptedData))
+				if httpError == nil {
+					return nil
 				}
+				klog.Warningf("Cannot finish Callback request ON RETRY: %s", httpError)
+				//time.Sleep(5 * time.Second)
+				//}
 			} else {
 				return httpError
 			}
