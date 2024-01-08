@@ -176,6 +176,7 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 					if httpError == nil {
 						return nil
 					}
+					klog.Warningf("Cannot finish Callback request: %s", httpError)
 					time.Sleep(5 * time.Second)
 				}
 			} else {
