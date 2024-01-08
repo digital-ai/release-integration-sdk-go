@@ -74,22 +74,16 @@ func handleResult(outputContext TaskOutputContext) {
 	pErr := pushResult(encryptedData)
 	handleResultHandlerError("HTTP Push", done, success, pErr)
 	//}()
-	//go func() {
-	err123 := writeToSecret(encryptedData)
-	if err123 != nil && pErr != nil {
-		klog.Warningf("HTTP PUSH RETRY: DATA: TOO LONG: %s", "HEREEEEEEEEEEEEEEEEE")
-
-		var err2 error
-		for i := 0; i < 3; i++ {
-			err2 = pushResult(encryptedData)
+	go func() {
+		err := writeToSecret(encryptedData)
+		if err != nil && pErr != nil && strings.Contains(err.Error(), "data: Too long") {
+			klog.Warning("HTTP PUSH RETRY: DATA: TOO LONG")
+			err2 := retryPushResult(encryptedData)
+			handleResultHandlerError("HTTP Push Retry", done, success, err2)
+		} else {
+			handleResultHandlerError("Secret", done, success, err)
 		}
-
-		//err2 := retryPushResult(encryptedData)
-		handleResultHandlerError("HTTP Push Retry", done, success, err2)
-	} else {
-		handleResultHandlerError("Secret", done, success, err123)
-	}
-	//}()
+	}()
 	go func() {
 		err := writeOutput(encryptedData)
 		handleResultHandlerError("Output File", done, success, err)
@@ -118,10 +112,10 @@ func retryPushResult(data []byte) error {
 			klog.Infof("Trying to push result to release-remote-runner")
 			err := pushResult(data)
 
-			//if err == nil {
-			//	klog.Info("Successfully pushed the result.")
-			//	return nil
-			//}
+			if err == nil {
+				klog.Info("Successfully pushed the result.")
+				return nil
+			}
 
 			klog.Errorf("Failed to push result: %v. Retrying in 10 seconds...", err)
 			time.Sleep(5 * time.Second)
