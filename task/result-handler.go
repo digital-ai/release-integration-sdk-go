@@ -170,7 +170,7 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 		if httpError != nil {
 			klog.Warningf("Cannot finish Callback request: %s", httpError)
 			doRetry := <-pushRetry
-			if doRetry {
+			if doRetry == true {
 				klog.Infof("Retry flag was set on Callback request, retrying request until successful")
 				err = retryPushResultInfinitely(encryptedData)
 				return err
