@@ -215,7 +215,7 @@ func retryPushResultInfinitely(encryptedData []byte) error {
 			return nil
 		}
 
-		klog.Warningf("Cannot finish Callback request RETRY: %s", httpError)
+		klog.Warningf("Cannot finish retried Callback request: %s", httpError)
 		time.Sleep(5 * time.Second)
 	}
 }
