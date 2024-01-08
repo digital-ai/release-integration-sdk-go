@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 // callbackUrl is the environment variable for the callback URL to push results.
@@ -171,14 +172,14 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 			doRetry := <-pushRetry
 			if doRetry {
 				klog.Infof("RETRYING HTTP PUSH UNTIL SUCCESSFUL")
-				//for {
-				response, httpError = http.Post(url, "application/json", bytes.NewReader(encryptedData))
-				if httpError == nil {
-					return nil
+				for {
+					response, httpError = http.Post(url, "application/json", bytes.NewReader(encryptedData))
+					if httpError == nil {
+						return nil
+					}
+					klog.Warningf("Cannot finish Callback request RETRY: %s", httpError)
+					time.Sleep(5 * time.Second)
 				}
-				klog.Warningf("Cannot finish Callback request ON RETRY: %s", httpError)
-				//time.Sleep(5 * time.Second)
-				//}
 			} else {
 				return httpError
 			}
