@@ -172,14 +172,8 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 			doRetry := <-pushRetry
 			if doRetry {
 				klog.Infof("RETRYING HTTP PUSH UNTIL SUCCESSFUL")
-				for {
-					response, httpError = http.Post(url, "application/json", bytes.NewReader(encryptedData))
-					if httpError == nil {
-						return nil
-					}
-					klog.Warningf("Cannot finish Callback request RETRY: %s", httpError)
-					time.Sleep(5 * time.Second)
-				}
+				err = retryPushResultInfinitely(encryptedData)
+				return err
 			} else {
 				return httpError
 			}
@@ -191,6 +185,25 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 		return nil
 	} else {
 		return new(SkipResultHandler)
+	}
+}
+
+func retryPushResultInfinitely(encryptedData []byte) error {
+	for {
+		callBackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
+		if err != nil {
+			klog.Warningf("Cannot decode Callback URL %s", err)
+			return err
+		}
+		url := string(callBackUrl)
+
+		_, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
+		if httpError == nil {
+			return nil
+		}
+
+		klog.Warningf("Cannot finish Callback request RETRY: %s", httpError)
+		time.Sleep(5 * time.Second)
 	}
 }
 
