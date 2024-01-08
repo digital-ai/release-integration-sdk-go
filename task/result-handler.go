@@ -168,10 +168,10 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 		// TODO retry schema maybe?
 		response, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
 		if httpError != nil {
-			klog.Warningf("Cannot finish Callback request: %s, skipping", httpError)
+			klog.Warningf("Cannot finish Callback request: %s", httpError)
 			doRetry := <-pushRetry
 			if doRetry {
-				klog.Infof("RETRYING HTTP PUSH UNTIL SUCCESSFUL")
+				klog.Infof("Retry flag was set on Callback request, retrying request until successful")
 				err = retryPushResultInfinitely(encryptedData)
 				return err
 			} else {
@@ -189,8 +189,6 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 }
 
 func retryPushResultInfinitely(encryptedData []byte) error {
-	//TODO add watcher that waits until secret.Data[InputContextSecretDataUrlKey] changes?
-
 	for {
 		// reading input context from secret
 		clientset, err := k8s.GetClientset()
