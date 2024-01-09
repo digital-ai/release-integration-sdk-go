@@ -171,8 +171,8 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 			klog.Warningf("Cannot finish Callback request: %s", httpError)
 			doRetry := <-pushRetry
 			if doRetry == true {
-				klog.Infof("Retry flag was set on Callback request, retrying request until successful")
-				err = retryPushResultInfinitely(encryptedData)
+				klog.Infof("Retry flag was set on Callback request, retrying request")
+				err = retryPushResult(encryptedData)
 				return err
 			} else {
 				return httpError
@@ -188,8 +188,8 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 	}
 }
 
-// retryPushResultInfinitely keeps retrying to push encrypted data to the callback URL until successful.
-func retryPushResultInfinitely(encryptedData []byte) error {
+// retryPushResult keeps retrying to push encrypted data to the callback URL.
+func retryPushResult(encryptedData []byte) error {
 	retryDelay := 1 * time.Second
 	maxBackoff := 3 * time.Minute
 	backoffFactor := 2.0
