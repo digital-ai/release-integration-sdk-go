@@ -190,6 +190,10 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 
 // retryPushResultInfinitely keeps retrying to push encrypted data to the callback URL until successful.
 func retryPushResultInfinitely(encryptedData []byte) error {
+	retryDelay := 1 * time.Second
+	maxBackoff := 3 * time.Minute
+	backoffFactor := 2.0
+
 	for {
 		// reading input context from secret
 		clientset, err := k8s.GetClientset()
@@ -216,8 +220,14 @@ func retryPushResultInfinitely(encryptedData []byte) error {
 			return nil
 		}
 
-		klog.Warningf("Cannot finish retried Callback request: %s", httpError)
-		time.Sleep(5 * time.Second)
+		klog.Warningf("Cannot finish retried Callback request: %s. Retrying in %v...", httpError, retryDelay)
+		time.Sleep(retryDelay)
+
+		retryDelay = time.Duration(float64(retryDelay) * backoffFactor)
+		if retryDelay > maxBackoff {
+			klog.Warningf("Maximum retry backoff reached, aborting with error: %s", httpError)
+			return httpError
+		}
 	}
 }
 
