@@ -78,7 +78,7 @@ func handleResult(outputContext TaskOutputContext) {
 	}()
 	go func() {
 		err := writeToSecret(encryptedData)
-		// if data is too big for secret, we want to keep retrying to push result through http (only if http push failed)
+		// if data is too big for secret, we want to keep retrying to push result through http
 		if err != nil && strings.Contains(err.Error(), "data: Too long") {
 			pushRetry <- true
 		} else {
@@ -188,6 +188,7 @@ func pushResult(encryptedData []byte, pushRetry chan bool) error {
 	}
 }
 
+// retryPushResultInfinitely keeps retrying to push encrypted data to the callback URL until successful.
 func retryPushResultInfinitely(encryptedData []byte) error {
 	for {
 		// reading input context from secret
