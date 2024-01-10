@@ -223,7 +223,10 @@ func retryPushResult(encryptedData []byte) error {
 
 		retryDelay = time.Duration(float64(retryDelay) * backoffFactor)
 		if retryDelay > maxBackoff {
-			klog.Warningf("Maximum retry backoff reached, aborting with error: %s", httpError)
+			errorMsg := fmt.Sprintf("Maximum retry backoff reached, aborting with error: %s", httpError)
+			err = errors.New(errorMsg)
+			klog.Error(err)
+			HandleError(err, nil, nil) //TODO check this
 			return httpError
 		}
 	}
