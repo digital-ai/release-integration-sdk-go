@@ -226,8 +226,8 @@ func retryPushResult(encryptedData []byte) error {
 			errorMsg := fmt.Sprintf("Maximum retry backoff reached, aborting with error: %s", httpError)
 			err = errors.New(errorMsg)
 			klog.Error(err)
-			HandleError(err, nil, nil) //TODO check this
-			return httpError
+			HandleError(err, nil, nil) // save error into secret
+			return err
 		}
 	}
 }
