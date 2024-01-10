@@ -195,7 +195,6 @@ func retryPushResult(encryptedData []byte) error {
 	backoffFactor := 2.0
 
 	for {
-		// reading input context from secret
 		clientset, err := k8s.GetClientset()
 		if err != nil {
 			klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
@@ -207,7 +206,6 @@ func retryPushResult(encryptedData []byte) error {
 			return err
 		}
 		callbackUrl = string(secret.Data[InputContextSecretDataUrlKey])
-
 		decodedCallbackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
 		if err != nil {
 			klog.Warningf("Cannot decode Callback URL %s", err)
