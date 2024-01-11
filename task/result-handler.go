@@ -10,6 +10,7 @@ import (
 	"github.com/digital-ai/release-integration-sdk-go/k8s"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
+	"math"
 	"net/http"
 	"os"
 	"strings"
@@ -82,8 +83,8 @@ func handleResult(outputContext TaskOutputContext) {
 		if err != nil && strings.Contains(err.Error(), "data: Too long") {
 			retry := <-pushErr
 			if retry == true {
-				klog.Infof("Result is too big for secret and Callback request failed, retrying Callback request...")
-				err = retryPushResult(encryptedData)
+				klog.Infof("Result is too big for secret and Callback request failed, retrying Callback request until successful...")
+				err = retryPushResultInfinitely(encryptedData)
 			}
 		}
 		handleResultHandlerError("Secret", done, success, err)
@@ -186,8 +187,8 @@ func pushResult(encryptedData []byte, pushErr chan bool) error {
 	}
 }
 
-// retryPushResult keeps retrying to push encrypted data to the callback URL.
-func retryPushResult(encryptedData []byte) error {
+// retryPushResultInfinitely keeps retrying to push encrypted data to the callback URL.
+func retryPushResultInfinitely(encryptedData []byte) error {
 	retryDelay := 1 * time.Second
 	maxBackoff := 3 * time.Minute
 	backoffFactor := 2.0
@@ -219,14 +220,8 @@ func retryPushResult(encryptedData []byte) error {
 		klog.Warningf("Cannot finish retried Callback request: %s. Retrying in %v...", httpError, retryDelay)
 		time.Sleep(retryDelay)
 
-		retryDelay = time.Duration(float64(retryDelay) * backoffFactor)
-		if retryDelay > maxBackoff {
-			errorMsg := fmt.Sprintf("Maximum retry backoff reached, aborting with error: %s", httpError)
-			err = errors.New(errorMsg)
-			klog.Error(err)
-			HandleError(err, nil, nil) // save error into secret
-			return err
-		}
+		newDelay := time.Duration(float64(retryDelay) * backoffFactor)
+		retryDelay = time.Duration(math.Min(float64(newDelay), float64(maxBackoff)))
 	}
 }
 
