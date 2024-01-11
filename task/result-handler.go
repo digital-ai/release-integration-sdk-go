@@ -199,6 +199,7 @@ func retryPushResultInfinitely(encryptedData []byte) error {
 			klog.Warningf("Cannot create clientset for handling Result Secret: %s", err)
 			return err
 		}
+		// we need to re-fetch callback URL since it will change when remote-runner restarts
 		secret, err := clientset.CoreV1().Secrets(os.Getenv(RunnerNamespace)).Get(context.Background(), os.Getenv(InputContextSecret), v1.GetOptions{})
 		if err != nil {
 			klog.Warningf("Cannot fetch Result Secret: %s", err)
