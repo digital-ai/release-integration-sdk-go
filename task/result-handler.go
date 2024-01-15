@@ -75,7 +75,7 @@ func handleResult(outputContext TaskOutputContext) {
 	success := make(chan bool)
 
 	go func() {
-		err := pushResult(encryptedData)
+		err := pushResult(encryptedData, shouldRetryCallbackRequest(encryptedData))
 		handleResultHandlerError("HTTP Push", done, success, err)
 	}()
 	go func() {
@@ -122,7 +122,7 @@ func splitSecretResourceData(secretEntry string) (string, string, string, error)
 func writeToSecret(encryptedData []byte) error {
 	if len(resultSecretKey) > 0 {
 		if len(encryptedData) >= SizeOf1Mb {
-			return errors.New("result size exceeds 1Mb and is too big to store in secret, skipping")
+			return errors.New("result size exceeds 1Mb and is too big to store in secret")
 		}
 		namespace, name, key, err := splitSecretResourceData(resultSecretKey)
 		if err != nil {
@@ -156,7 +156,7 @@ func writeToSecret(encryptedData []byte) error {
 }
 
 // pushResult pushes the encrypted data to the callback URL if the callbackUrl is set.
-func pushResult(encryptedData []byte) error {
+func pushResult(encryptedData []byte, retryOnFailure bool) error {
 	if len(callbackUrl) > 0 {
 		callBackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
 		if err != nil {
@@ -165,7 +165,6 @@ func pushResult(encryptedData []byte) error {
 		}
 		url := string(callBackUrl)
 		// TODO retry schema maybe?
-		retryOnFailure := len(encryptedData) >= SizeOf1Mb
 		response, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
 		if httpError != nil {
 			klog.Warningf("Cannot finish Callback request: %s", httpError)
@@ -239,4 +238,10 @@ func writeOutput(encryptedData []byte) error {
 	} else {
 		return new(SkipResultHandler)
 	}
+}
+
+// shouldRetryCallbackRequest checks if callback request should be retried on failure.
+// it should be retried when result is too big for Secret and Output File handler is not used
+func shouldRetryCallbackRequest(encryptedData []byte) bool {
+	return len(encryptedData) >= SizeOf1Mb && len(os.Getenv(OutputLocation)) == 0
 }
