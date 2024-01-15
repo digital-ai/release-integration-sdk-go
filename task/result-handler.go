@@ -17,6 +17,8 @@ import (
 	"time"
 )
 
+const SizeOf1Mb = 1024 * 1024
+
 // callbackUrl is the environment variable for the callback URL to push results.
 var callbackUrl = os.Getenv(CallbackURL)
 
@@ -71,22 +73,13 @@ func handleResult(outputContext TaskOutputContext) {
 
 	done := make(chan string, 3)
 	success := make(chan bool)
-	pushErr := make(chan bool, 1)
 
 	go func() {
-		err := pushResult(encryptedData, pushErr)
+		err := pushResult(encryptedData)
 		handleResultHandlerError("HTTP Push", done, success, err)
 	}()
 	go func() {
 		err := writeToSecret(encryptedData)
-		// if data is too big for secret, we want to keep retrying to push result through http
-		if err != nil && strings.Contains(err.Error(), "data: Too long") {
-			retry := <-pushErr
-			if retry == true {
-				klog.Infof("Result is too big for secret and Callback request failed, retrying Callback request until successful...")
-				err = retryPushResultInfinitely(encryptedData)
-			}
-		}
 		handleResultHandlerError("Secret", done, success, err)
 	}()
 	go func() {
@@ -128,6 +121,9 @@ func splitSecretResourceData(secretEntry string) (string, string, string, error)
 // writeToSecret writes the encrypted data to the result secret if the resultSecretKey is set.
 func writeToSecret(encryptedData []byte) error {
 	if len(resultSecretKey) > 0 {
+		if len(encryptedData) >= SizeOf1Mb {
+			return errors.New("result size exceeds 1Mb and is too big to store in secret, skipping")
+		}
 		namespace, name, key, err := splitSecretResourceData(resultSecretKey)
 		if err != nil {
 			klog.Warningf("Cannot resolve value of Result Secret Name and Key %s, skipping - output written to output file", err)
@@ -160,7 +156,7 @@ func writeToSecret(encryptedData []byte) error {
 }
 
 // pushResult pushes the encrypted data to the callback URL if the callbackUrl is set.
-func pushResult(encryptedData []byte, pushErr chan bool) error {
+func pushResult(encryptedData []byte) error {
 	if len(callbackUrl) > 0 {
 		callBackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
 		if err != nil {
@@ -169,13 +165,17 @@ func pushResult(encryptedData []byte, pushErr chan bool) error {
 		}
 		url := string(callBackUrl)
 		// TODO retry schema maybe?
+		retryOnFailure := len(encryptedData) >= SizeOf1Mb
 		response, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
 		if httpError != nil {
 			klog.Warningf("Cannot finish Callback request: %s", httpError)
-			pushErr <- true
-			return httpError
-		} else {
-			pushErr <- false
+			if retryOnFailure {
+				klog.Infof("Retry flag was set on Callback request, retrying until successful...")
+				err = retryPushResultInfinitely(encryptedData)
+				return err
+			} else {
+				return httpError
+			}
 		}
 		if response.StatusCode != 204 {
 			klog.Warningf("Got NOK HTTP Status Code %s, skipping", response.Status)
