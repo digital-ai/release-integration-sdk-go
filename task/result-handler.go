@@ -164,7 +164,6 @@ func pushResult(encryptedData []byte, retryOnFailure bool) error {
 			return err
 		}
 		url := string(callBackUrl)
-		// TODO retry schema maybe?
 		response, httpError := http.Post(url, "application/json", bytes.NewReader(encryptedData))
 		if httpError != nil {
 			klog.Warningf("Cannot finish Callback request: %s", httpError)
