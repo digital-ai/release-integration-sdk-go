@@ -219,8 +219,7 @@ func retryPushResultInfinitely(encryptedData []byte) error {
 		klog.Warningf("Cannot finish retried Callback request: %s. Retrying in %v...", httpError, retryDelay)
 		time.Sleep(retryDelay)
 
-		newDelay := time.Duration(float64(retryDelay) * backoffFactor)
-		retryDelay = time.Duration(math.Min(float64(newDelay), float64(maxBackoff)))
+		retryDelay = time.Duration(math.Min(float64(retryDelay)*backoffFactor, float64(maxBackoff)))
 	}
 }
 
