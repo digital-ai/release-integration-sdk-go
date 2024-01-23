@@ -213,7 +213,7 @@ func (b *HttpClientBuilder) WithHeaders(headers map[string][]string) *HttpClient
 func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *HttpClientBuilder {
 	b.config.Host = config.Host
 	b.config.Insecure = config.Insecure
-	if !b.config.Insecure {
+	if !b.config.Insecure && config.CertificateAuthority == nil {
 		rootCAs, _ := x509.SystemCertPool()
 		newTlsConfig := &tls.Config{}
 		newTlsConfig.RootCAs = rootCAs
