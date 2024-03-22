@@ -255,6 +255,10 @@ func (b *HttpClientBuilder) WithHttpClientConfig(config *HttpClientConfig) *Http
 		}
 	}
 	if config.ProxyHost != "" {
+		if b.config.Transport == nil {
+			b.config.Transport = http.DefaultTransport
+		}
+
 		proxyUrl, proxyErr := url.Parse(fmt.Sprintf("%s:%s", config.ProxyHost, config.ProxyPort))
 		proxyUrlMethod := func(*http.Request) (*url.URL, error) {
 			if proxyErr != nil {
