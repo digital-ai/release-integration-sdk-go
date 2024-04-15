@@ -41,6 +41,7 @@ func serializeData(data interface{}) (map[string]interface{}, error) {
 	dataType := reflect.TypeOf(data)
 	dataValue := reflect.ValueOf(data)
 
+	jsonData["id"] = nil
 	jsonData["type"] = ToSyntheticType(dataType)
 	for i := 0; i < dataType.NumField(); i++ {
 		field := dataType.Field(i)
