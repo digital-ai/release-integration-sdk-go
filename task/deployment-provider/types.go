@@ -20,6 +20,7 @@ type DeploymentProviderEvent struct {
 	Environment     Environment     `synthetic:"environment"`
 	Application     Application     `synthetic:"application"`
 	DeploymentState DeploymentState `synthetic:"deploymentState"`
+	ConfigId        string          `synthetic:"configId"`
 }
 
 type Environment struct {
