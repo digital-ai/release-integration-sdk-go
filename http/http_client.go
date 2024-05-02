@@ -110,8 +110,37 @@ func (httpClient *HttpClient) sendRequest(ctx context.Context, method string, pa
 	})
 }
 
-// sendRequestWithCustomHeaders sends an HTTP request with a custom configuration and headers.
+// sendRequestWithCustomHeaders sends an HTTP request with a custom configuration and headers, returns HTTP response body.
 func (httpClient *HttpClient) sendRequestWithCustomHeaders(ctx context.Context, config *RequestConfig) ([]byte, error) {
+	resp, err := httpClient.doSendHttpRequest(ctx, config)
+	if err != nil {
+		return nil, err
+	}
+
+	defer func(Body io.ReadCloser) {
+		if deferredErr := Body.Close(); deferredErr != nil {
+			err = deferredErr
+		}
+	}(resp.Body)
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("read body error: %v", err)
+	}
+
+	if resp.StatusCode >= 300 && resp.StatusCode < 400 {
+		return nil, fmt.Errorf("%v redirect status: use sendHttpRequest instead to handle redirection", resp.StatusCode)
+	}
+
+	if resp.StatusCode >= 400 {
+		return data, fmt.Errorf("%v - %s", resp.StatusCode, string(data[:]))
+	}
+
+	return data, err
+}
+
+// doSendHttpRequest sends an HTTP request with a custom configuration and headers, returns whole HTTP response.
+func (httpClient *HttpClient) doSendHttpRequest(ctx context.Context, config *RequestConfig) (*http.Response, error) {
 	client := httpClient.client
 	if client == nil {
 		return nil, fmt.Errorf("http client is uninitialized")
@@ -129,23 +158,7 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(ctx context.Context, 
 		return nil, fmt.Errorf("%s error: %v", config.method, err)
 	}
 
-	defer func(Body io.ReadCloser) {
-		if deferredErr := Body.Close(); deferredErr != nil {
-			err = deferredErr
-		}
-	}(resp.Body)
-
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("read body error: %v", err)
-	}
-
-	//TODO: handle 3xx statuses
-	if resp.StatusCode >= 299 {
-		return data, fmt.Errorf("%v - %s", resp.StatusCode, string(data[:]))
-	}
-
-	return data, err
+	return resp, nil
 }
 
 // setHeaders sets the headers of an HTTP request based on the provided map of headers.
