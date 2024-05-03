@@ -112,7 +112,7 @@ func (httpClient *HttpClient) sendRequest(ctx context.Context, method string, pa
 
 // sendRequestWithCustomHeaders sends an HTTP request with a custom configuration and headers, returns HTTP response body.
 func (httpClient *HttpClient) sendRequestWithCustomHeaders(ctx context.Context, config *RequestConfig) ([]byte, error) {
-	resp, err := httpClient.doSendHttpRequest(ctx, config)
+	resp, err := httpClient.DoSendHttpRequest(ctx, config)
 	if err != nil {
 		return nil, err
 	}
