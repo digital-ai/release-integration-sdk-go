@@ -140,7 +140,7 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(ctx context.Context, 
 }
 
 // doSendHttpRequest sends an HTTP request with a custom configuration and headers, returns whole HTTP response.
-func (httpClient *HttpClient) doSendHttpRequest(ctx context.Context, config *RequestConfig) (*http.Response, error) {
+func (httpClient *HttpClient) DoSendHttpRequest(ctx context.Context, config *RequestConfig) (*http.Response, error) {
 	client := httpClient.client
 	if client == nil {
 		return nil, fmt.Errorf("http client is uninitialized")
