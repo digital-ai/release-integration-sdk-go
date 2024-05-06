@@ -66,6 +66,7 @@ type DeploymentRecordTaskInfo struct {
 // ReportingRecord represents the record produced by task.
 type ReportingRecord struct {
 	Id                 string    `json:"id"`
+	Type               string    `json:"type"`
 	TargetId           string    `json:"targetId,omitempty"`
 	ServerUrl          string    `json:"serverUrl,omitempty"`
 	ServerUser         string    `json:"serverUser,omitempty"`
@@ -112,7 +113,6 @@ type BuildRecord struct {
 // DeploymentRecord represents the record for deployment.
 type DeploymentRecord struct {
 	ReportingRecord
-	Type              string           `json:"type"`
 	DeploymentTask    string           `json:"deploymentTask,omitempty"`
 	DeploymentTaskUrl string           `json:"deploymentTask_url,omitempty"`
 	ApplicationName   string           `json:"applicationName,omitempty"`

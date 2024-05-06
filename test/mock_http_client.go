@@ -85,11 +85,16 @@ func NewMockHttpClient(mocks []MockResult) rest.HTTPClient {
 
 // getPath returns the path from the provided URL.
 func getPath(url *url.URL) string {
+	var path string
 	if url.RawPath != "" {
-		return url.RawPath
+		path = url.RawPath
 	} else {
-		return url.Path
+		path = url.Path
 	}
+	if url.RawQuery != "" {
+		return path + "?" + url.RawQuery
+	}
+	return path
 }
 
 // Do performs the mock HTTP request.

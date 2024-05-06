@@ -9,25 +9,21 @@ import (
 
 // AssertRequestResult compares the actual and expected results of a task in a testing context.
 func AssertRequestResult(t *testing.T, actual *task.Result, actualErr error, expected *task.Result, expectedErr error) {
-	if actualErr != nil {
+	if actualErr != nil || expectedErr != nil {
 		if !reflect.DeepEqual(actualErr, expectedErr) {
 			t.Fatalf("Actual: [%v]; Expected: [%v]", actualErr, expectedErr)
 		} else {
 			t.Logf("Success!")
 		}
 	} else {
-		mapResult, err := actual.Get()
-		if !reflect.DeepEqual(err, expectedErr) {
-			t.Fatalf("Actual: [%v]; Expected: [%v]", err, expectedErr)
+		mapResult, mapErr := actual.Get()
+		expectedMap, expectedMapErr := expected.Get()
+		if !reflect.DeepEqual(mapErr, expectedMapErr) {
+			t.Fatalf("Actual: [%v]; Expected: [%v]", mapErr, expectedMapErr)
 		}
 		response, err := json.Marshal(mapResult)
-		if !reflect.DeepEqual(err, expectedErr) {
-			t.Fatalf("Actual: [%v]; Expected: [%v]", err, expectedErr)
-		}
-
-		expectedMap, err := expected.Get()
 		if err != nil {
-			t.Fatalf("Error while trying to get value from expected: [%v]", err)
+			t.Fatalf("Error while trying to marshal actual: [%v]", err)
 		}
 
 		expectedJson, err := json.Marshal(expectedMap)
