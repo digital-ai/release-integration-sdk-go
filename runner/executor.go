@@ -139,7 +139,7 @@ func execute(pluginVersion string, buildDate string, runner Runner) {
 	var inputContext task.InputContext
 	if err := task.Deserialize(&inputContext); err != nil {
 		klog.Errorf("Failed to deserialize input %v", err)
-		task.HandleError(err, nil, nil)
+		task.HandleError(fmt.Errorf("failed to deserialize input: %v", err), nil, nil)
 		return
 	}
 
