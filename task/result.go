@@ -422,22 +422,18 @@ func (r *Result) ReportingRecord(record interface{}) *Result {
 	return r.addReportingRecord(record)
 }
 
-func CreateCodeComplianceRecord() CodeComplianceRecord {
-	record := ReportingRecord{
+func CreateCodeComplianceRecord() ReportingRecord {
+	return ReportingRecord{
 		Type: "udm.CodeComplianceRecord",
-	}
-	return CodeComplianceRecord{
-		ReportingRecord: record,
 	}
 }
 
 // CreateDeploymentRecord creates a new reporting record for deployment.
 func CreateDeploymentRecord(client *http.HttpClient, taskInfo *DeploymentRecordTaskInfo, status DeploymentStatus) *DeploymentRecord {
-	reporting := ReportingRecord{
-		Type: "udm.DeploymentRecord",
-	}
 	record := &DeploymentRecord{
-		ReportingRecord: reporting,
+		ReportingRecord: ReportingRecord{
+			Type: "udm.DeploymentRecord",
+		},
 	}
 	record.Status = status
 	serverUrl := client.GetBaseUrl()
