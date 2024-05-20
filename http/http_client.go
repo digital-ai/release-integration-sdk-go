@@ -17,6 +17,13 @@ type QueryParam struct {
 	value string
 }
 
+func NewQueryParam(key string, value string) QueryParam {
+	return QueryParam{
+		key:   key,
+		value: value,
+	}
+}
+
 // Pair sets the key-value pair for the QueryParam.
 func (q *QueryParam) Pair(key string, value string) {
 	q.key = key

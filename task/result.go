@@ -425,7 +425,9 @@ func (r *Result) ReportingRecord(record interface{}) *Result {
 // CreateDeploymentRecord creates a new reporting record for deployment.
 func CreateDeploymentRecord(client *http.HttpClient, taskInfo *DeploymentRecordTaskInfo, status DeploymentStatus) *DeploymentRecord {
 	record := &DeploymentRecord{
-		Type: "udm.DeploymentRecord",
+		ReportingRecord: ReportingRecord{
+			Type: "udm.DeploymentRecord",
+		},
 	}
 	record.Status = status
 	serverUrl := client.GetBaseUrl()
