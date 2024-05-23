@@ -155,7 +155,8 @@ func (c MockHttpClient) Do(req *http.Request) (*http.Response, error) {
 	mockData, exists := c.mocks[hash]
 	if exists {
 		skipQueryCheck := false
-		if len(requestQueryParams) == 0 && len(mockData.queryParams) == 0 {
+		// we skip query params check if it's not defined in mock data
+		if len(mockData.queryParams) == 0 {
 			skipQueryCheck = true
 		}
 		if skipQueryCheck || reflect.DeepEqual(requestQueryParams, mockData.queryParams) {
