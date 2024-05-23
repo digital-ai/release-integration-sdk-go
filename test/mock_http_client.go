@@ -151,14 +151,18 @@ func (c MockHttpClient) Do(req *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	// TODO hash doesn't have the request params and the request has we need to fallback
 	hash := calculateHash(req.Method, path, requestQueryParams)
 	mockData, exists := c.mocks[hash]
+
+	skipQueryCheck := false
+	// fallback and check if we ignore query params check
+	if !exists {
+		hash = calculateHash(req.Method, path, nil)
+		mockData, exists = c.mocks[hash]
+		skipQueryCheck = true
+	}
 	if exists {
-		skipQueryCheck := false
-		// we skip query params check if it's not defined in mock data
-		if len(mockData.queryParams) == 0 {
-			skipQueryCheck = true
-		}
 		if skipQueryCheck || reflect.DeepEqual(requestQueryParams, mockData.queryParams) {
 			return &http.Response{
 				Body:       mockData.responseBody,
