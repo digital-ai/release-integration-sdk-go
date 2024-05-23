@@ -96,9 +96,17 @@ type MockResult struct {
 }
 
 func (mr MockResult) ToMock() *Mock {
+	mockBody := &MockBody{statusCode: mr.StatusCode}
+	if mr.Filename != "" {
+		mockBody.filename = mr.Filename
+	} else {
+		mockBody.response = mr.Data
+	}
 	return &Mock{
-		method: mr.Method,
-		path:   mr.Path,
+		method:       mr.Method,
+		path:         mr.Path,
+		queryParams:  mr.QueryParams,
+		responseBody: mockBody,
 	}
 }
 
