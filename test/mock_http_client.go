@@ -144,8 +144,11 @@ func (c MockHttpClient) Do(req *http.Request) (*http.Response, error) {
 	hash := calculateHash(req.Method, path, requestQueryParams)
 	mockData, exists := c.mocks[hash]
 	if exists {
-		matchedQueryParams := reflect.DeepEqual(requestQueryParams, mockData.queryParams)
-		if matchedQueryParams {
+		skipQueryCheck := false
+		if len(requestQueryParams) == 0 && len(mockData.queryParams) == 0 {
+			skipQueryCheck = true
+		}
+		if skipQueryCheck || reflect.DeepEqual(requestQueryParams, mockData.queryParams) {
 			return &http.Response{
 				Body:       mockData.responseBody,
 				StatusCode: mockData.responseBody.statusCode,
