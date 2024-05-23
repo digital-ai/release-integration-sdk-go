@@ -48,9 +48,11 @@ func (m Mock) hash() string {
 // calculateHash creates a unique hash key from method, path and query params map
 func calculateHash(method string, path string, queryParams url.Values) string {
 	combinedStr := fmt.Sprintf("%s::%s", method, path)
-	flattenedValues := flattenValues(queryParams)
+	flattenedValues := ""
+	if len(queryParams) > 0 {
+		flattenedValues = flattenValues(queryParams)
+	}
 	finalStr := fmt.Sprintf("%s::%s", combinedStr, flattenedValues)
-
 	hash := sha256.Sum256([]byte(finalStr))
 	hashKey := hex.EncodeToString(hash[:])
 	return hashKey
