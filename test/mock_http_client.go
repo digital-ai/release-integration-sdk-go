@@ -1,13 +1,60 @@
 package test
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
 	"io"
 	"k8s.io/client-go/rest"
 	"net/http"
 	"net/url"
 	"os"
 	"reflect"
+	"sort"
+	"strings"
 )
+
+// Mock is a definition of mock consisting of mocked path, queries and mock response body which is returned on matched mock pattern
+type Mock struct {
+	method       string
+	path         string
+	queryParams  url.Values
+	responseBody *MockBody
+}
+
+// flattenValues flat values map to be represented as string, with keeping in mind order of keys and paired values array
+func flattenValues(values url.Values) string {
+	keys := make([]string, 0, len(values))
+	for key := range values {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+
+	var flattened []string
+	for _, key := range keys {
+		params := values[key]
+		sort.Strings(params)
+		flattened = append(flattened, fmt.Sprintf("%s:%s", key, strings.Join(params, ",")))
+	}
+
+	return strings.Join(flattened, ";")
+}
+
+// hash creates a unique hash key from method, path and query params map
+func (m Mock) hash() string {
+	return calculateHash(m.method, m.path, m.queryParams)
+}
+
+// calculateHash creates a unique hash key from method, path and query params map
+func calculateHash(method string, path string, queryParams url.Values) string {
+	combinedStr := fmt.Sprintf("%s::%s", method, path)
+	flattenedValues := flattenValues(queryParams)
+	finalStr := fmt.Sprintf("%s::%s", combinedStr, flattenedValues)
+
+	hash := sha256.Sum256([]byte(finalStr))
+	hashKey := hex.EncodeToString(hash[:])
+	return hashKey
+}
 
 // MockBody is a mock implementation of the http.Response.Body interface.
 type MockBody struct {
@@ -46,10 +93,16 @@ type MockResult struct {
 	StatusCode  int
 }
 
+func (mr MockResult) ToMock() *Mock {
+	return &Mock{
+		method: mr.Method,
+		path:   mr.Path,
+	}
+}
+
 // MockHttpClient is a mock implementation of the rest.HTTPClient interface.
 type MockHttpClient struct {
-	mocks       map[string]map[string]*MockBody
-	queryParams map[string]map[string]url.Values
+	mocks map[string]*Mock
 }
 
 // the404Response represents HTTP mock response with 404 code
@@ -62,37 +115,13 @@ var the404Response = &http.Response{
 
 // NewMockHttpClient creates a new instance of MockHttpClient based on the provided mock results.
 func NewMockHttpClient(mocks []MockResult) rest.HTTPClient {
-	mockBodiesMap := make(map[string]map[string]*MockBody)
-	mockQueriesMap := make(map[string]map[string]url.Values)
-	for _, mock := range mocks {
-		mockBodiesForMethodMap := mockBodiesMap[mock.Method]
-		if mockBodiesForMethodMap == nil {
-			mockBodiesForMethodMap = make(map[string]*MockBody)
-		}
-		mockQueriesMapForMethodMap := mockQueriesMap[mock.Method]
-		if mockQueriesMapForMethodMap == nil {
-			mockQueriesMapForMethodMap = make(map[string]url.Values)
-		}
-		if mock.Filename != "" {
-			mockBodiesForMethodMap[mock.Path] = &MockBody{
-				filename:   mock.Filename,
-				statusCode: mock.StatusCode,
-			}
-		} else {
-			mockBodiesForMethodMap[mock.Path] = &MockBody{
-				response:   mock.Data,
-				statusCode: mock.StatusCode,
-			}
-		}
-		if len(mock.QueryParams) > 0 {
-			mockQueriesMapForMethodMap[mock.Path] = mock.QueryParams
-		}
-		mockBodiesMap[mock.Method] = mockBodiesForMethodMap
-		mockQueriesMap[mock.Method] = mockQueriesMapForMethodMap
+	mockMap := make(map[string]*Mock)
+	for _, mockResults := range mocks {
+		mock := mockResults.ToMock()
+		mockMap[mock.hash()] = mock
 	}
 	return &MockHttpClient{
-		mocks:       mockBodiesMap,
-		queryParams: mockQueriesMap,
+		mocks: mockMap,
 	}
 }
 
@@ -112,18 +141,16 @@ func (c MockHttpClient) Do(req *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	queryParams, exists := c.queryParams[req.Method][path]
-	matchedQueryParams := true
-	if len(queryParams) > 0 {
-		matchedQueryParams = reflect.DeepEqual(requestQueryParams, queryParams)
-	}
-
-	mockedResponseBody, exists := c.mocks[req.Method][path]
-	if matchedQueryParams && exists {
-		return &http.Response{
-			Body:       mockedResponseBody,
-			StatusCode: mockedResponseBody.statusCode,
-		}, nil
+	hash := calculateHash(req.Method, path, requestQueryParams)
+	mockData, exists := c.mocks[hash]
+	if exists {
+		matchedQueryParams := reflect.DeepEqual(requestQueryParams, mockData.queryParams)
+		if matchedQueryParams {
+			return &http.Response{
+				Body:       mockData.responseBody,
+				StatusCode: mockData.responseBody.statusCode,
+			}, nil
+		}
 	}
 	return the404Response, nil
 }
