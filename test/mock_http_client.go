@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"reflect"
 )
 
 // MockBody is a mock implementation of the http.Response.Body interface.
@@ -37,16 +38,18 @@ func (b *MockBody) Close() error {
 
 // MockResult represents a mocked HTTP response.
 type MockResult struct {
-	Method     string
-	Path       string
-	Filename   string
-	Data       []byte
-	StatusCode int
+	Method      string
+	Path        string
+	QueryParams url.Values
+	Filename    string
+	Data        []byte
+	StatusCode  int
 }
 
 // MockHttpClient is a mock implementation of the rest.HTTPClient interface.
 type MockHttpClient struct {
-	mocks map[string]map[string]*MockBody
+	mocks       map[string]map[string]*MockBody
+	queryParams map[string]map[string]url.Values
 }
 
 // the404Response represents HTTP mock response with 404 code
@@ -60,50 +63,66 @@ var the404Response = &http.Response{
 // NewMockHttpClient creates a new instance of MockHttpClient based on the provided mock results.
 func NewMockHttpClient(mocks []MockResult) rest.HTTPClient {
 	mockBodiesMap := make(map[string]map[string]*MockBody)
+	mockQueriesMap := make(map[string]map[string]url.Values)
 	for _, mock := range mocks {
-		ref := mockBodiesMap[mock.Method]
-		if ref == nil {
-			ref = make(map[string]*MockBody)
+		mockBodiesForMethodMap := mockBodiesMap[mock.Method]
+		if mockBodiesForMethodMap == nil {
+			mockBodiesForMethodMap = make(map[string]*MockBody)
+		}
+		mockQueriesMapForMethodMap := mockQueriesMap[mock.Method]
+		if mockQueriesMapForMethodMap == nil {
+			mockQueriesMapForMethodMap = make(map[string]url.Values)
 		}
 		if mock.Filename != "" {
-			ref[mock.Path] = &MockBody{
+			mockBodiesForMethodMap[mock.Path] = &MockBody{
 				filename:   mock.Filename,
 				statusCode: mock.StatusCode,
 			}
 		} else {
-			ref[mock.Path] = &MockBody{
+			mockBodiesForMethodMap[mock.Path] = &MockBody{
 				response:   mock.Data,
 				statusCode: mock.StatusCode,
 			}
 		}
-		mockBodiesMap[mock.Method] = ref
+		if len(mock.QueryParams) > 0 {
+			mockQueriesMapForMethodMap[mock.Path] = mock.QueryParams
+		}
+		mockBodiesMap[mock.Method] = mockBodiesForMethodMap
+		mockQueriesMap[mock.Method] = mockQueriesMapForMethodMap
 	}
 	return &MockHttpClient{
-		mocks: mockBodiesMap,
+		mocks:       mockBodiesMap,
+		queryParams: mockQueriesMap,
 	}
 }
 
 // getPath returns the path from the provided URL.
 func getPath(url *url.URL) string {
-	var path string
 	if url.RawPath != "" {
-		path = url.RawPath
+		return url.RawPath
 	} else {
-		path = url.Path
+		return url.Path
 	}
-	if url.RawQuery != "" {
-		return path + "?" + url.RawQuery
-	}
-	return path
 }
 
-// Do performs the mock HTTP request.
+// Do processes the mock HTTP request.
 func (c MockHttpClient) Do(req *http.Request) (*http.Response, error) {
-	mock, exists := c.mocks[req.Method][getPath(req.URL)]
-	if exists {
+	path := getPath(req.URL)
+	requestQueryParams, err := url.ParseQuery(req.URL.RawQuery)
+	if err != nil {
+		return nil, err
+	}
+	queryParams, exists := c.queryParams[req.Method][path]
+	matchedQueryParams := true
+	if len(queryParams) > 0 {
+		matchedQueryParams = reflect.DeepEqual(requestQueryParams, queryParams)
+	}
+
+	mockedResponseBody, exists := c.mocks[req.Method][path]
+	if matchedQueryParams && exists {
 		return &http.Response{
-			Body:       mock,
-			StatusCode: mock.statusCode,
+			Body:       mockedResponseBody,
+			StatusCode: mockedResponseBody.statusCode,
 		}, nil
 	}
 	return the404Response, nil
