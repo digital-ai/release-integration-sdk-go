@@ -155,9 +155,9 @@ func (c MockHttpClient) Do(req *http.Request) (*http.Response, error) {
 	hash := calculateHash(req.Method, path, requestQueryParams)
 	mockData, exists := c.mocks[hash]
 
-	skipQueryCheck := false
+	skipQueryCheck := len(mockData.queryParams) == 0
 	// fallback and check if we ignore query params check
-	if !exists {
+	if skipQueryCheck && !exists {
 		hash = calculateHash(req.Method, path, nil)
 		mockData, exists = c.mocks[hash]
 		skipQueryCheck = true
