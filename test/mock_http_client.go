@@ -95,6 +95,7 @@ type MockResult struct {
 	StatusCode  int
 }
 
+// ToMock create Mock reference out of the MockResult
 func (mr MockResult) ToMock() *Mock {
 	mockBody := &MockBody{statusCode: mr.StatusCode}
 	if mr.Filename != "" {
