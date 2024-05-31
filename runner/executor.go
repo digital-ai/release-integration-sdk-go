@@ -155,7 +155,7 @@ func execute(pluginVersion string, buildDate string, runner Runner) {
 			task.HandleAbort(resultMap)
 		default:
 			klog.Errorf("Failed executing runner function %v", err)
-			task.HandleError(fmt.Errorf("failed to execute run function: %v", err), resultMap, records)
+			task.HandleError(err, resultMap, records)
 		}
 		return
 	}

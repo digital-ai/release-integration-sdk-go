@@ -17,6 +17,13 @@ type QueryParam struct {
 	value string
 }
 
+func NewQueryParam(key string, value string) QueryParam {
+	return QueryParam{
+		key:   key,
+		value: value,
+	}
+}
+
 // Pair sets the key-value pair for the QueryParam.
 func (q *QueryParam) Pair(key string, value string) {
 	q.key = key
@@ -34,7 +41,7 @@ type HttpClient struct {
 // RequestConfig represents a configuration for an HTTP request.
 // It contains the HTTP method, request body, headers, endpoint path, and query parameters to be included in the request.
 type RequestConfig struct {
-	method      string
+	Method      string
 	Body        []byte
 	Headers     map[string][]string
 	Path        string
@@ -63,7 +70,7 @@ func (httpClient *HttpClient) Get(ctx context.Context, path string, queryParams 
 
 // GetWithConfig sends an HTTP GET request with a custom configuration.
 func (httpClient *HttpClient) GetWithConfig(ctx context.Context, config *RequestConfig) ([]byte, error) {
-	config.method = http.MethodGet
+	config.Method = http.MethodGet
 	return httpClient.sendRequestWithCustomHeaders(ctx, config)
 }
 
@@ -74,7 +81,7 @@ func (httpClient *HttpClient) Post(ctx context.Context, path string, body []byte
 
 // PostWithConfig sends an HTTP POST request with a custom configuration.
 func (httpClient *HttpClient) PostWithConfig(ctx context.Context, config *RequestConfig) ([]byte, error) {
-	config.method = http.MethodPost
+	config.Method = http.MethodPost
 	return httpClient.sendRequestWithCustomHeaders(ctx, config)
 }
 
@@ -85,7 +92,7 @@ func (httpClient *HttpClient) Delete(ctx context.Context, path string, queryPara
 
 // DeleteWithConfig sends an HTTP DELETE request with a custom configuration.
 func (httpClient *HttpClient) DeleteWithConfig(ctx context.Context, config *RequestConfig) ([]byte, error) {
-	config.method = http.MethodDelete
+	config.Method = http.MethodDelete
 	return httpClient.sendRequestWithCustomHeaders(ctx, config)
 }
 
@@ -96,37 +103,25 @@ func (httpClient *HttpClient) Put(ctx context.Context, path string, body []byte,
 
 // PutWithConfig sends an HTTP PUT request with a custom configuration.
 func (httpClient *HttpClient) PutWithConfig(ctx context.Context, config *RequestConfig) ([]byte, error) {
-	config.method = http.MethodPut
+	config.Method = http.MethodPut
 	return httpClient.sendRequestWithCustomHeaders(ctx, config)
 }
 
 // sendRequest sends an HTTP request with the specified method, path, body, and optional query parameters.
 func (httpClient *HttpClient) sendRequest(ctx context.Context, method string, path string, body []byte, queryParams ...QueryParam) ([]byte, error) {
 	return httpClient.sendRequestWithCustomHeaders(ctx, &RequestConfig{
-		method:      method,
+		Method:      method,
 		Body:        body,
 		Path:        path,
 		QueryParams: queryParams,
 	})
 }
 
-// sendRequestWithCustomHeaders sends an HTTP request with a custom configuration and headers.
+// sendRequestWithCustomHeaders sends an HTTP request with a custom configuration and headers, returns HTTP response body.
 func (httpClient *HttpClient) sendRequestWithCustomHeaders(ctx context.Context, config *RequestConfig) ([]byte, error) {
-	client := httpClient.client
-	if client == nil {
-		return nil, fmt.Errorf("http client is uninitialized")
-	}
-	theUrl := httpClient.createUrl(config.Path, config.QueryParams...)
-	req, err := http.NewRequestWithContext(ctx, config.method, theUrl, bytes.NewBuffer(config.Body))
+	resp, err := httpClient.DoSendHttpRequest(ctx, config)
 	if err != nil {
 		return nil, err
-	}
-	setHeaders(req, httpClient.headers)
-	setHeaders(req, config.Headers)
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("%s error: %v", config.method, err)
 	}
 
 	defer func(Body io.ReadCloser) {
@@ -140,12 +135,37 @@ func (httpClient *HttpClient) sendRequestWithCustomHeaders(ctx context.Context, 
 		return nil, fmt.Errorf("read body error: %v", err)
 	}
 
-	//TODO: handle 3xx statuses
-	if resp.StatusCode >= 299 {
+	if resp.StatusCode >= 300 && resp.StatusCode < 400 {
+		return nil, fmt.Errorf("%v redirect status: use sendHttpRequest instead to handle redirection", resp.StatusCode)
+	}
+
+	if resp.StatusCode >= 400 {
 		return data, fmt.Errorf("%v - %s", resp.StatusCode, string(data[:]))
 	}
 
 	return data, err
+}
+
+// DoSendHttpRequest sends an HTTP request with a custom configuration and headers, returns whole HTTP response.
+func (httpClient *HttpClient) DoSendHttpRequest(ctx context.Context, config *RequestConfig) (*http.Response, error) {
+	client := httpClient.client
+	if client == nil {
+		return nil, fmt.Errorf("http client is uninitialized")
+	}
+	theUrl := httpClient.createUrl(config.Path, config.QueryParams...)
+	req, err := http.NewRequestWithContext(ctx, config.Method, theUrl, bytes.NewBuffer(config.Body))
+	if err != nil {
+		return nil, err
+	}
+	setHeaders(req, httpClient.headers)
+	setHeaders(req, config.Headers)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("%s error: %v", config.Method, err)
+	}
+
+	return resp, nil
 }
 
 // setHeaders sets the headers of an HTTP request based on the provided map of headers.
