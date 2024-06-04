@@ -10,16 +10,19 @@ type TypeMap map[reflect.Type]string
 
 var typeMapRegistry = make(TypeMap)
 
+// RegisterTypeMappings register a struct type maps to synthetic type.
 func RegisterTypeMappings(types TypeMap) {
 	for reflection, typeName := range types {
 		typeMapRegistry[reflection] = typeName
 	}
 }
 
+// RegisterTypeMapping a struct type to synthetic type mapping registration.
 func RegisterTypeMapping(typeReflection reflect.Type, typeName string) {
 	typeMapRegistry[typeReflection] = typeName
 }
 
+// ToSyntheticType map a struct type to synthetic type.
 func ToSyntheticType(searchedType reflect.Type) string {
 	if typeName, ok := typeMapRegistry[searchedType]; ok {
 		return typeName
@@ -27,7 +30,7 @@ func ToSyntheticType(searchedType reflect.Type) string {
 	return searchedType.Name()
 }
 
-// SerializeStruct serializes any struct into the desired JSON format.
+// SerializeCi serializes any struct into the desired JSON format.
 func SerializeCi(data interface{}) ([]byte, error) {
 	jsonData, err := serializeData(data)
 	if err != nil {
