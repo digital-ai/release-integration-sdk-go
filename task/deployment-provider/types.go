@@ -38,7 +38,7 @@ type Application struct {
 type DeploymentState struct {
 	StatusGroup    string    `synthetic:"statusGroup"`
 	Status         string    `synthetic:"status"`
-	DeepLink       string    `synthetic:"deepLink"`
+	DeploymentLink string    `synthetic:"deploymentLink"`
 	VersionTag     string    `synthetic:"versionTag"`
 	VersionState   string    `synthetic:"versionState"`
 	VersionTooltip string    `synthetic:"versionTooltip"`
