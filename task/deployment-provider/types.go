@@ -8,31 +8,21 @@ import (
 
 func init() {
 	ci.RegisterTypeMappings(ci.TypeMap{
-		reflect.TypeOf(Environment{}):             "xlrelease.Environment",
-		reflect.TypeOf(Application{}):             "xlrelease.Application",
 		reflect.TypeOf(DeploymentState{}):         "xlrelease.DeploymentState",
 		reflect.TypeOf(DeploymentProviderEvent{}): "events.DeploymentProviderEvent",
 	})
 }
 
 type DeploymentProviderEvent struct {
-	Operation       string          `synthetic:"operation"`
-	Environment     Environment     `synthetic:"environment"`
-	Application     Application     `synthetic:"application"`
-	DeploymentState DeploymentState `synthetic:"deploymentState"`
-	ConfigId        string          `synthetic:"configId"`
-}
-
-type Environment struct {
-	Title            string           `synthetic:"title"`
-	CorrelationUid   string           `synthetic:"correlationUid"`
-	DeploymentTarget DeploymentTarget `synthetic:"deploymentTarget"`
-}
-
-type Application struct {
-	Title             string            `synthetic:"title"`
-	CorrelationUid    string            `synthetic:"correlationUid"`
+	Operation         string            `synthetic:"operation"`
+	ApplicationCiud   string            `synthetic:"applicationCiud"`
+	ApplicationTitle  string            `synthetic:"applicationTitle"`
 	ApplicationSource ApplicationSource `synthetic:"applicationSource"`
+	EnvironmentCiud   string            `synthetic:"environmentCiud"`
+	EnvironmentTitle  string            `synthetic:"environmentTitle"`
+	DeploymentTarget  DeploymentTarget  `synthetic:"deploymentTarget"`
+	DeploymentState   DeploymentState   `synthetic:"deploymentState"`
+	ConfigId          string            `synthetic:"configId"`
 }
 
 type DeploymentState struct {
