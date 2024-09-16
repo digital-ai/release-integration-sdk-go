@@ -15,10 +15,10 @@ func init() {
 
 type DeploymentProviderEvent struct {
 	Operation         string            `synthetic:"operation"`
-	ApplicationCiud   string            `synthetic:"applicationCiud"`
+	ApplicationCuid   string            `synthetic:"applicationCuid"`
 	ApplicationTitle  string            `synthetic:"applicationTitle"`
 	ApplicationSource ApplicationSource `synthetic:"applicationSource"`
-	EnvironmentCiud   string            `synthetic:"environmentCiud"`
+	EnvironmentCuid   string            `synthetic:"environmentCuid"`
 	EnvironmentTitle  string            `synthetic:"environmentTitle"`
 	DeploymentTarget  DeploymentTarget  `synthetic:"deploymentTarget"`
 	DeploymentState   DeploymentState   `synthetic:"deploymentState"`
