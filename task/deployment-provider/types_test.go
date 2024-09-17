@@ -43,16 +43,15 @@ func TestSerializeCi(t *testing.T) {
 			name: "status-filter",
 			event: DeploymentProviderEvent{
 				Operation: "create",
-				Application: Application{
-					Title:          "important-app",
-					CorrelationUid: "UUID-APP",
-					ApplicationSource: PluginApplicationSource{
-						ApplicationSourceType: ApplicationSourceType{
-							ServerUrl: "test-server-url",
-						},
-						ApplicationType: "Ear",
-						ApplicationPath: "Applications/important-app",
+
+				ApplicationTitle: "important-app",
+				ApplicationCuid:  "UUID-APP",
+				ApplicationSource: PluginApplicationSource{
+					ApplicationSourceType: ApplicationSourceType{
+						ServerUrl: "test-server-url",
 					},
+					ApplicationType: "Ear",
+					ApplicationPath: "Applications/important-app",
 				},
 				DeploymentState: DeploymentState{
 					Status:         "crashed",
@@ -62,15 +61,14 @@ func TestSerializeCi(t *testing.T) {
 					User:           "rollback-user",
 					VersionTag:     "1.2",
 				},
-				Environment: Environment{
-					Title:          "production-important",
-					CorrelationUid: "UUID-ENV",
-					DeploymentTarget: PluginDeploymentTarget{
-						DeploymentTargetType: DeploymentTargetType{
-							TargetUrl: "target-url",
-						},
-						EnvironmentPath: "Environments/production",
+
+				EnvironmentTitle: "production-important",
+				EnvironmentCuid:  "UUID-ENV",
+				DeploymentTarget: PluginDeploymentTarget{
+					DeploymentTargetType: DeploymentTargetType{
+						TargetUrl: "target-url",
 					},
+					EnvironmentPath: "Environments/production",
 				},
 			},
 			appSourceTypeName:    "plugin.ApplicationSource",
@@ -79,18 +77,15 @@ func TestSerializeCi(t *testing.T) {
 				"operation": "create",
 				"id":        nil,
 				"type":      "events.DeploymentProviderEvent",
-				"application": map[string]interface{}{
-					"id":             nil,
-					"title":          "important-app",
-					"correlationUid": "UUID-APP",
-					"type":           "xlrelease.Application",
-					"applicationSource": map[string]interface{}{
-						"id":              nil,
-						"type":            "plugin.ApplicationSource",
-						"applicationPath": "Applications/important-app",
-						"applicationType": "Ear",
-						"serverUrl":       "test-server-url",
-					},
+
+				"applicationTitle": "important-app",
+				"applicationCuid":  "UUID-APP",
+				"applicationSource": map[string]interface{}{
+					"id":              nil,
+					"type":            "plugin.ApplicationSource",
+					"applicationPath": "Applications/important-app",
+					"applicationType": "Ear",
+					"serverUrl":       "test-server-url",
 				},
 				"deploymentState": map[string]interface{}{
 					"id":             nil,
@@ -102,17 +97,14 @@ func TestSerializeCi(t *testing.T) {
 					"user":           "rollback-user",
 					"versionTag":     "1.2",
 				},
-				"environment": map[string]interface{}{
-					"id":             nil,
-					"title":          "production-important",
-					"correlationUid": "UUID-ENV",
-					"type":           "xlrelease.Environment",
-					"deploymentTarget": map[string]interface{}{
-						"id":              nil,
-						"type":            "plugin.DeploymentTarget",
-						"targetUrl":       "target-url",
-						"environmentPath": "Environments/production",
-					},
+
+				"environmentTitle": "production-important",
+				"environmentCuid":  "UUID-ENV",
+				"deploymentTarget": map[string]interface{}{
+					"id":              nil,
+					"type":            "plugin.DeploymentTarget",
+					"targetUrl":       "target-url",
+					"environmentPath": "Environments/production",
 				},
 			},
 			expectedErr: nil,
