@@ -8,12 +8,12 @@ import (
 
 func init() {
 	ci.RegisterTypeMappings(ci.TypeMap{
-		reflect.TypeOf(DeploymentState{}):         "xlrelease.DeploymentState",
-		reflect.TypeOf(DeploymentProviderEvent{}): "events.DeploymentProviderEvent",
+		reflect.TypeOf(DeploymentState{}):       "xlrelease.DeploymentState",
+		reflect.TypeOf(DeploymentServerEvent{}): "events.DeploymentServerEvent",
 	})
 }
 
-type DeploymentProviderEvent struct {
+type DeploymentServerEvent struct {
 	Operation         string            `synthetic:"operation"`
 	ApplicationCuid   string            `synthetic:"applicationCuid"`
 	ApplicationTitle  string            `synthetic:"applicationTitle"`
