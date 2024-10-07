@@ -1,4 +1,4 @@
-package deployment_provider
+package deployment_server
 
 import (
 	"github.com/digital-ai/release-integration-sdk-go/task/ci"
