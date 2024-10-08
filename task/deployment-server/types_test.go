@@ -1,4 +1,4 @@
-package deployment_provider
+package deployment_server
 
 import (
 	"encoding/json"
@@ -30,7 +30,7 @@ func (das PluginApplicationSource) Type() reflect.Type {
 func TestSerializeCi(t *testing.T) {
 	type Tests struct {
 		name                 string
-		event                DeploymentProviderEvent
+		event                DeploymentServerEvent
 		appSourceTypeName    string
 		deployTargetTypeName string
 		returnValue          map[string]interface{}
@@ -41,7 +41,7 @@ func TestSerializeCi(t *testing.T) {
 	tests := []Tests{
 		{
 			name: "status-filter",
-			event: DeploymentProviderEvent{
+			event: DeploymentServerEvent{
 				Operation: "create",
 
 				ApplicationTitle: "important-app",
@@ -76,7 +76,7 @@ func TestSerializeCi(t *testing.T) {
 			returnValue: map[string]interface{}{
 				"operation": "create",
 				"id":        nil,
-				"type":      "events.DeploymentProviderEvent",
+				"type":      "events.DeploymentServerEvent",
 
 				"applicationTitle": "important-app",
 				"applicationCuid":  "UUID-APP",
