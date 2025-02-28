@@ -2,6 +2,7 @@ package runner
 
 import (
 	"bytes"
+	"context"
 	"github.com/digital-ai/release-integration-sdk-go/k8s"
 	"github.com/digital-ai/release-integration-sdk-go/task"
 	corev1 "k8s.io/api/core/v1"
@@ -62,7 +63,7 @@ func startInputSecretWatcher(onInputContextUpdateFunc ExecuteFunction, pluginVer
 				// Checking if 'input' field has changed
 				if !bytes.Equal(oldSessionKey, newSessionKey) {
 					klog.Infof("Detected input context value change")
-					onInputContextUpdateFunc(pluginVersion, buildDate, runner)
+					onInputContextUpdateFunc(pluginVersion, buildDate, runner, context.Background())
 				}
 			},
 		},

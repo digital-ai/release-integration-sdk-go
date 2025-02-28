@@ -18,17 +18,17 @@ import (
 const AbortContextFieldKey = "abortContextMap"
 
 // RunFunction represents the function signature for running a task.
-type RunFunction func(task.InputContext) *task.Result
+type RunFunction func(task.InputContext, context.Context) *task.Result
 
 // CommandFactoryBuilder represents the function signature for building a command factory.
 type CommandFactoryBuilder func(input task.InputContext) (command.CommandFactory, error)
 
 // ExecuteFunction represents the function signature for executing the runner.
-type ExecuteFunction func(pluginVersion string, buildDate string, runner Runner)
+type ExecuteFunction func(pluginVersion string, buildDate string, runner Runner, ctx context.Context)
 
 // Runner is an interface for executing a task.
 type Runner interface {
-	Run(task.InputContext) *task.Result
+	Run(task.InputContext, context.Context) *task.Result
 }
 
 // SimpleRunner represents a simple implementation of the Runner interface.
@@ -49,8 +49,8 @@ func NewSimpleRunner(run RunFunction) *SimpleRunner {
 }
 
 // Run executes the task using the provided RunFunction.
-func (runner SimpleRunner) Run(ctx task.InputContext) *task.Result {
-	return runner.run(ctx)
+func (runner SimpleRunner) Run(inputData task.InputContext, ctx context.Context) *task.Result {
+	return runner.run(inputData, ctx)
 }
 
 // NewCommandRunner creates a new instance of CommandRunner
@@ -69,14 +69,14 @@ func NewCommandRunner(factoryBuilder CommandFactoryBuilder) *CommandRunner {
 //
 // If the command finishes executing before an abort signal is received, the task result
 // reflects the output of the executed command.
-func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
+func (runner CommandRunner) Run(inputData task.InputContext, ctx context.Context) *task.Result {
 	returnResult := task.NewResult()
-	factory, err := runner.commandFactoryBuilder(ctx)
+	factory, err := runner.commandFactoryBuilder(inputData)
 	if err != nil {
 		return returnResult.Error(fmt.Errorf("cannot create factory from task: %v", err))
 	}
 
-	exec, err := command.DeserializeCommand(factory, ctx.Task)
+	exec, err := command.DeserializeCommand(factory, inputData.Task)
 	if err != nil {
 		return returnResult.Error(fmt.Errorf("cannot deserialize input: %v", err))
 	}
@@ -85,7 +85,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	signal.Notify(signalChannel, syscall.SIGABRT)
 
 	resultChannel := make(chan *task.Result, 1)
-	rootCtx := context.WithValue(context.Background(), AbortContextFieldKey, make(map[string]interface{}))
+	rootCtx := context.WithValue(ctx, AbortContextFieldKey, make(map[string]interface{}))
 	cancelableCtx, cancel := context.WithCancel(rootCtx)
 
 	go func() {
@@ -105,7 +105,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 
 	select {
 	case <-signalChannel:
-		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
+		abortExec, err := command.DeserializeAbortCommand(factory, inputData.Task)
 		if abortExec == nil {
 			cancel()
 			klog.Infoln("Aborted without abort command being explicitly defined")
@@ -132,7 +132,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 }
 
 // execute is an internal function that executes the runner.
-func execute(pluginVersion string, buildDate string, runner Runner) {
+func execute(pluginVersion string, buildDate string, runner Runner, ctx context.Context) {
 	klog.Infof("PluginVersion:\t%s", pluginVersion)
 	klog.Infof("BuildDate:\t%s", buildDate)
 
@@ -144,7 +144,7 @@ func execute(pluginVersion string, buildDate string, runner Runner) {
 	}
 
 	logger.AddSecrets(inputContext)
-	executionResult := runner.Run(inputContext)
+	executionResult := runner.Run(inputContext, ctx)
 
 	resultMap, err := executionResult.Get()
 	records := executionResult.GetRecords()
@@ -165,10 +165,19 @@ func execute(pluginVersion string, buildDate string, runner Runner) {
 
 // Execute executes the runner with the provided plugin version, build date, and runner implementation.
 func Execute(pluginVersion string, buildDate string, runner Runner) {
-	execute(pluginVersion, buildDate, runner)
+	execute(pluginVersion, buildDate, runner, context.Background())
 	if os.Getenv(ExecutionMode) == ExecutionModeDaemon {
 		StartInputContextWatcher(execute, pluginVersion, buildDate, runner)
 	}
+}
+
+func ExecuteWithPath(pluginVersion string, buildDate string, runner Runner, path string, ctx context.Context) {
+	klog.Infof("Provided path: %s", path)
+	os.Setenv(task.InputLocation, path)
+	inputLocation := os.Getenv(task.InputLocation)
+	klog.Infof("Input location from env: %s", inputLocation)
+
+	execute(pluginVersion, buildDate, runner, ctx)
 }
 
 func PutValueToContextMap(ctx context.Context, contextValueKey string, key string, value interface{}) error {
