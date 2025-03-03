@@ -93,7 +93,7 @@ func handleResult(outputContext TaskOutputContext) {
 	case <-success:
 		klog.Infof("Successfully processed, result with one of the result handlers")
 	default:
-		klog.Fatalf("Result couldn't be processed, exiting execution with error.")
+		klog.Errorf("Result couldn't be processed, exiting execution with error.")
 	}
 }
 
