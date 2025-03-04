@@ -157,6 +157,7 @@ func writeToSecret(encryptedData []byte) error {
 
 // pushResult pushes the encrypted data to the callback URL if the callbackUrl is set.
 func pushResult(encryptedData []byte, retryOnFailure bool) error {
+	callbackUrl = os.Getenv(CallbackURL)
 	if len(callbackUrl) > 0 {
 		callBackUrl, err := base64.StdEncoding.DecodeString(callbackUrl)
 		if err != nil {
