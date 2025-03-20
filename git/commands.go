@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"os"
 	"path/filepath"
@@ -70,6 +71,7 @@ func (c *AddFilesCommand) execute(repo *git.Repository) error {
 
 type CommitChangesCommand struct {
 	Message string
+	Author  *object.Signature
 }
 
 func (c *CommitChangesCommand) execute(repo *git.Repository) error {
@@ -77,7 +79,9 @@ func (c *CommitChangesCommand) execute(repo *git.Repository) error {
 	if err != nil {
 		return err
 	}
-	_, err = w.Commit(c.Message, &git.CommitOptions{})
+	_, err = w.Commit(c.Message, &git.CommitOptions{
+		Author: c.Author,
+	})
 	return err
 }
 

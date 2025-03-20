@@ -2,9 +2,11 @@ package git
 
 import (
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/stretchr/testify/assert"
@@ -87,7 +89,14 @@ func TestCommitChangesCommand(t *testing.T) {
 	err = ctx.ExecuteCommand(addCmd)
 	assert.NoError(t, err)
 
-	commitCmd := &CommitChangesCommand{Message: "Initial commit"}
+	commitCmd := &CommitChangesCommand{
+		Message: "Initial commit",
+		Author: &object.Signature{
+			Name:  "Author Name",
+			Email: "author@example.com",
+			When:  time.Now(),
+		},
+	}
 	err = ctx.ExecuteCommand(commitCmd)
 	assert.NoError(t, err)
 
@@ -147,7 +156,14 @@ func TestCreateBranchCommand(t *testing.T) {
 	err = ctx.ExecuteCommand(addCmd)
 	assert.NoError(t, err)
 
-	commitCmd := &CommitChangesCommand{Message: "Initial commit"}
+	commitCmd := &CommitChangesCommand{
+		Message: "Initial commit",
+		Author: &object.Signature{
+			Name:  "Author Name",
+			Email: "author@example.com",
+			When:  time.Now(),
+		},
+	}
 	err = ctx.ExecuteCommand(commitCmd)
 	assert.NoError(t, err)
 
@@ -181,7 +197,14 @@ func TestCheckoutBranchCommand(t *testing.T) {
 	err = ctx.ExecuteCommand(addCmd)
 	assert.NoError(t, err)
 
-	commitCmd := &CommitChangesCommand{Message: "Initial commit"}
+	commitCmd := &CommitChangesCommand{
+		Message: "Initial commit",
+		Author: &object.Signature{
+			Name:  "Author Name",
+			Email: "author@example.com",
+			When:  time.Now(),
+		},
+	}
 	err = ctx.ExecuteCommand(commitCmd)
 	assert.NoError(t, err)
 
@@ -212,7 +235,14 @@ func TestMergeBranchCommand(t *testing.T) {
 	err = ctx.ExecuteCommand(addCmd)
 	assert.NoError(t, err)
 
-	commitCmd := &CommitChangesCommand{Message: "Initial commit on source branch"}
+	commitCmd := &CommitChangesCommand{
+		Message: "Initial commit",
+		Author: &object.Signature{
+			Name:  "Author Name",
+			Email: "author@example.com",
+			When:  time.Now(),
+		},
+	}
 	err = ctx.ExecuteCommand(commitCmd)
 	assert.NoError(t, err)
 
