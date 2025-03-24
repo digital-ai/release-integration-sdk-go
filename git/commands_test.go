@@ -1,15 +1,12 @@
 package git
 
 import (
+	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
+	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
-	"time"
-
-	"github.com/go-git/go-git/v5"
-	"github.com/stretchr/testify/assert"
 )
 
 func setupTestRepo(t *testing.T) *GitContext {
@@ -90,12 +87,9 @@ func TestCommitChangesCommand(t *testing.T) {
 	assert.NoError(t, err)
 
 	commitCmd := &CommitChangesCommand{
-		Message: "Initial commit",
-		Author: &object.Signature{
-			Name:  "Author Name",
-			Email: "author@example.com",
-			When:  time.Now(),
-		},
+		Message:     "Initial commit",
+		AuthorName:  "Author Name",
+		AuthorEmail: "author@example.com",
 	}
 	err = ctx.ExecuteCommand(commitCmd)
 	assert.NoError(t, err)
@@ -157,12 +151,9 @@ func TestCreateBranchCommand(t *testing.T) {
 	assert.NoError(t, err)
 
 	commitCmd := &CommitChangesCommand{
-		Message: "Initial commit",
-		Author: &object.Signature{
-			Name:  "Author Name",
-			Email: "author@example.com",
-			When:  time.Now(),
-		},
+		Message:     "Initial commit",
+		AuthorName:  "Author Name",
+		AuthorEmail: "author@example.com",
 	}
 	err = ctx.ExecuteCommand(commitCmd)
 	assert.NoError(t, err)
@@ -198,12 +189,9 @@ func TestCheckoutBranchCommand(t *testing.T) {
 	assert.NoError(t, err)
 
 	commitCmd := &CommitChangesCommand{
-		Message: "Initial commit",
-		Author: &object.Signature{
-			Name:  "Author Name",
-			Email: "author@example.com",
-			When:  time.Now(),
-		},
+		Message:     "Initial commit",
+		AuthorName:  "Author Name",
+		AuthorEmail: "author@example.com",
 	}
 	err = ctx.ExecuteCommand(commitCmd)
 	assert.NoError(t, err)
@@ -236,12 +224,9 @@ func TestMergeBranchCommand(t *testing.T) {
 	assert.NoError(t, err)
 
 	commitCmd := &CommitChangesCommand{
-		Message: "Initial commit",
-		Author: &object.Signature{
-			Name:  "Author Name",
-			Email: "author@example.com",
-			When:  time.Now(),
-		},
+		Message:     "Initial commit",
+		AuthorName:  "Author Name",
+		AuthorEmail: "author@example.com",
 	}
 	err = ctx.ExecuteCommand(commitCmd)
 	assert.NoError(t, err)

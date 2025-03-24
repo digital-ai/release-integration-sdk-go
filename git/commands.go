@@ -8,6 +8,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 type ReadFileCommand struct {
@@ -70,8 +71,9 @@ func (c *AddFilesCommand) execute(repo *git.Repository) error {
 }
 
 type CommitChangesCommand struct {
-	Message string
-	Author  *object.Signature
+	Message     string
+	AuthorName  string
+	AuthorEmail string
 }
 
 func (c *CommitChangesCommand) execute(repo *git.Repository) error {
@@ -80,7 +82,11 @@ func (c *CommitChangesCommand) execute(repo *git.Repository) error {
 		return err
 	}
 	_, err = w.Commit(c.Message, &git.CommitOptions{
-		Author: c.Author,
+		Author: &object.Signature{
+			Name:  c.AuthorName,
+			Email: c.AuthorEmail,
+			When:  time.Now(),
+		},
 	})
 	return err
 }
