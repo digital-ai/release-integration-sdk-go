@@ -16,7 +16,7 @@ func TestNewRepository(t *testing.T) {
 		Password: "password",
 	}
 	repoURL := "https://example.com/repo.git"
-	ctx := NewRepository(repoURL, auth)
+	ctx := NewRepository(repoURL).WithBasicAuth(auth.Username, auth.Password)
 
 	assert.Equal(t, filepath.Base(repoURL), filepath.Base(ctx.repositoryPath))
 	assert.Equal(t, repoURL, ctx.repoURL)
@@ -48,11 +48,12 @@ func TestGitContext_WithProxy(t *testing.T) {
 
 func TestGitContext_WithReferenceName(t *testing.T) {
 	ctx := &GitContext{}
-	refName := plumbing.NewBranchReferenceName("refs/heads/main")
+	refName := "refs/heads/main"
+	reference := plumbing.NewBranchReferenceName(refName)
 
 	ctx = ctx.WithReferenceName(refName)
 
-	assert.Equal(t, refName, ctx.referenceName)
+	assert.Equal(t, reference, ctx.referenceName)
 }
 
 func TestGitContext_WithRemoteName(t *testing.T) {

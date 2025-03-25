@@ -4,6 +4,7 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport"
+	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"os"
 	"path/filepath"
 	"sync"
@@ -14,16 +15,11 @@ type GitCommand interface {
 	execute(repo *git.Repository) error
 }
 
-// AuthMethod is an interface that defines a method to authenticate with a git repository.
-type AuthMethod interface {
-	transport.AuthMethod
-}
-
 // GitContext is a struct that contains the context for a git repository.
 type GitContext struct {
 	repo            *git.Repository
 	repositoryPath  string
-	authMethod      AuthMethod
+	authMethod      transport.AuthMethod
 	repoURL         string
 	proxyURL        string
 	proxyUsername   string
@@ -37,12 +33,11 @@ type GitContext struct {
 }
 
 // NewRepository creates a new GitContext with the given repository URL and authentication method.
-func NewRepository(repoURL string, auth AuthMethod) *GitContext {
+func NewRepository(repoURL string) *GitContext {
 	repositoryName := filepath.Base(repoURL)
 	return &GitContext{
 		repositoryPath: os.TempDir() + "/" + repositoryName,
 		repoURL:        repoURL,
-		authMethod:     auth,
 	}
 }
 
@@ -57,6 +52,18 @@ func InitNewRepository(repoName string) (*GitContext, error) {
 	return ctx, err
 }
 
+// WithToken sets the token for the GitContext.
+func (ctx *GitContext) WithToken(token string) *GitContext {
+	ctx.authMethod = &http.TokenAuth{Token: token}
+	return ctx
+}
+
+// WithBasicAuth sets the username and password for the GitContext.
+func (ctx *GitContext) WithBasicAuth(username, password string) *GitContext {
+	ctx.authMethod = &http.BasicAuth{Username: username, Password: password}
+	return ctx
+}
+
 // WithProxy sets the proxy URL, username, and password for the GitContext.
 func (ctx *GitContext) WithProxy(proxyURL, proxyUsername, proxyPassword string) *GitContext {
 	ctx.proxyURL = proxyURL
@@ -67,7 +74,7 @@ func (ctx *GitContext) WithProxy(proxyURL, proxyUsername, proxyPassword string) 
 
 // WithReferenceName sets the reference name for the GitContext.
 func (ctx *GitContext) WithReferenceName(referenceName string) *GitContext {
-	ctx.referenceName = plumbing.ReferenceName(referenceName)
+	ctx.referenceName = plumbing.NewBranchReferenceName(referenceName)
 	return ctx
 }
 
