@@ -12,7 +12,7 @@ import (
 
 // GitCommand is an interface that defines a method to execute a command on a git repository.
 type GitCommand interface {
-	execute(repo *git.Repository) error
+	execute(repo *GitContext) error
 }
 
 // GitContext is a struct that contains the context for a git repository.
@@ -139,7 +139,18 @@ func (ctx *GitContext) ExecuteCommand(cmd GitCommand) error {
 		return err
 	}
 
-	return cmd.execute(ctx.repo)
+	return cmd.execute(ctx)
+}
+
+// ExecuteCommandChain executes the given chain of GitCommands on the GitContext. If any of the commands fail, the chain is stopped and the error is returned. Otherwise, nil is returned. The commands are executed in the order they are given. When command fails the chain is stopped, but previously executed commands are not reverted.
+func (ctx *GitContext) ExecuteCommandChain(cmds []GitCommand) error {
+	for _, cmd := range cmds {
+		err := ctx.ExecuteCommand(cmd)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Cleanup removes the temporary directory of the GitContext. This should be called after the GitContext is no longer needed. Use defer ctx.Cleanup() after creating a GitContext.

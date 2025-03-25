@@ -3,7 +3,6 @@ package git
 import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
@@ -104,14 +103,8 @@ func TestCommitChangesCommand(t *testing.T) {
 func TestPushChangesCommand(t *testing.T) {
 	ctx := setupTestRepo(t)
 	defer ctx.Cleanup()
-
-	auth := &http.BasicAuth{
-		Username: "username",
-		Password: "password",
-	}
-
+	ctx.WithBasicAuth("username", "password")
 	cmd := &PushChangesCommand{
-		Auth:   auth,
 		Remote: "origin",
 		Branch: "main",
 	}
@@ -122,14 +115,9 @@ func TestPushChangesCommand(t *testing.T) {
 func TestPullChangesCommand(t *testing.T) {
 	ctx := setupTestRepo(t)
 	defer ctx.Cleanup()
-
-	auth := &http.BasicAuth{
-		Username: "username",
-		Password: "password",
-	}
+	ctx.WithBasicAuth("username", "password")
 
 	cmd := &PullChangesCommand{
-		Auth:   auth,
 		Remote: "origin",
 		Branch: "main",
 	}

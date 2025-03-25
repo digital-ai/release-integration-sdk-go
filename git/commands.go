@@ -5,7 +5,6 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"os"
 	"path/filepath"
 	"time"
@@ -17,8 +16,8 @@ type ReadFileCommand struct {
 	Content  []byte
 }
 
-func (c *ReadFileCommand) execute(repo *git.Repository) error {
-	worktree, err := repo.Worktree()
+func (c *ReadFileCommand) execute(ctx *GitContext) error {
+	worktree, err := ctx.repo.Worktree()
 	if err != nil {
 		return err
 	}
@@ -39,8 +38,8 @@ type WriteFileCommand struct {
 	Content  []byte
 }
 
-func (c *WriteFileCommand) execute(repo *git.Repository) error {
-	worktree, err := repo.Worktree()
+func (c *WriteFileCommand) execute(ctx *GitContext) error {
+	worktree, err := ctx.repo.Worktree()
 	if err != nil {
 		return err
 	}
@@ -59,8 +58,8 @@ type AddFilesCommand struct {
 	Files []string
 }
 
-func (c *AddFilesCommand) execute(repo *git.Repository) error {
-	w, err := repo.Worktree()
+func (c *AddFilesCommand) execute(ctx *GitContext) error {
+	w, err := ctx.repo.Worktree()
 	if err != nil {
 		return err
 	}
@@ -80,8 +79,8 @@ type CommitChangesCommand struct {
 	AuthorEmail string
 }
 
-func (c *CommitChangesCommand) execute(repo *git.Repository) error {
-	w, err := repo.Worktree()
+func (c *CommitChangesCommand) execute(ctx *GitContext) error {
+	w, err := ctx.repo.Worktree()
 	if err != nil {
 		return err
 	}
@@ -97,33 +96,31 @@ func (c *CommitChangesCommand) execute(repo *git.Repository) error {
 
 // PushChangesCommand is a command that pushes changes to a remote git repository.
 type PushChangesCommand struct {
-	Auth   *http.BasicAuth
 	Remote string
 	Branch string
 }
 
-func (c *PushChangesCommand) execute(repo *git.Repository) error {
-	return repo.Push(&git.PushOptions{
+func (c *PushChangesCommand) execute(ctx *GitContext) error {
+	return ctx.repo.Push(&git.PushOptions{
 		RemoteName: c.Remote,
-		Auth:       c.Auth,
+		Auth:       ctx.authMethod,
 	})
 }
 
 // PullChangesCommand is a command that pulls changes from a remote git repository.
 type PullChangesCommand struct {
-	Auth   *http.BasicAuth
 	Remote string
 	Branch string
 }
 
-func (c *PullChangesCommand) execute(repo *git.Repository) error {
-	w, err := repo.Worktree()
+func (c *PullChangesCommand) execute(ctx *GitContext) error {
+	w, err := ctx.repo.Worktree()
 	if err != nil {
 		return err
 	}
 	return w.Pull(&git.PullOptions{
 		RemoteName: c.Remote,
-		Auth:       c.Auth,
+		Auth:       ctx.authMethod,
 	})
 }
 
@@ -132,8 +129,8 @@ type CreateBranchCommand struct {
 	Branch string
 }
 
-func (c *CreateBranchCommand) execute(repo *git.Repository) error {
-	headRef, err := repo.Head()
+func (c *CreateBranchCommand) execute(ctx *GitContext) error {
+	headRef, err := ctx.repo.Head()
 	if err == plumbing.ErrReferenceNotFound {
 		// initial commit if the repository is empty
 		return errors.New("initial commit not in place - can't create branch")
@@ -144,7 +141,7 @@ func (c *CreateBranchCommand) execute(repo *git.Repository) error {
 	refName := plumbing.NewBranchReferenceName(c.Branch)
 	ref := plumbing.NewHashReference(refName, headRef.Hash())
 
-	return repo.Storer.SetReference(ref)
+	return ctx.repo.Storer.SetReference(ref)
 }
 
 // CheckoutBranchCommand is a command that checks out a branch in the git repository.
@@ -152,8 +149,8 @@ type CheckoutBranchCommand struct {
 	Branch string
 }
 
-func (c *CheckoutBranchCommand) execute(repo *git.Repository) error {
-	w, err := repo.Worktree()
+func (c *CheckoutBranchCommand) execute(ctx *GitContext) error {
+	w, err := ctx.repo.Worktree()
 	if err != nil {
 		return err
 	}
@@ -168,8 +165,8 @@ type MergeBranchCommand struct {
 	TargetBranch string
 }
 
-func (c *MergeBranchCommand) execute(repo *git.Repository) error {
-	w, err := repo.Worktree()
+func (c *MergeBranchCommand) execute(ctx *GitContext) error {
+	w, err := ctx.repo.Worktree()
 	if err != nil {
 		return err
 	}
@@ -181,12 +178,12 @@ func (c *MergeBranchCommand) execute(repo *git.Repository) error {
 		return err
 	}
 
-	sourceRef, err := repo.Reference(plumbing.NewBranchReferenceName(c.SourceBranch), true)
+	sourceRef, err := ctx.repo.Reference(plumbing.NewBranchReferenceName(c.SourceBranch), true)
 	if err != nil {
 		return err
 	}
 
-	headRef, err := repo.Head()
+	headRef, err := ctx.repo.Head()
 	if err != nil {
 		return err
 	}
@@ -199,5 +196,5 @@ func (c *MergeBranchCommand) execute(repo *git.Repository) error {
 	}
 
 	targetRef := plumbing.NewHashReference(plumbing.NewBranchReferenceName(c.TargetBranch), mergeCommit)
-	return repo.Storer.SetReference(targetRef)
+	return ctx.repo.Storer.SetReference(targetRef)
 }
