@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// ReadFileCommand is a command that reads a file from a git repository.
 type ReadFileCommand struct {
 	FilePath string
 	Content  []byte
@@ -32,6 +33,7 @@ func (c *ReadFileCommand) execute(repo *git.Repository) error {
 	return nil
 }
 
+// WriteFileCommand is a command that writes a file to a git repository.
 type WriteFileCommand struct {
 	FilePath string
 	Content  []byte
@@ -52,6 +54,7 @@ func (c *WriteFileCommand) execute(repo *git.Repository) error {
 	return nil
 }
 
+// AddFilesCommand is a command that adds files to the git index.
 type AddFilesCommand struct {
 	Files []string
 }
@@ -70,6 +73,7 @@ func (c *AddFilesCommand) execute(repo *git.Repository) error {
 	return nil
 }
 
+// CommitChangesCommand is a command that commits changes to the git repository.
 type CommitChangesCommand struct {
 	Message     string
 	AuthorName  string
@@ -91,6 +95,7 @@ func (c *CommitChangesCommand) execute(repo *git.Repository) error {
 	return err
 }
 
+// PushChangesCommand is a command that pushes changes to a remote git repository.
 type PushChangesCommand struct {
 	Auth   *http.BasicAuth
 	Remote string
@@ -104,6 +109,7 @@ func (c *PushChangesCommand) execute(repo *git.Repository) error {
 	})
 }
 
+// PullChangesCommand is a command that pulls changes from a remote git repository.
 type PullChangesCommand struct {
 	Auth   *http.BasicAuth
 	Remote string
@@ -121,6 +127,7 @@ func (c *PullChangesCommand) execute(repo *git.Repository) error {
 	})
 }
 
+// CreateBranchCommand is a command that creates a new branch in the git repository.
 type CreateBranchCommand struct {
 	Branch string
 }
@@ -140,6 +147,7 @@ func (c *CreateBranchCommand) execute(repo *git.Repository) error {
 	return repo.Storer.SetReference(ref)
 }
 
+// CheckoutBranchCommand is a command that checks out a branch in the git repository.
 type CheckoutBranchCommand struct {
 	Branch string
 }
@@ -154,6 +162,7 @@ func (c *CheckoutBranchCommand) execute(repo *git.Repository) error {
 	})
 }
 
+// MergeBranchCommand is a command that merges a branch into another branch in the git repository.
 type MergeBranchCommand struct {
 	SourceBranch string
 	TargetBranch string

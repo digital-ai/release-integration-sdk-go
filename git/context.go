@@ -9,14 +9,17 @@ import (
 	"sync"
 )
 
+// GitCommand is an interface that defines a method to execute a command on a git repository.
 type GitCommand interface {
 	execute(repo *git.Repository) error
 }
 
+// AuthMethod is an interface that defines a method to authenticate with a git repository.
 type AuthMethod interface {
 	transport.AuthMethod
 }
 
+// GitContext is a struct that contains the context for a git repository.
 type GitContext struct {
 	repo            *git.Repository
 	repositoryPath  string
@@ -33,6 +36,7 @@ type GitContext struct {
 	once            sync.Once
 }
 
+// NewRepository creates a new GitContext with the given repository URL and authentication method.
 func NewRepository(repoURL string, auth AuthMethod) *GitContext {
 	repositoryName := filepath.Base(repoURL)
 	return &GitContext{
@@ -42,6 +46,7 @@ func NewRepository(repoURL string, auth AuthMethod) *GitContext {
 	}
 }
 
+// InitNewRepository initializes a new local GitContext with the given repository name.
 func InitNewRepository(repoName string) (*GitContext, error) {
 	var err error
 	repoPath := filepath.Join(os.TempDir(), repoName)
@@ -52,6 +57,7 @@ func InitNewRepository(repoName string) (*GitContext, error) {
 	return ctx, err
 }
 
+// WithProxy sets the proxy URL, username, and password for the GitContext.
 func (ctx *GitContext) WithProxy(proxyURL, proxyUsername, proxyPassword string) *GitContext {
 	ctx.proxyURL = proxyURL
 	ctx.proxyUsername = proxyUsername
@@ -59,36 +65,43 @@ func (ctx *GitContext) WithProxy(proxyURL, proxyUsername, proxyPassword string) 
 	return ctx
 }
 
-func (ctx *GitContext) WithReferenceName(referenceName plumbing.ReferenceName) *GitContext {
-	ctx.referenceName = referenceName
+// WithReferenceName sets the reference name for the GitContext.
+func (ctx *GitContext) WithReferenceName(referenceName string) *GitContext {
+	ctx.referenceName = plumbing.ReferenceName(referenceName)
 	return ctx
 }
 
+// WithRemoteName sets the remote name for the GitContext. Default is "origin".
 func (ctx *GitContext) WithRemoteName(remoteName string) *GitContext {
 	ctx.remoteName = remoteName
 	return ctx
 }
 
+// WithSingleBranch sets the single branch flag for the GitContext. Default is false. If true, only the WithReferenceName set branch is cloned.
 func (ctx *GitContext) WithSingleBranch(singleBranch bool) *GitContext {
 	ctx.singleBranch = singleBranch
 	return ctx
 }
 
+// WithInsecureSkipTLS sets the insecure skip TLS flag for the GitContext. Default is false. If true, check of the certificate is skipped, not recommended in production.
 func (ctx *GitContext) WithInsecureSkipTLS(insecureSkipTLS bool) *GitContext {
 	ctx.insecureSkipTLS = insecureSkipTLS
 	return ctx
 }
 
+// WithCABundle sets the CA bytes for the GitContext. CA will be used as the certificate of trust for the TLS connection.
 func (ctx *GitContext) WithCABundle(caBundle []byte) *GitContext {
 	ctx.caBundle = caBundle
 	return ctx
 }
 
+// WithTempDir sets the temporary directory for the GitContext. Default is the OS temporary directory.
 func (ctx *GitContext) WithTempDir(tempDir string) *GitContext {
 	ctx.repositoryPath = tempDir
 	return ctx
 }
 
+// ExecuteCommand executes the given GitCommand on the GitContext.
 func (ctx *GitContext) ExecuteCommand(cmd GitCommand) error {
 	var err error
 	ctx.once.Do(func() {
@@ -122,6 +135,7 @@ func (ctx *GitContext) ExecuteCommand(cmd GitCommand) error {
 	return cmd.execute(ctx.repo)
 }
 
+// Cleanup removes the temporary directory of the GitContext. This should be called after the GitContext is no longer needed. Use defer ctx.Cleanup() after creating a GitContext.
 func (ctx *GitContext) Cleanup() error {
 	return os.RemoveAll(ctx.repositoryPath)
 }
