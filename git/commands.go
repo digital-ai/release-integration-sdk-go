@@ -53,6 +53,26 @@ func (c *WriteFileCommand) execute(ctx *GitContext) error {
 	return nil
 }
 
+// RemoveFileCommand is a command that removes a file from a git repository.
+type RemoveFileCommand struct {
+	FilePath string
+}
+
+func (c *RemoveFileCommand) execute(ctx *GitContext) error {
+	worktree, err := ctx.repo.Worktree()
+	if err != nil {
+		return err
+	}
+
+	absPath := filepath.Join(worktree.Filesystem.Root(), c.FilePath)
+	err = os.Remove(absPath)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // AddFilesCommand is a command that adds files to the git index.
 type AddFilesCommand struct {
 	Files []string
