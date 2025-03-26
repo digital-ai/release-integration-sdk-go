@@ -1,6 +1,8 @@
 package git
 
 import (
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"os"
@@ -127,4 +129,80 @@ func TestGitContext_Cleanup(t *testing.T) {
 
 	_, err = os.Stat(ctx.repositoryPath)
 	assert.True(t, os.IsNotExist(err))
+}
+
+func TestGitContext_GetHash(t *testing.T) {
+	ctx, err := InitNewRepository("test-repo")
+	defer ctx.Cleanup()
+	assert.NoError(t, err)
+
+	// Initial commit
+	filePath := "testfile.txt"
+	content := []byte("Hello, World!")
+	writeCmd := &WriteFileCommand{FilePath: filePath, Content: content}
+	addCmd := &AddFilesCommand{Files: []string{filePath}}
+	commitCmd := &CommitChangesCommand{Message: "Initial commit"}
+	err = ctx.ExecuteCommandChain([]GitCommand{writeCmd, addCmd, commitCmd})
+	assert.NoError(t, err)
+
+	// Get initial hash
+	initialHash, err := ctx.GetHash()
+	assert.NoError(t, err)
+	assert.NotEmpty(t, initialHash)
+
+	// Create a new commit
+	content = []byte("Hello, Git!")
+	writeCmd = &WriteFileCommand{FilePath: filePath, Content: content}
+	addCmd = &AddFilesCommand{Files: []string{filePath}}
+	commitCmd = &CommitChangesCommand{Message: "Second commit"}
+	err = ctx.ExecuteCommandChain([]GitCommand{writeCmd, addCmd, commitCmd})
+	assert.NoError(t, err)
+
+	// Get new hash
+	newHash, err := ctx.GetHash()
+	assert.NoError(t, err)
+	assert.NotEqual(t, initialHash, newHash)
+}
+
+func TestGitContext_GetReferenceName(t *testing.T) {
+	ctx, err := InitNewRepository("test-repo")
+	defer ctx.Cleanup()
+	assert.NoError(t, err)
+
+	// Initial commit
+	filePath := "testfile.txt"
+	content := []byte("Hello, World!")
+	writeCmd := &WriteFileCommand{FilePath: filePath, Content: content}
+	addCmd := &AddFilesCommand{Files: []string{filePath}}
+	commitCmd := &CommitChangesCommand{Message: "Initial commit"}
+	err = ctx.ExecuteCommandChain([]GitCommand{writeCmd, addCmd, commitCmd})
+	assert.NoError(t, err)
+
+	// Initial reference name
+	initialRefName, err := ctx.GetReferenceName()
+	assert.NoError(t, err)
+	assert.Equal(t, "refs/heads/master", initialRefName)
+
+	// Create a new branch
+	newBranchName := "new-branch"
+	err = ctx.repo.CreateBranch(&config.Branch{
+		Name:   newBranchName,
+		Remote: "origin",
+		Merge:  plumbing.NewBranchReferenceName(newBranchName),
+	})
+	assert.NoError(t, err)
+
+	// Checkout the new branch
+	worktree, err := ctx.repo.Worktree()
+	assert.NoError(t, err)
+	err = worktree.Checkout(&git.CheckoutOptions{
+		Branch: plumbing.NewBranchReferenceName(newBranchName),
+		Create: true,
+	})
+	assert.NoError(t, err)
+
+	// Get new reference name
+	newRefName, err := ctx.GetReferenceName()
+	assert.NoError(t, err)
+	assert.Equal(t, "refs/heads/"+newBranchName, newRefName)
 }

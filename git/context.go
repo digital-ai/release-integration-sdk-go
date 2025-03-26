@@ -15,6 +15,8 @@ type GitCommand interface {
 	execute(repo *GitContext) error
 }
 
+type GitHash plumbing.Hash
+
 // GitContext is a struct that contains the context for a git repository.
 type GitContext struct {
 	repo            *git.Repository
@@ -138,8 +140,31 @@ func (ctx *GitContext) ExecuteCommand(cmd GitCommand) error {
 	if err != nil {
 		return err
 	}
-
 	return cmd.execute(ctx)
+}
+
+func (ctx *GitContext) GetHash() (string, error) {
+	head, err := ctx.repo.Head()
+	if err != nil {
+		return "", err
+	}
+	return head.Hash().String(), nil
+}
+
+func (ctx *GitContext) GetReferenceName() (string, error) {
+	head, err := ctx.repo.Head()
+	if err != nil {
+		return "", err
+	}
+	return head.Name().String(), nil
+}
+
+func (ctx *GitContext) GetTargetReferenceName() (string, error) {
+	head, err := ctx.repo.Head()
+	if err != nil {
+		return "", err
+	}
+	return head.Target().String(), nil
 }
 
 // ExecuteCommandChain executes the given chain of GitCommands on the GitContext. If any of the commands fail, the chain is stopped and the error is returned. Otherwise, nil is returned. The commands are executed in the order they are given. When command fails the chain is stopped, but previously executed commands are not reverted.
