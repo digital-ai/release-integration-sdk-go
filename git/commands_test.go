@@ -31,6 +31,26 @@ func TestReadFileCommand(t *testing.T) {
 	assert.Equal(t, content, cmd.Content)
 }
 
+// add test for RemoveFileCommand
+func TestRemoveFileCommand(t *testing.T) {
+	ctx := setupTestRepo(t)
+	defer ctx.Cleanup()
+
+	filePath := "testfile.txt"
+	content := []byte("Hello, World!")
+	err := os.WriteFile(ctx.repositoryPath+"/"+filePath, content, 0644)
+	assert.NoError(t, err)
+	_, err = os.Stat(ctx.repositoryPath + "/" + filePath)
+	assert.NoError(t, err)
+
+	cmd := &RemoveFileCommand{FilePath: filePath}
+	err = ctx.ExecuteCommand(cmd)
+	assert.NoError(t, err)
+
+	_, err = os.Stat(ctx.repositoryPath + "/" + filePath)
+	assert.Error(t, err)
+}
+
 func TestWriteFileCommand(t *testing.T) {
 	ctx := setupTestRepo(t)
 	defer ctx.Cleanup()
