@@ -45,6 +45,12 @@ func (c *WriteFileCommand) execute(ctx *GitContext) error {
 	}
 
 	absPath := filepath.Join(worktree.Filesystem.Root(), c.FilePath)
+	if _, err := os.Stat(absPath); os.IsNotExist(err) {
+		err := os.MkdirAll(filepath.Dir(absPath), os.ModePerm)
+		if err != nil {
+			return err
+		}
+	}
 	err = os.WriteFile(absPath, c.Content, os.ModePerm)
 	if err != nil {
 		return err
