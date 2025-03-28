@@ -67,6 +67,22 @@ func TestWriteFileCommand(t *testing.T) {
 	assert.Equal(t, content, readContent)
 }
 
+func TestWriteFileToNestedPathCommand(t *testing.T) {
+	ctx := setupTestRepo(t)
+	defer ctx.Cleanup()
+
+	filePath := "nested/nonExisting/path/testfile.txt"
+	content := []byte("Hello, World!")
+
+	cmd := &WriteFileCommand{FilePath: filePath, Content: content}
+	err := ctx.ExecuteCommand(cmd)
+	assert.NoError(t, err)
+
+	readContent, err := os.ReadFile(ctx.repositoryPath + "/" + filePath)
+	assert.NoError(t, err)
+	assert.Equal(t, content, readContent)
+}
+
 func TestAddFilesCommand(t *testing.T) {
 	ctx := setupTestRepo(t)
 	defer ctx.Cleanup()
