@@ -17,6 +17,15 @@ type GitCommand interface {
 
 type GitHash plumbing.Hash
 
+type GitInterface interface {
+	ExecuteCommand(cmd GitCommand) error
+	ExecuteCommandChain(cmds []GitCommand) error
+	GetHash() (string, error)
+	GetReferenceName() (string, error)
+	GetTargetReferenceName() (string, error)
+	Cleanup() error
+}
+
 // GitContext is a struct that contains the context for a git repository.
 type GitContext struct {
 	repo            *git.Repository
