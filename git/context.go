@@ -25,7 +25,7 @@ type GitInterface interface {
 	GetReferenceName() (string, error)
 	GetTargetReferenceName() (string, error)
 	Cleanup() error
-	CheckIfRepoExists() (string, error)
+	CheckIfRepoExists() (bool, error)
 }
 
 // GitContext is a struct that contains the context for a git repository.
