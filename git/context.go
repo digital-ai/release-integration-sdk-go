@@ -2,6 +2,7 @@ package git
 
 import (
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
@@ -117,6 +118,30 @@ func (ctx *GitContext) WithCABundle(caBundle []byte) *GitContext {
 func (ctx *GitContext) WithTempDir(tempDir string) *GitContext {
 	ctx.repositoryPath = tempDir
 	return ctx
+}
+
+func (ctx *GitContext) CheckIfRepoExists() bool {
+	listOptions := &git.ListOptions{
+		Auth:            ctx.authMethod,
+		InsecureSkipTLS: ctx.insecureSkipTLS,
+		CABundle:        ctx.caBundle,
+	}
+	if ctx.proxyURL != "" {
+		listOptions.ProxyOptions = transport.ProxyOptions{
+			URL:      ctx.proxyURL,
+			Username: ctx.proxyUsername,
+			Password: ctx.proxyPassword,
+		}
+	}
+	remote := git.NewRemote(nil, &config.RemoteConfig{
+		Name: "origin",
+		URLs: []string{ctx.repoURL},
+	})
+	_, err := remote.List(listOptions)
+	if err != nil {
+		return false
+	}
+	return true
 }
 
 // ExecuteCommand executes the given GitCommand on the GitContext.
