@@ -25,6 +25,7 @@ type GitInterface interface {
 	GetReferenceName() (string, error)
 	GetTargetReferenceName() (string, error)
 	Cleanup() error
+	CheckIfRepoExists() (string, error)
 }
 
 // GitContext is a struct that contains the context for a git repository.
@@ -120,7 +121,7 @@ func (ctx *GitContext) WithTempDir(tempDir string) *GitContext {
 	return ctx
 }
 
-func (ctx *GitContext) CheckIfRepoExists() bool {
+func (ctx *GitContext) CheckIfRepoExists() (bool, error) {
 	listOptions := &git.ListOptions{
 		Auth:            ctx.authMethod,
 		InsecureSkipTLS: ctx.insecureSkipTLS,
@@ -139,9 +140,9 @@ func (ctx *GitContext) CheckIfRepoExists() bool {
 	})
 	_, err := remote.List(listOptions)
 	if err != nil {
-		return false
+		return false, err
 	}
-	return true
+	return true, nil
 }
 
 // ExecuteCommand executes the given GitCommand on the GitContext.
