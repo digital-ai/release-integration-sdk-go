@@ -28,18 +28,6 @@ type GitInterface interface {
 	CheckIfRepoExists() (bool, error)
 }
 
-type RemoteInterface interface {
-	List(*git.ListOptions) ([]*plumbing.Reference, error)
-}
-
-type RemoteWrapper struct {
-	remote *git.Remote
-}
-
-func (rw *RemoteWrapper) List(options *git.ListOptions) ([]*plumbing.Reference, error) {
-	return rw.remote.List(options)
-}
-
 // GitContext is a struct that contains the context for a git repository.
 type GitContext struct {
 	repo            *git.Repository
@@ -55,17 +43,14 @@ type GitContext struct {
 	insecureSkipTLS bool
 	caBundle        []byte
 	once            sync.Once
-	remote          RemoteInterface
 }
 
 // NewRepository creates a new GitContext with the given repository URL and authentication method.
 func NewRepository(repoURL string) *GitContext {
 	repositoryName := filepath.Base(repoURL)
-	remote := git.NewRemote(nil, &config.RemoteConfig{Name: "origin", URLs: []string{repoURL}})
 	return &GitContext{
 		repositoryPath: os.TempDir() + "/" + repositoryName,
 		repoURL:        repoURL,
-		remote:         &RemoteWrapper{remote: remote},
 	}
 }
 
@@ -149,7 +134,11 @@ func (ctx *GitContext) CheckIfRepoExists() (bool, error) {
 			Password: ctx.proxyPassword,
 		}
 	}
-	_, err := ctx.remote.List(listOptions)
+	remote := git.NewRemote(nil, &config.RemoteConfig{
+		Name: "origin",
+		URLs: []string{ctx.repoURL},
+	})
+	_, err := remote.List(listOptions)
 	if err != nil {
 		return false, err
 	}
