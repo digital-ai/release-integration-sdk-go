@@ -2,6 +2,7 @@ package git
 
 import (
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
@@ -24,6 +25,7 @@ type GitInterface interface {
 	GetReferenceName() (string, error)
 	GetTargetReferenceName() (string, error)
 	Cleanup() error
+	CheckIfRepoExists() (bool, error)
 }
 
 // GitContext is a struct that contains the context for a git repository.
@@ -41,6 +43,11 @@ type GitContext struct {
 	insecureSkipTLS bool
 	caBundle        []byte
 	once            sync.Once
+	remote          RemoteInterface
+}
+
+type RemoteInterface interface {
+	List(o *git.ListOptions) ([]*plumbing.Reference, error)
 }
 
 // NewRepository creates a new GitContext with the given repository URL and authentication method.
@@ -49,6 +56,7 @@ func NewRepository(repoURL string) *GitContext {
 	return &GitContext{
 		repositoryPath: os.TempDir() + "/" + repositoryName,
 		repoURL:        repoURL,
+		remote:         git.NewRemote(nil, &config.RemoteConfig{Name: "origin", URLs: []string{repoURL}}),
 	}
 }
 
@@ -117,6 +125,31 @@ func (ctx *GitContext) WithCABundle(caBundle []byte) *GitContext {
 func (ctx *GitContext) WithTempDir(tempDir string) *GitContext {
 	ctx.repositoryPath = tempDir
 	return ctx
+}
+
+func (ctx *GitContext) WithRemote(remote RemoteInterface) *GitContext {
+	ctx.remote = remote
+	return ctx
+}
+
+func (ctx *GitContext) CheckIfRepoExists() (bool, error) {
+	listOptions := &git.ListOptions{
+		Auth:            ctx.authMethod,
+		InsecureSkipTLS: ctx.insecureSkipTLS,
+		CABundle:        ctx.caBundle,
+	}
+	if ctx.proxyURL != "" {
+		listOptions.ProxyOptions = transport.ProxyOptions{
+			URL:      ctx.proxyURL,
+			Username: ctx.proxyUsername,
+			Password: ctx.proxyPassword,
+		}
+	}
+	_, err := ctx.remote.List(listOptions)
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }
 
 // ExecuteCommand executes the given GitCommand on the GitContext.
