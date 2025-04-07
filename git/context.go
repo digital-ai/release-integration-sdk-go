@@ -43,6 +43,11 @@ type GitContext struct {
 	insecureSkipTLS bool
 	caBundle        []byte
 	once            sync.Once
+	remote          RemoteInterface
+}
+
+type RemoteInterface interface {
+	List(o *git.ListOptions) ([]*plumbing.Reference, error)
 }
 
 // NewRepository creates a new GitContext with the given repository URL and authentication method.
@@ -51,6 +56,7 @@ func NewRepository(repoURL string) *GitContext {
 	return &GitContext{
 		repositoryPath: os.TempDir() + "/" + repositoryName,
 		repoURL:        repoURL,
+		remote:         git.NewRemote(nil, &config.RemoteConfig{Name: "origin", URLs: []string{repoURL}}),
 	}
 }
 
@@ -121,6 +127,11 @@ func (ctx *GitContext) WithTempDir(tempDir string) *GitContext {
 	return ctx
 }
 
+func (ctx *GitContext) WithRemote(remote RemoteInterface) *GitContext {
+	ctx.remote = remote
+	return ctx
+}
+
 func (ctx *GitContext) CheckIfRepoExists() (bool, error) {
 	listOptions := &git.ListOptions{
 		Auth:            ctx.authMethod,
@@ -134,11 +145,7 @@ func (ctx *GitContext) CheckIfRepoExists() (bool, error) {
 			Password: ctx.proxyPassword,
 		}
 	}
-	remote := git.NewRemote(nil, &config.RemoteConfig{
-		Name: "origin",
-		URLs: []string{ctx.repoURL},
-	})
-	_, err := remote.List(listOptions)
+	_, err := ctx.remote.List(listOptions)
 	if err != nil {
 		return false, err
 	}
