@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 // AbortContextFieldKey is a context key used to share data, such as a task ID,
@@ -166,9 +167,13 @@ func execute(pluginVersion string, buildDate string, runner Runner) {
 // Execute executes the runner with the provided plugin version, build date, and runner implementation.
 func Execute(pluginVersion string, buildDate string, runner Runner) {
 	execute(pluginVersion, buildDate, runner)
-	if os.Getenv(ExecutionMode) == ExecutionModeDaemon {
-		StartInputContextWatcher(execute, pluginVersion, buildDate, runner)
-	}
+	klog.Infof("Going to just silently sleep")
+	time.Sleep(time.Second * 15)
+	klog.Infof("Going to just silently Quit")
+	return
+	//if os.Getenv(ExecutionMode) == ExecutionModeDaemon {
+	//	StartInputContextWatcher(execute, pluginVersion, buildDate, runner)
+	//}
 }
 
 func PutValueToContextMap(ctx context.Context, contextValueKey string, key string, value interface{}) error {
