@@ -13,7 +13,7 @@ require (
 	github.com/smartystreets/assertions v1.2.0
 	github.com/smartystreets/goconvey v1.7.2
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/oauth2 v0.23.0
+	golang.org/x/oauth2 v0.27.0
 	gopkg.in/yaml.v3 v3.0.1
 	k8s.io/api v0.32.0
 	k8s.io/apimachinery v0.32.0
