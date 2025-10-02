@@ -2,8 +2,6 @@ module github.com/digital-ai/release-integration-sdk-go
 
 go 1.24.0
 
-toolchain go1.24.2
-
 require (
 	github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358
 	github.com/go-git/go-git/v5 v5.16.2
