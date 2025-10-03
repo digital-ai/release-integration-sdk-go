@@ -116,6 +116,6 @@ func ExtractProperty(propertyName string, rawMessage json.RawMessage) (*task.Pro
 	}
 
 	err = fmt.Errorf("cannot find property %s", propertyName)
-	klog.Errorf(err.Error())
+	klog.Error(err.Error())
 	return nil, err
 }
