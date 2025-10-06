@@ -3,7 +3,7 @@ package test
 import (
 	"fmt"
 	"github.com/digital-ai/release-integration-sdk-go/runner"
-	"github.com/smartystreets/assertions"
+	"github.com/smarty/assertions"
 	"github.com/smartystreets/goconvey/convey"
 	"io"
 	"os"
