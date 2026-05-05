@@ -26,16 +26,17 @@ type DeploymentServerEvent struct {
 }
 
 type DeploymentState struct {
-	StatusGroup    string    `synthetic:"statusGroup"`
-	Status         string    `synthetic:"status"`
-	DeploymentLink string    `synthetic:"deploymentLink"`
-	VersionTag     string    `synthetic:"versionTag"`
-	VersionState   string    `synthetic:"versionState"`
-	VersionTooltip string    `synthetic:"versionTooltip"`
-	VersionLink    string    `synthetic:"versionLink"`
-	DeploymentType string    `synthetic:"deploymentType"`
-	User           string    `synthetic:"user"`
-	LastChangeTime time.Time `synthetic:"lastChangeTime"`
+	StatusGroup    string            `synthetic:"statusGroup"`
+	Status         string            `synthetic:"status"`
+	DeploymentLink string            `synthetic:"deploymentLink"`
+	VersionTag     string            `synthetic:"versionTag"`
+	VersionState   string            `synthetic:"versionState"`
+	VersionTooltip string            `synthetic:"versionTooltip"`
+	VersionLink    string            `synthetic:"versionLink"`
+	DeploymentType string            `synthetic:"deploymentType"`
+	User           string            `synthetic:"user"`
+	LastChangeTime time.Time         `synthetic:"lastChangeTime"`
+	ExternalLinks  map[string]string `synthetic:"externalLinks"`
 }
 
 type ApplicationSourceType struct {
