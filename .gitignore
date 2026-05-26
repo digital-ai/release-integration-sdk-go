@@ -42,3 +42,14 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
+
+# opencode, claude, etc
+/.opencode/
+/.claude/*
+!/.claude/skills/
+!/.claude/skills/**
+!/.claude/commands/
+!/.claude/commands/**
+/.claude/settings.local.json
+/.junie/
+/.tasks/

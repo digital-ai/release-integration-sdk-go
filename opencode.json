@@ -1,0 +1,36 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["CLAUDE.md", "AGENTS.md"],
+  "skills": {
+    "paths": [".claude/skills"]
+  },
+  "permission": {
+    "read": "allow",
+    "edit": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "bash": {
+      "*": "ask",
+      "bash .claude/skills/*": "allow",
+      "bash .claude/skills/*/router.sh *": "allow",
+      "go *": "allow",
+      "gofmt *": "allow",
+      "goimports *": "allow",
+      "govulncheck *": "allow",
+      "git *": "allow",
+      "gh *": "allow",
+      "chmod +x .claude/skills/*/router.sh": "allow"
+    },
+    "external_directory": {
+      "*": "ask",
+      "../release-k8s-integration/**": "allow",
+      "../release-deploy-integration/**": "allow",
+      "../release-argocd-integration/**": "allow",
+      "../release-fluxcd-integration/**": "allow",
+      "../../xl-release/**": "allow",
+      "../../release-runner/**": "allow",
+      "../team-mario-agent-vault/**": "allow",
+      "../../team-mario-agent-vault/**": "allow"
+    }
+  }
+}
