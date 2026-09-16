@@ -4,13 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/digital-ai/release-integration-sdk-go/logger"
 	"github.com/digital-ai/release-integration-sdk-go/task"
 	"github.com/digital-ai/release-integration-sdk-go/task/command"
 	"k8s.io/klog/v2"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 // AbortContextFieldKey is a context key used to share data, such as a task ID,
@@ -83,6 +84,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 
 	signalChannel := make(chan os.Signal, 1)
 	signal.Notify(signalChannel, syscall.SIGABRT)
+	defer signal.Stop(signalChannel)
 
 	resultChannel := make(chan *task.Result, 1)
 	rootCtx := context.WithValue(context.Background(), AbortContextFieldKey, make(map[string]interface{}))
@@ -106,6 +108,9 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	select {
 	case <-signalChannel:
 		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
+		if err != nil {
+			klog.Infof("Failed to deserialize abort command: %v", err)
+		}
 		if abortExec == nil {
 			cancel()
 			klog.Infoln("Aborted without abort command being explicitly defined")
@@ -119,10 +124,6 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 			return returnResult.Error(err)
 		}
 		abortResult := task.NewResult()
-		if err != nil {
-			return returnResult.Error(fmt.Errorf("cannot deserialize abort command: %v", err))
-		}
-
 		abortResult.Aborted(execResult)
 		return abortResult
 	case result := <-resultChannel:
