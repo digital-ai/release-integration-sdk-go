@@ -109,7 +109,7 @@ func (runner CommandRunner) Run(ctx task.InputContext) *task.Result {
 	case <-signalChannel:
 		abortExec, err := command.DeserializeAbortCommand(factory, ctx.Task)
 		if err != nil {
-			klog.Infof("Failed to deserialize abort command: %v", err)
+			klog.Infof("Failed to deserialize abort command: %s", err.Error())
 		}
 		if abortExec == nil {
 			cancel()
