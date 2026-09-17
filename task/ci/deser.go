@@ -71,6 +71,14 @@ func serializeData(data interface{}) (map[string]interface{}, error) {
 					}
 					jsonData[tag] = nestedJSON
 				}
+			case reflect.Slice, reflect.Array:
+				if !isEmptyValue(fieldValue) {
+					sliceJSON, err := serializeSlice(fieldValue)
+					if err != nil {
+						return nil, err
+					}
+					jsonData[tag] = sliceJSON
+				}
 			default:
 				if !isEmptyValue(fieldValue) {
 					value := fieldValue.Interface()
@@ -90,6 +98,44 @@ func serializeData(data interface{}) (map[string]interface{}, error) {
 	}
 
 	return jsonData, nil
+}
+
+// serializeSlice serializes each element of a slice/array, recursing into
+// structs/interfaces so nested elements go through the same synthetic-tag
+// driven serialization as top-level fields (keeping consistent key casing).
+func serializeSlice(sliceValue reflect.Value) ([]interface{}, error) {
+	result := make([]interface{}, 0, sliceValue.Len())
+	for i := 0; i < sliceValue.Len(); i++ {
+		elem := sliceValue.Index(i)
+
+		switch elem.Kind() {
+		case reflect.Interface:
+			nestedJSON, err := serializeData(elem.Interface())
+			if err != nil {
+				return nil, err
+			}
+			result = append(result, nestedJSON)
+		case reflect.Struct:
+			if elem.Type() == reflect.TypeOf(time.Time{}) {
+				result = append(result, elem.Interface().(time.Time).Format(time.RFC3339))
+			} else {
+				nestedJSON, err := serializeData(elem.Interface())
+				if err != nil {
+					return nil, err
+				}
+				result = append(result, nestedJSON)
+			}
+		case reflect.Slice, reflect.Array:
+			nestedSlice, err := serializeSlice(elem)
+			if err != nil {
+				return nil, err
+			}
+			result = append(result, nestedSlice)
+		default:
+			result = append(result, elem.Interface())
+		}
+	}
+	return result, nil
 }
 
 func isEmptyValue(v reflect.Value) bool {

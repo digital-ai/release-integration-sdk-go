@@ -1,9 +1,10 @@
 package deployment_server
 
 import (
-	"github.com/digital-ai/release-integration-sdk-go/task/ci"
 	"reflect"
 	"time"
+
+	"github.com/digital-ai/release-integration-sdk-go/task/ci"
 )
 
 func init() {
@@ -14,15 +15,16 @@ func init() {
 }
 
 type DeploymentServerEvent struct {
-	Operation         string            `synthetic:"operation"`
-	ApplicationCuid   string            `synthetic:"applicationCuid"`
-	ApplicationTitle  string            `synthetic:"applicationTitle"`
-	ApplicationSource ApplicationSource `synthetic:"applicationSource"`
-	EnvironmentCuid   string            `synthetic:"environmentCuid"`
-	EnvironmentTitle  string            `synthetic:"environmentTitle"`
-	DeploymentTarget  DeploymentTarget  `synthetic:"deploymentTarget"`
-	DeploymentState   DeploymentState   `synthetic:"deploymentState"`
-	ConfigId          string            `synthetic:"configId"`
+	Operation          string                `synthetic:"operation"`
+	ApplicationCuid    string                `synthetic:"applicationCuid"`
+	ApplicationTitle   string                `synthetic:"applicationTitle"`
+	ApplicationSource  ApplicationSource     `synthetic:"applicationSource"`
+	ApplicationSources ApplicationSourceList `synthetic:"applicationSources"`
+	EnvironmentCuid    string                `synthetic:"environmentCuid"`
+	EnvironmentTitle   string                `synthetic:"environmentTitle"`
+	DeploymentTarget   DeploymentTarget      `synthetic:"deploymentTarget"`
+	DeploymentState    DeploymentState       `synthetic:"deploymentState"`
+	ConfigId           string                `synthetic:"configId"`
 }
 
 type DeploymentState struct {
@@ -54,6 +56,7 @@ type ComposedType interface {
 type ApplicationSource interface {
 	ComposedType
 }
+type ApplicationSourceList []ApplicationSource
 
 type DeploymentTarget interface {
 	ComposedType

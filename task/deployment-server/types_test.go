@@ -2,10 +2,11 @@ package deployment_server
 
 import (
 	"encoding/json"
-	"github.com/digital-ai/release-integration-sdk-go/task/ci"
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/digital-ai/release-integration-sdk-go/task/ci"
 )
 
 type PluginDeploymentTarget struct {
@@ -86,6 +87,108 @@ func TestSerializeCi(t *testing.T) {
 					"applicationPath": "Applications/important-app",
 					"applicationType": "Ear",
 					"serverUrl":       "test-server-url",
+				},
+				"deploymentState": map[string]interface{}{
+					"id":             nil,
+					"type":           "xlrelease.DeploymentState",
+					"status":         "crashed",
+					"statusGroup":    "failed",
+					"deploymentType": "rollback",
+					"lastChangeTime": "2024-04-20T05:35:00+01:00",
+					"user":           "rollback-user",
+					"versionTag":     "1.2",
+				},
+
+				"environmentTitle": "production-important",
+				"environmentCuid":  "UUID-ENV",
+				"deploymentTarget": map[string]interface{}{
+					"id":              nil,
+					"type":            "plugin.DeploymentTarget",
+					"targetUrl":       "target-url",
+					"environmentPath": "Environments/production",
+				},
+			},
+			expectedErr: nil,
+		},
+		{
+			name: "status-filter-multisource",
+			event: DeploymentServerEvent{
+				Operation: "create",
+
+				ApplicationTitle: "important-app",
+				ApplicationCuid:  "UUID-APP",
+				ApplicationSource: PluginApplicationSource{
+					ApplicationSourceType: ApplicationSourceType{
+						ServerUrl: "test-server-url",
+					},
+					ApplicationType: "Ear",
+					ApplicationPath: "Applications/important-app",
+				},
+				ApplicationSources: []ApplicationSource{
+					PluginApplicationSource{
+						ApplicationSourceType: ApplicationSourceType{
+							ServerUrl: "test-server-url",
+						},
+						ApplicationType: "Ear",
+						ApplicationPath: "Applications/important-app",
+					},
+					PluginApplicationSource{
+						ApplicationSourceType: ApplicationSourceType{
+							ServerUrl: "test-server-url",
+						},
+						ApplicationType: "Ear",
+						ApplicationPath: "Applications/more-important-app",
+					},
+				},
+				DeploymentState: DeploymentState{
+					Status:         "crashed",
+					StatusGroup:    "failed",
+					DeploymentType: "rollback",
+					LastChangeTime: timeDate,
+					User:           "rollback-user",
+					VersionTag:     "1.2",
+				},
+
+				EnvironmentTitle: "production-important",
+				EnvironmentCuid:  "UUID-ENV",
+				DeploymentTarget: PluginDeploymentTarget{
+					DeploymentTargetType: DeploymentTargetType{
+						TargetUrl: "target-url",
+					},
+					EnvironmentPath: "Environments/production",
+				},
+			},
+			appSourceTypeName:    "plugin.ApplicationSource",
+			deployTargetTypeName: "plugin.DeploymentTarget",
+			returnValue: map[string]interface{}{
+				"operation": "create",
+				"id":        nil,
+				"type":      "events.DeploymentServerEvent",
+
+				"applicationTitle": "important-app",
+				"applicationCuid":  "UUID-APP",
+				"applicationSource": map[string]interface{}{
+					"id":              nil,
+					"type":            "plugin.ApplicationSource",
+					"applicationPath": "Applications/important-app",
+					"applicationType": "Ear",
+					"serverUrl":       "test-server-url",
+				},
+				"applicationSources": []interface{}{
+					map[string]interface{}{
+						"id":              nil,
+						"type":            "plugin.ApplicationSource",
+						"applicationPath": "Applications/important-app",
+						"applicationType": "Ear",
+						"serverUrl":       "test-server-url",
+					},
+					map[string]interface{}{
+						"id":              nil,
+						"type":            "plugin.ApplicationSource",
+						"applicationPath": "Applications/more-important-app",
+						"applicationType": "Ear",
+						"serverUrl":       "test-server-url",
+					},
 				},
 				"deploymentState": map[string]interface{}{
 					"id":             nil,
