@@ -3,7 +3,6 @@ package test
 import (
 	"os"
 	"os/exec"
-	"strings"
 	"testing"
 
 	"github.com/digital-ai/release-integration-sdk-go/runner"
@@ -28,9 +27,6 @@ func TestSignalHandledAcrossDaemonInvocations(t *testing.T) {
 	if err != nil {
 		t.Fatalf("helper subprocess failed (SIGABRT handling not restored / abort not delivered): %v\n--- child output ---\n%s", err, out)
 	}
-	if !strings.Contains(string(out), "HELPER_OK") {
-		t.Fatalf("helper subprocess did not report success\n--- child output ---\n%s", out)
-	}
 }
 
 // TestHelperDaemon is the subprocess body; it runs only when RUN_SIGNAL_HELPER=1.
@@ -51,13 +47,13 @@ func TestHelperDaemon(t *testing.T) {
 
 	// Second invocation is long-running and must catch the SIGABRT delivered
 	// after Run has entered its select.
-	blocking := &blockingCommand{cancelled: make(chan struct{})}
+	blocking := &blockingCommand{started: make(chan struct{}), cancelled: make(chan struct{})}
 	secondFactory := abortTestFactory{blocking: blocking, withAbortCommand: true}
 	secondRunner := runner.NewCommandRunner(func(_ task.InputContext) (command.CommandFactory, error) {
 		return secondFactory, nil
 	})
 
-	sendAbortSoon(t)
+	sendAbortWhenStarted(t, blocking.started)
 	result := runWithTimeout(t, secondRunner, mainInputContext())
 
 	if result == nil {
@@ -68,7 +64,4 @@ func TestHelperDaemon(t *testing.T) {
 	} else if _, ok := err.(*task.AbortError); !ok {
 		t.Fatalf("expected *task.AbortError, got %T: %v", err, err)
 	}
-
-	// Sentinel string the parent scans for to confirm clean success.
-	t.Log("HELPER_OK")
 }

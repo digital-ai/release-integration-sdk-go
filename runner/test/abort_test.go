@@ -17,10 +17,14 @@ import (
 // It records whether its context was cancelled so tests can assert that the
 // main command is stopped on abort.
 type blockingCommand struct {
+	started   chan struct{}
 	cancelled chan struct{}
 }
 
 func (c *blockingCommand) FetchResult(ctx context.Context) (*task.Result, error) {
+	if c.started != nil {
+		close(c.started)
+	}
 	<-ctx.Done()
 	if c.cancelled != nil {
 		close(c.cancelled)
@@ -78,12 +82,12 @@ func mainInputContext() task.InputContext {
 	}
 }
 
-// sendAbortSoon delivers SIGABRT to the current process after a short delay so
-// that Run() has entered its select before the signal arrives.
-func sendAbortSoon(t *testing.T) {
+// sendAbortWhenStarted delivers SIGABRT to the current process once the blocking
+// command's started channel is closed.
+func sendAbortWhenStarted(t *testing.T, started <-chan struct{}) {
 	t.Helper()
 	go func() {
-		time.Sleep(50 * time.Millisecond)
+		<-started
 		if err := syscall.Kill(os.Getpid(), syscall.SIGABRT); err != nil {
 			t.Errorf("failed to send SIGABRT: %v", err)
 		}
@@ -107,13 +111,13 @@ func runWithTimeout(t *testing.T, r runner.Runner, ctx task.InputContext) *task.
 // the explicit abort command and that the blocking main command's context is
 // cancelled (no leaked main goroutine).
 func TestAbortWithExplicitAbortCommand(t *testing.T) {
-	blocking := &blockingCommand{cancelled: make(chan struct{})}
+	blocking := &blockingCommand{started: make(chan struct{}), cancelled: make(chan struct{})}
 	factory := abortTestFactory{blocking: blocking, withAbortCommand: true}
 	r := runner.NewCommandRunner(func(_ task.InputContext) (command.CommandFactory, error) {
 		return factory, nil
 	})
 
-	sendAbortSoon(t)
+	sendAbortWhenStarted(t, blocking.started)
 	result := runWithTimeout(t, r, mainInputContext())
 
 	if result == nil {
@@ -137,13 +141,13 @@ func TestAbortWithExplicitAbortCommand(t *testing.T) {
 // explicit abort command is defined: the main command is cancelled and an
 // abort result is returned.
 func TestAbortWithoutExplicitAbortCommand(t *testing.T) {
-	blocking := &blockingCommand{cancelled: make(chan struct{})}
+	blocking := &blockingCommand{started: make(chan struct{}), cancelled: make(chan struct{})}
 	factory := abortTestFactory{blocking: blocking, withAbortCommand: false}
 	r := runner.NewCommandRunner(func(_ task.InputContext) (command.CommandFactory, error) {
 		return factory, nil
 	})
 
-	sendAbortSoon(t)
+	sendAbortWhenStarted(t, blocking.started)
 	result := runWithTimeout(t, r, mainInputContext())
 
 	if result == nil {
@@ -177,13 +181,13 @@ func TestDaemonModeSignalNotLeaked(t *testing.T) {
 	}
 
 	// Second invocation is long-running and should catch the SIGABRT.
-	blocking := &blockingCommand{cancelled: make(chan struct{})}
+	blocking := &blockingCommand{started: make(chan struct{}), cancelled: make(chan struct{})}
 	secondFactory := abortTestFactory{blocking: blocking, withAbortCommand: true}
 	secondRunner := runner.NewCommandRunner(func(_ task.InputContext) (command.CommandFactory, error) {
 		return secondFactory, nil
 	})
 
-	sendAbortSoon(t)
+	sendAbortWhenStarted(t, blocking.started)
 	result := runWithTimeout(t, secondRunner, mainInputContext())
 
 	if result == nil {
