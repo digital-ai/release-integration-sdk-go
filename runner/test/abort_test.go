@@ -35,7 +35,7 @@ func (c *blockingCommand) FetchResult(ctx context.Context) (*task.Result, error)
 // abortCommand is the explicit abort handler for the main command.
 type abortCommand struct{}
 
-func (abortCommand) FetchResult(_ context.Context) (*task.Result, error) {
+func (*abortCommand) FetchResult(_ context.Context) (*task.Result, error) {
 	return task.NewResult().String("aborted", "true"), nil
 }
 
@@ -43,7 +43,7 @@ func (abortCommand) FetchResult(_ context.Context) (*task.Result, error) {
 // before any abort signal is delivered.
 type immediateCommand struct{}
 
-func (immediateCommand) FetchResult(_ context.Context) (*task.Result, error) {
+func (*immediateCommand) FetchResult(_ context.Context) (*task.Result, error) {
 	return task.NewResult().String("done", "true"), nil
 }
 
@@ -61,12 +61,12 @@ func (f abortTestFactory) InitCommand(commandType command.CommandType) (command.
 	switch commandType {
 	case "main":
 		if f.immediate {
-			return immediateCommand{}, nil
+			return &immediateCommand{}, nil
 		}
 		return f.blocking, nil
 	case command.AbortCommand("main"):
 		if f.withAbortCommand {
-			return abortCommand{}, nil
+			return &abortCommand{}, nil
 		}
 		return nil, errors.New("no abort command defined")
 	}
