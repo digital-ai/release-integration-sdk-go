@@ -123,10 +123,12 @@ func TestAbortWithExplicitAbortCommand(t *testing.T) {
 	if result == nil {
 		t.Fatal("expected an abort result, got nil")
 	}
-	if _, err := result.Get(); err == nil {
+	_, err := result.Get()
+	if err == nil {
 		t.Fatal("expected aborted result to carry an AbortError")
-	} else if _, ok := err.(*task.AbortError); !ok {
-		t.Fatalf("expected *task.AbortError, got %T: %v", err, err)
+	}
+	if _, ok := errors.AsType[*task.AbortError](err); !ok {
+		t.Fatalf("expected *task.AbortError anywhere in the error chain, got %T: %v", err, err)
 	}
 
 	select {
@@ -153,10 +155,12 @@ func TestAbortWithoutExplicitAbortCommand(t *testing.T) {
 	if result == nil {
 		t.Fatal("expected an abort result, got nil")
 	}
-	if _, err := result.Get(); err == nil {
+	_, err := result.Get()
+	if err == nil {
 		t.Fatal("expected aborted result to carry an AbortError")
-	} else if _, ok := err.(*task.AbortError); !ok {
-		t.Fatalf("expected *task.AbortError, got %T: %v", err, err)
+	}
+	if _, ok := errors.AsType[*task.AbortError](err); !ok {
+		t.Fatalf("expected *task.AbortError anywhere in the error chain, got %T: %v", err, err)
 	}
 
 	select {
@@ -193,9 +197,11 @@ func TestDaemonModeSignalNotLeaked(t *testing.T) {
 	if result == nil {
 		t.Fatal("expected abort result from active invocation, got nil")
 	}
-	if _, err := result.Get(); err == nil {
+	_, err := result.Get()
+	if err == nil {
 		t.Fatal("expected active invocation to be aborted; signal may have leaked to a stale channel")
-	} else if _, ok := err.(*task.AbortError); !ok {
-		t.Fatalf("expected *task.AbortError, got %T: %v", err, err)
+	}
+	if _, ok := errors.AsType[*task.AbortError](err); !ok {
+		t.Fatalf("expected *task.AbortError anywhere in the error chain, got %T: %v", err, err)
 	}
 }
