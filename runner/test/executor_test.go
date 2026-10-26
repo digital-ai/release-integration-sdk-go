@@ -1,11 +1,12 @@
 package test
 
 import (
+	"os"
+	"testing"
+
 	"github.com/digital-ai/release-integration-sdk-go/runner"
 	"github.com/digital-ai/release-integration-sdk-go/task"
 	"github.com/digital-ai/release-integration-sdk-go/test"
-	"os"
-	"testing"
 )
 
 var testMap = map[string]runner.Runner{
@@ -29,12 +30,15 @@ var testMap = map[string]runner.Runner{
 	"command_secure":             commandRunner,
 	"command_fail":               commandRunner,
 	"no_such_command":            commandRunner,
-	// TODO add abort test
 }
 
 var fixtures = test.CreateExecutorTestSet("testdata", testMap)
 
-func TestSpec(t *testing.T) {
+func TestMain(m *testing.M) {
 	os.Setenv("TZ", "UTC")
+	os.Exit(m.Run())
+}
+
+func TestSpec(t *testing.T) {
 	test.ConveyTest(t, fixtures)
 }
